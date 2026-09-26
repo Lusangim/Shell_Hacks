@@ -2,6 +2,8 @@
 
 from pathlib import Path
 
+import pytest
+
 from playwright.sync_api import sync_playwright
 
 from tests.e2e.audits.checks import (
@@ -82,3 +84,21 @@ def test_copy_and_color_probes_catch_broken_scratch(tmp_path):
         lint = page.evaluate(TEXT_LINT_JS)
         assert lint["own"] and lint["visible"]
         browser.close()
+
+
+@pytest.mark.parametrize("field", ["estimate_scope", "brief_sharing", "brief_what", "savings_status", "location_caveat"])
+@pytest.mark.parametrize("authored", ["seamless", "Authored\u2014summary"])
+def test_source_marked_authored_copy_is_linted_but_verbatim_names_are_exempt(field, authored):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        try:
+            page = browser.new_page()
+            page.set_content(f'''<main><p data-src="name">Goshen\u2013Georgia Pacific</p>
+              <section data-src="{field}"><p>{authored}</p>
+                <span data-src="name">Goshen\u2013Georgia Pacific</span></section></main>''')
+            assert page.evaluate(TEXT_LINT_JS)["own"] == [authored]
+            page.set_content(f'''<main><p data-src="name">Goshen\u2013Georgia Pacific</p>
+              <p data-src="{field}">Check Goshen\u2013Georgia Pacific before use.</p></main>''')
+            assert page.evaluate(TEXT_LINT_JS) == {"own": [], "visible": []}
+        finally:
+            browser.close()
