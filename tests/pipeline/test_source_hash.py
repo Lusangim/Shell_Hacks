@@ -17,6 +17,7 @@ def test_source_hash_canonicalizes_text_line_endings_but_preserves_content(
     (raw / "shapes.geojson").write_bytes(b'{"type":"FeatureCollection",\n"features":[]}\n')
     (raw / "original.pdf").write_bytes(b"PDF\r\nbytes")
     (manual / "manual_locations.csv").write_bytes(b"name,lat,lon\nA,1,2\n")
+    (manual / "assumptions.json").write_bytes(b'{"fraction":0.01}\n')
     first = build_all._input_hash(raw, manual)
 
     (raw / "desc.csv").write_bytes(b"id,name\r\n1,McIntosh\r\n")
@@ -29,4 +30,8 @@ def test_source_hash_canonicalizes_text_line_endings_but_preserves_content(
 
     (raw / "desc.csv").write_bytes(b"id,name\r\n1,McIntosh\r\n")
     (raw / "original.pdf").write_bytes(b"PDF\nbytes")
+    assert build_all._input_hash(raw, manual) != first
+
+    (raw / "original.pdf").write_bytes(b"PDF\r\nbytes")
+    (manual / "assumptions.json").write_bytes(b'{"fraction":0.02}\n')
     assert build_all._input_hash(raw, manual) != first

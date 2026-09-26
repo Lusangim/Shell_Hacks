@@ -1,2 +1,2 @@
-name,lat,lon,note
-Okatie,32.335008,-81.030859,"INFERRED - junction on the Jasper-Yemassee 230 kV line (HIFLD TAP170160); DESC plans to fold that line into Okatie. Verify on Dominion's Jasper-Okatie route map."
+name,lat,lon,source,note
+Okatie,32.335008,-81.030859,"HIFLD Electric Power Transmission Lines, TAP170160 (data/raw/hifld_lines_ga_sc.geojson); SCRTP Planned Facilities 2026-2030, pp. 11-12","INFERRED - junction on the Jasper-Yemassee 230 kV line (HIFLD TAP170160); DESC plans to fold that line into Okatie. Verify on Dominion's Jasper-Okatie route map."

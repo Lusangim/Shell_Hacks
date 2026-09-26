@@ -90,10 +90,10 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [x] **T2.1 Bands and why they touch** (DATA) — `b3d0288` integrated in `ceb09dd`, merged as `102b6ad`; 489 geodesic pairs, 43 source-state cross-state, 21 focused lead rerun and 156/17/18 lane quick gate passed
   - Acceptance: SPEC overlap rules (touching ≤ 1 m; strict `<` limits); geodesic distance between nearest points; `touch_reason` — `same_substation` only when both projects are work at the same named substation (both voltages shown), `shared_endpoint` when a line ends where the other project works, else `lines_cross` / `proximity` / `same_area_approximate`; `touch_detail` quotes what the PDFs support; `can_share` from band + reason; ties by distance then id.
   - Verify: `tests/pipeline/test_bands_touch.py` — boundary points (1/1.01 m, 1,599.99/1,600, 7,999.99/8,000, 39,999.99/40,000); DESC Okatie–McIntosh tie × McIntosh 230 kV relays = `shared_endpoint` with the Deerfield detail; × SAV Goshen–McIntosh 115 kV = `shared_endpoint` at McIntosh 115 kV.
-- [ ] **T2.2 Location quality, border region** (DATA; HUMAN H1 if done before this task)
+- [x] **T2.2 Location quality, border region** (DATA; HUMAN H1 if done before this task) — `44315db`, merged `8efaaaa`; 55 mapped border projects with named provenance, 49 kept unknowns with explicit reasons, Okatie INFERRED; five lead checks and main 173/17/18 quick gate passed
   - Acceptance: every project with an endpoint in lat 31.5–34.0, lon −82.8 to −80.5 placed from a named source or marked unknown with the reason; each hand fix in `data/manual/manual_locations.csv` has source + note; Okatie verified by the founder or kept INFERRED; before/after counts reported.
   - Verify: `tests/pipeline/test_manual_locations.py`; rebuild; before/after table approved by the lead and recorded.
-- [ ] **T2.3 Savings model** (DATA) — formula written into the task report **before** code
+- [x] **T2.3 Savings model** (DATA) — formula recorded before code in `data/T2.3.md`; merged `79869e7`, 13 focused lead rerun, main quick gate 186 suite + 17 shell + 18 audit passed
   - Acceptance: `data/manual/assumptions.json` (id, low/high, unit, rationale, source + date or "team assumption"); per overlap `savings.status` = range · timing_too_far (gap > 2 years) · no_cost · unknown_year; range never a single number; plan cost used when present, proxy flagged; rounding to the assumptions' precision.
   - Verify: `tests/pipeline/test_savings.py` — hand-computed cases for each status.
 - [ ] **T2.10 Named examples + demo pair** (DATA)

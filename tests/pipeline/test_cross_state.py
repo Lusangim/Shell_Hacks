@@ -1,6 +1,7 @@
 """Cross-state flags and scores must follow the projects' sourced states."""
 
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -69,9 +70,11 @@ def test_missing_state_does_not_claim_cross_state_or_earn_bonus(tmp_path: Path) 
     (tmp_path / "projects.geojson").write_text(
         json.dumps({"type": "FeatureCollection", "features": features}), encoding="utf-8"
     )
+    shutil.copyfile(ROOT / "data/manual/assumptions.json", tmp_path / "assumptions.json")
     subprocess.run([sys.executable, str(ROOT / "pipeline" / "find_overlaps.py")],
                    cwd=tmp_path, capture_output=True, text=True, check=True)
     pair = json.loads((tmp_path / "overlaps.json").read_text(encoding="utf-8"))[0]
     assert pair["cross_state"] is False
     assert pair["score"] == 4.0
     assert pair["pair_note"] is None
+    assert pair["savings"]["status"] == "no_cost"
