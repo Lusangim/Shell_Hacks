@@ -3,6 +3,7 @@ param([string]$Repo = '')
 $ErrorActionPreference = 'Stop'
 if (-not $Repo) { $Repo = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path }
 if (-not $env:GRIDLOCK_TEST_PORT) { Write-Error 'GRIDLOCK_TEST_PORT is required'; exit 3 }
+$lanePort = [int]$env:GRIDLOCK_TEST_PORT
 if (-not $env:GRIDLOCK_PY) { $env:GRIDLOCK_PY = Join-Path $env:USERPROFILE 'dev\gridlock-venv\Scripts\python.exe' }
 if (-not (Test-Path -LiteralPath $env:GRIDLOCK_PY)) { Write-Error 'GridLock Python venv is missing; run SETUP.cmd'; exit 3 }
 if (-not $env:PLAYWRIGHT_BROWSERS_PATH) { $env:PLAYWRIGHT_BROWSERS_PATH = Join-Path $env:USERPROFILE 'dev\ms-playwright' }
@@ -16,10 +17,12 @@ try {
   & $env:GRIDLOCK_PY -m pytest -q
   if ($LASTEXITCODE -ne 0) { exit 1 }
   if (Test-Path -LiteralPath 'tests\e2e\test_shell.py') {
+    $env:GRIDLOCK_TEST_PORT = [string]($lanePort + 3000)
     & $env:GRIDLOCK_PY -m pytest tests\e2e\test_shell.py -q
     if ($LASTEXITCODE -ne 0) { exit 1 }
   } else { Write-Output 'SKIP allow-list: no web shell yet (e2e smoke)' }
   if ((Test-Path -LiteralPath 'web\index.html') -and (Test-Path -LiteralPath 'tests\e2e\audits')) {
+    $env:GRIDLOCK_TEST_PORT = [string]($lanePort + 6000)
     & $env:GRIDLOCK_PY -m pytest tests\e2e\audits -q
     if ($LASTEXITCODE -ne 0) { exit 1 }
   } elseif (-not (Test-Path -LiteralPath 'web\index.html')) {
@@ -27,4 +30,4 @@ try {
   } else { Write-Error 'Web shell exists but the required axe audit is missing'; exit 1 }
   Write-Output 'QUICK GATE PASS'
   exit 0
-} finally { Pop-Location }
+} finally { $env:GRIDLOCK_TEST_PORT = [string]$lanePort; Pop-Location }

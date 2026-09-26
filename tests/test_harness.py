@@ -10,7 +10,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from tests.harness import require_free_loopback_port, required_test_port
+from tests.harness import auxiliary_test_port, require_free_loopback_port, required_test_port
 from tests import harness
 from tests.conftest import live_server
 
@@ -21,9 +21,17 @@ def test_port_is_required(monkeypatch):
         required_test_port()
 
 
-def test_e2e_server_reused_within_module_and_released_before_shell_module():
-    """Avoid per-case binds without occupying the shell module's lane port."""
-    assert live_server._fixture_function_marker.scope == "module"
+def test_e2e_server_reused_for_entire_suite():
+    """Avoid Windows bind churn between browser test modules."""
+    assert live_server._fixture_function_marker.scope == "session"
+
+
+def test_auxiliary_ports_are_deterministic_and_within_a_lane(monkeypatch):
+    monkeypatch.setenv("GRIDLOCK_TEST_PORT", "8770")
+    assert auxiliary_test_port(1000) == 9770
+    assert auxiliary_test_port(2000) == 10770
+    with pytest.raises(RuntimeError, match="auxiliary test port"):
+        auxiliary_test_port(60000)
 
 
 def test_busy_port_fails_before_server_launch():
