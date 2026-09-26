@@ -105,6 +105,7 @@ when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT;
 - 16:53 · 3542287 · Resumed after a model-capacity stop. The 16:44:27 G3 VERIFY folder has no summary; main remains at the 674-test baseline with no G3 tag. Restart G3 VERIFY on port 8790 before the two frozen judging rounds.
 - 17:16 · efc5283 · G3 VERIFY `20260926-165341-069` exit 0, 674 passed/0 failed/0 skipped, baseline 674 · Complete rerun after the model-capacity interruption; all 24 scenes, strict audit thresholds and held-out 10/10 are green. DELIVERY rewritten and feature-freeze tag prepared for two judging rounds on one frozen commit.
 - 17:30 · 91ebc3d (g3 frozen 8d83ad0) · domain judge: 0 P0/P1, 2 P2; 489 ranking/savings and top-ten source checks passed · T4.1 domain judgment and three essential screenshots preserved on main; reliability/security and user/design judges running on frozen copies. Corrections wait for both rounds.
+- 17:42 · 40f4bdb (g3 frozen 8d83ad0) · T4.1 complete: domain 2 P2, user/design 2 P2 + 1 P3, reliability/security 1 P2 and no security finding; reliability focused 242/242 + 36 probes · All three frozen judgments and selected screenshots preserved; T4.2 business found one additional CSV P2 and corroborated the domain utility finding; copy and accessibility judges running.
 
 ## Environment facts
 - Working copy `C:\Users\lucia\dev\gridlock`; git data `C:\Users\lucia\dev\gridlock-git` (the `.git` in the

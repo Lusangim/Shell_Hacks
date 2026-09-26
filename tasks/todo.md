@@ -175,7 +175,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 
 ## Phase 4 — Codex judging and corrections → G4
 
-- [ ] **T4.1 Judges round 1** (JUDGE ×3, Codex sub-agents with `gridlock-judge.md`, frozen `g3` worktrees, ports 8781–8783): domain expert · first-week user + design (ui-contract critique procedure) · reliability + security.
+- [x] **T4.1 Judges round 1** (JUDGE ×3, Codex sub-agents with `gridlock-judge.md`, frozen `g3` worktrees, ports 8781–8783): domain expert · first-week user + design (ui-contract critique procedure) · reliability + security. Three judgments filed: 0 P0/P1, five unique P2 (two domain, two user/design, one reliability), one P3; correction wave after round two.
 - [ ] **T4.2 Judges round 2** (×3): business / hackathon fit (`gridlock-judge.md`) · change-reviewer on every user-facing word (`gridlock-reviewer.md`) · accessibility (`gridlock-a11y.md`, §F).
 - [ ] **T4.3 Corrections wave** (builder sub-agents by ownership): reproduce → fix → check added → quick gate → merge; merged verify.
 - [x] **T4.4 Confirmation round** — skipped by founder amendment 5 (2026-09-26); judging capped at T4.1 and T4.2 on frozen `g3`.
