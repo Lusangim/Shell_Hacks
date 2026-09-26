@@ -172,6 +172,7 @@ function setupSheet() {
 
 initializeMap();
 const searchControl = setupSearch(filterControl);
+delete document.documentElement.dataset.areaLayout;
 setupTheme();
 setupSheet();
 setupTour();
