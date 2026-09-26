@@ -16,6 +16,17 @@ from tests.harness import require_free_loopback_port, required_test_port
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def pytest_configure(config):
+    """Keep each lane's temporary tests inside its writable run folder."""
+    port = required_test_port()
+    run_root = Path.home() / "dev" / "gridlock-runs" / "pytest"
+    run_root.mkdir(parents=True, exist_ok=True)
+    base = run_root / f"port-{port}"
+    if base.parent.resolve() != run_root.resolve():
+        raise RuntimeError("pytest temporary path escaped the run root")
+    config.option.basetemp = str(base)
+
+
 @pytest.fixture(scope="session")
 def live_server():
     port = required_test_port()
