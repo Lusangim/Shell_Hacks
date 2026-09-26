@@ -32,6 +32,33 @@ def map_value(page, expression):
     return page.evaluate("async () => { const {state} = await import('/web/js/state.js'); return " + expression + "; }")
 
 
+@pytest.mark.parametrize("width,height,theme", [(1440, 900, "light"), (390, 844, "dark")])
+def test_real_api_serves_offline_vector_map(browser_page, live_server, width, height, theme):
+    """Use the integrated config and Range routes without browser response stubs."""
+    page = browser_page
+    page.set_viewport_size({"width": width, "height": height})
+    page.add_init_script(f"localStorage.setItem('gridlock-theme', '{theme}')")
+    errors, requests, ranges = [], [], []
+    page.on("pageerror", lambda error: errors.append(str(error)))
+    page.on("console", lambda message: errors.append(message.text) if message.type == "error" else None)
+    page.on("request", lambda request: requests.append(request.url))
+    page.on("response", lambda response: ranges.append(response.status)
+            if response.url.endswith("/basemap/gasc.pmtiles") else None)
+    config = page.request.get(f"{live_server}/api/map-config").json()
+    assert config["offline_available"] is True
+    assert config["google_enabled"] is False
+    assert config["google_key"] is None
+    loaded(page, live_server)
+    expect(page.get_by_test_id("basemap-status")).to_have_text("Offline street map")
+    page.locator("canvas.leaflet-tile-loaded").first.wait_for()
+    assert ranges and set(ranges) == {206}
+    expect(page.get_by_role("group", name="Base map")).to_be_hidden()
+    expect(page.get_by_test_id("state-label")).to_have_count(2)
+    expect(page.get_by_test_id("project-feature").first).to_be_attached()
+    assert not errors, errors
+    assert all(url.startswith(live_server) for url in requests)
+
+
 def test_initial_both_state_fit_and_actual_wheel_keyboard_zoom(browser_page, live_server):
     page = browser_page
     configure(page)
