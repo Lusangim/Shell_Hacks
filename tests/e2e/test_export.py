@@ -16,6 +16,37 @@ def open_reports(page):
     expect(page.get_by_role("button", name="Print report", exact=True)).to_be_visible()
 
 
+@pytest.mark.parametrize("pair_id,source_page", [
+    ("desc-p41__sertp-p107-9bc088", 107),
+    ("desc-p41__sertp-p111-fe1e3b", 111),
+])
+def test_mcintosh_detail_and_print_preserve_work_location_limits(live_server, pair_id, source_page):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page()
+        page.add_init_script("window.print = () => { window.printCalls = 1; }")
+        page.goto(f"{live_server}/#overlap={pair_id}")
+        payload = page.request.get(f"{live_server}/api/overlaps/{pair_id}").json()
+        pair = payload["overlap"]
+        detail = page.get_by_test_id("overlap-detail")
+        expect(detail.locator('[data-src="touch_detail"]')).to_have_text(pair["touch_detail"])
+        expect(detail.locator('[data-src="can_share"]')).to_have_text(pair["can_share"])
+        expect(detail).to_contain_text("Verify work locations")
+        expect(detail).to_contain_text("Deerfield Switching Station, location not stated")
+        if source_page == 111:
+            expect(detail).to_contain_text("6.7-mile Goshen (Savannah)–Georgia Pacific (Rincon)")
+            expect(detail).to_contain_text("does not establish work at McIntosh")
+        open_reports(page)
+        page.get_by_role("button", name="Print report", exact=True).click()
+        page.wait_for_function("() => window.printCalls === 1")
+        selected = page.locator("#print-selected")
+        expect(selected.locator('[data-src="touch_detail"]')).to_have_text(pair["touch_detail"])
+        expect(selected.locator('[data-src="can_share"]')).to_have_text(pair["can_share"])
+        assert selected.locator('a[href$="#page=41"]').count() >= 1
+        assert selected.locator(f'a[href$="#page={source_page}"]').count() >= 1
+        browser.close()
+
+
 @pytest.mark.parametrize("params", [
     {},
     {"utility": ["Dominion Energy SC", "Georgia Power"], "band": "touching", "cross_state": "true"},
