@@ -109,7 +109,7 @@ export function initializeBasemap(map) {
     ui.status.textContent = "Loading Google map.";
     try {
       if (!model.googleReady) {
-        model.googleReady = (async () => {
+        const ready = (async () => {
           await loadScript("/web/vendor/googlemutant/Leaflet.GoogleMutant.js");
           if (!model.wantsGoogle || !navigator.onLine) throw new Error("Map selection changed");
           if (window.google?.maps?.Map) return;
@@ -120,6 +120,11 @@ export function initializeBasemap(map) {
           await loadScript(url.href);
           if (!window.google?.maps?.Map) throw new Error("Google map unavailable");
         })();
+        model.googleReady = ready;
+        // A cancelled initializer can fail after another selection starts loading.
+        void ready.catch(() => {
+          if (model.googleReady === ready) model.googleReady = null;
+        });
       }
       await model.googleReady;
       if (ownRequest !== model.request) return;
@@ -137,8 +142,10 @@ export function initializeBasemap(map) {
       ui.buttons.forEach((button, position) => button.setAttribute("aria-pressed", String(position === index)));
       ui.status.textContent = index === 2 ? "Satellite map" : "Google Maps";
     } catch (_error) {
-      model.googleReady = null;
-      if (ownRequest === model.request) offlineSelection("Google map unavailable. Showing offline map.");
+      if (ownRequest === model.request) {
+        model.googleReady = null;
+        offlineSelection("Google map unavailable. Showing offline map.");
+      }
     }
   }
 

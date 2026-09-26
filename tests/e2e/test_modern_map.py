@@ -278,4 +278,49 @@ def test_cancelled_google_load_cannot_change_offline_choice(browser_page, live_s
             pending[0].abort()
     page.wait_for_load_state("networkidle")
     expect(page.get_by_test_id("basemap-status")).to_have_text("Outline map: offline street map unavailable.")
+    if choice == "map":
+        page.evaluate("() => { window.google = {maps:{Map:class {}}}; }")
+        page.unroute("**/web/vendor/googlemutant/Leaflet.GoogleMutant.js")
+        page.route("**/web/vendor/googlemutant/Leaflet.GoogleMutant.js", lambda route: route.fulfill(
+            content_type="text/javascript", body="""
+              L.gridLayer.googleMutant = () => new (L.Layer.extend({
+                onAdd() { this.fire('tileload'); }, onRemove() {}
+              }))();
+            """))
+        group.get_by_role("button", name="Google Maps", exact=True).click()
+        expect(page.get_by_test_id("basemap-status")).to_have_text("Google Maps")
+    assert all(url.startswith(live_server) for url in requests)
+
+
+def test_stale_layer_failure_preserves_newer_ready_selection(browser_page, live_server):
+    """A late old-layer error must not discard the ready plugin used by a newer layer."""
+    page = browser_page
+    configure(page, google=True)
+    page.add_init_script("window.google = {maps:{Map:class {}}}")
+    requests = []
+    page.on("request", lambda request: requests.append(request.url))
+    page.route("**/web/vendor/googlemutant/Leaflet.GoogleMutant.js", lambda route: route.fulfill(
+        content_type="text/javascript", body="""
+          window.fakePluginLoads = (window.fakePluginLoads || 0) + 1;
+          L.gridLayer.googleMutant = () => new (L.Layer.extend({
+            onAdd() {
+              window.fakeLayerStarts = (window.fakeLayerStarts || 0) + 1;
+              if (window.fakeLayerStarts === 1) window.failOldGoogleLayer = () => this.fire('tileerror');
+              else this.fire('tileload');
+            },
+            onRemove() {}
+          }))();
+        """))
+    loaded(page, live_server)
+    group = page.get_by_role("group", name="Base map")
+    group.get_by_role("button", name="Google Maps", exact=True).click()
+    page.wait_for_function("() => typeof window.failOldGoogleLayer === 'function'")
+    group.get_by_role("button", name="Satellite", exact=True).click()
+    expect(page.get_by_test_id("basemap-status")).to_have_text("Satellite map")
+    page.evaluate("() => window.failOldGoogleLayer()")
+    expect(page.get_by_test_id("basemap-status")).to_have_text("Satellite map")
+    expect(group.get_by_role("button", name="Satellite", exact=True)).to_have_attribute("aria-pressed", "true")
+    group.get_by_role("button", name="Google Maps", exact=True).click()
+    expect(page.get_by_test_id("basemap-status")).to_have_text("Google Maps")
+    assert page.evaluate("window.fakePluginLoads") == 1
     assert all(url.startswith(live_server) for url in requests)
