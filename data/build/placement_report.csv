@@ -2,51 +2,51 @@ id,utility,name,endpoints,matched,accuracy,location_source,state,kept
 desc-p1,Dominion Energy SC,Summerville 115kV Loop: Rebuild,Summerville,yes,approximate,"Census town centre (Summerville town, SC)",SC,True
 desc-p2,Dominion Energy SC,Columbia Canal 115 kV: Rebuild,Columbia Canal,yes,exact,OpenStreetMap (Columbia Canal Substation),SC,True
 desc-p3,Dominion Energy SC,Scout 230 kV Sub and Fold-in: Construct,Scout,NO,unknown,,?,True
-desc-p4,Dominion Energy SC,Eastover - Sumter 115kV DEP Tie: Rebuild with 1272 ACSR,Eastover | Sumter,yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,SC,True
+desc-p4,Dominion Energy SC,Eastover – Sumter 115kV DEP Tie: Rebuild with 1272 ACSR,Eastover | Sumter,yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,SC,True
 desc-p5,Dominion Energy SC,Batesburg - Saluda County 115kV: Rebuild,Batesburg | Saluda County,yes | NO,approximate,OpenStreetMap (Batesburg Substation) - only 'Batesburg' located,SC,True
 desc-p6,Dominion Energy SC,Summerville-Boone Hill 115kV: Move Line for US78 SCDOT Road Widening,Summerville | Boone Hill,yes | NO,approximate,"Census town centre (Summerville town, SC) - only 'Summerville' located",SC,True
-desc-p7,Dominion Energy SC,Urquhart - Toolebeck 115kV line: Rebuild,Urquhart | Toolebeck,yes | yes,approximate,Straight line between HIFLD line endpoints / OpenStreetMap,SC,True
+desc-p7,Dominion Energy SC,Urquhart – Toolebeck 115kV line: Rebuild,Urquhart | Toolebeck,yes | yes,approximate,Straight line between HIFLD line endpoints / OpenStreetMap,SC,True
 desc-p8,Dominion Energy SC,Dawson 230kV Sub and Fold-in: Construct and Rebuild,Dawson,NO,unknown,,?,True
-desc-p9,Dominion Energy SC,Cainhoy - Hamlin 115kV: Rebuild Line and Cainhoy - Hamlin 115 kV #2: Construct New 115 kV Line,Cainhoy | Hamlin,yes | yes,approximate,Straight line between OpenStreetMap,SC,True
-desc-p10,Dominion Energy SC,Coit - Gills Creek 115kV: Construct,Coit | Gills Creek,yes | NO,approximate,HIFLD line endpoints (COIT) - only 'Coit' located,SC,True
-desc-p11,Dominion Energy SC,"Okatie 230-115kV Substation, Jasper - Yemassee 230kV #1 Fold-in",Okatie,yes,approximate,Hand-placed: INFERRED - junction on the Jasper-Yemassee 230 kV line (HIFLD TAP170160); DESC plans to fold that line into Okatie. Verify on Dominion's Jasper-Okatie route map. (Okatie),SC,True
-desc-p12,Dominion Energy SC,Jasper - Okatie 230 kV #2: Construct,Jasper | Okatie,yes | yes,approximate,Straight line between Hand-placed: INFERRED - junction on the Jasper-Yemassee 230 kV line (HIFLD TAP170160); DESC plans to fold that line into Okatie. Verify on Dominion's Jasper-Okatie route map. / OpenStreetMap,SC,True
+desc-p9,Dominion Energy SC,Cainhoy - Hamlin 115kV: Rebuild Line and Cainhoy – Hamlin 115 kV #2: Construct New 115 kV Line,Cainhoy | Hamlin,yes | yes,approximate,Straight line between OpenStreetMap,SC,True
+desc-p10,Dominion Energy SC,Coit – Gills Creek 115kV: Construct,Coit | Gills Creek,yes | NO,approximate,HIFLD line endpoints (COIT) - only 'Coit' located,SC,True
+desc-p11,Dominion Energy SC,"Okatie 230-115kV Substation, Jasper – Yemassee 230kV #1 Fold-in",Okatie,yes,approximate,Hand-placed: INFERRED - junction on the Jasper-Yemassee 230 kV line (HIFLD TAP170160); DESC plans to fold that line into Okatie. Verify on Dominion's Jasper-Okatie route map. (Okatie),SC,True
+desc-p12,Dominion Energy SC,Jasper – Okatie 230 kV #2: Construct,Jasper | Okatie,yes | yes,approximate,Straight line between Hand-placed: INFERRED - junction on the Jasper-Yemassee 230 kV line (HIFLD TAP170160); DESC plans to fold that line into Okatie. Verify on Dominion's Jasper-Okatie route map. / OpenStreetMap,SC,True
 desc-p13,Dominion Energy SC,Riverport 115kV Tap: Construct Tap,Riverport,NO,unknown,,?,True
 desc-p14,Dominion Energy SC,Flat Rock 115kV Sub and Tap: Construct,Flat Rock,NO,unknown,,?,True
-desc-p15,Dominion Energy SC,Saluda Hydro - Bush River 115kV #1 and #2 Tie Lines Rebuild,Saluda Hydro | Bush River,yes | NO,approximate,OpenStreetMap (Saluda Substation) - only 'Saluda Hydro' located,SC,True
-desc-p16,Dominion Energy SC,Church Creek - Faber Place - Charleston Transmission: Add 230kV Line,Church Creek | Faber Place | Charleston Transmission,yes | yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,SC,True
-desc-p17,Dominion Energy SC,Yemassee- Ritter 230kV #1 & #2: Construct SPDC with B-1272,Yemassee | Ritter,yes | NO,approximate,OpenStreetMap (Yemassee Substation) - only 'Yemassee' located,SC,True
+desc-p15,Dominion Energy SC,Saluda Hydro – Bush River 115kV #1 and #2 Tie Lines Rebuild,Saluda Hydro | Bush River,yes | NO,approximate,OpenStreetMap (Saluda Substation) - only 'Saluda Hydro' located,SC,True
+desc-p16,Dominion Energy SC,Church Creek – Faber Place – Charleston Transmission: Add 230kV Line,Church Creek | Faber Place | Charleston Transmission,yes | yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,SC,True
+desc-p17,Dominion Energy SC,Yemassee– Ritter 230kV #1 & #2: Construct SPDC with B-1272,Yemassee | Ritter,yes | NO,approximate,OpenStreetMap (Yemassee Substation) - only 'Yemassee' located,SC,True
 desc-p18,Dominion Energy SC,Fairfax-Yemassee 115kV: Upgrade for DESCSQ #1151 Interconnection,Fairfax | Yemassee,yes | yes,approximate,Straight line between OpenStreetMap,SC,True
 desc-p19,Dominion Energy SC,St George - Sumter 230kV Tie: Rebuild Line from Santee Substation - Duke/Progress Energy Tie,St George | Sumter,yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,SC,True
 desc-p20,Dominion Energy SC,Hooks - Modoc 115/46 kV Rebuild,Hooks | Modoc,NO | yes,approximate,OpenStreetMap (Modoc Substation) - only 'Modoc' located,SC,True
-desc-p21,Dominion Energy SC,Burton-St Helena 115kV: Rebuild Frogmore Distribution - St. Helena Section,Burton | St Helena,yes | NO,approximate,OpenStreetMap (Burton Substation) - only 'Burton' located,SC,True
+desc-p21,Dominion Energy SC,Burton-St Helena 115kV: Rebuild Frogmore Distribution – St. Helena Section,Burton | St Helena,yes | NO,approximate,OpenStreetMap (Burton Substation) - only 'Burton' located,SC,True
 desc-p22,Dominion Energy SC,Wagener 115kV Tap: Construct Tap,Wagener,yes,exact,OpenStreetMap (Wagener Substation),SC,True
-desc-p23,Dominion Energy SC,Cameron Jct - Elloree 46 kV Rebuild,Cameron Jct | Elloree,yes | yes,approximate,Straight line between OpenStreetMap,SC,True
-desc-p24,Dominion Energy SC,Atomic Road 115/12kV Sub:  Construct,Atomic Road,NO,unknown,,?,True
-desc-p25,Dominion Energy SC,Elloree - Santee City 46 kV: Rebuild,Elloree | Santee City,yes | NO,approximate,OpenStreetMap (Elloree Substation) - only 'Elloree' located,SC,True
-desc-p26,Dominion Energy SC,Urquhart - Aiken PSA 46 kV: Rebuild,Urquhart | Aiken PSA,yes | NO,approximate,HIFLD line endpoints (URQUHART) - only 'Urquhart' located,GA,True
+desc-p23,Dominion Energy SC,Cameron Jct – Elloree 46 kV Rebuild,Cameron Jct | Elloree,yes | yes,approximate,Straight line between OpenStreetMap,SC,True
+desc-p24,Dominion Energy SC,Atomic Road 115/12kV Sub: Construct,Atomic Road,NO,unknown,,?,True
+desc-p25,Dominion Energy SC,Elloree – Santee City 46 kV: Rebuild,Elloree | Santee City,yes | NO,approximate,OpenStreetMap (Elloree Substation) - only 'Elloree' located,SC,True
+desc-p26,Dominion Energy SC,Urquhart – Aiken PSA 46 kV: Rebuild,Urquhart | Aiken PSA,yes | NO,approximate,HIFLD line endpoints (URQUHART) - only 'Urquhart' located,GA,True
 desc-p27,Dominion Energy SC,Wateree-Hopkins 230kV Line #1: Rebuild,Wateree | Hopkins,yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,SC,True
-desc-p28,Dominion Energy SC,Adams Run - Red House Road 46 kV:  Replace Dawhoo River Crossing and other Structures,Adams Run | Red House Road,yes | NO,approximate,OpenStreetMap (Adams Run Substation) - only 'Adams Run' located,SC,True
-desc-p29,Dominion Energy SC,Lyles - Kilbourne Park 115kV: Replace Structure 67 - Kilbourne Park,Lyles | Kilbourne Park,NO | NO,unknown,,?,True
+desc-p28,Dominion Energy SC,Adams Run – Red House Road 46 kV: Replace Dawhoo River Crossing and other Structures,Adams Run | Red House Road,yes | NO,approximate,OpenStreetMap (Adams Run Substation) - only 'Adams Run' located,SC,True
+desc-p29,Dominion Energy SC,Lyles – Kilbourne Park 115kV: Replace Structure 67 – Kilbourne Park,Lyles | Kilbourne Park,NO | NO,unknown,,?,True
 desc-p30,Dominion Energy SC,Winnsboro West 230-115 kV Sub and Fold-in: Construct,Winnsboro West,NO,unknown,,?,True
 desc-p31,Dominion Energy SC,Williams-Summerville 230kV: Upgrade to SPDC B1272 ACSR,Williams | Summerville,yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,SC,True
 desc-p32,Dominion Energy SC,Church Creek - Ritter 230kV - Replace 38 Large Angles and Dead Ends,Church Creek | Ritter,yes | NO,approximate,OpenStreetMap (Church Creek Substation) - only 'Church Creek' located,SC,True
-desc-p33,Dominion Energy SC,Jackson 115kV: Construct 115 - 12kV Distribution Substation,Jackson,yes,approximate,"Census town centre (Jackson town, SC)",SC,True
-desc-p34,Dominion Energy SC,Harleyville 115KV Transmission Tap - Construct (1.4 miles),Harleyville,yes,exact,OpenStreetMap (Harleyville Substation),SC,True
+desc-p33,Dominion Energy SC,Jackson 115kV: Construct 115 – 12kV Distribution Substation,Jackson,yes,approximate,"Census town centre (Jackson town, SC)",SC,True
+desc-p34,Dominion Energy SC,Harleyville 115KV Transmission Tap – Construct (1.4 miles),Harleyville,yes,exact,OpenStreetMap (Harleyville Substation),SC,True
 desc-p35,Dominion Energy SC,Orangeburg #1 - Cameron Jct 46kV Line Rebuild,Orangeburg #1 | Cameron Jct,yes | yes,approximate,Straight line between OpenStreetMap,SC,True
 desc-p36,Dominion Energy SC,VCS1-Denny Terrace 230kV & VCS1-Pineland 230kV: Rebuild Single Circuit Sections,VCS1 | Denny Terrace,NO | yes,approximate,OpenStreetMap (Denny Terrace Substation) - only 'Denny Terrace' located,SC,True
 desc-p37,Dominion Energy SC,Coast Guard 115kV Substation and Tap: Construct,Coast Guard,NO,unknown,,?,True
 desc-p38,Dominion Energy SC,Millrace 115 kV Tap: Construct,Millrace,NO,unknown,,?,True
 desc-p39,Dominion Energy SC,"Williams St Sub: Replace Sw House & Relays, AM Williams Sub: Replace Sw House, and McMeekin Sub: Add Sw House",Williams St,NO,unknown,,?,True
-desc-p40,Dominion Energy SC,Cameron Jct - Cameron - St Matthews 46 kV Rebuild,Cameron Jct | Cameron | St Matthews,yes | yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,SC,True
-desc-p41,Dominion Energy SC,Okatie - McIntosh 115kV Tie: Add Series Reactor,Okatie | McIntosh,yes | yes,approximate,Straight line between Hand-placed: INFERRED - junction on the Jasper-Yemassee 230 kV line (HIFLD TAP170160); DESC plans to fold that line into Okatie. Verify on Dominion's Jasper-Okatie route map. / OpenStreetMap,SC,True
+desc-p40,Dominion Energy SC,Cameron Jct – Cameron – St Matthews 46 kV Rebuild,Cameron Jct | Cameron | St Matthews,yes | yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,SC,True
+desc-p41,Dominion Energy SC,Okatie – McIntosh 115kV Tie: Add Series Reactor,Okatie | McIntosh,yes | yes,approximate,Straight line between Hand-placed: INFERRED - junction on the Jasper-Yemassee 230 kV line (HIFLD TAP170160); DESC plans to fold that line into Okatie. Verify on Dominion's Jasper-Okatie route map. / OpenStreetMap,SC,True
 desc-p42,Dominion Energy SC,CAE Industrial Park - Springdale Sub 115kV: Replace Laminated Wood Polls.,CAE Industrial Park | Springdale,NO | yes,approximate,OpenStreetMap (Springdale Substation) - only 'Springdale' located,SC,True
 desc-p43,Dominion Energy SC,St. George- Holly Hill 115kV: Rebuild Structures 83-108,St. George | Holly Hill,yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,SC,True
 desc-p44,Dominion Energy SC,Canadys-Ritter 115KV: Rebuild SPDC 230/115KV 1272 (Approx 18 Miles),Canadys | Ritter,yes | NO,approximate,OpenStreetMap (Canadys Substation) - only 'Canadys' located,SC,True
 desc-p45,Dominion Energy SC,Wateree-Killian 230kV: Rebuild,Wateree | Killian,yes | NO,approximate,OpenStreetMap (Wateree Substation) - only 'Wateree' located,SC,True
-desc-p46,Dominion Energy SC,Church Creek - Dawson 230 kV: Rebuild from Long Savannah to Dawson,Church Creek | Dawson,yes | NO,approximate,OpenStreetMap (Church Creek Substation) - only 'Church Creek' located,SC,True
+desc-p46,Dominion Energy SC,Church Creek – Dawson 230 kV: Rebuild from Long Savannah to Dawson,Church Creek | Dawson,yes | NO,approximate,OpenStreetMap (Church Creek Substation) - only 'Church Creek' located,SC,True
 desc-p47,Dominion Energy SC,Long Savannah 115 kV Tap: Construct,Long Savannah,NO,unknown,,?,True
-desc-p48,Dominion Energy SC,Modoc - McCormick 115/46 kV Rebuild,Modoc | McCormick,yes | yes,approximate,Straight line between OpenStreetMap,SC,True
+desc-p48,Dominion Energy SC,Modoc – McCormick 115/46 kV Rebuild,Modoc | McCormick,yes | yes,approximate,Straight line between OpenStreetMap,SC,True
 desc-p49,Dominion Energy SC,Stevens Creek - Graniteville 115 kV: Rebuild,Stevens Creek | Graniteville,yes | yes,approximate,Straight line between Census town centre / HIFLD line endpoints,SC,True
 desc-p50,Dominion Energy SC,Calhoun County - North 46 kV Rebuild,Calhoun County | North,NO | yes,approximate,OpenStreetMap (North Substation) - only 'North' located,SC,True
 desc-p51,Dominion Energy SC,Union Pier 115-13.8 kV Sub: Tap,Union Pier,NO,unknown,,?,True

@@ -16,6 +16,7 @@ import csv, json, math, re
 from collections import defaultdict
 from shapely.geometry import shape, Point, LineString, mapping
 from ids import desc_id, sertp_ids
+from fields import miles, parse_cost, parse_in_service_year, project_type, voltage_kv
 
 
 DESC_URL = "https://www.scrtp.com/assets/pdfs/home/2026-2030-2million-and-above-project-descriptions.pdf"
@@ -162,17 +163,19 @@ def endpoints(name):
 # ---------------- load projects ----------------
 projects = []
 for i, r in enumerate(csv.DictReader(open("desc_2026_2030_projects.csv", encoding="utf-8")), 1):
-    y = re.findall(r"(20\d\d|/\d\d)\b", r["planned_in_service"])
-    yr = y[-1] if y else ""
-    yr = ("20" + yr[1:]) if yr.startswith("/") else yr
-    cost_text = r["total_cost"]
-    cost_usd = int(re.sub(r"[^0-9]", "", cost_text)) if re.fullmatch(r"\$[\d,]+", cost_text) else None
+    cost_usd, cost_basis, cost_flags = parse_cost(
+        r["total_cost"], [r[column] for column in
+                          ("previous_cost", "cost_2026", "cost_2027", "cost_2028", "cost_2029", "cost_2030")]
+    )
     projects.append(dict(id=desc_id(i), utility="Dominion Energy SC", utility_basis="stated",
                          name=r["project_name"], description=r["description"] or None,
                          need=r["need"] or None, status=r["status"] or None,
-                         in_service=r["planned_in_service"] or None, year=int(yr) if yr else None,
-                         cost_usd=cost_usd, cost_basis="plan" if cost_usd is not None else "none",
-                         cost_flags=[], voltage_kv=[], project_type="other", miles=None,
+                         in_service=r["planned_in_service"] or None,
+                         year=parse_in_service_year(r["planned_in_service"]),
+                         cost_usd=cost_usd, cost_basis=cost_basis, cost_flags=cost_flags,
+                         voltage_kv=voltage_kv(r["project_name"], r["description"]),
+                         project_type=project_type(r["project_name"], r["description"]),
+                         miles=miles(r["project_name"], r["description"]),
                          source={"doc": "SCRTP Planned Facilities 2026-2030 $2M & Above", "page": i,
                                  "url": DESC_URL},
                          project_id=r["project_id"] or None, home="SC"))
@@ -186,9 +189,11 @@ for i, (r, stable_id) in enumerate(zip(sertp_rows, sertp_ids(sertp_rows)), 1):
     projects.append(dict(id=stable_id, utility=util, utility_basis="stated",
                          name=r["project_name"], description=r["description"] or None,
                          need=r["need"] or None, status=None, in_service=r["in_service_year"] or None,
-                         year=int(r["in_service_year"]) if r["in_service_year"] else None,
-                         cost_usd=None, cost_basis="none", cost_flags=[], voltage_kv=[],
-                         project_type="other", miles=None,
+                         year=parse_in_service_year(r["in_service_year"]),
+                         cost_usd=None, cost_basis="none", cost_flags=[],
+                         voltage_kv=voltage_kv(r["project_name"], r["description"]),
+                         project_type=project_type(r["project_name"], r["description"]),
+                         miles=miles(r["project_name"], r["description"]),
                          source={"doc": "SERTP 2025 Regional Transmission Plan (Nov 26 2025)",
                                  "page": int(r["source_page"]), "url": SERTP_URL},
                          project_id=None,
