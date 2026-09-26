@@ -42,6 +42,7 @@ when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT;
 - 05:27 · d635f20 · 50 passed, 1 allow-listed skip · T0.3b merged after diff review and lane quick gate; all 230 project citations checked against PDF pages; artifacts contract-valid, 230/181/477/44 and top-ten order preserved; WEB T1.3 committed but waits on production basemap for its audit
 - 05:42 · 03ae694 · 58 passed, 1 allow-listed skip · G1a type review confirmed 2 HIGH closed; multiline and count guards added; 2 MEDIUM (nested mutability, exported schema cross-field constraints) documented; contracts frozen; DATA T1.5 ready for post-gate merge
 - 05:45 · ab654b2 (g1a), DATA 24e50d8 · 61 passed, 1 allow-listed skip · T1.5 merged: 1,150 places, local two-state/801-label basemap, complete 128 unmapped source-row reasons; WEB synced but live audit found forbidden SVG aria-label and a session-scoped test server holding port 8773, assigned to WEB and LEAD respectively
+- 05:55 · WEB a371314 merged · 73 passed + 11 shell + 1 axe · T1.3 map/list shell live on main against DATA artifacts; SVG aria-label removed, live test server function-scoped, no named skips; T1.4a audit build and DATA T1.1 field parsing underway
 
 ## Environment facts
 - Working copy `C:\Users\lucia\dev\gridlock`; git data `C:\Users\lucia\dev\gridlock-git` (the `.git` in the
