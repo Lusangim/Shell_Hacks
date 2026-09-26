@@ -22,6 +22,11 @@ function voltageWeight(properties) {
   return 2;
 }
 
+function projectWeight(properties) {
+  const entering = state.timelineYear != null && properties.year === state.timelineYear;
+  return voltageWeight(properties) + (entering ? 2 : 0);
+}
+
 function tooltipFor(feature) {
   const properties = projectProperties(feature);
   const wrapper = document.createElement("div");
@@ -49,14 +54,12 @@ function tooltipFor(feature) {
 
 function styleForProject(feature) {
   const properties = projectProperties(feature);
-  const year = state.timelineYear;
-  const opacity = year == null || properties.year === year ? 1 : properties.year == null ? 0.55 : 0.32;
   return {
     color: token(utilityTokens.get(properties.utility) || "--minor"),
-    weight: voltageWeight(properties),
+    weight: projectWeight(properties),
     dashArray: properties.accuracy === "approximate" ? "8 5" : null,
-    opacity,
-    fillOpacity: opacity,
+    opacity: 1,
+    fillOpacity: 1,
   };
 }
 
@@ -64,7 +67,7 @@ function styleForCasing(feature) {
   const properties = projectProperties(feature);
   return {
     color: token("--map-casing"),
-    weight: voltageWeight(properties) + 2,
+    weight: projectWeight(properties) + 2,
     dashArray: properties.accuracy === "approximate" ? "8 5" : null,
     opacity: 1,
     fillColor: token("--map-casing"),
