@@ -3,9 +3,8 @@ import re, csv, pypdf
 import os
 if not os.path.exists('sertp_2025_rtp.txt'):
     r=pypdf.PdfReader('sertp_2025_rtp.pdf')
-    open('sertp_2025_rtp.txt','w',encoding='utf-8').write('
-'.join('=====PAGE %d
-'%(i+1)+(p.extract_text() or '') for i,p in enumerate(r.pages)))
+    open('sertp_2025_rtp.txt','w',encoding='utf-8').write(
+        '\n'.join('=====PAGE %d\n' % (i+1) + (p.extract_text() or '') for i, p in enumerate(r.pages)))
 t=open('sertp_2025_rtp.txt',encoding='utf-8').read()
 pages=re.split(r'=====PAGE (\d+)\n',t)
 rows=[]; ba=None
@@ -28,7 +27,7 @@ with open('sertp_2025_projects.csv','w',newline='',encoding='utf-8') as f:
 from collections import Counter
 print('SERTP projects:',len(rows), Counter(r['utility_area'] for r in rows))
 # --- DESC ---
-t=open('../../../../.claude/projects/C--Users-lucia-OneDrive-Desktop-Shell-Hacks/15d39e86-3abe-46e2-ac62-5cbc7707d758/tool-results/scrtp_2026_2030.txt',encoding='utf-8').read() if False else '\n'.join(p.extract_text() or '' for p in pypdf.PdfReader('desc_scrtp_2026_2030.pdf').pages)
+t='\n'.join(p.extract_text() or '' for p in pypdf.PdfReader('desc_scrtp_2026_2030.pdf').pages)
 out=[]
 for b in re.split(r'Project \d+ of \d+',t)[1:]:
     g=lambda k,nx: re.search(k+r'\s*\n(.+?)\n\s*'+nx,b,re.S)
