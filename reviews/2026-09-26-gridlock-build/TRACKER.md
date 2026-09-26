@@ -4,10 +4,13 @@
 when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT; the founder submits by 10:30.
 
 ## Now
-- Phase: **setup (Claude)** — T0.0, T0.1, T0.5, T0.6, T1.0 done; T0.7 skipped (not needed); T0.8 review
-  returned "not ready" (5 HIGH, 7 MEDIUM); all findings applied; waiting for the founder's go (T0.9).
-- Running: nothing. No Codex run, no Claude agent.
-- Codex sessions: T0.6 proof `01a0dcc9-5fe6-7a51-abf8-e8443e2bd900` (done). Lead: not launched yet.
+- Phase: **Codex build** — T0.0–T0.8 and T1.0 done (T0.7 skipped); T0.8 review "not ready" (5 HIGH,
+  7 MEDIUM), all applied in 5db51e4; the founder stopped the confirmation round and said "just go"; the
+  founder declined a judging-round cap ("no need for that"). **T0.9: Codex lead launched ~04:49 EDT.**
+- Running: the Codex lead (`scripts\codex-lead.ps1`, brief `MISSION.md`); session id = `thread_id` in the
+  first line of the newest `C:\Users\lucia\dev\gridlock-runs\codex\*-lead.jsonl`. Claude runs no agents
+  while it runs.
+- Codex sessions: T0.6 proof `01a0dcc9-5fe6-7a51-abf8-e8443e2bd900` (done); lead: see above.
 
 ## Decisions (founder, 2026-09-26)
 - Operating model: one Codex lead (`gpt-6-sol`, high, subscription) with up to five sub-agents builds,
@@ -29,6 +32,8 @@ when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT;
 - 04:16 · 72dd54c · — · re-cloned with git data in `gridlock-git` (Codex locks `.git` folders)
 - 04:19 · 72dd54c · — · T0.6 passed: two parallel sub-agents, worktrees, commits, pytest, uvicorn, Chromium
 - 04:21 · 72dd54c · — · T0.5 checks re-run; mirror identical; T0.8 review started
+- 04:45 · 5db51e4 · — · review findings applied; no time limit (founder); launch state committed
+- 04:49 · (this commit) · — · T0.9 launch of the Codex lead on the founder's "just go"
 
 ## Environment facts
 - Working copy `C:\Users\lucia\dev\gridlock`; git data `C:\Users\lucia\dev\gridlock-git` (the `.git` in the
