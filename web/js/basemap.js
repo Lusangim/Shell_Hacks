@@ -50,7 +50,7 @@ function createControls() {
 
 export function initializeBasemap(map) {
   const ui = createControls();
-  const model = { config: null, offline: null, google: null, request: 0, flavor: null, archive: null, googleReady: null };
+  const model = { config: null, offline: null, google: null, request: 0, flavor: null, archive: null, googleReady: null, wantsGoogle: false };
   map.attributionControl.setPrefix(false);
   map.attributionControl.addAttribution('© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> · <a href="https://protomaps.com">Protomaps</a>');
 
@@ -62,6 +62,7 @@ export function initializeBasemap(map) {
   }
 
   function offlineSelection(message) {
+    model.wantsGoogle = false;
     model.request += 1;
     if (model.google) map.removeLayer(model.google);
     model.google = null;
@@ -103,13 +104,14 @@ export function initializeBasemap(map) {
 
   async function googleSelection(index) {
     if (!model.config?.google_enabled || !model.config.google_key || !navigator.onLine) return;
+    model.wantsGoogle = true;
     const ownRequest = ++model.request;
     ui.status.textContent = "Loading Google map.";
     try {
       if (!model.googleReady) {
         model.googleReady = (async () => {
           await loadScript("/web/vendor/googlemutant/Leaflet.GoogleMutant.js");
-          if (ownRequest !== model.request || !navigator.onLine) throw new Error("Map selection changed");
+          if (!model.wantsGoogle || !navigator.onLine) throw new Error("Map selection changed");
           if (window.google?.maps?.Map) return;
           const url = new URL("https://maps.googleapis.com/maps/api/js");
           url.searchParams.set("key", model.config.google_key);
@@ -121,6 +123,7 @@ export function initializeBasemap(map) {
       }
       await model.googleReady;
       if (ownRequest !== model.request) return;
+      if (!navigator.onLine) { offlineSelection(); return; }
       if (model.google) map.removeLayer(model.google);
       const layer = L.gridLayer.googleMutant({ type: index === 2 ? "hybrid" : "roadmap", maxZoom: 17 });
       model.google = layer;

@@ -225,3 +225,57 @@ def test_fake_google_switch_satellite_offline_and_phone_targets(browser_page, li
     page.evaluate("() => { Object.defineProperty(navigator, 'onLine', {value:false}); dispatchEvent(new Event('offline')); }")
     expect(group).to_be_hidden()
     assert all(url.startswith(live_server) for url in requests)
+
+
+def test_delayed_google_plugin_preserves_latest_satellite_selection(browser_page, live_server):
+    """T16-WEB-SEC-01: shared initialization must not capture the first choice."""
+    page = browser_page
+    configure(page, google=True)
+    page.add_init_script("window.google = {maps:{Map:class {}}}")
+    pending, requests = [], []
+    page.on("request", lambda request: requests.append(request.url))
+    page.route("**/web/vendor/googlemutant/Leaflet.GoogleMutant.js", lambda route: pending.append(route))
+    loaded(page, live_server)
+    group = page.get_by_role("group", name="Base map")
+    group.get_by_role("button", name="Google Maps", exact=True).click()
+    expect(page.get_by_test_id("basemap-status")).to_have_text("Loading Google map.")
+    group.get_by_role("button", name="Satellite", exact=True).click()
+    assert len(pending) == 1
+    pending[0].fulfill(content_type="text/javascript", body="""
+      L.gridLayer.googleMutant = options => {
+        window.fakeGoogleType = options.type;
+        return new (L.Layer.extend({onAdd() { this.fire('tileload'); }, onRemove() {}}))();
+      };
+    """)
+    expect(page.get_by_test_id("basemap-status")).to_have_text("Satellite map", timeout=3000)
+    expect(group.get_by_role("button", name="Satellite", exact=True)).to_have_attribute("aria-pressed", "true")
+    assert page.evaluate("window.fakeGoogleType") == "hybrid"
+    assert all(url.startswith(live_server) for url in requests)
+
+
+@pytest.mark.parametrize("choice,release", [("map", "success"), ("map", "failure"), ("offline", "success")])
+def test_cancelled_google_load_cannot_change_offline_choice(browser_page, live_server, choice, release):
+    page = browser_page
+    configure(page, google=True)
+    pending, requests = [], []
+    page.on("request", lambda request: requests.append(request.url))
+    page.route("**/web/vendor/googlemutant/Leaflet.GoogleMutant.js", lambda route: pending.append(route))
+    loaded(page, live_server)
+    group = page.get_by_role("group", name="Base map")
+    group.get_by_role("button", name="Google Maps", exact=True).click()
+    expect(page.get_by_test_id("basemap-status")).to_have_text("Loading Google map.")
+    if choice == "map":
+        group.get_by_role("button", name="Map", exact=True).click()
+    else:
+        page.evaluate("() => { Object.defineProperty(navigator, 'onLine', {value:false}); dispatchEvent(new Event('offline')); }")
+    expect(page.get_by_test_id("basemap-status")).to_have_text("Outline map: offline street map unavailable.")
+    assert len(pending) == 1
+    if release == "success":
+        pending[0].fulfill(content_type="text/javascript", body="window.delayedPluginFinished = true;")
+        page.wait_for_function("() => window.delayedPluginFinished === true")
+    else:
+        with page.expect_event("requestfailed"):
+            pending[0].abort()
+    page.wait_for_load_state("networkidle")
+    expect(page.get_by_test_id("basemap-status")).to_have_text("Outline map: offline street map unavailable.")
+    assert all(url.startswith(live_server) for url in requests)
