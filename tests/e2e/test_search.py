@@ -9,10 +9,22 @@ from playwright.sync_api import expect, sync_playwright
 
 
 def focus_search_by_keyboard(page):
-    for _ in range(12):
-        page.keyboard.press("Tab")
-        if page.evaluate("document.activeElement.id") == "search-input":
-            return
+    visited = page.evaluate_handle("new Set()")
+    try:
+        for _ in range(page.locator("*").count() + 1):
+            page.keyboard.press("Tab")
+            reached = page.evaluate("""visited => {
+              const element = document.activeElement;
+              if (element.id === 'search-input') return 'search';
+              if (visited.has(element)) return 'loop';
+              visited.add(element);
+              return 'next';
+            }""", visited)
+            if reached == "search":
+                return
+            assert reached != "loop", "Tab focus looped before reaching search"
+    finally:
+        visited.dispose()
     raise AssertionError("Search was not reachable by Tab")
 
 
@@ -25,6 +37,60 @@ def wait_for_search_center(page, result):
       const center = window.searchMap.getCenter();
       return center.lat === lat && center.lng === lon && window.searchMap.getZoom() === 11;
     }""", arg=[result["lat"], result["lon"]])
+
+
+@pytest.mark.parametrize("width,height", [(1440, 900), (390, 844)])
+@pytest.mark.parametrize("reduced_motion", ["no-preference", "reduce"])
+def test_keyboard_search_keeps_source_center_after_delayed_meta(
+    live_server, width, height, reduced_motion
+):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": width, "height": height}, reduced_motion=reduced_motion)
+        held_meta = []
+        page.route("**/api/meta", lambda route: held_meta.append(route))
+        with page.expect_request("**/api/meta"):
+            page.goto(live_server)
+        expect(page.get_by_test_id("loading-state")).to_be_visible()
+        expected = page.request.get(f"{live_server}/api/search?q=Savannah").json()[0]
+        assert expected["label"] == "Savannah city"
+        focus_search_by_keyboard(page)
+        page.keyboard.type("Savannah")
+        expect(page.locator("#search-options option")).not_to_have_count(0)
+        page.keyboard.press("Enter")
+        expect(page.get_by_test_id("search-selection")).to_contain_text(expected["label"])
+        wait_for_search_center(page, expected)
+        assert len(held_meta) == 1
+        held_meta[0].continue_()
+        expect(page.locator("#status")).to_contain_text("ranked opportunities loaded.")
+        assert page.evaluate("""() => {
+          const center = window.searchMap.getCenter();
+          return [center.lat, center.lng, window.searchMap.getZoom()];
+        }""") == [expected["lat"], expected["lon"], 11]
+        browser.close()
+
+
+@pytest.mark.parametrize("width,height", [(1440, 900), (390, 844)])
+def test_untouched_first_view_fits_both_states_after_delayed_meta(live_server, width, height):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": width, "height": height})
+        held_meta = []
+        page.route("**/api/meta", lambda route: held_meta.append(route))
+        with page.expect_request("**/api/meta"):
+            page.goto(live_server)
+        expect(page.get_by_test_id("loading-state")).to_be_visible()
+        assert len(held_meta) == 1
+        held_meta[0].continue_()
+        expect(page.locator("#status")).to_contain_text("ranked opportunities loaded.")
+        assert page.evaluate("""async () => {
+          const { state } = await import('/web/js/state.js');
+          const states = state.basemap.features.filter(feature =>
+            ['state', 'state_outline'].includes(feature.properties?.kind));
+          return states.length === 2 && states.every(feature =>
+            state.map.getBounds().contains(L.geoJSON(feature).getBounds()));
+        }""")
+        browser.close()
 
 
 @pytest.mark.parametrize("width,height,theme", [(1440, 900, "light"), (390, 844, "dark")])
