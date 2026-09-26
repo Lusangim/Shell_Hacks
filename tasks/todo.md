@@ -87,7 +87,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 
 ## Phase 2 — Core demo path → G2
 
-- [ ] **T2.1 Bands and why they touch** (DATA)
+- [x] **T2.1 Bands and why they touch** (DATA) — `b3d0288` integrated in `ceb09dd`, merged as `102b6ad`; 489 geodesic pairs, 43 source-state cross-state, 21 focused lead rerun and 156/17/18 lane quick gate passed
   - Acceptance: SPEC overlap rules (touching ≤ 1 m; strict `<` limits); geodesic distance between nearest points; `touch_reason` — `same_substation` only when both projects are work at the same named substation (both voltages shown), `shared_endpoint` when a line ends where the other project works, else `lines_cross` / `proximity` / `same_area_approximate`; `touch_detail` quotes what the PDFs support; `can_share` from band + reason; ties by distance then id.
   - Verify: `tests/pipeline/test_bands_touch.py` — boundary points (1/1.01 m, 1,599.99/1,600, 7,999.99/8,000, 39,999.99/40,000); DESC Okatie–McIntosh tie × McIntosh 230 kV relays = `shared_endpoint` with the Deerfield detail; × SAV Goshen–McIntosh 115 kV = `shared_endpoint` at McIntosh 115 kV.
 - [ ] **T2.2 Location quality, border region** (DATA; HUMAN H1 if done before this task)

@@ -48,6 +48,7 @@ when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT;
 - 06:36–06:44 · cf95aa7 / G1 frozen · VERIFY 135/135, 0 fail/skip, baseline 135; production screenshots 1440/390 captured; Python review found one HIGH (Georgia-only pair flagged cross-state) and one MEDIUM (non-atomic artifact publication), JS review ready; DATA G1 repair assigned, G1 tag pending
 - 06:56 · 6ef63f8 · VERIFY 139/139, 0 fail/skip, baseline 139 · G1 cross-state HIGH repaired: 43 true different-state pairs, GA-only misflag removed, score 0.096→0.064; Python confirmation pending on frozen copy, publication MEDIUM tracked
 - 07:02 · bec2eca (g1) · VERIFY 139/139, 0 fail/skip · G1 tagged after fresh Python confirmation (no CRITICAL/HIGH; material improvement no) and ready JS review; screenshots/house patterns and rewritten DELIVERY committed; T2.1 integration running, medium artifact-publication risk tracked
+- 07:09 · 102b6ad · 156 suite + 17 shell + 18 audit lane quick gate; lead reran 21 focused · T2.1 merged after reconciling G1 state scoring: 489 geodesic overlaps, 43 cross-state, GA-only target score 0.064/rank 395, deterministic top ten; API search building, DATA T2.2 next
 
 ## Environment facts
 - Working copy `C:\Users\lucia\dev\gridlock`; git data `C:\Users\lucia\dev\gridlock-git` (the `.git` in the

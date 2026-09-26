@@ -24,7 +24,7 @@
 | T1.5 | Done, `24e50d8`; 1,150 local places, basemap, full metadata, focused 3 passed and main quick gate 61 passed. |
 | T1.1 | Done since G1a, `7298579`; 37 focused checks, five PDF cost hand-checks, complete 459 SERTP marker accounting. |
 | T1.4a | Done; `reviews/2026-09-26-gridlock-build/lead/T1.4a.md`. Three 17-check runs passed, then the main quick gate passed 135 suite + 17 shell + 18 audit with no skip. |
-| T2.1 | Committed on DATA branch for post-G1 merge; 489 geodesic overlaps with boundary and source checks. Lead reviewed the diff, reran 17 focused checks, and ran its pre-integration quick gate (130 suite + 13 shell + 1 audit). Integration of the G1 cross-state repair is in progress on that branch. |
+| T2.1 | Done since G1; `102b6ad`. 489 geodesic overlaps, 43 source-state cross-state, source-backed touch reasons, 21 focused lead rerun and 156 suite + 17 shell + 18 audit lane quick gate. |
 | T2.2–T2.11; T3.1–T3.5; T1.4b; T4.1–T4.4; D.1–D.3 | Not started. |
 | G1a | Passed: type review and confirmation, full VERIFY green. |
 | G1 | Passed: Python HIGH corrected and confirmed, JS ready, full VERIFY green, 1440/390 screenshots and house patterns committed. |
@@ -52,4 +52,4 @@ T1.1 surfaced stale parsed CSVs with ASCII hyphens where the source PDF prints e
 
 2026-09-26 — A utility name cannot stand in for the source-backed state when a ranking rule depends on geography.
 
-The lead session ID is recorded in the newest `C:\Users\lucia\dev\gridlock-runs\codex\*-lead.jsonl`; resume it with `codex exec resume <session id>` and first read MISSION.md, TRACKER.md, todo.md and git status. At this G1 checkpoint the confirmation judge has finished; the DATA T2.1 integration sub-agent is running on its branch. The Codex lead continues.
+The lead session ID is recorded in the newest `C:\Users\lucia\dev\gridlock-runs\codex\*-lead.jsonl`; resume it with `codex exec resume <session id>` and first read MISSION.md, TRACKER.md, todo.md and git status. G1 is tagged; DATA T2.1 has since merged. The API search builder is running, and DATA T2.2 is next. The Codex lead continues.
