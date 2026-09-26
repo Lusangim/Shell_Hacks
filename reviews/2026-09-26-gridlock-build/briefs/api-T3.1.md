@@ -1,6 +1,6 @@
 # API — T3.1 eval set, deterministic grader and offline brief template (sub-agent of Codex lead; gpt-6-sol, reasoning high)
 
-Start only when the lead assigns this task after the G2 feature merge; if G2 is not tagged, work on the branch but do not request merge. Read in your worktree: repo `AGENTS.md`; `.agents/skills/gridlock-build/SKILL.md` §0/§2; `SPEC.md` Contracts, Code style and Boundaries; `references/definition-of-done.md`; `reviews/2026-09-26-gridlock-build/house-patterns.md`; `.agents/skills/gridlock-build/references/ai-brief.md` (all), `.agents/skills/gridlock-build/references/ui-contract.md` § Density and content, T3.1 in `tasks/todo.md`, and `references/review-checklists.md` §A/B/C/E. Read with `Get-Content -Encoding UTF8`; edit repo text with apply_patch. Never access a credential or Claude API.
+The lead assigns this task before G2 while WEB completes Phase 2; work and commit on the API branch, but hold its merge until G2 is tagged. Read in your worktree: repo `AGENTS.md`; `.agents/skills/gridlock-build/SKILL.md` §0/§2; `SPEC.md` Contracts, Code style and Boundaries; `references/definition-of-done.md`; `reviews/2026-09-26-gridlock-build/house-patterns.md`; `.agents/skills/gridlock-build/references/ai-brief.md` (all), `.agents/skills/gridlock-build/references/ui-contract.md` § Density and content, T3.1 in `tasks/todo.md`, and `references/review-checklists.md` §A/B/C/E. Read with `Get-Content -Encoding UTF8`; edit repo text with apply_patch. Never access a credential or Claude API.
 
 ## Task and verification
 
