@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 
 from server.brief_template import make_template_brief
-from server.schemas import Brief, Overlap, ProjectCollection
+from server.schemas import Brief, Overlap, ProjectCollection, Savings
 from tests.eval.grader import grade_brief, load_contacts
 
 
@@ -182,3 +182,36 @@ def test_source_voltage_can_be_written_without_a_space() -> None:
     document = brief.model_dump()
     document["what"] += " The source lists 115kV."
     assert not any("number" in item for item in errors(document, pair, a, b))
+
+
+@pytest.mark.parametrize("omitted", [(2026,), (2028,), (2026, 2028)])
+def test_stated_plan_years_must_appear_even_when_schedule_prose_is_long_enough(omitted: tuple[int, ...]) -> None:
+    brief, pair, a, b = baseline("desc-p12__sertp-p107-9bc088")
+    assert (pair.a_year, pair.b_year) == (2026, 2028)
+    document = brief.model_dump()
+    for year in omitted:
+        document["when"] = document["when"].replace(str(year), "the plan year")
+    result = grade_brief(document, pair, a, b, CONTACTS)
+    assert 150 <= result.word_count <= 300
+    for year in omitted:
+        assert f"year: missing {year}" in result.errors, result.errors
+
+
+def test_synthetic_unknown_plan_year_needs_an_explicit_unknown_statement() -> None:
+    brief, real_pair, real_a, b = baseline()
+    # This copy probes the null-year rule; it is not a source record or a manifest case.
+    a = real_a.model_copy(update={"properties": real_a.properties.model_copy(update={"year": None})})
+    pair = Overlap.model_validate(real_pair.model_copy(update={
+        "a_year": None,
+        "year_gap": None,
+        "timeline": "year unknown",
+        "savings": Savings(status="unknown_year", low_usd=None, high_usd=None,
+                           basis=None, assumption_ids=[]),
+    }).model_dump())
+    template = make_template_brief(pair, a, b, CONTACTS)
+    assert grade_brief(template, pair, a, b, CONTACTS).ok
+    document = template.model_dump()
+    document["when"] = document["when"].replace("not stated", "pending")
+    result = grade_brief(document, pair, a, b, CONTACTS)
+    assert 150 <= result.word_count <= 300
+    assert "year: unknown source year must be explicit" in result.errors

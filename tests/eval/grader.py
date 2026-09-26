@@ -161,6 +161,15 @@ def grade_brief(
     word_count = len(_WORD.findall(raw))
     if not 150 <= word_count <= 300:
         errors.append(f"length: {word_count} words, expected 150 to 300")
+    schedule_text = _source_free_text(candidate.when, project_a, project_b)
+    schedule_years = {int(value) for value in _YEAR.findall(schedule_text)}
+    for year in {value for value in (pair.a_year, pair.b_year) if value is not None}:
+        if year not in schedule_years:
+            errors.append(f"year: missing {year}")
+    if (pair.a_year is None or pair.b_year is None) and not re.search(
+        r"\b(?:not stated|unknown|not provided|unavailable)\b", schedule_text, re.I
+    ):
+        errors.append("year: unknown source year must be explicit")
     for utility in (pair.a_utility, pair.b_utility):
         if utility not in own:
             errors.append(f"utility: missing {utility}")
