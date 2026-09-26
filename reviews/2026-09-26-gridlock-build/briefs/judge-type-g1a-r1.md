@@ -1,0 +1,9 @@
+# JUDGE — G1a type design (Codex sub-agent, gpt-6-sol, high)
+
+You did not build these contracts. Your prompt is `.claude/agents/gridlock-type-design.md` in the frozen copy. Read AGENTS.md § Judges, `.agents/skills/gridlock-build/SKILL.md` §0 and §7, SPEC.md § Contracts and § Overlap rules, the role file, review-checklists §A and §G, `server/schemas.py`, `contracts/*.json`, and `tests/fixtures/api/*`. Nothing else unless needed to trace a concrete finding. Read text with `Get-Content -Encoding UTF8`.
+
+Frozen copy: `C:\Users\lucia\dev\gridlock-wt\judge-type-g1a-r1` at commit `0426747`. Verify HEAD equals that commit before review. Every command runs in that copy, never in main. Port 8781: begin every test/server command with `$env:GRIDLOCK_TEST_PORT='8781';`. `GRIDLOCK_AI=off`; Python only as `& $env:GRIDLOCK_PY`; no network or secrets. Do not sync the copy, touch product code, main, or port 8765.
+
+Built now: 230 contract-shaped projects, 477 contract-shaped overlaps, API routes, harness. WEB shell is committed on its lane but absent here, so the default browser audit is allow-listed "no web shell yet". Main VERIFY summary before freeze: `C:\Users\lucia\dev\gridlock-runs\verify\20260926-052821-880\summary.json`, exit 0, 50 passed, 1 allowed skip.
+
+Write only `reviews/2026-09-26-gridlock-build/judge-type-g1a-r1/JUDGMENT.md` in the frozen copy. Score every model 1–5 on encapsulation, impossible states, usefulness to callers, and escape hatches. Reproduce or cite each finding with file:line, concrete input and bad outcome, severity, exact validator/type fix, and whether fixtures would still validate. Zero findings is valid. End exactly with `material improvement still available: yes` or `material improvement still available: no`. Do not commit, merge, push, or edit any other file.

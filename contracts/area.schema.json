@@ -102,6 +102,7 @@
               ],
               "type": "array"
             },
+            "minItems": 2,
             "type": "array"
           },
           "minItems": 1,
@@ -133,6 +134,7 @@
           "type": "string"
         },
         "a_utility": {
+          "minLength": 1,
           "title": "A Utility",
           "type": "string"
         },
@@ -159,6 +161,7 @@
           "type": "string"
         },
         "b_utility": {
+          "minLength": 1,
           "title": "B Utility",
           "type": "string"
         },
@@ -689,13 +692,18 @@
     },
     "counts_by_band": {
       "additionalProperties": {
+        "minimum": 0,
         "type": "integer"
+      },
+      "propertyNames": {
+        "$ref": "#/$defs/Band"
       },
       "title": "Counts By Band",
       "type": "object"
     },
     "counts_by_utility": {
       "additionalProperties": {
+        "minimum": 0,
         "type": "integer"
       },
       "title": "Counts By Utility",
