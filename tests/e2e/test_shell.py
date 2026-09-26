@@ -71,7 +71,12 @@ BASEMAP = {
                 "type": "Polygon",
                 "coordinates": [[[-82.5, 31.4], [-81.2, 31.4], [-81.2, 33], [-82.5, 33], [-82.5, 31.4]]],
             },
-        }
+        },
+        {
+            "type": "Feature",
+            "properties": {"name": "Savannah city", "kind": "city_label", "state": "GA"},
+            "geometry": {"type": "Point", "coordinates": [-81.196492, 32.018043]},
+        },
     ],
 }
 
@@ -308,6 +313,45 @@ def test_tab_traversal_skips_map_paths_and_marks_map_focus(shell_server, width, 
         map_stops = [stop for stop in focus_stops if stop["id"] == "map"]
         assert map_stops and map_stops[0]["outline"] != map_outline_unfocused, focus_stops
         assert any("overlap-button" in stop["classes"] for stop in focus_stops), focus_stops
+        browser.close()
+
+
+@pytest.mark.parametrize("width,height", [(1440, 900), (390, 844)])
+def test_basemap_city_is_text_without_stock_marker_or_tab_stop(shell_server, width, height):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": width, "height": height})
+        page.goto(shell_server)
+        expect(page.get_by_test_id("basemap-feature")).to_have_count(2)
+        expect(page.get_by_test_id("city-label")).to_have_text("Savannah city")
+        assert page.locator("img.leaflet-marker-icon").count() == 0
+        for _ in range(20):
+            page.keyboard.press("Tab")
+            assert page.evaluate("document.activeElement.tagName.toLowerCase()") != "img"
+        browser.close()
+
+
+@pytest.mark.parametrize("width,height", [(1440, 900), (390, 844)])
+def test_full_basemap_keeps_city_labels_sparse(shell_server, width, height):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": width, "height": height})
+        basemap = (ROOT / "data" / "build" / "basemap.json").read_text(encoding="utf-8")
+        page.route("**/api/basemap", lambda route: route.fulfill(status=200, content_type="application/json", body=basemap))
+        page.goto(shell_server)
+        expect(page.get_by_test_id("project-feature")).to_have_count(12)
+        expect(page.locator('path[data-testid="basemap-feature"]')).to_have_count(2)
+        visible_labels = page.locator('[data-testid="city-label"]:visible')
+        assert 1 <= visible_labels.count() <= 14
+        names = visible_labels.all_text_contents()
+        assert "Savannah city" in names and "North Augusta city" in names
+        assert page.evaluate("""() => {
+          const boxes = Array.from(document.querySelectorAll('.city-label-visible'))
+            .map(label => label.getBoundingClientRect());
+          return boxes.every((a, i) => boxes.slice(i + 1).every(b =>
+            a.right <= b.left || b.right <= a.left || a.bottom <= b.top || b.bottom <= a.top));
+        }""")
+        assert page.locator("img.leaflet-marker-icon").count() == 0
         browser.close()
 
 

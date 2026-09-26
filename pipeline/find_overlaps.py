@@ -50,7 +50,12 @@ for i, g in enumerate(projected):
             continue
         label, w = BANDS[bid]
         tl, tf = timeline(a, b)
-        cross_state = "Dominion Energy SC" in (a["utility"], b["utility"])
+        a_state, b_state = a.get("state"), b.get("state")
+        cross_state = bool(a_state and b_state and a_state != b_state)
+        pair_note = (
+            "May already plan jointly through Georgia's Integrated Transmission System"
+            if a_state == b_state == "GA" else None
+        )
         acc = ACCURACY_FACTOR[a["accuracy"]] * ACCURACY_FACTOR[b["accuracy"]]
         score = round(w * tf * acc * (1.5 if cross_state else 1.0), 3)
         reason, detail = classify_touch(a, b, geoms[i], geoms[j], d)
@@ -64,9 +69,7 @@ for i, g in enumerate(projected):
             distance_km=d / 1000, band=bid, band_label=label, can_share=can_share(bid, reason),
             touch_reason=reason, touch_detail=detail,
             a_year=a.get("year"), b_year=b.get("year"), year_gap=year_gap, timeline=tl,
-            cross_state=cross_state,
-            pair_note=None if cross_state else "May already plan jointly through Georgia's Integrated Transmission System",
-            accuracy_pair=accuracy_pair, score=score,
+            cross_state=cross_state, pair_note=pair_note, accuracy_pair=accuracy_pair, score=score,
             savings={"status": "no_cost", "low_usd": None, "high_usd": None, "basis": None,
                      "assumption_ids": []}, brief_status="none"))
 
@@ -77,7 +80,7 @@ json.dump(pairs, open("overlaps.json", "w", encoding="utf-8"), ensure_ascii=Fals
 
 from collections import Counter
 print("pairs within 40 km (different utilities):", len(pairs))
-print("cross-state (Dominion vs Georgia):", sum(p["cross_state"] for p in pairs))
+print("cross-state (different known states):", sum(p["cross_state"] for p in pairs))
 print("by band:", Counter(p["band"] for p in pairs))
 print("\nTop 15:")
 for p in pairs[:15]:

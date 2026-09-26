@@ -4,6 +4,7 @@ import socket
 import os
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import pytest
@@ -22,8 +23,23 @@ def test_busy_port_fails_before_server_launch():
         listener.bind(("127.0.0.1", 0))
         listener.listen()
         port = listener.getsockname()[1]
+        started = time.monotonic()
         with pytest.raises(RuntimeError, match="already bound"):
             require_free_loopback_port(port)
+        assert time.monotonic() - started < 0.5
+
+
+def test_recently_closed_server_port_is_reusable():
+    with socket.socket() as listener:
+        listener.bind(("127.0.0.1", 0))
+        listener.listen()
+        port = listener.getsockname()[1]
+        with socket.create_connection(("127.0.0.1", port)) as client:
+            peer, _ = listener.accept()
+            peer.sendall(b"x")
+            peer.close()
+            assert client.recv(1) == b"x"
+    require_free_loopback_port(port)
 
 
 def test_server_socket_guard_rejects_non_loopback():

@@ -56,7 +56,7 @@ def test_meta_counts_all_unmapped_rows_and_production_loader_succeeds() -> None:
     assert meta.stage_counts["kept"] == 230
     assert meta.stage_counts["placed"] == 181
     assert meta.stage_counts["overlaps"] == 489
-    assert meta.stage_counts["cross_state"] == 44
+    assert meta.stage_counts["cross_state"] == 43
     assert meta.unmapped_count == 128
     assert meta.unmapped_reasons == {
         "kept_not_located": 49,

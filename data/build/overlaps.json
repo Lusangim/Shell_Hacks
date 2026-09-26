@@ -10592,38 +10592,6 @@
   "rank": 331
  },
  {
-  "id": "desc-p26__sertp-p150-ef263c",
-  "a": "desc-p26",
-  "b": "sertp-p150-ef263c",
-  "a_name": "Urquhart – Aiken PSA 46 kV: Rebuild",
-  "b_name": "MEAG: GOSHEN AREA STRATEGIC SOLUTION",
-  "a_utility": "Dominion Energy SC",
-  "b_utility": "MEAG Power",
-  "distance_km": 14.860309268519108,
-  "band": "lt_40km",
-  "band_label": "Under 40 km",
-  "can_share": "Review crew and equipment timing in the area; sharing unverified.",
-  "touch_reason": "proximity",
-  "touch_detail": "Mapped geometries are nearby; a shared asset is not established.",
-  "a_year": 2027,
-  "b_year": 2030,
-  "year_gap": 3,
-  "timeline": "3 years apart",
-  "cross_state": true,
-  "pair_note": null,
-  "accuracy_pair": "approximate",
-  "score": 0.096,
-  "savings": {
-   "status": "no_cost",
-   "low_usd": null,
-   "high_usd": null,
-   "basis": null,
-   "assumption_ids": []
-  },
-  "brief_status": "none",
-  "rank": 332
- },
- {
   "id": "desc-p7__sertp-p150-ef263c",
   "a": "desc-p7",
   "b": "sertp-p150-ef263c",
@@ -10653,7 +10621,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 333
+  "rank": 332
  },
  {
   "id": "desc-p11__sertp-p157-fb6ec2",
@@ -10685,7 +10653,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 334
+  "rank": 333
  },
  {
   "id": "desc-p12__sertp-p131-b9253c",
@@ -10717,7 +10685,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 335
+  "rank": 334
  },
  {
   "id": "desc-p11__sertp-p131-b9253c",
@@ -10749,7 +10717,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 336
+  "rank": 335
  },
  {
   "id": "desc-p11__sertp-p115-7ba30d",
@@ -10781,7 +10749,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 337
+  "rank": 336
  },
  {
   "id": "desc-p11__sertp-p130-6e8881",
@@ -10813,7 +10781,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 338
+  "rank": 337
  },
  {
   "id": "desc-p12__sertp-p115-7ba30d",
@@ -10845,7 +10813,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 339
+  "rank": 338
  },
  {
   "id": "desc-p12__sertp-p130-6e8881",
@@ -10877,7 +10845,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 340
+  "rank": 339
  },
  {
   "id": "sertp-p123-6a22d5__sertp-p77-052032",
@@ -10909,7 +10877,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 341
+  "rank": 340
  },
  {
   "id": "sertp-p123-6a22d5__sertp-p77-053bee",
@@ -10941,7 +10909,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 342
+  "rank": 341
  },
  {
   "id": "sertp-p154-b77d35__sertp-p77-052032",
@@ -10973,7 +10941,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 343
+  "rank": 342
  },
  {
   "id": "sertp-p154-b77d35__sertp-p77-053bee",
@@ -11005,7 +10973,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 344
+  "rank": 343
  },
  {
   "id": "sertp-p151-4cdf4d__sertp-p68-577cfa",
@@ -11037,7 +11005,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 345
+  "rank": 344
  },
  {
   "id": "sertp-p114-46d04f__sertp-p72-81610d",
@@ -11069,7 +11037,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 346
+  "rank": 345
  },
  {
   "id": "sertp-p124-e36f41__sertp-p72-81610d",
@@ -11101,7 +11069,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 347
+  "rank": 346
  },
  {
   "id": "sertp-p138-9aa935__sertp-p72-81610d",
@@ -11133,7 +11101,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 348
+  "rank": 347
  },
  {
   "id": "sertp-p114-46d04f__sertp-p68-a0289a",
@@ -11165,7 +11133,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 349
+  "rank": 348
  },
  {
   "id": "sertp-p122-ef2846__sertp-p77-2a6eda",
@@ -11197,7 +11165,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 350
+  "rank": 349
  },
  {
   "id": "sertp-p138-9aa935__sertp-p68-a0289a",
@@ -11229,7 +11197,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 351
+  "rank": 350
  },
  {
   "id": "sertp-p123-09973f__sertp-p77-052032",
@@ -11261,7 +11229,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 352
+  "rank": 351
  },
  {
   "id": "sertp-p123-09973f__sertp-p77-053bee",
@@ -11293,7 +11261,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 353
+  "rank": 352
  },
  {
   "id": "sertp-p119-36c257__sertp-p62-309a28",
@@ -11325,7 +11293,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 354
+  "rank": 353
  },
  {
   "id": "sertp-p120-462194__sertp-p62-309a28",
@@ -11357,7 +11325,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 355
+  "rank": 354
  },
  {
   "id": "sertp-p150-b521b3__sertp-p66-5e11aa",
@@ -11389,7 +11357,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 356
+  "rank": 355
  },
  {
   "id": "sertp-p150-b521b3__sertp-p61-d26f81",
@@ -11421,7 +11389,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 357
+  "rank": 356
  },
  {
   "id": "sertp-p157-82f655__sertp-p72-81610d",
@@ -11453,7 +11421,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 358
+  "rank": 357
  },
  {
   "id": "sertp-p169-01fa48__sertp-p79-edc2be",
@@ -11485,7 +11453,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 359
+  "rank": 358
  },
  {
   "id": "sertp-p123-f7ecfd__sertp-p71-043fe1",
@@ -11517,7 +11485,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 360
+  "rank": 359
  },
  {
   "id": "sertp-p155-7ff70e__sertp-p71-043fe1",
@@ -11549,7 +11517,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 361
+  "rank": 360
  },
  {
   "id": "sertp-p155-e79282__sertp-p71-043fe1",
@@ -11581,7 +11549,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 362
+  "rank": 361
  },
  {
   "id": "sertp-p161-47dc78__sertp-p71-043fe1",
@@ -11613,7 +11581,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 363
+  "rank": 362
  },
  {
   "id": "sertp-p155-e79282__sertp-p92-ade224",
@@ -11645,7 +11613,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 364
+  "rank": 363
  },
  {
   "id": "sertp-p151-4cdf4d__sertp-p87-09a00f",
@@ -11677,7 +11645,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 365
+  "rank": 364
  },
  {
   "id": "sertp-p143-f6d025__sertp-p79-edc2be",
@@ -11709,7 +11677,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 366
+  "rank": 365
  },
  {
   "id": "sertp-p146-d047ea__sertp-p94-a1e873",
@@ -11741,7 +11709,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 367
+  "rank": 366
  },
  {
   "id": "sertp-p147-d53bc7__sertp-p94-a1e873",
@@ -11773,7 +11741,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 368
+  "rank": 367
  },
  {
   "id": "sertp-p155-7ff70e__sertp-p92-ade224",
@@ -11805,7 +11773,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 369
+  "rank": 368
  },
  {
   "id": "sertp-p154-b77d35__sertp-p97-703568",
@@ -11837,7 +11805,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 370
+  "rank": 369
  },
  {
   "id": "sertp-p146-d047ea__sertp-p168-83867b",
@@ -11869,7 +11837,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 371
+  "rank": 370
  },
  {
   "id": "sertp-p146-d047ea__sertp-p80-72152b",
@@ -11901,7 +11869,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 372
+  "rank": 371
  },
  {
   "id": "sertp-p147-d53bc7__sertp-p168-83867b",
@@ -11933,7 +11901,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 373
+  "rank": 372
  },
  {
   "id": "sertp-p147-d53bc7__sertp-p80-72152b",
@@ -11965,7 +11933,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 374
+  "rank": 373
  },
  {
   "id": "sertp-p103-4236a7__sertp-p163-747f37",
@@ -11997,7 +11965,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 375
+  "rank": 374
  },
  {
   "id": "sertp-p123-09973f__sertp-p72-eda876",
@@ -12029,7 +11997,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 376
+  "rank": 375
  },
  {
   "id": "sertp-p144-679dd1__sertp-p89-07d5e3",
@@ -12061,7 +12029,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 377
+  "rank": 376
  },
  {
   "id": "sertp-p149-352641__sertp-p163-747f37",
@@ -12093,7 +12061,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 378
+  "rank": 377
  },
  {
   "id": "sertp-p123-6a22d5__sertp-p72-eda876",
@@ -12125,7 +12093,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 379
+  "rank": 378
  },
  {
   "id": "sertp-p154-b77d35__sertp-p72-eda876",
@@ -12157,7 +12125,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 380
+  "rank": 379
  },
  {
   "id": "sertp-p154-b77d35__sertp-p99-37c995",
@@ -12189,7 +12157,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 381
+  "rank": 380
  },
  {
   "id": "sertp-p151-4cdf4d__sertp-p73-0d42c5",
@@ -12221,7 +12189,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 382
+  "rank": 381
  },
  {
   "id": "sertp-p151-4cdf4d__sertp-p73-63227a",
@@ -12253,7 +12221,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 383
+  "rank": 382
  },
  {
   "id": "sertp-p141-04dd4b__sertp-p90-6f9743",
@@ -12285,7 +12253,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 384
+  "rank": 383
  },
  {
   "id": "sertp-p149-352641__sertp-p160-233069",
@@ -12317,7 +12285,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 385
+  "rank": 384
  },
  {
   "id": "sertp-p160-233069__sertp-p78-4a64fb",
@@ -12349,7 +12317,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 386
+  "rank": 385
  },
  {
   "id": "sertp-p148-d26e0e__sertp-p161-47dc78",
@@ -12381,7 +12349,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 387
+  "rank": 386
  },
  {
   "id": "sertp-p161-47dc78__sertp-p89-07d5e3",
@@ -12413,7 +12381,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 388
+  "rank": 387
  },
  {
   "id": "sertp-p125-3f7c7f__sertp-p168-45a687",
@@ -12445,7 +12413,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 389
+  "rank": 388
  },
  {
   "id": "sertp-p146-f32011__sertp-p168-45a687",
@@ -12477,7 +12445,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 390
+  "rank": 389
  },
  {
   "id": "sertp-p122-ef2846__sertp-p77-052032",
@@ -12509,7 +12477,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 391
+  "rank": 390
  },
  {
   "id": "sertp-p122-ef2846__sertp-p77-053bee",
@@ -12541,7 +12509,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 392
+  "rank": 391
  },
  {
   "id": "sertp-p124-e36f41__sertp-p77-052032",
@@ -12573,7 +12541,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 393
+  "rank": 392
  },
  {
   "id": "sertp-p124-e36f41__sertp-p77-053bee",
@@ -12605,7 +12573,7 @@
    "assumption_ids": []
   },
   "brief_status": "none",
-  "rank": 394
+  "rank": 393
  },
  {
   "id": "sertp-p143-f6d025__sertp-p94-a1e873",
@@ -12623,6 +12591,38 @@
   "touch_detail": "Mapped geometries are nearby; a shared asset is not established.",
   "a_year": 2030,
   "b_year": 2027,
+  "year_gap": 3,
+  "timeline": "3 years apart",
+  "cross_state": false,
+  "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
+  "accuracy_pair": "approximate",
+  "score": 0.064,
+  "savings": {
+   "status": "no_cost",
+   "low_usd": null,
+   "high_usd": null,
+   "basis": null,
+   "assumption_ids": []
+  },
+  "brief_status": "none",
+  "rank": 394
+ },
+ {
+  "id": "desc-p26__sertp-p150-ef263c",
+  "a": "desc-p26",
+  "b": "sertp-p150-ef263c",
+  "a_name": "Urquhart – Aiken PSA 46 kV: Rebuild",
+  "b_name": "MEAG: GOSHEN AREA STRATEGIC SOLUTION",
+  "a_utility": "Dominion Energy SC",
+  "b_utility": "MEAG Power",
+  "distance_km": 14.860309268519108,
+  "band": "lt_40km",
+  "band_label": "Under 40 km",
+  "can_share": "Review crew and equipment timing in the area; sharing unverified.",
+  "touch_reason": "proximity",
+  "touch_detail": "Mapped geometries are nearby; a shared asset is not established.",
+  "a_year": 2027,
+  "b_year": 2030,
   "year_gap": 3,
   "timeline": "3 years apart",
   "cross_state": false,

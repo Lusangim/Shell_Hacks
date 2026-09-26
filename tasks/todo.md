@@ -64,7 +64,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 
 ## Phase 1 — Walking skeleton (DATA ∥ API ∥ WEB) → G1
 
-- [ ] **T1.1 Project fields** (DATA)
+- [x] **T1.1 Project fields** (DATA) — `7298579`, merged; 37 focused fields/completeness checks, 98 lane quick-gate checks, five PDF cost hand-checks, 481/230/181/477/44 and top ten preserved
   - Acceptance: year from in-service text (invalid "04/31/26"/"06/31/2026"; phased → last phase); cost read **by column** (Previous, years, Total) with `cost_flags` (`printed_total_differs_from_sum` — e.g. 6846 A prints $1,238,443 but its columns sum to $2,088,443; `below_list_threshold`); voltage, type, miles; names and descriptions **verbatim** (remove the en-dash rewrite in `extract.py`); NFKC + control/zero-width stripping; parser completeness: every "Project Name:" marker is a row or a listed exclusion (TVA pp. 171–181 "In- Service"); unknowns null.
   - Verify: `tests/pipeline/test_fields.py` (≥ 20 real cases incl. the odd dates, both low costs, the p.133 duplicate) + `test_completeness.py`; five costs hand-checked against their pages in the report.
 - [x] **T1.5 Build extras** (DATA) — `24e50d8`, merged after G1a; focused 3 passed, main quick gate 61 passed / 1 named skip
@@ -76,7 +76,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [x] **T1.3 Web shell** (WEB) — `c1e4e6c` plus `a371314` axe correction, merged; main quick gate 73 passed, 11 shell passed, default audit 1 passed
   - Acceptance: layout per `references/ui-contract.md` + `DIRECTION.md` (desktop map + side panel; 390 px bottom sheet); Leaflet SVG; local basemap from `basemap.json`; tokens light/dark (the utility palette from `DIRECTION.md`, already checked with the `dataviz` validator); `theme-init.js` external, loaded before first paint; projects coloured by utility, accuracy styled (solid / dashed / listed only); ranked overlaps list; loading / empty / error states; data via `textContent` with `data-src`; map tooltips as DOM nodes; `<noscript>` notice; footer disclaimer and the loaded plan editions with their dates from `/api/meta` (e.g. "SERTP 2025 regional plan · DESC SCRTP 2026–2030 list"; prior art: provenance earns trust).
   - Verify (per the e2e path set in T0.6): `tests/e2e/test_shell.py` — map features = API placed-project count; list ≥ 10; 0 console errors at 1440/390; malicious-string fixture rendered as text in list and tooltip.
-- [ ] **T1.4a Quick-gate audits** (LEAD)
+- [x] **T1.4a Quick-gate audits** (LEAD) — three 17-check audit/proof passes; main quick gate 135 suite + 17 shell + 18 audit, no skips; `reviews/2026-09-26-gridlock-build/lead/T1.4a.md`
   - Acceptance: `tests/e2e/audits/` checks 1, 2, 3, 6, 7 (demo-path subset), 10, 15 of the ui-contract gate, ported from the four Lucky website auditors (in-page JS reused in Python Playwright; their three flaws fixed) + axe; conventions: role/label/`data-testid` locators, wait on responses never sleeps, each new test run 3× before it enters the baseline.
   - Verify: each check fails on a deliberately broken scratch page, then passes on the shell.
 

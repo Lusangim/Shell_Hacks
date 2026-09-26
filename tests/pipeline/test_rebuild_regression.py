@@ -53,7 +53,7 @@ def test_offline_rebuild_preserves_counts_pairs_and_bytes(monkeypatch: pytest.Mo
     assert meta["stage_counts"]["kept"] == 230
     assert meta["stage_counts"]["placed"] == 181
     assert meta["stage_counts"]["overlaps"] == 489
-    assert meta["stage_counts"]["cross_state"] == 44
+    assert meta["stage_counts"]["cross_state"] == 43
     assert meta["stage_counts"]["source_rows"] == (
         meta["stage_counts"]["kept"] + sum(ledger["dropped_by_reason"].values())
     )
