@@ -1,0 +1,20 @@
+# WEB — T4.3 judged presentation and phone accessibility corrections
+
+Sub-agent of the Codex lead, most capable model, high reasoning. Work only in `C:\Users\lucia\dev\gridlock-wt\web-t43` on `wt/web-t43`, from main `07ae0ac`. One task, one commit: `WEB: T4.3 judged presentation and phone fixes`. Port 8777.
+
+Read first: AGENTS.md; .agents/skills/gridlock-build/SKILL.md §0/§2; SPEC.md § Contracts/Overlap rules/Code style/Boundaries; definition-of-done.md; house-patterns.md; ui-contract.md; DIRECTION-v2.md; review-checklists §A/§D/§E/§F/§J/§K. Read the six G3 judgments on main read-only, especially JDOMAIN-01/02, JREL-01, JCOPY-01, JA11Y-01, with their screenshots and acceptance checks. No judging round or design invention.
+
+## Acceptance
+- JDOMAIN-01: for a real inferred utility such as `sertp-p107-9bc088`, label its utility `Georgia Power (inferred)` in ranked list, project and pair summary, map tooltip, and selected-pair print detail through the shared summary. Stated utility stays plain. Keep canonical utility unchanged for filtering, contacts, schema and map colour. Do not imply source-stated ownership.
+- JDOMAIN-02: in shared project summary, preserve the printed plan cost and show readable adjacent warnings for `printed_total_differs_from_sum` and `below_list_threshold`, including standalone, pair and selected print detail; no warning for unflagged `desc-p41`. Keep answer-first and at most three bullets; no raw enum on screen.
+- JREL-01: 390 px collapsed-sheet search visibly exposes loading, no-match and 503/recovery feedback in an accessible live region while input remains usable. Keep initial phone map/two-row layout; desktop unchanged. Assert `to_be_visible()`, not only text.
+- JCOPY-01: `?year_min=2199` Projects explains zero results from active filters and tells the reader how to clear them. Preserve distinct actual empty-dataset, search-only empty and load-error messages.
+- JA11Y-01: when the phone sheet is expanded by click, pair or area path, Tab/Shift+Tab must never focus a timeline control hidden behind the opaque sheet. On focus, expose the actual timeline and visible focus/value (for example collapse the sheet before focus settles); include pointer occlusion/hit-test or screenshot proof at 390 light/dark. Check other background map controls reached by keyboard. Keep 768/1440 and collapsed phone behavior.
+
+## You own
+`web/js/project-detail.js`, `web/js/list.js`, `web/js/map.js`, `web/js/app.js`, `web/css/app.css`, WEB-owned `tests/e2e/test_project_detail.py` and a new `tests/e2e/test_t43_web.py` if useful, and your report `reviews/2026-09-26-gridlock-build/web-t43/T4.3.md`. Other files are read-only, including WEB-2's `web/js/search.js`, `web/js/export.js`, `web/js/tour*.js`, `web/css/tour.css`, their tests, API/server files, frozen `server/schemas.py` and `contracts/`. If a fix needs another owner, write a precise “For WEB-2/API” patch in your report rather than editing.
+
+## Verification and rules
+Write failing browser checks before product edits; capture RED and GREEN, including the actual judged real IDs. Run focused tests and then `scripts\quick-gate.ps1` on your branch with each test/server command beginning `$env:GRIDLOCK_TEST_PORT='8777'; $env:GRIDLOCK_AI='off'; $env:GRIDLOCK_GOOGLE='off';`. Python only `& $env:GRIDLOCK_PY`; Playwright browser path is preconfigured. Quick gate baseline 674. No network, installs, real Google/Claude/key access, credential/.env/debug.log reads, env prints, 8765, push/deploy/send. Run every command inside your worktree, never the main copy. Read text using `Get-Content -Encoding UTF8`; edit repo text via apply_patch. Stage exact owned paths; never `git add -A`, stash, clean or reset-hard. Do not merge or touch main. If a fix adds errors, survives three attempts, or needs another lane/contract change, park and report per AGENTS, with your work committed. Stop your browsers/servers and report the port state.
+
+Final message and saved report: changed files; each acceptance line with before/after check output; focused and quick-gate totals; deviations; “For WEB-2/API” patches; questions; one dated lesson. Report only checks you ran.
