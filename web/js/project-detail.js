@@ -10,15 +10,75 @@ function sourced(tag, value, name) {
   return element;
 }
 
-function field(list, label, value, source) {
-  const row = document.createElement("div");
-  row.className = "project-field";
-  const title = document.createElement("dt");
-  title.textContent = label;
-  const content = document.createElement("dd");
-  content.append(sourced("span", value, source));
-  row.append(title, content);
-  list.append(row);
+export function money(value) {
+  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
+}
+
+export function readableEvidence(value, projects = []) {
+  let result = value ?? "not stated";
+  // Only presentation changes: summaries use structured fields, never extracted prose.
+  for (const project of projects) {
+    const props = project.properties;
+    result = result.replaceAll(props.id, `${props.utility} project`);
+  }
+  return result.replace(/\b(?:desc-p\d+|sertp-p\d+-[a-f0-9]+(?:-\d+)?)(?:__(?:desc-p\d+|sertp-p\d+-[a-f0-9]+(?:-\d+)?))?\b/g, "project")
+    .replace(/\bdata[\\/][^\s;)]+/g, "committed source file")
+    .replace(/\b[A-Za-z]:[\\/][^\s;)]+/g, "local source file")
+    .replace(/\bTAP\d+\b/g, "archived line feature")
+    .replace(/\b[a-z]+(?:_[a-z0-9]+)+\b/g, (label) => label.replaceAll("_", " "));
+}
+
+export function touchReasonLabel(reason) {
+  return { same_substation: "Same named substation", shared_endpoint: "Shared named endpoint",
+    lines_cross: "Mapped lines cross", proximity: "Nearby mapped locations",
+    same_area_approximate: "Same approximate area" }[reason] ?? "Relationship not stated";
+}
+
+export function detailBlock(answer, source, disclosureLabel, bullets = []) {
+  const block = document.createElement("section");
+  block.className = "detail-block";
+  const lead = sourced("p", answer, source);
+  lead.className = "detail-answer";
+  const list = document.createElement("ul");
+  list.className = "detail-points";
+  for (const bullet of bullets) list.append(bullet);
+  const disclosure = document.createElement("details");
+  const summary = document.createElement("summary");
+  summary.textContent = disclosureLabel;
+  disclosure.append(summary);
+  block.append(lead, list, disclosure);
+  return { block, list, disclosure };
+}
+
+export function projectSummary(feature, includeName = true) {
+  const props = feature.properties;
+  const container = document.createElement("div");
+  container.className = "overlap-project";
+  if (includeName) container.append(sourced("h3", props.name, "name"));
+  const summary = detailBlock(props.utility, "utility", "Source text", [
+    sourced("li", `In service: ${props.in_service ?? "not stated"}`, "in_service"),
+  ]);
+  const cost = document.createElement("li");
+  cost.append(document.createTextNode("Plan cost: "), sourced("span",
+    props.cost_basis === "plan" && Number.isFinite(props.cost_usd) ? money(props.cost_usd) : "not stated", "cost_usd"));
+  summary.list.append(cost);
+  summary.block.insertBefore(citation(props.source), summary.list);
+  summary.disclosure.append(sourced("p", props.description, "description"),
+    sourced("p", props.need, "need"), sourced("p", `Status: ${props.status ?? "not stated"}`, "status"));
+  const location = detailBlock(`Location: ${props.accuracy ?? "unknown"}`, "accuracy", "Location sources", [
+    sourced("li", !feature.geometry ? "Proximity cannot be assessed." : feature.geometry.type === "Point"
+      ? "Shown as a mapped point." : "Shown as a mapped line.", "geometry"),
+    sourced("li", "Construction limits are not verified.", "location_caveat"),
+  ]);
+  location.disclosure.append(sourced("p", readableEvidence(props.location_source, [feature]), "location_source"));
+  container.append(summary.block, location.block);
+  return container;
+}
+
+export function projectAbsenceMessage(feature, filtered) {
+  if (!feature?.geometry) return "Location unknown; proximity cannot be assessed.";
+  return filtered ? "No related overlaps are shown by the current filters."
+    : "This placed project has no overlap within 40 km in the loaded plans.";
 }
 
 export function citation(source) {
@@ -50,6 +110,7 @@ export function setupProjectDetail() {
   let previousView = "overlaps";
   let selectedButton = null;
   let loadError = false;
+  let filtered = false;
 
   function showView(next) {
     view = next;
@@ -74,9 +135,10 @@ export function setupProjectDetail() {
       : visible === 0 ? "No projects match this search." : `${visible} projects shown.`;
   }
 
-  function renderProjects(features, pairs) {
+  function renderProjects(features, pairs, hasFilters = false) {
     projects = features;
     overlaps = pairs;
+    filtered = hasFilters;
     loadError = false;
     list.replaceChildren();
     for (const feature of projects) {
@@ -109,31 +171,12 @@ export function setupProjectDetail() {
     const fields = document.getElementById("project-fields");
     const related = document.getElementById("project-overlaps");
     document.getElementById("project-detail-heading").textContent = props.name;
-    const values = document.createElement("dl");
-    values.className = "project-fields";
-    field(values, "Utility", props.utility, "utility");
-    field(values, "Description", props.description, "description");
-    field(values, "In service", props.in_service, "in_service");
-    field(values, "Location", `${props.accuracy ?? "unknown"} location`, "accuracy");
-    field(values, "Location basis", props.location_source, "location_source");
-    const cost = props.cost_basis === "plan" && Number.isFinite(props.cost_usd)
-      ? new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(props.cost_usd)
-      : "not stated";
-    field(values, "Plan cost", cost, "cost_usd");
-    const sourceRow = document.createElement("div");
-    sourceRow.className = "project-field";
-    const sourceTitle = document.createElement("dt");
-    sourceTitle.textContent = "Source";
-    const sourceValue = document.createElement("dd");
-    sourceValue.append(citation(props.source));
-    sourceRow.append(sourceTitle, sourceValue);
-    values.append(sourceRow);
-    fields.replaceChildren(values);
+    fields.replaceChildren(projectSummary(feature, false));
 
     related.replaceChildren();
     const matching = overlaps.filter((pair) => pair.a === props.id || pair.b === props.id);
     if (matching.length === 0) {
-      related.textContent = "This project has no overlap within 40 km.";
+      related.textContent = projectAbsenceMessage(feature, filtered);
     } else {
       const items = document.createElement("ol");
       items.className = "project-related";

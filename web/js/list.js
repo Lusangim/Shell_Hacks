@@ -1,6 +1,6 @@
 import { state } from "./state.js";
 import { fitPairBounds, highlightPair } from "./map.js";
-import { citation } from "./project-detail.js";
+import { citation, projectAbsenceMessage } from "./project-detail.js";
 
 function field(tag, value, source, className = "") {
   const element = document.createElement(tag);
@@ -83,10 +83,15 @@ export function renderList(overlaps, projects) {
   document.getElementById("overlap-count").textContent = `${overlaps.length} pairs`;
 }
 
-export function selectFirstOverlapForProject(projectId) {
+export function selectFirstOverlapForProject(projectId, hasFilters = false) {
   const overlap = state.overlaps.find((pair) => pair.a === projectId || pair.b === projectId);
   if (!overlap) {
-    document.getElementById("status").textContent = "This project has no overlap within 40 km.";
+    const feature = state.projects.find((project) => project.properties.id === projectId);
+    state.selectedOverlapId = null;
+    highlightPair(null);
+    document.querySelectorAll(".overlap-button[aria-pressed]").forEach((button) => button.setAttribute("aria-pressed", "false"));
+    document.getElementById("map-pair-open").hidden = true;
+    document.getElementById("status").textContent = projectAbsenceMessage(feature, hasFilters);
     return;
   }
   const row = Array.from(document.querySelectorAll(".overlap-row")).find((item) => item.dataset.overlapId === overlap.id);
