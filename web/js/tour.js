@@ -109,10 +109,8 @@ export function setupTour() {
       }
       if (step.prepare === "pair" && !visible(document.querySelector(step.target))) {
         const pair = document.querySelector(".overlap-button");
-        if (visible(pair)) {
-          pair.click();
-          await waitForTarget(step.target);
-        }
+        if (visible(pair)) pair.click();
+        await waitForTarget(step.target);
       }
       if (step.prepare === "export") {
         const legend = document.querySelector(".legend");

@@ -1,4 +1,4 @@
-.tour-entry { position: fixed; z-index: 1400; top: 112px; right: 16px; display: flex; align-items: center; gap: 8px; padding: 8px; border: 1px solid var(--rule-strong); border-radius: 8px; background: var(--panel); font-size: 14px; }
+.tour-entry { position: fixed; z-index: 1400; top: 112px; right: 80px; display: flex; align-items: center; gap: 8px; padding: 8px; border: 1px solid var(--rule-strong); border-radius: 8px; background: var(--panel); font-size: 14px; }
 .tour-entry button, #tour-launch, .tour-controls button { min-height: 44px; min-width: 44px; padding: 8px 12px; border: 1px solid var(--rule-strong); border-radius: 4px; color: var(--ink); background: var(--panel); font: inherit; }
 .tour-entry[hidden], .tour-entry [hidden], .tour-card[hidden] { display: none; }
 .title-line { gap: 8px; }
@@ -17,7 +17,7 @@
 .tour-controls button:disabled { color: var(--pencil); }
 .tour-controls button:nth-child(2) { background: var(--ink); color: var(--panel); }
 @media (max-width: 700px) {
-  .tour-entry { top: 64px; right: 16px; }
+  .tour-entry { top: 64px; right: 80px; max-width: calc(100vw - 96px); }
   .panel.expanded .tour-entry { position: static; margin-top: 8px; }
   .tour-card { left: 16px; top: 16px; width: calc(100vw - 32px); max-height: calc(100dvh - 32px); padding: 16px; }
   .tour-card[data-placement="bottom"] { top: auto; bottom: 16px; }

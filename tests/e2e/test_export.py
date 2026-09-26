@@ -29,6 +29,30 @@ def assert_readable_report(report):
     assert report.locator("details:not([open])").count() == 0
 
 
+@pytest.mark.parametrize("width", [1440, 390])
+def test_ranked_print_qualifies_only_inferred_utilities(live_server, width):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": width, "height": 900})
+        page.add_init_script("window.print = () => { window.printCalls = 1; }")
+        page.goto(live_server)
+        expect(page.locator(".overlap-button").first).to_be_visible()
+        open_reports(page)
+        page.get_by_role("button", name="Print report", exact=True).click()
+        page.wait_for_function("() => window.printCalls === 1")
+        projects = {item["properties"]["id"]: item["properties"] for item in
+                    page.request.get(f"{live_server}/api/projects").json()["features"]}
+        pairs = page.request.get(f"{live_server}/api/overlaps").json()
+        labels = page.locator('#print-report tbody [data-src="utility"]').all_text_contents()
+        expected = [projects[pair[key]]["utility"] +
+                    (" (inferred)" if projects[pair[key]]["utility_basis"] == "inferred_from_location" else "")
+                    for pair in pairs for key in ("a", "b")]
+        assert "Georgia Power (inferred)" in expected
+        assert "Dominion Energy SC" in expected
+        assert labels == expected
+        browser.close()
+
+
 @pytest.mark.parametrize("pair_id,source_page", [
     ("desc-p41__sertp-p107-9bc088", 107),
     ("desc-p41__sertp-p111-fe1e3b", 111),
@@ -344,7 +368,10 @@ def test_print_readable_selected_and_full_ranked_evidence(live_server, rank):
         features = page.request.get(f"{live_server}/api/projects").json()["features"]
         projects = {feature["properties"]["id"]: feature["properties"] for feature in features}
         assert rows.locator('[data-src="name"]').all_text_contents() == [projects[item[key]]["name"] for item in pairs for key in ("a", "b")]
-        assert rows.locator('[data-src="utility"]').all_text_contents() == [projects[item[key]]["utility"] for item in pairs for key in ("a", "b")]
+        assert rows.locator('[data-src="utility"]').all_text_contents() == [
+            projects[item[key]]["utility"] +
+            (" (inferred)" if projects[item[key]]["utility_basis"] == "inferred_from_location" else "")
+            for item in pairs for key in ("a", "b")]
         assert rows.locator('[data-src="source"]').all_text_contents() == [
             f'{projects[item[key]]["source"]["doc"]}, p. {projects[item[key]]["source"]["page"]}'
             for item in pairs for key in ("a", "b")]

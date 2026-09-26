@@ -292,14 +292,14 @@ def test_two_bluffton_places_can_each_be_selected_by_keyboard(live_server):
         values = options.evaluate_all("nodes => nodes.map(node => node.value)")
         assert len(set(values)) == 2, values
         centers = set()
-        for value in values:
+        for value, result in zip(values, expected, strict=True):
             search.fill("Bluffton")
             expect(options).to_have_count(2)
             search.fill(value)
             search.press("Enter")
             expect(page.get_by_test_id("search-selection").locator('[data-src="label"]')).to_have_text("Bluffton town")
-            wait_for_search_center(page, next(item for item in expected
-                                   if (item["ref"] or f'{item["lat"]}, {item["lon"]}') in value))
+            assert value == f'Bluffton town (place {expected.index(result) + 1} of 2)'
+            wait_for_search_center(page, result)
             centers.add(tuple(page.evaluate("""async () => {
               const { state } = await import('/web/js/state.js');
               const center = state.map.getCenter();
@@ -309,21 +309,34 @@ def test_two_bluffton_places_can_each_be_selected_by_keyboard(live_server):
         browser.close()
 
 
-def test_duplicate_project_choices_keep_distinct_source_refs(live_server):
+@pytest.mark.parametrize("width", [1440, 390])
+@pytest.mark.parametrize("query", ["WANSLEY 500 KV", "GTC: MCDONOUGH – SOUTH GRIFFIN"])
+def test_duplicate_project_choices_keep_distinct_source_refs(live_server, width, query):
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
-        page = browser.new_page()
+        page = browser.new_page(viewport={"width": width, "height": 900}, reduced_motion="reduce")
         page.goto(live_server)
-        expected = page.request.get(f"{live_server}/api/search?q=WANSLEY%20500%20KV").json()
+        expected = page.request.get(f"{live_server}/api/search", params={"q": query}).json()
         assert len(expected) == 2
         assert len({item["ref"] for item in expected}) == 2
         search = page.get_by_label("Search a city or project")
-        search.fill("WANSLEY 500 KV")
+        search.fill(query)
         options = page.locator("#search-options option")
         expect(options).to_have_count(2)
         values = options.evaluate_all("nodes => nodes.map(node => node.value)")
         assert len(set(values)) == 2, values
-        assert all(any(item["ref"] in value for value in values) for item in expected)
+        labels = options.evaluate_all("nodes => nodes.map(node => node.label)")
+        assert values == labels
+        assert all("desc-p" not in value and "sertp-p" not in value for value in values)
+        for index, (value, result) in enumerate(zip(values, expected, strict=True), 1):
+            assert value == f'{result["label"]} (project {index} of 2)'
+            search.fill(query)
+            expect(options).to_have_count(2)
+            search.fill(value)
+            search.press("Enter")
+            expect(search).to_have_value(value)
+            expect(page.get_by_test_id("search-selection")).to_contain_text(result["label"])
+            wait_for_search_center(page, result)
         browser.close()
 
 
