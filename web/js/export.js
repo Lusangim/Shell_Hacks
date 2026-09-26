@@ -1,4 +1,5 @@
-import { citation } from "./project-detail.js";
+import { citation, money, readableEvidence, touchReasonLabel } from "./project-detail.js";
+import { renderOverlapDetail } from "./overlap-detail.js";
 import { state } from "./state.js";
 
 const ASSUMPTIONS = new Map([
@@ -26,9 +27,6 @@ function distanceText(value) {
 
 function savingsText(savings) {
   if (savings?.status === "range" && Number.isFinite(savings.low_usd) && Number.isFinite(savings.high_usd)) {
-    const money = (value) => new Intl.NumberFormat("en-US", {
-      style: "currency", currency: "USD", maximumFractionDigits: 0,
-    }).format(value);
     return `${money(savings.low_usd)} to ${money(savings.high_usd)} estimate`;
   }
   const reasons = {
@@ -69,25 +67,14 @@ function selectedBlock(payload, selectedId) {
     section.append(text("p", selectedId ? "Selected overlap detail unavailable. Prepare the report again from Print report." : "No overlap selected. Choose a ranked pair to include its detail."));
     return section;
   }
-  const { overlap: pair, project_a: a, project_b: b, savings } = payload;
-  field(section, "Overlap ID", pair.id, "id");
+  const pair = payload.overlap;
   if (!state.overlaps.some((item) => item.id === pair.id)) section.append(text("p", "Selected pair is outside the current filters."));
-  section.append(text("h3", "Project A"), projectBlock(a), text("h3", "Project B"), projectBlock(b));
-  section.append(text("h3", "Coordination evidence"));
-  field(section, "Distance", distanceText(pair.distance_km), "distance_km");
-  field(section, "Band", pair.band_label, "band_label");
-  if (pair.accuracy_pair === "approximate") {
-    section.append(text("p", pair.band === "touching"
-      ? "Approximate locations: possibly touching; physical scope is unverified."
-      : "Approximate locations; physical scope is unverified."));
-  }
-  field(section, "Year gap", pair.year_gap == null ? "not stated" : `${pair.year_gap} years`, "year_gap");
-  field(section, "Touch reason", pair.touch_reason, "touch_reason");
-  field(section, "Source evidence", pair.touch_detail, "touch_detail");
-  field(section, "Opportunity", pair.can_share, "can_share");
-  field(section, "Pair note", pair.pair_note, "pair_note");
-  field(section, "Screening savings", savingsText(savings), "savings_range");
-  field(section, "Estimate basis", savings.basis, "savings_basis");
+  const detail = document.createElement("div");
+  renderOverlapDetail(payload, detail, section.querySelector("h2"));
+  // Paper keeps every evidence disclosure open, including verbatim source descriptions.
+  for (const disclosure of detail.querySelectorAll("details")) disclosure.open = true;
+  field(detail.querySelector("details"), "Nearest mapped distance", distanceText(pair.distance_km), "distance_km");
+  section.append(detail);
   section.append(text("h3", "Coordination status"));
   coordinationField(section);
   return section;
@@ -98,7 +85,7 @@ function rankedTable(projects) {
   table.append(text("caption", `${state.overlaps.length} ranked overlaps`));
   const header = document.createElement("thead");
   const headings = document.createElement("tr");
-  for (const label of ["Rank / ID", "Project A / source", "Project B / source", "Distance / timing / evidence", "Screening savings", "Coordination status"]) {
+  for (const label of ["Rank", "Project A / source", "Project B / source", "Distance / timing / evidence", "Screening savings", "Coordination status"]) {
     const cell = text("th", label);
     cell.scope = "col";
     headings.append(cell);
@@ -107,15 +94,16 @@ function rankedTable(projects) {
   const body = document.createElement("tbody");
   for (const pair of state.overlaps) {
     const row = document.createElement("tr");
-    const rank = text("td", `${pair.rank}\n${pair.id}`, "rank");
+    const rank = text("td", String(pair.rank), "rank");
+    const context = [projects.get(pair.a), projects.get(pair.b)].filter(Boolean);
     const evidence = document.createElement("td");
     field(evidence, "Distance", distanceText(pair.distance_km), "distance_km");
     field(evidence, "Band", pair.band_label, "band_label");
     field(evidence, "Year gap", pair.year_gap == null ? "not stated" : `${pair.year_gap} years`, "year_gap");
-    field(evidence, "Touch reason", pair.touch_reason, "touch_reason");
-    field(evidence, "Source evidence", pair.touch_detail, "touch_detail");
+    field(evidence, "Touch reason", touchReasonLabel(pair.touch_reason), "touch_reason");
+    field(evidence, "Source evidence", readableEvidence(pair.touch_detail, context), "touch_detail");
     const savings = text("td", "");
-    savings.append(text("p", savingsText(pair.savings), "savings_range"), text("p", pair.savings?.basis, "savings_basis"));
+    savings.append(text("p", savingsText(pair.savings), "savings_range"), text("p", readableEvidence(pair.savings?.basis, context), "savings_basis"));
     const blank = document.createElement("td");
     coordinationField(blank);
     row.append(rank, projectBlock(projects.get(pair.a), "td"), projectBlock(projects.get(pair.b), "td"), evidence, savings, blank);
@@ -125,6 +113,16 @@ function rankedTable(projects) {
   return table;
 }
 
+function filterLabels(query) {
+  const labels = { utility: "Utility", voltage_kv: "Voltage", year_min: "In service from",
+    year_max: "In service through", project_type: "Project type", band: "Distance band", cross_state: "Cross-state" };
+  const values = { touching: "Touching / crossing", lt_1_6km: "Under 1.6 km", lt_8km: "Under 8 km", lt_40km: "Under 40 km",
+    new_line: "New line", rebuild_line: "Rebuild line", reconductor: "Reconductor", new_substation: "New substation",
+    substation_upgrade: "Substation upgrade", equipment: "Equipment", other: "Other", true: "Yes", false: "No" };
+  return [...new URLSearchParams(query)].map(([key, value]) =>
+    `${labels[key] ?? "Filter"}: ${key === "voltage_kv" ? `${value} kV` : values[value] ?? readableEvidence(value)}`).join("; ") || "All overlaps";
+}
+
 function renderReport(report, query, payload, ready) {
   report.replaceChildren(text("h1", "GridLock coordination report"));
   if (!ready) {
@@ -132,13 +130,13 @@ function renderReport(report, query, payload, ready) {
     return;
   }
   field(report, "Prepared", new Date().toLocaleString("en-US"), "report_date");
-  field(report, "Filters", [...new URLSearchParams(query)].map(([key, value]) => `${key}: ${value}`).join("; ") || "All overlaps", "filters");
+  field(report, "Filters", filterLabels(query), "filters");
   field(report, "Timeline emphasis", state.timelineYear ?? "All years", "timeline_year");
   report.append(text("p", "Timeline emphasis does not change ranked or exported rows. Coordination opportunities and shared assets are unverified. Estimates are for discussion only; no realized savings are claimed."));
   report.append(selectedBlock(payload, state.selectedOverlapId));
   report.append(text("h2", "Team assumptions"));
   const ids = new Set([...state.overlaps.flatMap((pair) => pair.savings?.assumption_ids ?? []), ...(payload?.savings?.assumption_ids ?? [])]);
-  for (const id of ids) report.append(text("p", ASSUMPTIONS.get(id) ?? `Assumption ${id}: details unavailable.`, "assumption"));
+  for (const id of ids) report.append(text("p", ASSUMPTIONS.get(id) ?? "Assumption details unavailable.", "assumption"));
   if (!ids.size) report.append(text("p", "No screening assumptions apply to these results."));
   report.append(text("h2", "Ranked overlaps"));
   if (!state.overlaps.length) report.append(text("p", "No ranked overlaps match the current filters."));

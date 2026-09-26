@@ -9,7 +9,7 @@
 @page { size: Letter portrait; margin: 0.5in; }
 
 @media print {
-  :root { color-scheme: light; }
+  :root, :root[data-theme] { color-scheme: light; }
   html, body { width: auto; height: auto; min-height: 0; overflow: visible; background: Canvas; color: CanvasText; }
   body > :not(#print-report) { display: none !important; }
   #print-report { display: block; width: 7.5in; max-width: 100%; margin: 0; font: 12px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
@@ -18,13 +18,21 @@
   #print-report h3 { margin: 16px 0 8px; font-size: 16px; break-after: avoid; }
   #print-report p { margin: 4px 0; }
   #print-report a { color: inherit; text-decoration: underline; }
+  #print-report .detail-block { padding: 8px 0; border-color: currentColor; }
+  #print-report .detail-answer { font-size: 14px; }
+  #print-report .detail-points, #print-report .detail-block details { font-size: 12px; }
+  #print-report .detail-block summary { min-height: 0; padding: 4px 0; list-style: none; }
+  #print-report .detail-block > a { min-height: 0; padding: 4px 0; font-size: 12px; }
+  #print-report .overlap-projects { display: block; }
+  #print-report .overlap-project { padding-top: 8px; }
+  #print-report .overlap-assumptions { color: inherit; }
   #print-report table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 11px; line-height: 1.35; }
   #print-report caption { text-align: left; margin-bottom: 8px; font-weight: 600; }
   #print-report thead { display: table-header-group; }
   #print-report th, #print-report td { padding: 6px; border: 1px solid currentColor; text-align: left; vertical-align: top; overflow-wrap: anywhere; white-space: normal; }
-  #print-report th:first-child { width: 9%; }
+  #print-report th:first-child { width: 7%; }
   #print-report th:nth-child(2), #print-report th:nth-child(3) { width: 19%; }
-  #print-report th:nth-child(4) { width: 23%; }
+  #print-report th:nth-child(4) { width: 25%; }
   #print-report th:nth-child(5) { width: 20%; }
   #print-report th:last-child { width: 10%; }
   #print-report tr { break-inside: avoid; }
