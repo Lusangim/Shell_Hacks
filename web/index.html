@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>GridLock | Coordination opportunities</title>
+  <script src="/web/js/theme-init.js"></script>
+  <link rel="stylesheet" href="/web/vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="/web/css/tokens.css">
+  <link rel="stylesheet" href="/web/css/app.css">
+  <script defer src="/web/vendor/leaflet/leaflet.js"></script>
+  <script defer type="module" src="/web/js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#opportunities">Skip to opportunities</a>
+  <main class="workspace">
+    <section class="map-region" role="region" aria-label="Interactive project map">
+      <div id="map" class="map" data-testid="map"></div>
+      <p class="map-note">Public plan locations. Solid lines are exact; dashed lines are approximate.</p>
+    </section>
+    <aside class="panel" data-testid="bottom-sheet" aria-label="Coordination opportunities">
+      <header class="title-block">
+        <div class="title-line">
+          <div>
+            <p class="eyebrow">Public transmission plans / GA + SC</p>
+            <h1>GridLock</h1>
+          </div>
+          <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to dark theme" title="Switch theme">
+            <img id="theme-icon" src="/web/icons/moon.svg" alt="" width="20" height="20">
+          </button>
+        </div>
+        <p class="subhead">Coordination opportunities</p>
+        <p id="editions" class="edition-line" data-src="source_documents">Loading plan editions</p>
+        <p id="no-overlap" class="tally" data-src="no_overlap_count">Loading project counts</p>
+        <p id="status" class="status-line" role="status" aria-live="polite">Loading public plans.</p>
+        <button id="sheet-toggle" class="sheet-toggle" type="button" aria-expanded="false" aria-controls="panel-body">Expand opportunities</button>
+      </header>
+      <div id="panel-body" class="panel-body">
+        <details class="legend">
+          <summary>Legend</summary>
+          <div class="legend-grid">
+            <span class="sample sample-desc"></span><span>Dominion Energy SC</span>
+            <span class="sample sample-gp"></span><span>Georgia Power</span>
+            <span class="sample sample-meag"></span><span>MEAG Power</span>
+            <span class="sample sample-gtc"></span><span>Georgia Transmission Corp.</span>
+            <span class="sample sample-minor"></span><span>Dalton Utilities / Georgia ITS (joint)</span>
+          </div>
+          <p>Line width follows voltage: 500 kV and up / 230 kV / 115 kV / lower or not stated.</p>
+          <p>Solid: exact location. Dashed: approximate location. Unknown: listed only.</p>
+          <p>Distance bands: ● Touching / ▦ Under 1.6 km / ▥ Under 8 km / ▧ Under 40 km.</p>
+        </details>
+        <section id="opportunities" class="opportunities" aria-labelledby="opportunities-heading" tabindex="-1">
+          <div class="section-head"><h2 id="opportunities-heading">Ranked overlaps</h2><span id="overlap-count" class="count" data-src="count"></span></div>
+          <div id="list-state" class="list-state" data-testid="loading-state" role="status">Loading ranked opportunities</div>
+          <ol id="overlap-list" class="overlap-list"></ol>
+        </section>
+        <details id="unknown-locations" class="unknown-locations" hidden>
+          <summary id="unknown-heading">Location unknown</summary>
+          <ul id="unknown-list"></ul>
+        </details>
+        <footer class="disclaimer">Independent student project; not affiliated with Dominion Energy, Georgia Power, Southern Company, GTC, MEAG or Sperry Tech. Estimates are for discussion only.</footer>
+      </div>
+    </aside>
+  </main>
+  <noscript><p class="noscript">GridLock needs JavaScript to show the interactive map and ranked opportunities.</p></noscript>
+</body>
+</html>
