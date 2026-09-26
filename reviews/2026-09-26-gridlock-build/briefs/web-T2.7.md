@@ -1,0 +1,15 @@
+# WEB — T2.7 in-service timeline (sub-agent of Codex lead; gpt-6-sol, reasoning high)
+
+Start after WEB T2.6 merges. Read in your worktree: repo `AGENTS.md`; `.agents/skills/gridlock-build/SKILL.md` §0/§2; `SPEC.md` Contracts, timeline/filter semantics and Code style; `references/definition-of-done.md`; `reviews/2026-09-26-gridlock-build/house-patterns.md`; `references/ui-contract.md`; `reviews/2026-09-26-gridlock-build/design/DIRECTION.md`; T2.7 in `tasks/todo.md`; `references/review-checklists.md` §A/D/E/F/J. Read with `Get-Content -Encoding UTF8`; edit text with apply_patch.
+
+## Task and verification
+
+Add a native range slider over actual stated in-service years, plus “All years” and play/pause. The year Y view emphasizes projects **entering service in Y** and lights up overlaps only when **both** projects enter service within Y ± 1. Unknown-year projects remain explicitly unknown; they do not become year 0 or a guessed year. Display the active year in `<output>` and an accurate `aria-valuetext`; arrow keys step one year. The play action advances deterministically, stops at the last year, and can be paused or cleared. Avoid animation on raw slider input and honor reduced-motion preference. Keep filtered map/list counts, selection and URL year state consistent with T2.6. Show a comprehensible state if a filter removes the year's pairs. Preserve 390 px layout, keyboard, light/dark and no outbound calls.
+
+Write `tests/e2e/test_timeline.py` first and run RED. Pin actual data year bounds and the 2028 McIntosh pairs; assert exact project highlighting versus Y ± 1 overlap lighting, arrow step, play stop/pause, All years restore, URL/reload, unknown-year handling, reduced motion and phone focus. Test rapid filter/year changes for stale highlights. Run each new e2e check three times, then shell/audits and lane `scripts/quick-gate.ps1`; never weaken, skip or delete a check.
+
+## Ownership and environment
+
+Worktree `C:\Users\lucia\dev\gridlock-wt\web`, branch `wt/web`, synced by the lead. **Every command runs there, never in `C:\Users\lucia\dev\gridlock`.** Own `web/` except WEB-2 files (`web/js/search.js`, `export.js`, `area.js`, `web/css/print.css`, `web/print.html`), `tests/e2e/test_timeline.py` and WEB shell e2e as needed, and `reviews/2026-09-26-gridlock-build/web/T2.7.md`. Other lanes, API, DATA, contracts and LEAD tests are read-only. Port 8773: begin each test/server command `$env:GRIDLOCK_TEST_PORT='8773';`; Python only `& $env:GRIDLOCK_PY`; `GRIDLOCK_AI=off`; no network, install or secrets. Every command starts a new shell. Stage by path; never `git add -A`, `git stash`, `git clean` or `git reset --hard`; never print environment variables. No merge, push, deploy, submit or sending.
+
+Stop/report if a fix adds errors, the same error survives three tries, a contract/architecture/other-lane change is needed, or a dependency is missing. One commit `WEB: T2.7 add in-service timeline`. Report acceptance/check/RED/GREEN per line, suite totals, deviations, For WEB patches, open questions and one dated lesson. Report only what ran.
