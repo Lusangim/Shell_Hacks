@@ -7,12 +7,14 @@ the Georgia Power, Georgia Transmission and MEAG projects in the SERTP 2025 regi
 an interactive street map of Georgia and South Carolina, with a ranked list of pairs, the source document
 and page for every project, a savings estimate with its assumptions, and a guided tour.
 
-## Quick start (Windows)
+## Quick start (Windows, macOS, Linux)
 
-1. `git clone https://github.com/Lusangim/Shell_Hacks.git`
-2. Double-click **`SETUP.cmd`**: Python environment, packages and the modern street map (about 220 MB, once)
-3. Double-click **`START.cmd`**: http://127.0.0.1:8765 opens in your browser
-4. Click **Take the tour**
+1. `git clone https://github.com/Lusangim/Shell_Hacks.git` (needs Python 3.12 and Git)
+2. **Set up once:** double-click **`SETUP.cmd`** (Windows), **`SETUP.command`** (macOS) or **`SETUP.sh`**
+   (Linux). It installs the Python environment, the packages and the modern street map (about 220 MB, once).
+3. **Start:** double-click **`START.cmd`**, **`START.command`** or **`START.sh`**. http://127.0.0.1:8765
+   opens in your browser.
+4. Click **Take the tour**.
 
 Full instructions (Google Maps and Satellite view, rebuilding the data from the PDFs, tests, Mac and Linux,
 troubleshooting): **[RUNNING.md](RUNNING.md)**. How distances, bands and the ranking work (draft):

@@ -3,6 +3,10 @@
 *.bat text eol=crlf
 *.ps1 text eol=crlf
 
+# macOS / Linux scripts must keep LF line endings (a CR breaks the shebang)
+*.sh text eol=lf
+*.command text eol=lf
+
 # Binary data
 *.pdf binary
 *.zip binary
