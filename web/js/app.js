@@ -1,6 +1,7 @@
 import { loadShellData } from "./api.js";
 import { initializeMap, refreshMapTheme, renderMap } from "./map.js";
 import { renderList, renderUnknownLocations, selectFirstOverlapForProject } from "./list.js";
+import { setupSearch } from "./search.js";
 import { state } from "./state.js";
 
 const status = document.getElementById("status");
@@ -81,6 +82,7 @@ function setupTheme() {
     }
     update();
     refreshMapTheme();
+    searchControl.refreshTheme();
   });
 }
 
@@ -98,6 +100,7 @@ function setupSheet() {
 }
 
 initializeMap();
+const searchControl = setupSearch();
 setupTheme();
 setupSheet();
 document.addEventListener("gridlock:project-click", (event) => selectFirstOverlapForProject(event.detail.projectId));
