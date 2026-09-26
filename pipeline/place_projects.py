@@ -10,13 +10,15 @@ Inputs (all in this folder):
 Output:
   projects.geojson              One feature per GA/SC project, with accuracy + source
   placement_report.csv          What matched, what didn't (for hand-fixing)
-  manual_locations.csv          (optional, you edit) hand-placed substations: name,lat,lon,note
+  manual_locations.csv          (optional) hand-placed substations: name,lat,lon,source,note
 """
 import csv, json, math, re
 from collections import defaultdict
+from pathlib import Path
 from shapely.geometry import shape, Point, LineString, mapping
 from ids import desc_id, sertp_ids
 from fields import miles, parse_cost, parse_in_service_year, project_type, voltage_kv
+from manual_locations import load_manual_locations
 
 
 DESC_URL = "https://www.scrtp.com/assets/pdfs/home/2026-2030-2million-and-above-project-descriptions.pdf"
@@ -127,11 +129,12 @@ for r in csv.DictReader(open("places_se.csv", encoding="utf-8")):
                              operator="", town=True))
 
 try:   # hand-placed fixes win
-    for r in csv.DictReader(open("manual_locations.csv", encoding="utf-8")):
+    for r in load_manual_locations(Path("manual_locations.csv")):
         for k in keys(r["name"]):
-            gaz[k].insert(0, dict(lat=float(r["lat"]), lon=float(r["lon"]), src="Hand-placed: " + r.get("note", ""),
+            gaz[k].insert(0, dict(lat=float(r["lat"]), lon=float(r["lon"]),
+                                  src=f'Hand-placed from {r["source"]}: {r["note"]}',
                                   label=r["name"], operator="", manual=True,
-                                  inferred=r.get("note", "").upper().startswith("INFERRED")))
+                                  inferred=r["note"].upper().startswith("INFERRED")))
 except FileNotFoundError:
     pass
 
@@ -261,6 +264,9 @@ for p in projects:
             single_site = len(names) == 1
             accuracy = "exact" if single_site and not ambiguous and not c.get("town") and not c.get("inferred") else "approximate"
             loc_src = f'{c["src"]} ({c["label"]})' + ("" if single_site else f" - only '{n}' located")
+        else:
+            loc_src = ("Unknown: no named endpoint match in committed OpenStreetMap substations, "
+                       "HIFLD transmission lines, or Census places within the project's allowed region.")
 
     state = ""
     if geom:
