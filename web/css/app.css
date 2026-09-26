@@ -10,6 +10,8 @@ button:focus-visible, summary:focus-visible, a:focus-visible, input:focus-visibl
 .map { background: var(--map-water); }
 .map.leaflet-container:focus-visible { outline: 3px solid var(--focus); outline-offset: -4px; }
 .map-note { position: absolute; z-index: 500; right: 16px; bottom: 16px; max-width: 310px; margin: 0; padding: 8px 12px; background: var(--panel); color: var(--pencil); border: 1px solid var(--rule); border-radius: 4px; font-size: 12px; }
+.map-pair-open { position: absolute; z-index: 600; right: 16px; top: 16px; min-height: 44px; padding: 8px 12px; border: 1px solid var(--rule-strong); border-radius: 4px; background: var(--panel); }
+.map-pair-open[hidden] { display: none; }
 .panel { position: absolute; z-index: 1100; inset: 12px auto 12px 12px; width: 420px; display: flex; flex-direction: column; overflow: hidden; background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; }
 .title-block { flex: none; padding: 16px 20px 12px; border-bottom: 1px solid var(--rule); }
 .title-line { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
@@ -69,8 +71,8 @@ h1 { margin: 4px 0 0; font-size: 24px; line-height: 1.3; letter-spacing: -.025em
 .unknown-locations summary { cursor: pointer; min-height: 44px; padding-top: 10px; font-weight: 600; }
 .unknown-locations ul { padding-left: 20px; }
 .unknown-locations li { margin: 8px 0; }
-.projects-panel, .project-detail { padding: 16px 20px 24px; }
-.projects-panel[hidden], .project-detail[hidden], .opportunities[hidden], .unknown-locations[hidden] { display: none; }
+.projects-panel, .project-detail, .overlap-detail { padding: 16px 20px 24px; }
+.projects-panel[hidden], .project-detail[hidden], .overlap-detail[hidden], .opportunities[hidden], .unknown-locations[hidden] { display: none; }
 .projects-panel h2, .project-detail h2 { margin: 0 0 16px; font-size: 20px; line-height: 1.3; overflow-wrap: anywhere; }
 .projects-panel label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; }
 .projects-panel input { width: 100%; min-height: 44px; padding: 8px 12px; border: 1px solid var(--rule-strong); border-radius: 4px; background: var(--panel); color: var(--ink); font: inherit; }
@@ -89,6 +91,19 @@ h1 { margin: 4px 0 0; font-size: 24px; line-height: 1.3; letter-spacing: -.025em
 .project-field dd { margin: 0; font-size: 14px; }
 .project-field a { color: var(--ink); text-decoration: underline; }
 .project-related li { padding: 8px 0; border-top: 1px solid var(--rule); font-size: 14px; overflow-wrap: anywhere; }
+.overlap-detail h2 { margin: 0 0 12px; font-size: 20px; }
+.overlap-detail h3 { margin: 20px 0 8px; font-size: 16px; }
+.overlap-state { margin: 0 0 12px; color: var(--pencil); font-size: 14px; }
+.overlap-projects { display: grid; gap: 16px; }
+.overlap-project { min-width: 0; padding: 12px; border: 1px solid var(--rule); border-radius: 4px; overflow-wrap: anywhere; }
+.overlap-project h3 { margin: 0 0 4px; }
+.overlap-utility { margin: 0 0 12px; color: var(--pencil); font-size: 14px; }
+.overlap-accuracy { display: inline-block; margin-bottom: 12px; padding: 2px 6px; border: 1px solid var(--rule-strong); border-radius: 4px; color: var(--pencil); font-size: 12px; }
+.overlap-evidence { overflow-wrap: anywhere; }
+.overlap-evidence a { color: var(--ink); text-decoration: underline; }
+.overlap-range { font-size: 20px; font-weight: 700; }
+.overlap-assumptions { margin: 12px 0 0; padding-left: 20px; font-size: 12px; color: var(--pencil); }
+.overlap-assumptions li { margin: 8px 0; }
 .disclaimer { padding: 16px 20px 24px; color: var(--pencil); font-size: 12px; border-top: 1px solid var(--rule); }
 .sheet-toggle { display: none; }
 .leaflet-container { background: var(--map-water); font: inherit; }
@@ -117,7 +132,7 @@ h1 { margin: 4px 0 0; font-size: 24px; line-height: 1.3; letter-spacing: -.025em
   .search-state { margin-top: 4px; }
   .search-region input { font-size: 16px; }
   .opportunities { padding: 8px 16px; }
-  .projects-panel, .project-detail { padding: 12px 16px 24px; }
+  .projects-panel, .project-detail, .overlap-detail { padding: 12px 16px 24px; }
   .projects-panel input { font-size: 16px; }
   .project-field { grid-template-columns: 88px minmax(0, 1fr); gap: 8px; }
   .panel:not(.expanded) .row-name { display: none; }
