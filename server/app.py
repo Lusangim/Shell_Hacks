@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
+import csv
+import io
 import json
 import re
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
 from pathlib import Path
+from types import MappingProxyType
 from typing import Annotated, AsyncIterator, Awaitable, Callable, Literal, TypeVar
 
 from fastapi import FastAPI, HTTPException, Query, Request
@@ -17,8 +20,21 @@ from pydantic import BaseModel, ConfigDict, Field, JsonValue, TypeAdapter, Valid
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.responses import Response
 
-from server.schemas import Band, ErrorResponse, LineGeometry, Meta, MultiLineGeometry, Overlap, PointGeometry, ProjectCollection, ProjectFeature, SearchResult
+from server.schemas import Band, ErrorResponse, LineGeometry, Meta, MultiLineGeometry, Overlap, PointGeometry, ProjectCollection, ProjectFeature, Savings, SearchResult, Source
 from server.settings import ROOT, Settings
+
+
+SOURCE_PDFS = MappingProxyType({
+    "desc-scrtp-2026-2030": ROOT / "data" / "raw" / "desc_scrtp_2026_2030.pdf",
+    "sertp-2025-rtp": ROOT / "data" / "raw" / "sertp_2025_rtp.pdf",
+})
+CSV_COLUMNS = (
+    "Rank", "Overlap ID", "Project A", "Utility A", "Project B", "Utility B",
+    "Band", "Distance km", "Touch reason", "Why they touch", "In-service year A",
+    "In-service year B", "Year gap", "Accuracy A", "Accuracy B", "Source A",
+    "Source page A", "Source B", "Source page B", "Savings status",
+    "Savings low USD", "Savings high USD", "Coordination status",
+)
 
 
 class Health(BaseModel):
@@ -38,6 +54,15 @@ class Place(BaseModel):
     state: Literal["GA", "SC"]
     lat: float = Field(ge=-90, le=90, allow_inf_nan=False)
     lon: float = Field(ge=-180, le=180, allow_inf_nan=False)
+
+
+class OverlapDetail(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+    overlap: Overlap
+    project_a: ProjectFeature
+    project_b: ProjectFeature
+    savings: Savings
+    sources: tuple[Source, Source]
 
 
 @dataclass(frozen=True)
@@ -184,6 +209,62 @@ def _matches_project(
     )
 
 
+def filter_overlaps(
+    artifacts: Artifacts,
+    *,
+    utility: list[str] | None = None,
+    voltage_kv: float | None = None,
+    year: int | None = None,
+    year_min: int | None = None,
+    year_max: int | None = None,
+    project_type: str | None = None,
+    band: Band | None = None,
+    cross_state: bool | None = None,
+) -> list[Overlap]:
+    """Apply the same project and pair filters for list and export."""
+    if year_min is not None and year_max is not None and year_min > year_max:
+        raise HTTPException(status_code=422, detail="year_min must be <= year_max")
+    eligible = {
+        project.properties.id
+        for project in artifacts.projects.features
+        if _matches_project(project, utility, voltage_kv, year, year_min, year_max, project_type)
+    }
+    matched = (
+        pair for pair in artifacts.overlaps
+        if pair.a in eligible and pair.b in eligible
+        and (band is None or pair.band == band)
+        and (cross_state is None or pair.cross_state == cross_state)
+    )
+    return sorted(matched, key=lambda pair: (pair.rank, pair.distance_km, pair.id))
+
+
+def _csv_text(value: str) -> str:
+    return f"'{value}" if value and value[0] in "=+-@\t\r\n" else value
+
+
+def _csv_row(pair: Overlap, projects: dict[str, ProjectFeature]) -> tuple[str | int | float | None, ...]:
+    a = projects[pair.a].properties
+    b = projects[pair.b].properties
+    return (
+        pair.rank, _csv_text(pair.id), _csv_text(a.name), _csv_text(a.utility),
+        _csv_text(b.name), _csv_text(b.utility), _csv_text(pair.band.value), pair.distance_km,
+        _csv_text(pair.touch_reason), _csv_text(pair.touch_detail), a.year, b.year,
+        pair.year_gap, _csv_text(a.accuracy.value), _csv_text(b.accuracy.value),
+        _csv_text(a.source.doc), a.source.page, _csv_text(b.source.doc), b.source.page,
+        _csv_text(pair.savings.status), pair.savings.low_usd, pair.savings.high_usd, "",
+    )
+
+
+def export_csv(pairs: list[Overlap], projects: ProjectCollection) -> bytes:
+    output = io.StringIO(newline="")
+    writer = csv.writer(output, lineterminator="\r\n")
+    writer.writerow(CSV_COLUMNS)
+    by_id = {project.properties.id: project for project in projects.features}
+    for pair in pairs:
+        writer.writerow(_csv_row(pair, by_id))
+    return ("\ufeff" + output.getvalue()).encode("utf-8")
+
+
 def create_app(artifact_dir: Path | None = None, settings: Settings | None = None) -> FastAPI:
     """Create a loopback-only application with configurable validated artifacts."""
     config = settings or Settings.from_env()
@@ -275,11 +356,56 @@ def create_app(artifact_dir: Path | None = None, settings: Settings | None = Non
         limit: Annotated[int, Query(ge=1, le=500)] = 500,
         offset: Annotated[int, Query(ge=0)] = 0,
     ) -> list[Overlap]:
-        if year_min is not None and year_max is not None and year_min > year_max:
-            raise HTTPException(status_code=422, detail="year_min must be <= year_max")
-        eligible = {project.properties.id for project in request.app.state.artifacts.projects.features if _matches_project(project, utility, voltage_kv, year, year_min, year_max, project_type)}
-        matched = [pair for pair in request.app.state.artifacts.overlaps if pair.a in eligible and pair.b in eligible and (band is None or pair.band == band) and (cross_state is None or pair.cross_state == cross_state)]
-        return sorted(matched, key=lambda pair: (pair.rank, pair.distance_km, pair.id))[offset:offset + limit]
+        pairs = filter_overlaps(
+            request.app.state.artifacts, utility=utility, voltage_kv=voltage_kv, year=year,
+            year_min=year_min, year_max=year_max, project_type=project_type,
+            band=band, cross_state=cross_state,
+        )
+        return pairs[offset:offset + limit]
+
+    @app.get("/api/overlaps/{overlap_id}", response_model=OverlapDetail, responses={404: {"model": ErrorResponse}})
+    def overlap_detail(request: Request, overlap_id: str) -> OverlapDetail:
+        artifacts: Artifacts = request.app.state.artifacts
+        pair = next((item for item in artifacts.overlaps if item.id == overlap_id), None)
+        if pair is None:
+            raise HTTPException(status_code=404, detail="Overlap not found")
+        projects_by_id = {item.properties.id: item for item in artifacts.projects.features}
+        a = projects_by_id[pair.a]
+        b = projects_by_id[pair.b]
+        return OverlapDetail(
+            overlap=pair, project_a=a, project_b=b, savings=pair.savings,
+            sources=(a.properties.source, b.properties.source),
+        )
+
+    @app.get("/api/export/overlaps.csv", response_class=Response, response_model=None, responses={422: {"model": ErrorResponse}})
+    def overlap_export(
+        request: Request,
+        utility: Annotated[list[str] | None, Query()] = None,
+        voltage_kv: Annotated[float | None, Query(gt=0)] = None,
+        year: Annotated[int | None, Query(ge=1900, le=2200)] = None,
+        year_min: Annotated[int | None, Query(ge=1900, le=2200)] = None,
+        year_max: Annotated[int | None, Query(ge=1900, le=2200)] = None,
+        project_type: Literal["new_line", "rebuild_line", "reconductor", "new_substation", "substation_upgrade", "equipment", "other"] | None = None,
+        band: Band | None = None,
+        cross_state: bool | None = None,
+    ) -> Response:
+        artifacts: Artifacts = request.app.state.artifacts
+        pairs = filter_overlaps(
+            artifacts, utility=utility, voltage_kv=voltage_kv, year=year,
+            year_min=year_min, year_max=year_max, project_type=project_type,
+            band=band, cross_state=cross_state,
+        )
+        return Response(
+            content=export_csv(pairs, artifacts.projects), media_type="text/csv; charset=utf-8",
+            headers={"Content-Disposition": 'attachment; filename="gridlock-overlaps.csv"'},
+        )
+
+    @app.get("/api/sources/{doc_id}", response_class=FileResponse, response_model=None, responses={404: {"model": ErrorResponse}})
+    def source_pdf(doc_id: str) -> FileResponse:
+        path = SOURCE_PDFS.get(doc_id)
+        if path is None or not path.is_file():
+            raise HTTPException(status_code=404, detail="Source document not found")
+        return FileResponse(path, media_type="application/pdf", filename=path.name, content_disposition_type="inline")
 
     @app.get("/", response_class=FileResponse, response_model=None)
     def index() -> FileResponse:
