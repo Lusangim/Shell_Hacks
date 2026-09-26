@@ -6,10 +6,12 @@ Output: overlaps.json - every pair of projects from DIFFERENT utilities within 4
 Nearest points are found in EPSG:5070, then their distance is measured geodesically.
 """
 import json
+from pathlib import Path
 from shapely.geometry import shape
 from shapely.ops import transform
 from shapely.strtree import STRtree
 from overlap_geometry import TO_METRES, band_for, can_share, classify_touch, nearest_point_distance_m, rank_key
+from savings import estimate_savings, load_assumptions
 
 BANDS = {
     "touching": ("Touching / crossing", 4),
@@ -23,6 +25,7 @@ feats = [f for f in json.load(open("projects.geojson", encoding="utf-8"))["featu
 geoms = [shape(f["geometry"]) for f in feats]
 projected = [transform(TO_METRES, geometry) for geometry in geoms]
 tree = STRtree(projected)
+assumptions = load_assumptions(Path("assumptions.json"))
 
 
 def timeline(a, b):
@@ -70,8 +73,7 @@ for i, g in enumerate(projected):
             touch_reason=reason, touch_detail=detail,
             a_year=a.get("year"), b_year=b.get("year"), year_gap=year_gap, timeline=tl,
             cross_state=cross_state, pair_note=pair_note, accuracy_pair=accuracy_pair, score=score,
-            savings={"status": "no_cost", "low_usd": None, "high_usd": None, "basis": None,
-                     "assumption_ids": []}, brief_status="none"))
+            savings=estimate_savings(a, b, assumptions), brief_status="none"))
 
 pairs.sort(key=rank_key)
 for rank, p in enumerate(pairs, 1):

@@ -1,0 +1,23 @@
+{
+  "assumptions": [
+    {
+      "id": "coordination_fraction_v1",
+      "low": 0.01,
+      "high": 0.03,
+      "unit": "fraction_of_reference_cost",
+      "precision": 0.01,
+      "output_precision_usd": 1000,
+      "rationale": "A deliberately broad screening assumption for possible coordination efficiency. It is not a measured saving, a public rate, or evidence of a shared asset.",
+      "source": {"kind": "team assumption", "date": "2026-09-26"}
+    },
+    {
+      "id": "line_cost_per_mile_v1",
+      "low": 1000000,
+      "high": 3000000,
+      "unit": "USD_per_line_mile",
+      "precision": 1000000,
+      "rationale": "A team screening proxy for stated line mileage when neither loaded plan provides a usable printed cost. It is not a published construction-cost rate and does not establish shared physical scope.",
+      "source": {"kind": "team assumption", "date": "2026-09-26"}
+    }
+  ]
+}
