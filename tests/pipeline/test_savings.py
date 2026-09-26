@@ -42,6 +42,44 @@ def test_assumptions_are_explicit_team_rates_with_declared_precision(assumptions
         assert assumption["source"] == {"kind": "team assumption", "date": "2026-09-26"}
 
 
+def test_changed_team_rates_are_stated_in_plan_and_proxy_basis(tmp_path: Path) -> None:
+    document = json.loads(ASSUMPTIONS.read_text(encoding="utf-8"))
+    fraction, line = document["assumptions"]
+    fraction["low"], fraction["high"] = 0.02, 0.04
+    line["low"], line["high"] = 2_000_000, 4_000_000
+    changed = tmp_path / "changed-assumptions.json"
+    changed.write_text(json.dumps(document), encoding="utf-8")
+    rates = load_assumptions(changed)
+
+    plan = estimate_savings(project("plan", cost=2_000_000, cost_basis="plan"), project("b"), rates)
+    assert (plan["low_usd"], plan["high_usd"]) == (40_000, 80_000)
+    assert "2%-4%" in plan["basis"]
+    assert "1%-3%" not in plan["basis"]
+
+    proxy = estimate_savings(project("line", miles=2.5, kind="new_line"), project("b"), rates)
+    assert (proxy["low_usd"], proxy["high_usd"]) == (100_000, 400_000)
+    assert "$2M-$4M per line mile" in proxy["basis"]
+    assert "2%-4%" in proxy["basis"]
+    assert "$1M-$3M" not in proxy["basis"] and "1%-3%" not in proxy["basis"]
+
+
+@pytest.mark.parametrize(
+    ("assumption_id", "wrong_unit"),
+    [("coordination_fraction_v1", "USD_per_line_mile"),
+     ("line_cost_per_mile_v1", "fraction_of_reference_cost")],
+)
+def test_required_assumption_rejects_wrong_unit(
+    tmp_path: Path, assumption_id: str, wrong_unit: str,
+) -> None:
+    document = json.loads(ASSUMPTIONS.read_text(encoding="utf-8"))
+    row = next(item for item in document["assumptions"] if item["id"] == assumption_id)
+    row["unit"] = wrong_unit
+    changed = tmp_path / "wrong-unit-assumptions.json"
+    changed.write_text(json.dumps(document), encoding="utf-8")
+    with pytest.raises(ValueError, match="unit"):
+        load_assumptions(changed)
+
+
 def test_real_mcintosh_pair_uses_only_printed_desc_plan_cost(assumptions: dict) -> None:
     features = json.loads((ROOT / "data/build/projects.geojson").read_text(encoding="utf-8"))["features"]
     by_id = {feature["properties"]["id"]: feature["properties"] for feature in features}

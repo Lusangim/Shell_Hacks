@@ -43,6 +43,10 @@ def load_assumptions(path: Path) -> dict[str, dict]:
         by_id[row["id"]] = row
     if set(by_id) != {FRACTION_ID, LINE_RATE_ID}:
         raise ValueError("required savings assumptions are missing")
+    required_units = {FRACTION_ID: "fraction_of_reference_cost", LINE_RATE_ID: "USD_per_line_mile"}
+    for assumption_id, unit in required_units.items():
+        if by_id[assumption_id]["unit"] != unit:
+            raise ValueError(f"{assumption_id} requires unit {unit}")
     precision = by_id[FRACTION_ID].get("output_precision_usd")
     if not isinstance(precision, int) or precision <= 0:
         raise ValueError("coordination fraction requires positive output_precision_usd")
@@ -56,6 +60,10 @@ def _unavailable(status: str, reason: str) -> dict[str, object]:
 
 def _round_usd(value: Decimal, precision: int) -> int:
     return int((value / precision).quantize(Decimal(1), rounding=ROUND_HALF_UP) * precision)
+
+
+def _rate_label(value: Decimal) -> str:
+    return format(value.normalize(), "f")
 
 
 def _range(low: Decimal, high: Decimal, basis: str, ids: list[str], precision: int) -> dict[str, object]:
@@ -76,6 +84,7 @@ def estimate_savings(a: dict, b: dict, assumptions: dict[str, dict]) -> dict[str
 
     fraction = assumptions[FRACTION_ID]
     low_fraction, high_fraction = _number(fraction["low"]), _number(fraction["high"])
+    fraction_label = f"{_rate_label(low_fraction * 100)}%-{_rate_label(high_fraction * 100)}%"
     precision = fraction["output_precision_usd"]
     plan = sorted(
         (project for project in (a, b)
@@ -90,7 +99,7 @@ def estimate_savings(a: dict, b: dict, assumptions: dict[str, dict]) -> dict[str
         flags = chosen.get("cost_flags") or []
         flag_note = f'; source cost flags: {", ".join(flags)}' if flags else ""
         basis = (f'Estimated coordination saving on {scope} for {chosen["id"]} (${int(cost):,}); '
-                 f'team-assumed 1%-3% of this known scope only; shared savings unverified{flag_note}.')
+                 f'team-assumed {fraction_label} of this known scope only; shared savings unverified{flag_note}.')
         return _range(cost * low_fraction, cost * high_fraction, basis, [FRACTION_ID], precision)
 
     lines = sorted(
@@ -104,9 +113,11 @@ def estimate_savings(a: dict, b: dict, assumptions: dict[str, dict]) -> dict[str
     chosen = lines[0]
     miles = _number(chosen["miles"])
     rate = assumptions[LINE_RATE_ID]
+    low_rate, high_rate = _number(rate["low"]), _number(rate["high"])
+    rate_label = f"${_rate_label(low_rate / 1_000_000)}M-${_rate_label(high_rate / 1_000_000)}M"
     basis = (f'Estimated coordination saving using a team proxy for {chosen["id"]} '
-             f'({miles} miles); $1M-$3M per line mile and 1%-3% of proxy cost. '
+             f'({miles} miles); {rate_label} per line mile and {fraction_label} of proxy cost. '
              'The other project cost and physical shared scope are unverified.')
-    return _range(miles * _number(rate["low"]) * low_fraction,
-                  miles * _number(rate["high"]) * high_fraction,
+    return _range(miles * low_rate * low_fraction,
+                  miles * high_rate * high_fraction,
                   basis, [FRACTION_ID, LINE_RATE_ID], precision)
