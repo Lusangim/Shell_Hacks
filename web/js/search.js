@@ -132,6 +132,8 @@ export function setupSearch() {
     selection.replaceChildren(document.createTextNode(`${result.type}: `), label);
     selection.hidden = false;
     exploreButton.hidden = false;
+    // A user's destination takes precedence over a pending initial overview fit.
+    state.initialMapFitted = true;
     state.map.flyTo([result.lat, result.lon], 11, {
       animate: !matchMedia("(prefers-reduced-motion: reduce)").matches,
     });

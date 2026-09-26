@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
@@ -32,12 +34,12 @@ def test_mcintosh_row_shows_source_pages_evidence_savings_and_map_selection(live
         assert detail.locator('[data-src="name"]').all_text_contents() == [
             expected["project_a"]["properties"]["name"], expected["project_b"]["properties"]["name"]]
         expect(detail.locator('[data-src="utility"]')).to_have_count(2)
-        expect(detail.locator('[data-src="touch_reason"]')).to_contain_text("shared_endpoint")
+        expect(detail.locator('[data-src="touch_reason"]')).to_have_text("Shared named endpoint")
         expect(detail.locator('[data-src="touch_detail"]')).to_have_text(expected["overlap"]["touch_detail"])
         expect(detail.locator('[data-src="can_share"]')).to_have_text(expected["overlap"]["can_share"])
         expect(detail).to_contain_text("possibly touching")
-        expect(detail).to_contain_text("$54k to $161k")
-        expect(detail.locator('[data-src="savings_basis"]')).to_have_text(expected["savings"]["basis"])
+        expect(detail).to_contain_text("$54,000 to $161,000")
+        expect(detail.locator('[data-src="savings_basis"]')).to_have_text(expected["savings"]["basis"].replace("desc-p41", "Dominion Energy SC project"))
         expect(detail).to_contain_text("2026-09-26")
         expect(detail).to_contain_text("1% to 3%")
         expect(detail.get_by_role("link")).to_have_count(2)
@@ -60,13 +62,13 @@ def test_no_cost_and_proxy_basis_are_distinct_and_source_backed(live_server):
         page.goto(live_server)
         open_row(page, NO_COST)
         detail = page.get_by_test_id("overlap-detail")
-        expect(detail).to_contain_text("No screening range")
+        expect(detail).to_contain_text("No estimate")
         expected_no_cost = page.request.get(f"{live_server}/api/overlaps/{NO_COST}").json()
         expect(detail.locator('[data-src="savings_basis"]')).to_have_text(expected_no_cost["savings"]["basis"])
         page.get_by_role("button", name="Back to ranked overlaps").click()
         open_row(page, PROXY)
         expected_proxy = page.request.get(f"{live_server}/api/overlaps/{PROXY}").json()
-        expect(detail.locator('[data-src="savings_basis"]')).to_have_text(expected_proxy["savings"]["basis"])
+        expect(detail.locator('[data-src="savings_basis"]')).to_have_text(expected_proxy["savings"]["basis"].replace("sertp-p124-e36f41", "Georgia Transmission Corp. project"))
         expect(detail).to_contain_text("proxy")
         expect(detail).to_contain_text("2026-09-26")
         browser.close()
@@ -191,22 +193,30 @@ def test_hostile_detail_text_is_rendered_as_text_only(live_server):
         browser.close()
 
 
-def test_delayed_old_detail_cannot_replace_new_selection(live_server):
+@pytest.mark.parametrize("phase", ["headers", "json"])
+def test_delayed_old_detail_cannot_replace_new_selection(live_server, phase):
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
         page = browser.new_page()
-        page.add_init_script("""(() => {
+        payload = page.request.get(f"{live_server}/api/overlaps/{MCINTOSH}").json()
+        page.add_init_script("const oldPayload = " + json.dumps(payload) + "; const delayPhase = " + json.dumps(phase) + ";" + """(() => {
           const original = window.fetch;
           window.oldPairGate = {};
           window.fetch = (url, options) => {
             if (String(url).includes('/api/overlaps/desc-p41__sertp-p107-9bc088')) {
-              document.documentElement.dataset.oldPairPending = 'true';
-              return new Promise(resolve => { window.oldPairGate.release = () => resolve({
-                ok: true,
-                json: async () => { window.oldPairGate.consumed = true;
-                  document.documentElement.dataset.oldPairConsumed = 'true';
-                  return {overlap:{id:'desc-p41__sertp-p107-9bc088'}}; }
-              }); });
+              const hold = value => new Promise(resolve => {
+                document.documentElement.dataset.oldPairPending = 'true';
+                window.oldPairGate.release = () => {
+                  resolve(value);
+                  // The next task observes the released promise's entire continuation.
+                  setTimeout(() => { window.oldPairGate.settled = true; }, 0);
+                };
+              });
+              const response = {ok: true, status: 200, json: () => {
+                window.oldPairGate.consumed = true;
+                return delayPhase === 'json' ? hold(oldPayload) : Promise.resolve(oldPayload);
+              }};
+              return delayPhase === 'headers' ? hold(response) : Promise.resolve(response);
             }
             return original(url, options);
           };
@@ -219,10 +229,18 @@ def test_delayed_old_detail_cannot_replace_new_selection(live_server):
         assert other != MCINTOSH
         page.get_by_test_id("overlap-row").nth(1).locator("button").click()
         expect(page.get_by_test_id("overlap-detail")).to_contain_text("DRESDEN")
+        expected = page.request.get(f"{live_server}/api/overlaps/{other}").json()
         page.evaluate("window.oldPairGate.release()")
-        page.wait_for_timeout(100)
-        assert page.evaluate("window.oldPairGate.consumed !== true")
+        page.wait_for_function("() => window.oldPairGate.settled === true")
+        assert page.evaluate("window.oldPairGate.consumed === true") == (phase == "json")
         assert page.url.endswith(f"#overlap={other}")
+        assert page.evaluate("async () => (await import('/web/js/state.js')).state.selectedOverlapId") == other
+        expect(page.locator("#overlap-detail-heading")).to_have_text(f"Overlap #{expected['overlap']['rank']}")
+        assert page.locator('#overlap-content [data-src="name"]').all_text_contents() == [
+            expected["project_a"]["properties"]["name"], expected["project_b"]["properties"]["name"]]
+        expect(page.locator(f'[data-overlap-id="{other}"] button')).to_have_attribute("aria-pressed", "true")
+        assert page.locator('[data-testid="project-feature"][data-selected="true"]').evaluate_all(
+            "nodes => nodes.map(n => n.dataset.projectId).sort()") == sorted([expected["overlap"]["a"], expected["overlap"]["b"]])
         expect(page.get_by_test_id("overlap-detail")).to_contain_text("DRESDEN")
         browser.close()
 
