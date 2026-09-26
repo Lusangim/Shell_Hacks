@@ -17,6 +17,7 @@
   <main class="workspace">
     <section class="map-region" role="region" aria-label="Interactive project map">
       <div id="map" class="map" data-testid="map"></div>
+      <button id="map-pair-open" class="map-pair-open" type="button" hidden>Open highlighted pair</button>
       <p class="map-note">Public plan locations. Solid lines are exact; dashed lines are approximate.</p>
     </section>
     <aside class="panel" data-testid="bottom-sheet" aria-label="Coordination opportunities">
@@ -63,6 +64,12 @@
           <p id="search-selection" class="search-selection" data-testid="search-selection" hidden></p>
           <button id="explore-area" class="explore-button" type="button" hidden>Explore this area</button>
           <p id="area-selection" class="area-selection" data-testid="area-selection" role="status" hidden></p>
+        </section>
+        <section id="overlap-detail" class="overlap-detail" data-testid="overlap-detail" aria-labelledby="overlap-detail-heading" hidden>
+          <button id="overlap-back" class="back-button" type="button">Back to ranked overlaps</button>
+          <h2 id="overlap-detail-heading">Overlap detail</h2>
+          <p id="overlap-state" class="overlap-state" data-testid="overlap-state" role="status"></p>
+          <div id="overlap-content"></div>
         </section>
         <section id="opportunities" class="opportunities" aria-labelledby="opportunities-heading" tabindex="-1">
           <div class="section-head"><h2 id="opportunities-heading">Ranked overlaps</h2><span id="overlap-count" class="count" data-src="count"></span></div>

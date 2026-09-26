@@ -2,12 +2,15 @@ import { loadShellData } from "./api.js";
 import { initializeMap, refreshMapTheme, renderMap } from "./map.js";
 import { renderList, renderUnknownLocations, selectFirstOverlapForProject } from "./list.js";
 import { setupProjectDetail } from "./project-detail.js";
+import { setupOverlapDetail } from "./overlap-detail.js";
 import { setupSearch } from "./search.js";
 import { state } from "./state.js";
 
 const status = document.getElementById("status");
 const listState = document.getElementById("list-state");
 const projectView = setupProjectDetail();
+const overlapView = setupOverlapDetail(projectView);
+const mapPairOpen = document.getElementById("map-pair-open");
 
 function showState(message, kind) {
   listState.replaceChildren();
@@ -43,6 +46,7 @@ async function load() {
     renderList(overlaps, projects);
     renderUnknownLocations(projects);
     projectView.renderProjects(projects.features, overlaps);
+    overlapView.restoreFromHash();
     document.getElementById("editions").textContent = editionText(meta);
     const count = meta.stage_counts?.kept ?? projects.features.length;
     const noOverlap = meta.no_overlap_count;
@@ -108,7 +112,15 @@ const searchControl = setupSearch();
 setupTheme();
 setupSheet();
 document.addEventListener("gridlock:project-click", (event) => {
+  overlapView.close();
   selectFirstOverlapForProject(event.detail.projectId);
   projectView.openProject(event.detail.projectId, "overlaps");
+});
+document.addEventListener("gridlock:pair-highlighted", () => { mapPairOpen.hidden = false; });
+document.addEventListener("gridlock:pair-open-request", (event) => {
+  overlapView.open(event.detail.overlapId, { push: true });
+});
+mapPairOpen.addEventListener("click", () => {
+  if (state.selectedOverlapId) overlapView.open(state.selectedOverlapId, { push: true });
 });
 load();

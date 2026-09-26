@@ -21,7 +21,7 @@ function field(list, label, value, source) {
   list.append(row);
 }
 
-function citation(source) {
+export function citation(source) {
   const text = source?.doc ? `${source.doc}${source.page ? `, p. ${source.page}` : ""}` : "Source not stated";
   const documentId = SOURCE_DOCS.get(source?.doc);
   if (documentId && Number.isInteger(source.page) && source.page > 0) {
@@ -37,6 +37,7 @@ export function setupProjectDetail() {
   const opportunities = document.getElementById("opportunities");
   const projectsPanel = document.getElementById("projects-panel");
   const detail = document.getElementById("project-detail");
+  const overlapDetail = document.getElementById("overlap-detail");
   const unknown = document.getElementById("unknown-locations");
   const filter = document.getElementById("project-filter");
   const list = document.getElementById("project-list");
@@ -52,9 +53,10 @@ export function setupProjectDetail() {
 
   function showView(next) {
     view = next;
-    opportunities.hidden = next !== "overlaps";
+    opportunities.hidden = next !== "overlaps" && next !== "overlap-detail";
     projectsPanel.hidden = next !== "projects";
     detail.hidden = next !== "detail";
+    overlapDetail.hidden = next !== "overlap-detail";
     unknown.hidden = next !== "overlaps" || !unknown.querySelector("li");
     toggle.textContent = next === "overlaps" ? "Projects" : "Overlaps";
     toggle.setAttribute("aria-pressed", String(next !== "overlaps"));
@@ -184,5 +186,7 @@ export function setupProjectDetail() {
     else toggle.focus();
   });
 
-  return { renderProjects, showLoadError, openProject };
+  return { renderProjects, showLoadError, openProject,
+    showOverlapDetail: () => showView("overlap-detail"),
+    showOpportunities: () => showView("overlaps") };
 }
