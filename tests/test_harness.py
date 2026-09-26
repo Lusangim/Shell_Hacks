@@ -6,10 +6,12 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
 from tests.harness import require_free_loopback_port, required_test_port
+from tests import harness
 
 
 def test_port_is_required(monkeypatch):
@@ -40,6 +42,49 @@ def test_recently_closed_server_port_is_reusable():
             peer.close()
             assert client.recv(1) == b"x"
     require_free_loopback_port(port)
+
+
+def test_transient_windows_bind_denial_retries_past_three_seconds(monkeypatch):
+    """A just-closed fixture port can deny bind without an active listener."""
+    attempts = 0
+    ticks = 0
+
+    class FakeSocket:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return None
+
+        def setsockopt(self, *_args):
+            return None
+
+        def settimeout(self, *_args):
+            return None
+
+        def bind(self, _address):
+            nonlocal attempts
+            attempts += 1
+            if attempts <= 45:
+                raise PermissionError(10013, "transient Windows bind denial")
+
+        def connect_ex(self, _address):
+            return 10061  # No process is listening on the denied port.
+
+    def monotonic():
+        nonlocal ticks
+        ticks += 1
+        return ticks / 10
+
+    monkeypatch.setattr(harness, "socket", SimpleNamespace(
+        AF_INET=socket.AF_INET, SOCK_STREAM=socket.SOCK_STREAM,
+        SOL_SOCKET=socket.SOL_SOCKET, SO_REUSEADDR=socket.SO_REUSEADDR,
+        socket=lambda *_args: FakeSocket(),
+    ))
+    monkeypatch.setattr(harness, "time", SimpleNamespace(monotonic=monotonic, sleep=lambda _seconds: None))
+
+    require_free_loopback_port(8770)
+    assert attempts == 46
 
 
 def test_server_socket_guard_rejects_non_loopback():

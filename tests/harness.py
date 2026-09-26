@@ -19,7 +19,7 @@ def required_test_port() -> int:
 
 
 def require_free_loopback_port(port: int) -> None:
-    deadline = time.monotonic() + 3
+    deadline = time.monotonic() + 10
     while True:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as listener:
             # Windows can retain a just-closed test server's port briefly.
