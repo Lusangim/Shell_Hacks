@@ -67,7 +67,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [ ] **T1.1 Project fields** (DATA)
   - Acceptance: year from in-service text (invalid "04/31/26"/"06/31/2026"; phased → last phase); cost read **by column** (Previous, years, Total) with `cost_flags` (`printed_total_differs_from_sum` — e.g. 6846 A prints $1,238,443 but its columns sum to $2,088,443; `below_list_threshold`); voltage, type, miles; names and descriptions **verbatim** (remove the en-dash rewrite in `extract.py`); NFKC + control/zero-width stripping; parser completeness: every "Project Name:" marker is a row or a listed exclusion (TVA pp. 171–181 "In- Service"); unknowns null.
   - Verify: `tests/pipeline/test_fields.py` (≥ 20 real cases incl. the odd dates, both low costs, the p.133 duplicate) + `test_completeness.py`; five costs hand-checked against their pages in the report.
-- [ ] **T1.5 Build extras** (DATA)
+- [x] **T1.5 Build extras** (DATA) — `24e50d8`, merged after G1a; focused 3 passed, main quick gate 61 passed / 1 named skip
   - Acceptance: `build_all` also writes `places.json` (Census places GA + SC), `basemap.json` (state outlines + city labels now; counties added in T3.5), and full `meta.json` (stage counts, `no_overlap_count`, `unmapped_count` with reasons incl. unplaced Southern Company rows); `utility_basis` set (`inferred_from_location` for unprefixed Southern rows placed in GA).
   - Verify: `tests/pipeline/test_build_extras.py`.
 - [x] **T1.2 API skeleton** (API) — `d2d67b7`, merged `ca53d05`; lane quick gate 47 passed before WEB shell

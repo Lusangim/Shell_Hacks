@@ -20,7 +20,8 @@
 | T0.3b | Done, `d635f20`; 230 page citations and artifact contracts checked. |
 | T0.4 | Done, `fdd8539`; offline setup, START fixture, port isolation and VERIFY proved. |
 | T1.2 | Done, `ca53d05`; API tests passed. |
-| T1.3, T1.5 | Committed on WEB and DATA branches; merge and main gate pending. |
+| T1.3 | Committed on WEB; live audit correction and merge pending. |
+| T1.5 | Done, `24e50d8`; 1,150 local places, basemap, full metadata, focused 3 passed and main quick gate 61 passed. |
 | T1.1, T1.4a; T2.1–T2.11; T3.1–T3.5; T1.4b; T4.1–T4.4; D.1–D.3 | Not started at G1a. |
 | G1a | Passed: type review and confirmation, full VERIFY green. |
 | G1–G4 | Not started. |
@@ -33,7 +34,7 @@ G1a type design round 1 (`judge-type-g1a-r1/JUDGMENT.md`) found 2 HIGH and 4 MED
 
 ## Parked work, choices and questions
 
-No branch is parked. No feature cut was made. The map remains absent on main until its live audit and merge; the WEB branch contains the shell. Unknown roster, licence, Okatie verification, and Claude access remain open founder questions. Safe defaults: no invented person or endpoint, Okatie stays inferred, no API calls or spend, no push or submission. Sperry acceptance of the public SERTP overview plan is also unconfirmed; only public material is used.
+No branch is parked. No feature cut was made. The map remains absent on main until its live audit and merge; the WEB branch contains the shell. Its first live run found an SVG path with a prohibited aria-label and a session-scoped test server holding the lane port; WEB and LEAD fixes are in progress. Unknown roster, licence, Okatie verification, and Claude access remain open founder questions. Safe defaults: no invented person or endpoint, Okatie stays inferred, no API calls or spend, no push or submission. Sperry acceptance of the public SERTP overview plan is also unconfirmed; only public material is used.
 
 No change to Claude-owned files is proposed. The G1a contract guards were added before freeze; later changes require the SPEC type review procedure.
 
