@@ -139,7 +139,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [ ] **T1.7 Readable detail text** (WEB; DATA/API for source-built structured text; founder amendment 3) — WEB detail portion `82430ba` merged as `9a6e0eb`, gate 362/19/18; WEB-2 print consumer patch remains before tick
   - Acceptance: each project, pair, savings, location, accuracy and brief block shows the answer first, at most three short bullets, and raw evidence behind a disclosure. No internal IDs, raw enum values, file paths or code-like strings appear on screen. Keep estimate, assumption, source/page and not-verified honesty labels. Any new structured field uses a recorded contract review; never parse prose in the browser.
   - Verify: e2e scan of every rendered detail view for `desc-p`, `sertp-p`, underscore-joined enum and `data/` path patterns; copy lint and change-reviewer read of every user-facing string.
-- [ ] **T1.8 Guided walkthrough** (WEB-2; founder amendment 3; after T2.9, parallel with WEB T1.7)
+- [x] **T1.8 Guided walkthrough** (WEB-2; founder amendment 3; after T2.9, parallel with WEB T1.7) — `5dec98e` merged as `249a181` after search keyboard-helper repair; 27 focused and 375/19/18 combined lane gate green
   - Acceptance: Take the tour and first-visit prompt; 8–12 short, skippable steps on the real demo path; one reviewable content file; missing targets skip safely; keyboard Back/Next/Esc, focus return and visible target ring; reduced motion and 1440/390 px support; no external library.
   - Verify: e2e keyboard walk of every step at 1440 and 390 px, focus return/Esc, missing-target skip and no-error case.
 
@@ -161,7 +161,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [ ] **T3.4b Area UI** (WEB-2)
   - Acceptance: map click or "Explore this area" draws the circle + summary panel; Esc clears; a second click while loading shows only the second result; area centre in the URL.
   - Verify: `tests/e2e/test_area.py` (click + keyboard path + race).
-- [ ] **T3.5 Resilience and dark theme** (WEB)
+- [x] **T3.5 Resilience and dark theme** (WEB) — `95fc5d4` merged as `eb28677`; local-only/full demo, counties from existing PMTiles, late offline/Google race, actual double-click/pinch and dark reload; 386/19/18 lane gate
   - Acceptance: counties in the basemap; dark theme remaps every token incl. the basemap (no flash); every surface's states per the contract; reduced motion; bottom sheet at 390 px.
   - Verify: `tests/e2e/test_offline.py` (non-local requests blocked → fully usable, 0 console errors); audits dark 1440/390.
 - [ ] **T1.4b Full audit gate** (LEAD) — by G3

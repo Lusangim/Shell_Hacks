@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/web/vendor/leaflet/leaflet.css">
   <link rel="stylesheet" href="/web/css/tokens.css">
   <link rel="stylesheet" href="/web/css/app.css">
+  <link rel="stylesheet" href="/web/css/tour.css">
   <link rel="stylesheet" href="/web/css/detail.css">
   <link rel="stylesheet" href="/web/css/print.css">
   <script defer src="/web/vendor/leaflet/leaflet.js"></script>
@@ -30,11 +31,16 @@
             <h1>GridLock</h1>
           </div>
           <div class="title-actions">
+            <button id="tour-launch" type="button"></button>
             <button id="projects-toggle" class="view-button" type="button" aria-pressed="false" aria-controls="projects-panel">Projects</button>
             <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to dark theme" title="Switch theme">
               <img id="theme-icon" src="/web/icons/moon.svg" alt="" width="20" height="20">
             </button>
           </div>
+        </div>
+        <div id="tour-invitation-box" class="tour-entry" hidden>
+          <button id="tour-invitation" type="button"></button>
+          <button id="tour-dismiss" type="button" hidden></button>
         </div>
         <p class="subhead">Coordination opportunities</p>
         <p id="editions" class="edition-line" data-src="source_documents">Loading plan editions</p>
