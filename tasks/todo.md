@@ -99,7 +99,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [ ] **T2.10 Named examples + demo pair** (DATA)
   - Acceptance: table in `docs/METHODOLOGY.md` draft section: Jasper, Okatie, Bluffton, Urquhart, McIntosh, Thomson–Vogtle → the pair found, or "not in the loaded plans" with evidence (search terms, pages); the top Savannah and Augusta pairs listed with their exact wording; whether to hand-enter Thomson–Vogtle from the Georgia Power IRP (with its source) is listed as a founder question in `DELIVERY.md`.
   - Verify: `tests/pipeline/test_named_examples.py` asserts each row's claim against the artifacts.
-- [ ] **T2.4 Details, CSV, source documents** (API)
+- [x] **T2.4 Details, CSV, source documents** (API) — `3a6dbb1` merged as `ae1fa7a`; lead reran 18 focused; main quick gate 204 suite + 17 shell + 18 audits passed
   - Acceptance: `GET /api/overlaps/{id}` (both projects, savings breakdown, touch reason, sources); `GET /api/export/overlaps.csv` (same query function; UTF-8 with BOM; cells starting `= + - @`, tab or CR escaped; numbers never escaped; columns laid out like a utility conflict matrix, FHWA SHRP2 R15B: rank, overlap id, both projects and utilities, band, distance km, why they touch, both in-service years and the gap, both accuracy labels, both sources with pages, savings status and range, and an empty "Coordination status" column for the planner); `GET /api/sources/{doc_id}` whitelist → 200 `application/pdf`.
   - Verify: `tests/api/test_detail_export.py` — CSV == list for 3 filter sets; unknown id 404; traversal 404; formula/tab/CR escaping; numeric cells untouched; PDF headers.
 - [ ] **T2.5a Project detail** (WEB)
@@ -117,7 +117,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [x] **T2.8a Search API** (API) — `6e1f176`, merged `44aefc2`; 12 focused lead rerun, integrated main quick gate 168 suite + 17 shell + 18 audits passed
   - Acceptance: `GET /api/search?q=` over `places.json` + project and substation names; prefix + word match; ≤ 10 typed results; q < 2 chars → 422.
   - Verify: `tests/api/test_search.py` ("sav" → Savannah first; "okat" → Okatie projects).
-- [ ] **T2.8b Search UI** (WEB-2)
+- [x] **T2.8b Search UI** (WEB-2) — `4869de9` correction merged as `321bd0e`; lead reran 10 search e2e; main quick gate 214 suite + 17 shell + 18 audits passed
   - Acceptance: `<input type="search" list>` + `<datalist>` (ARIA combobox only if an audit fails); Enter zooms and offers "Explore this area".
   - Verify: `tests/e2e/test_search.py` keyboard-only.
 - [ ] **T2.9 Export and print** (WEB-2)

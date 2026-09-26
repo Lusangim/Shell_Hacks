@@ -53,6 +53,17 @@
           <p>Solid: exact location. Dashed: approximate location. Unknown: listed only.</p>
           <p>Distance bands: ● Touching / ▦ Under 1.6 km / ▥ Under 8 km / ▧ Under 40 km.</p>
         </details>
+        <section class="search-region" aria-label="Find a place or project">
+          <form id="search-form" role="search">
+            <label for="search-input">Search a city or project</label>
+            <input id="search-input" type="search" list="search-options" autocomplete="off" minlength="2">
+            <datalist id="search-options"></datalist>
+          </form>
+          <p id="search-state" class="search-state" data-testid="search-state" role="status">Enter at least 2 characters to search local plans.</p>
+          <p id="search-selection" class="search-selection" data-testid="search-selection" hidden></p>
+          <button id="explore-area" class="explore-button" type="button" hidden>Explore this area</button>
+          <p id="area-selection" class="area-selection" data-testid="area-selection" role="status" hidden></p>
+        </section>
         <section id="opportunities" class="opportunities" aria-labelledby="opportunities-heading" tabindex="-1">
           <div class="section-head"><h2 id="opportunities-heading">Ranked overlaps</h2><span id="overlap-count" class="count" data-src="count"></span></div>
           <div id="list-state" class="list-state" data-testid="loading-state" role="status">Loading ranked opportunities</div>
