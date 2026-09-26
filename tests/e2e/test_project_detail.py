@@ -56,7 +56,7 @@ def test_map_click_opens_project_without_losing_overlap_selection(live_server):
         projects = page.request.get(f"{live_server}/api/projects").json()["features"]
         pairs = page.request.get(f"{live_server}/api/overlaps").json()
         paired_ids = list({project_id for pair in pairs for project_id in (pair["a"], pair["b"])})
-        project_id = page.evaluate("""ids => {
+        project_id = page.wait_for_function("""ids => {
           const paths = Array.from(document.querySelectorAll('[data-testid="project-feature"]'));
           return paths.map(path => {
             const box = path.getBoundingClientRect();
@@ -66,7 +66,7 @@ def test_map_click_opens_project_without_losing_overlap_selection(live_server):
               x, y};
           }).find(item => ids.includes(item.id) && item.hit && item.x > 450
             && item.x < innerWidth - 20 && item.y > 20 && item.y < innerHeight - 20)?.id;
-        }""", paired_ids)
+        }""", arg=paired_ids, timeout=5000).json_value()
         assert project_id is not None
         feature = page.locator(f'[data-testid="project-feature"][data-project-id="{project_id}"]')
         expect(feature).to_be_visible()
