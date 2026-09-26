@@ -1,10 +1,12 @@
 import { loadShellData } from "./api.js";
 import { initializeMap, refreshMapTheme, renderMap } from "./map.js";
 import { renderList, renderUnknownLocations, selectFirstOverlapForProject } from "./list.js";
+import { setupProjectDetail } from "./project-detail.js";
 import { state } from "./state.js";
 
 const status = document.getElementById("status");
 const listState = document.getElementById("list-state");
+const projectView = setupProjectDetail();
 
 function showState(message, kind) {
   listState.replaceChildren();
@@ -39,6 +41,7 @@ async function load() {
     renderMap(projects, basemap);
     renderList(overlaps, projects);
     renderUnknownLocations(projects);
+    projectView.renderProjects(projects.features, overlaps);
     document.getElementById("editions").textContent = editionText(meta);
     const count = meta.stage_counts?.kept ?? projects.features.length;
     const noOverlap = meta.no_overlap_count;
@@ -54,6 +57,7 @@ async function load() {
       status.textContent = `${overlaps.length} ranked opportunities loaded.`;
     }
   } catch (_error) {
+    projectView.showLoadError();
     showState("Could not load public plan data. Check the local server and try again.", "error");
     delete status.dataset.src;
     status.textContent = "Public plan data could not be loaded.";
@@ -100,5 +104,8 @@ function setupSheet() {
 initializeMap();
 setupTheme();
 setupSheet();
-document.addEventListener("gridlock:project-click", (event) => selectFirstOverlapForProject(event.detail.projectId));
+document.addEventListener("gridlock:project-click", (event) => {
+  selectFirstOverlapForProject(event.detail.projectId);
+  projectView.openProject(event.detail.projectId, "overlaps");
+});
 load();
