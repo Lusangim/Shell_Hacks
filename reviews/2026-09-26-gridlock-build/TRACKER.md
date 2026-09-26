@@ -71,6 +71,7 @@ when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT;
 - ~11:00 · e099697 · — · Founder amendment 2 read: modern map (T1.6). Offline PMTiles and optional Google switch requested; external assets read-only, real key file off-limits; direction v2 becomes visual contract.
 - ~11:00 · e099697 · — · Founder amendment 3 read: T1.7 readable text, T1.8 walkthrough. Add acceptance checks and build after map, with brief text when Phase 3 UI exists.
 - ~11:00 · e099697 · — · Founder amendment 4 read: up to 8 sub-agents. This runtime exposes four total concurrent slots (lead plus three sub-agents); use every available independent slot, avoid file overlap, and monitor machine load.
+- 11:10 · fd13d48 · main baseline 267/18/18; T3.3a focused 107 passed, lane gate 382 pass/2 WEB map-readiness failures · founder direction v2 and T1.6–T1.8 tasks recorded; T1.6 WEB vendor/map work, T2.9 export/print disclosure repair and WEB map-readiness repair active in separate worktrees; API T1.6 Range/config brief and worktree ready for next free agent slot
 
 ## Environment facts
 - Working copy `C:\Users\lucia\dev\gridlock`; git data `C:\Users\lucia\dev\gridlock-git` (the `.git` in the
