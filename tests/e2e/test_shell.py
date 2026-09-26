@@ -376,6 +376,8 @@ def test_first_map_view_contains_savannah_and_augusta(shell_server):
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
         page = browser.new_page(viewport={"width": 1440, "height": 900})
+        basemap = (ROOT / "data" / "build" / "basemap.json").read_text(encoding="utf-8")
+        page.route("**/api/basemap", lambda route: route.fulfill(status=200, content_type="application/json", body=basemap))
         page.goto(shell_server)
         expect(page.get_by_test_id("project-feature")).to_have_count(12)
         assert page.evaluate("""async () => {
