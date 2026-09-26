@@ -24,12 +24,12 @@ explorer.
    worth fixing. A large batch of corrections goes back to Codex **without another Codex judging loop**;
    Claude then judges again and ships with the founder.
 
-**The only fixed times:** the Codex lead delivers by **Sat 2026-09-26 09:30 EDT** at the latest, earlier
-if it finishes (SPEC Q12); Claude's final review starts at delivery, and the founder and team review both
-results. Devpost closes **Sun
-2026-09-27 11:00 EDT**; the founder submits by **10:30**; the team is at the judging location by 13:00.
-There is no other schedule and there are no time boxes. After the team's review, the next round (the
-team builds on, another Codex lead run on the open tasks under these rules, or both) is the founder's call.
+**No time limit for Codex** (founder, 2026-09-26: "remove the time limit just let it work"; SPEC Q12): the
+lead delivers when the project is complete and judged, and rewrites `DELIVERY.md` at every gate so the
+founder and team can see real progress at any time. Claude's final review starts at delivery. **The only
+fixed times:** Devpost closes **Sun 2026-09-27 11:00 EDT**; the founder submits by **10:30**; the team is
+at the judging location by 13:00. There is no other schedule and there are no time boxes. The next round
+after the review (the team builds on, another Codex run on open items, or both) is the founder's call.
 
 ## Architecture and process decisions
 
@@ -47,10 +47,10 @@ team builds on, another Codex lead run on the open tasks under these rules, or b
 | D10 | Timeline = in-service year only | Plans give in-service dates, not starts | Add windows if Sperry supplies them |
 | D11 | **One Codex lead (`gpt-6-sol`, reasoning high, subscription) runs the build** from a mission brief; up to **five** Codex sub-agents at once | Founder's decision (2026-09-26); five is the founder's choice for Codex's own fan-out, an exception to the standing three-agent rule | Fallback below (§ The Codex lead) |
 | D12 | **Quick gate before every merge** (≤ 5 min); full matrix at gates | The merge gate must actually run at merge time | — |
-| D13 | **ECC agents adopted as rewritten roles**, not installed: the lead applies `references/review-checklists.md` on every merge; specialist reviewers run as fresh sub-agents at gates (G1a contracts · G1 Python + JS · G2 tests + silent failures + domain · G4 accessibility · sanitizer at delivery); Claude reuses the same role files on Opus in the final review | Their checklists are the strongest part of ECC | Drop a gate reviewer if the hand-off is close |
+| D13 | **ECC agents adopted as rewritten roles**, not installed: the lead applies `references/review-checklists.md` on every merge; specialist reviewers run as fresh sub-agents at gates (G1a contracts · G1 Python + JS · G2 tests + silent failures + domain · G4 accessibility · sanitizer at delivery); Claude reuses the same role files on Opus in the final review | Their checklists are the strongest part of ECC | Drop a gate reviewer only on the founder's word |
 | D14 | **Codex judges its own build** with fresh-context judge sub-agents on frozen copies (measured evidence, verdict "material improvement still available: yes / no"); **independence comes from Claude's final review** on a different model | Founder's decision; a builder never grades its own task | Claude's final review can reopen anything |
 | D15 | **Corrections after the final review go back to Codex with no judging loop**; Claude re-judges | Founder's decision; keeps one judge of record at the end | — |
-| D16 | **No clock schedule; one delivery protocol.** The lead builds in task order (the demo path first) and reads the clock at every merge. **At 09:00, 30 minutes before the hand-off,** it starts no new build task, finishes or parks what is in flight, runs a judging round on what is built, fixes the P0/P1 findings that fit, runs VERIFY and delivers at the hand-off time. Cuts follow the scope ladder; an unfinished feature is hidden from the demo path, never deleted, and listed for the founder | Founder's decisions ("remove the schedule"; Codex goes "through all the judging rounds it needs") | — |
+| D16 | **No clock schedule and no time limit.** The lead builds in task order (the demo path first), never ends its turn before `delivered` (that would kill its sub-agents), rewrites `DELIVERY.md` at every gate from G1a, and delivers when G4 passes: VERIFY green, sanitizer, README, final `DELIVERY.md`, tag `delivered`. A blocked task is parked, its feature hidden from the demo path (never deleted) and listed for the founder; nothing is cut for time | Founder's decisions ("remove the schedule"; Codex goes "through all the judging rounds it needs"; "remove the time limit just let it work") | The founder can stop the run; the latest `DELIVERY.md` is then the hand-off |
 | D17 | Claude runs at most three agents at a time and none while a Codex run is active | Founder's standing rule (interruptions, machine load) | — |
 
 ## The Codex lead (D11, D14–D16)
@@ -58,29 +58,34 @@ team builds on, another Codex lead run on the open tasks under these rules, or b
 - **Launch (Claude, T0.9):** `scripts\codex-lead.ps1 -Brief reviews\2026-09-26-gridlock-build\MISSION.md`
   runs `codex exec -C %USERPROFILE%\dev\gridlock -m gpt-6-sol -c model_reasoning_effort="high"
   -s workspace-write -c approval_policy="never" --json -o <runs>\lead-last.md -` in the background, with
-  the mission brief on stdin (never as an argument: PowerShell 5.1 splits embedded quotes). Env:
-  `GRIDLOCK_AI=off`, `GRIDLOCK_PY=<venv python>`, `GRIDLOCK_TEST_PORT=8770`, plus whatever T0.6 proved
-  the sub-agents need. JSONL goes to `<runs>\codex\`; the session id goes in the tracker. The completion
-  notification is the signal; nobody polls.
-- **Mission brief** (`references/agent-prompts.md` § Codex mission brief): the task list as the work
-  queue, lanes and exclusive files, fan-out ≤ 5, the sub-agent brief template, the merge rule (review +
-  quick gate), gates and their reviewers, judging rounds, the hand-off time and what to do at it, and the
-  delivery report.
+  the mission brief as a stdin file handle (never as an argument or a piped string: PowerShell 5.1 splits
+  embedded quotes and re-encodes piped text), plus `--add-dir` for the worktree, run and git folders and
+  `--enable prevent_idle_sleep`. Env: `GRIDLOCK_AI=off`, `GRIDLOCK_PY=<venv python>`,
+  `GRIDLOCK_TEST_PORT=8770`, `PLAYWRIGHT_BROWSERS_PATH`; every `ANTHROPIC_*`, `CLAUDE_*`, `CLAUDECODE` and
+  `USE_*OAUTH` variable is removed first, so Codex never inherits the Claude session's credentials. JSONL
+  goes to `<runs>\codex\`; the session id goes in the tracker. The script waits on the Codex process only,
+  so a leftover server cannot hold it open. The completion notification is the signal; nobody polls.
+- **Mission brief** (`reviews/2026-09-26-gridlock-build/MISSION.md`, reviewed before launch): the run
+  rules (never end the turn early; park and continue; wait at most 10 minutes; re-read after compaction;
+  `DELIVERY.md` at every gate), the task list as the work queue, lanes and exclusive files, fan-out ≤ 5,
+  per-command ports, the merge rule, gates and their reviewers, frozen judge copies, judging rounds, and
+  delivery at G4.
 - **Fan-out:** builders get one task each with a self-contained brief. Judges and gate reviewers are fresh
   sub-agents that did not build what they judge, each on a frozen copy with its own port (8781–8785).
 - **Memory across a long run:** the lead's context will compact. `reviews/2026-09-26-gridlock-build/TRACKER.md`
   and the ticks in `tasks/todo.md` are its memory: it writes a checkpoint line at every merge and gate.
-- **Proven on this machine (2026-09-26):** the subscription accepts `gpt-6-sol` on CLI 0.157.1 (smoke
-  test at xhigh; the build runs at high); sandbox writes in the workspace; real Python 3.12 runs (the
-  Microsoft Store `python` alias does not); localhost ports bind; the founder's Codex history shows earlier
-  sub-agent spawns.
-- **Still to prove (T0.6):** sub-agents spawned inside `codex exec` with approval `never`; where they can
-  write (lane worktrees outside the working copy, or inside it); venv, pytest, uvicorn and Playwright
-  Chromium in the sandbox; the run-output folder. If Chromium cannot run in the sandbox, the founder
-  decides before launch how e2e and the audits run. The options and their costs go in the tracker.
-- **Fallback if sub-agents cannot run inside `codex exec`:** plan v2's model (Claude dispatches one Codex
-  session per lane with `scripts\codex-task.ps1`, reviews and merges), or one Codex session building the
-  tasks in order. The founder picks before launch.
+- **Proven on this machine (2026-09-26):** the subscription accepts `gpt-6-sol` on CLI 0.157.1; real
+  Python 3.12 runs (the Microsoft Store `python` alias does not); localhost ports bind. **T0.6 (04:16–04:19):**
+  the lead started two sub-agents in parallel with its `collaboration.spawn_agent` tool; each created and
+  used its own worktree under `%USERPROFILE%\dev\gridlock-wt`, ran pytest 9.1.1 from the venv and
+  committed on its branch; uvicorn served on 127.0.0.1:8770; Playwright Chromium 1243 launched. Sub-agents
+  share the lead's filesystem sandbox, so lane limits are instructions the lead enforces at review.
+- **Git inside the sandbox:** Codex's sandbox locks any folder named `.git` (explicit DENY entries, kept
+  if the folder is moved). The working copy therefore keeps its git data in a fresh
+  `%USERPROFILE%\dev\gridlock-git` (`git clone --separate-git-dir`), which `codex-lead.ps1` passes with
+  `--add-dir` together with the worktree and run folders.
+- **Fallback, not needed after T0.6:** plan v2's model (Claude dispatches one Codex session per lane with
+  `scripts\codex-task.ps1`, reviews and merges).
 - **Stops:** a usage-limit stop or a crash pauses the lead. Claude checks the working copy, then resumes it
   with `codex exec resume <session id>`; it is never relaunched.
 - **Codex MCP noise:** three broken user MCP servers (Hugging Face, n8n, Notion) print errors at start;
@@ -93,7 +98,7 @@ team builds on, another Codex lead run on the open tasks under these rules, or b
 | Lane | Runs on | Owns (exclusive) | Port |
 |---|---|---|---|
 | CLAUDE | Claude (this session) | Everything it creates in T0.0–T0.9; always `SPEC.md`, `PROJECT-PROFILE.md`, `CLAUDE.md`, `AGENTS.md`, `.claude/`, `.agents/`, `docs/PRESENTATION.md`, `docs/DEVPOST.md`, `docs/QA-CRIB.md`, `reviews/.../pitch/`, `reviews/.../final-review/` | 8765 demo |
-| LEAD | Codex lead | `tasks/todo.md` (ticks), the pass folder (except Claude's folders), `scripts/`, `*.cmd`, `requirements.txt`, `.gitattributes`, `.gitignore`, `server/schemas.py`, `contracts/`, `tests/fixtures/api/`, `tests/conftest.py`, `tests/e2e/test_demo_path.py`, `tests/e2e/audits/`; merges into `main` | 8770 · 8790 verify |
+| LEAD | Codex lead | `tasks/todo.md` (ticks), the pass folder (except Claude's folders), `scripts/`, `*.cmd`, `requirements.txt`, `.gitattributes`, `.gitignore`, `server/schemas.py`, `contracts/`, `tests/fixtures/api/`, `tests/conftest.py`, `tests/pipeline/test_contracts.py`, `tests/e2e/test_demo_path.py`, `tests/e2e/audits/`, `reviews/.../house-patterns.md`; merges into `main` | 8770 · 8776 (sub-agents on LEAD files) · 8790 verify |
 | DATA | Codex sub-agent | `pipeline/` (except `briefs.py`), `data/manual/` (except `contacts.json`), `data/build/`, `tests/pipeline/` | 8771 |
 | API | Codex sub-agent | `server/` (except `schemas.py`), `pipeline/briefs.py`, `data/briefs/`, `data/manual/contacts.json`, `tests/api/`, `tests/eval/` | 8772 |
 | WEB | Codex sub-agent | `web/` (except WEB-2 files), `tests/e2e/` (except LEAD's and WEB-2's) | 8773 |
@@ -105,14 +110,14 @@ team builds on, another Codex lead run on the open tasks under these rules, or b
 
 | Gate | Who | Must be true |
 |---|---|---|
-| Go | founder | The founder's "go" (Q6 downloads, Q9 design and Q12 hand-off were answered 2026-09-26) |
+| Go | founder | The founder's "go" (Q6 downloads, Q9 design and Q12 no time limit were answered 2026-09-26) |
 | Launch | Claude | T0.0–T0.8 done: plan committed; working copy, venv and downloads; pass folder and scripts; Codex proven (fan-out, pytest, uvicorn, Chromium); direction locked; mission brief reviewed |
 | G1a foundations | Codex lead | Contracts frozen and type-reviewed; harness + quick gate; VERIFY green; baseline set |
 | G1 walking skeleton | Codex lead | Map + list from the API; T1.4a audits green; Python and JS reviewers' CRITICAL/HIGH closed |
 | G2 core demo path | Codex lead | Search → pair → detail → sources → export green; domain spot-check, test analysis and silent-failure sweep closed or assigned |
 | G3 feature freeze | Codex lead | Every feature in, or hidden per the ladder; full matrix green; held-out eval 10/10 (template, or Claude briefs with Q3) |
 | G4 judged | Codex lead | Every Codex judge says "material improvement: no", or only founder decisions / external dependencies are left |
-| Delivery | Codex lead | At G4 or at the hand-off (Sat 09:30 at the latest), whichever comes first, after the delivery judging round (D16): `DELIVERY.md`, tag `delivered`, VERIFY summary |
+| Delivery | Codex lead | When G4 passes (no time limit, D16): VERIFY green, sanitizer, README, final `DELIVERY.md`, tag `delivered` |
 | Final review | Claude | First report (`FINAL-REVIEW.md`) right after round 1; then Claude's judges say "no" or only founder decisions are left; corrections merged; VERIFY green |
 | G5 ship-ready | Claude + founder | `references/ship-checklist.md` green; the founder submits by 10:30 |
 
@@ -140,7 +145,8 @@ demo, stubbed honestly, or finished only if < 30 minutes remain.
 
 | Risk | Impact | Mitigation |
 |---|---|---|
-| Too little built by the hand-off (09:30 leaves Codex about 3 hours of building, estimate) | High | Task order builds the demo path first; the ladder; the lead delivers a judged first version with unfinished features hidden; the team builds on after its review (founder's plan) |
+| No time limit: a long run leaves less time for Claude's review and the founder's rehearsals before Sun 10:30 | High | `DELIVERY.md` rewritten at every gate, so the founder can follow progress and stop the run with a usable hand-off; Claude reports progress when the founder asks; the demo path is built first |
+| The lead ends its turn early and kills its sub-agents | High | MISSION "Your run" rules: never end the turn before `delivered`; park and continue; bounded waits |
 | Sub-agent fan-out unproven inside `codex exec` | High | T0.6 proves it before launch; fallback above |
 | Codex judging its own build | Med | Fresh-context judge sub-agents on frozen copies with measured evidence (D14); Claude's independent final review on a different model |
 | #1 story wording overstated (DESC work is at Deerfield on the Okatie–McIntosh tie) | High | `shared_endpoint` reason; T2.10 + domain spot-check at G2 pick the demo pair from evidence |
@@ -194,7 +200,7 @@ list is downloaded.
 | States, 1440/390, light/dark, keyboard | T1.3, T1.4a/b, T3.5 | audits |
 | Offline + no Claude access | T3.5, T3.3b | e2e (non-local blocked; outbound guard) |
 | Security | T1.2, T2.4, T3.3a | API tests; security judge |
-| Operating model (lead, fan-out, hand-off, final review) | T0.6, T0.8, T0.9, D.1, F1–F5 | fan-out proof; mission-brief review; `DELIVERY.md`; final-review judgments |
+| Operating model (lead, fan-out, delivery, final review) | T0.6, T0.8, T0.9, D.1–D.3, F1–F5 | fan-out proof; mission-brief review; `DELIVERY.md`; final-review judgments |
 | Codex environment | T0.6, T0.7 | smoke tasks in the tracker |
 | Prior art and pitch (PaverOps and peers) | SPEC § Prior art, T5.0, T5.3 | sources cited; change-reviewer read |
 | Docs, Q&A, demo, Devpost, fresh clone | T5.0–T5.5, H9 | docs-truth walk; checklist |
@@ -245,5 +251,8 @@ run npx, delete code, commit or push, send messages, or edit settings.
 **v3 (2026-09-26, founder's operating model):** clock schedule removed (gate targets, time boxes, founder
 schedule, sleep blocks); one Codex lead runs the build, the gates and every judging round with up to five
 sub-agents; Claude sets up, launches and reviews last; corrections after the final review go back to Codex
-without a judging loop; downloads approved; design by impeccable's direction round; Codex delivers by Sat
-09:30 at the latest, after a delivery judging round (D16); prior art added (PaverOps and peers, SPEC § Prior art).
+without a judging loop; downloads approved; design: The System Wall Map with The Plan Sheet's details; no
+time limit for Codex (the founder removed the Sat 09:30 hand-off), `DELIVERY.md` at every gate (D16);
+prior art added (PaverOps and peers, SPEC § Prior art). Pre-launch review of `MISSION.md` (5 HIGH, 7
+MEDIUM) applied: run rules, credential scrub in the launch script, committed launch state, per-round
+frozen copies, per-command ports, main-copy guard, wave-1 ownership, UTF-8 reading, house-patterns path.

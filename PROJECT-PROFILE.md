@@ -28,18 +28,19 @@ working with no bugs and have a clean UI … per the MVP we made together."
 | What | Path |
 |---|---|
 | Repo (public) | https://github.com/Lusangim/Shell_Hacks |
-| Working clone (Q8) | `%USERPROFILE%\dev\gridlock` (the OneDrive copy is left untouched) |
+| Working clone (Q8) | `%USERPROFILE%\dev\gridlock`, git data in `%USERPROFILE%\dev\gridlock-git` (separate git dir; see Known traps); origin = the OneDrive copy, which is otherwise left untouched |
 | Plan, tasks, spec | `SPEC.md` · `tasks/plan.md` · `tasks/todo.md` |
 | Pass folder | `reviews/2026-09-26-gridlock-build/` (BRIEF, TRACKER, MISSION, DELIVERY, FINAL-REVIEW, briefs, reports) |
 | Notes (not in repo) | the founder's Obsidian notes for this hackathon (hacker-guide notes, feature list) |
-| Outside OneDrive and AppData | venv `%USERPROFILE%\dev\gridlock-venv` · worktrees `%USERPROFILE%\dev\gridlock-wt\<lane>` (or `.wt\<lane>` in the clone, per T0.6) · runs `%USERPROFILE%\dev\gridlock-runs` · Playwright browsers `%USERPROFILE%\dev\ms-playwright` (`PLAYWRIGHT_BROWSERS_PATH`) |
+| Outside OneDrive and AppData | venv `%USERPROFILE%\dev\gridlock-venv` · worktrees `%USERPROFILE%\dev\gridlock-wt\<lane>` · runs `%USERPROFILE%\dev\gridlock-runs` · Playwright browsers `%USERPROFILE%\dev\ms-playwright` (`PLAYWRIGHT_BROWSERS_PATH`) |
 | Challenge source | Notion "Hacker Guide" page `cade86546e9182339a8701de4fddc32e` (re-fetch; organisers update it) |
 
 ## Never touch
 
 - The founder's workflow vault (Lucky Systems) — read-only (founder, 2026-09-26: "DO NOT CHANGE ANYTHING").
 - `data/raw/*` source documents — read-only inputs.
-- Port **8765** while the founder demos; Codex lead 8770; lanes 8771–8775; judges 8781–8785; verify 8790.
+- Port **8765** while the founder demos; Codex lead 8770; lanes 8771–8775; LEAD-file sub-agents 8776;
+  second lane worktrees 8777–8779; judges 8781–8785; verify 8790.
 - Credentials: Claude access (`ANTHROPIC_API_KEY` / `ant` profiles), `gh` token, anything under
   `%USERPROFILE%\.codex\` (auth.json, config.toml) — never read, printed or passed to an agent.
 - SERTP "Secure Area" and SCRTP CEII-NDA material — never requested or used.
@@ -59,8 +60,9 @@ SERTP 2025 overview plan): names and descriptions are shown verbatim, with docum
 - 2026-09-26 founder, operating model: "remove the schedule"; one Codex lead runs the whole project, fans
   out **up to 5** sub-agents (the founder's choice for Codex's own fan-out; Claude's agents stay ≤ 3) and
   goes "through all the judging rounds it needs"; Claude is "the last reviewer" and routes a large bug
-  batch back to Codex without a Codex judge loop, then judges it. Codex delivers by **Sat 09:30 EDT** at
-  the latest ("it can finish earlier than that"); the founder and team then review and keep building.
+  batch back to Codex without a Codex judge loop, then judges it. **No time limit for Codex** ("remove the
+  time limit just let it work", replacing the earlier Sat 09:30 hand-off): it delivers when the project is
+  complete and judged, and rewrites `DELIVERY.md` at every gate so the founder and team can see progress.
 - 2026-09-26 founder: all listed downloads approved ("Approve all"); design by impeccable's direction round.
 - Nothing invented: unknowns stay "unknown"; estimates say "estimate" and show assumptions; AI text says
   "AI-drafted"; contacts are organisations / planning functions, never people.
@@ -76,8 +78,9 @@ SERTP 2025 overview plan): names and descriptions are shown verbatim, with docum
 
 ## House patterns (the cheat sheet)
 
-`.claude/skills/gridlock-build/references/house-patterns.md` — written at G1 from the skeleton with
-`path:line` examples; until then lanes follow `SPEC.md` § Contracts and § Code style.
+`reviews/2026-09-26-gridlock-build/house-patterns.md` — written by the Codex lead at G1 from the skeleton
+with `path:line` examples (the lead may not edit `.claude/`); until then lanes follow `SPEC.md`
+§ Contracts and § Code style.
 **Do not read (WEB and API lanes):** `data/raw/*`, `data/build/*` (use the API, the schema or the
 fixtures), `web/vendor/*`, other lanes' folders. **DATA** reads `data/raw/*` through the pipeline and may
 open a PDF page to check a value; nobody reads `%USERPROFILE%\.codex\`.
@@ -149,6 +152,14 @@ open a PDF page to check a value; nobody reads `%USERPROFILE%\.codex\`.
   line layer as archived and frozen, with its fetch date. DESC plans in SCRTP, not SERTP (interregional).
   SERTP 2025 is not the newest edition (a 2026 preliminary report exists). SERTP cost estimates are
   use-restricted; our SERTP extract has no cost columns.
+- 2026-09-26 Codex's Windows sandbox (workspace-write) keeps any folder named `.git` read-only, even when
+  added with `--add-dir`, and does it by stamping explicit DENY entries for its sandbox SIDs on the folder;
+  moving the folder keeps them. Fix used: the working copy keeps its git data in a fresh folder created by
+  `git clone --separate-git-dir %USERPROFILE%\dev\gridlock-git …`, passed with `--add-dir`. Never point
+  Codex at a git folder that was ever a workspace's `.git`; never edit ACLs to undo it (re-clone instead).
+- 2026-09-26 PowerShell 5.1 re-encodes a string piped to a native program: briefs go to Codex as a stdin
+  file handle (`Start-Process -RedirectStandardInput`), and `-c key=value` values stay unquoted (TOML
+  falls back to a literal string).
 
 ## Open founder inputs
 
@@ -160,4 +171,6 @@ open a PDF page to check a value; nobody reads `%USERPROFILE%\.codex\`.
   preview map, public repo; plan v1; independent gap review (22 findings) → plan v2; Codex CLI 0.157.1
   proven with `gpt-6-sol` on the subscription (smoke test at xhigh; the build runs at high, founder's choice).
 - 2026-09-26 — plan v3: the founder's operating model (Codex lead + up to five sub-agents builds and
-  judges; Claude reviews last; no clock schedule; hand-off by Sat 09:30); prior art (PaverOps and peers).
+  judges with no time limit; Claude reviews last; no clock schedule); prior art (PaverOps and peers);
+  T0.6 proved fan-out after moving the git data out of `.git`; the launch script strips Claude's session
+  variables from Codex's environment.

@@ -2,9 +2,8 @@
 
 Status: **v3, waiting for the founder's go** (2026-09-26). v2 closed the 22 findings of an independent gap
 review (GAP-01…22, register in `tasks/plan.md` § Review log). v3 applies the founder's operating model:
-no clock schedule; one Codex lead builds and judges the project with up to five sub-agents and delivers
-by Sat 09:30 EDT at the latest (earlier if it finishes); Claude reviews last. Nothing is built until the
-founder says go.
+no clock schedule; one Codex lead builds and judges the whole project with up to five sub-agents, with no
+time limit; Claude reviews last. Nothing is built until the founder says go.
 Workflow: `.claude/skills/gridlock-build/SKILL.md`.
 
 ## Objective
@@ -76,12 +75,14 @@ pick-an-area explorer (40 km circle) · AI coordination brief per overlap.
   project end to end from a mission brief: it fans out **up to five** Codex sub-agents (the DATA, API, WEB,
   WEB-2 and DOCS lanes, each in its own git worktree, plus judges and gate reviewers), reviews and merges
   their work behind the quick gate, runs the full verify at every gate and **every judging round**, and
-  delivers by **Sat 09:30 EDT** at the latest, earlier if it finishes (Q12).
+  delivers when the project is complete and judged — **no time limit** (Q12). It rewrites `DELIVERY.md` at
+  every gate, so progress is visible at any time.
 - **Claude Code (this repo's session):** before the launch, setup, the approved downloads, the Codex proof,
   the design round with the founder and the mission brief; after delivery, **the final reviewer** — it
   judges with Claude Opus agents (a different model from the builders), fixes what it judges worth fixing,
   and sends a large batch of corrections back to Codex with **no Codex judging loop**, then judges again.
-- **The founder and team** review Codex's and Claude's results after the hand-off and decide the next round.
+- **The founder and team** follow progress in `DELIVERY.md`, review Codex's and Claude's results, and
+  decide the next round.
 - **AI brief inside the product:** Claude API (`claude-opus-5`) only if the founder supplies Claude access
   and a spending ceiling (Q3); otherwise template briefs. Codex never sees the Claude credential.
 
@@ -94,7 +95,7 @@ pick-an-area explorer (40 km circle) · AI coordination brief per overlap.
 | `overlap-engine` | Nearest points (EPSG:5070) → geodesic distance, band, why they touch, timeline gap, score, deterministic rank | `geo-placement` |
 | `savings-model` | Savings range or stated reason per overlap, from a sourced assumptions table and plan costs | `overlap-engine` |
 | `brief-generator` | Coordination brief per overlap: Claude (grounded, structured) or deterministic template; hash-checked cache; eval set | `overlap-engine`, `savings-model` |
-| `api` | FastAPI on 127.0.0.1: health, meta, projects, project detail, overlaps, overlap detail, area, search, briefs, CSV export, source PDFs | build artifacts |
+| `api` | FastAPI on 127.0.0.1: health, meta, basemap, projects, project detail, overlaps, overlap detail, area, search, briefs, CSV export, source PDFs | build artifacts |
 | `web-app` | Map, ranked list, project + overlap detail, filters, timeline slider, city search, area explorer, export, print report, light/dark, local basemap | `api` |
 | `verification` | pytest (pipeline, API, grader), Playwright e2e + scripted UI audits, per-merge quick gate, `VERIFY.cmd` full run with baseline | all |
 | `ship` | README, methodology, data sources and licences, demo script, Q&A crib, screenshots fallback, presentation outline, Devpost text | all |
@@ -273,11 +274,11 @@ def band_for(distance_m: float) -> Band | None:
 - **Q9 Design direction** — impeccable's direction round (the founder locks one of the dealt directions;
   ~45–60 min agent time + ~10 min of theirs). *If the founder is away when every other launch task is
   done, the assigned direction is used and the founder is told (the skill's own unattended rule).*
-- **Q12 Hand-off** — the Codex lead delivers by **Sat 2026-09-26 09:30 EDT** at the latest, earlier if it
-  finishes ("Sat 9:30 am so me and my team can review yours and codex results … and we can build";
-  "codex can deploy by 9:30 … it can finish earlier than that"). Its delivery judging round starts 30
-  minutes before the hand-off (plan D16); Claude's final review starts at delivery; the founder and team
-  review both results, and the next round is the founder's call.
+- **Q12 Hand-off** — **no time limit** (founder, 2026-09-26, 04:3x: "remove the time limit just let it
+  work", replacing the earlier "Sat 9:30 am … it can finish earlier than that"). The Codex lead delivers
+  when G4 passes; it rewrites `DELIVERY.md` at every gate from G1a, so the founder and team can review
+  real progress at any time (e.g. Sat 09:30) and the founder can stop the run if the Devpost deadline ever
+  requires it. Claude's final review starts at delivery.
 
 **Have a default (answer any time):**
 - **Q1 Team** — roster, roles, Discord tags, first-time hackers. *Default: founder + agents; placeholders.*

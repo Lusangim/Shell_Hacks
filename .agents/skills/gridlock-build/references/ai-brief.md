@@ -3,9 +3,10 @@
 Loaded for tasks T3.1, T3.2, T3.3a/b and F6. The briefs inside the product use the **Claude API** only if
 the founder supplies Claude access and a spending ceiling (SPEC Q3); otherwise every brief is the template.
 Codex never sees the credential and never calls the API: it builds the generator against a fake client
-(T3.2), and any real call happens in Claude's F6 after the founder's yes. Before the launch, Claude
-re-reads the `claude-api` skill's `python/claude-api/README.md` + `tool-use.md` § Structured Outputs and
-corrects this file's request shape — the SDK surface drifts and the skill's files are authoritative.
+(T3.2), and any real call happens in Claude's F6 after the founder's yes. Before F6 (and before any
+real call), Claude re-reads the `claude-api` skill's `python/claude-api/README.md` + `tool-use.md`
+§ Structured Outputs and corrects this file's request shape and the generator to match — the SDK surface
+drifts and the skill's files are authoritative. The fake client in T3.2's tests mirrors this file.
 Method adapted from the founder's vault `eval-sets.md` and ECC `eval-harness` (evals first; code checks
 before any model judging; held-out third).
 

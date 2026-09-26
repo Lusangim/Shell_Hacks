@@ -1,7 +1,8 @@
 # CLAUDE.md — GridLock (ShellHacks 2026, Sperry Tech challenge)
 
-Codex delivers by **Sat 2026-09-26 09:30 EDT** at the latest (earlier if it finishes); Devpost closes
-**Sun 2026-09-27 11:00 EDT**; the founder submits by 10:30. Read the machine clock before planning anything.
+The Codex lead has **no time limit** (founder: "remove the time limit just let it work"): it delivers when
+the project is complete and judged. Devpost closes **Sun 2026-09-27 11:00 EDT**; the founder submits by
+10:30. Read the machine clock before planning anything.
 
 **Workflow:** load the `gridlock-build` skill (`.claude/skills/gridlock-build/SKILL.md`) for any work here.
 State lives in `reviews/2026-09-26-gridlock-build/TRACKER.md` — read it first and trust it over memory.

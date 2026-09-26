@@ -1,0 +1,1142 @@
+<!doctype html>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GridLock: choose the visual direction</title>
+<!-- Static copy of impeccable's decision page (serve-question.mjs, impeccable 4.1.1), rendered once
+     on 2026-09-26 from decision-payload.json and then stopped; no server stays running.
+     Roll: concept-seed.mjs --scope direction --mode operate, seed key 3a040ed5, source api,
+     approved pool c3b204a1eed6. Choices are relayed to Claude in chat. -->
+<style>
+  .static-note { margin-top: .9rem; max-width: 52rem; padding: .7rem .9rem; border: 1px solid var(--ks-kinpaku-deep, #9a8a50);
+    border-radius: 8px; color: var(--ks-kinpaku-pale, #efe6c8); font-size: .95rem; line-height: 1.45; }
+  #static-toast { position: fixed; left: 50%; bottom: 1.25rem; transform: translateX(-50%); z-index: 50; max-width: min(40rem, calc(100vw - 2rem));
+    padding: .8rem 1rem; border-radius: 8px; background: oklch(22% 0.02 95); color: oklch(92% 0.03 90);
+    border: 1px solid var(--ks-kinpaku, #e0b43a); font-size: 1rem; line-height: 1.45; box-shadow: 0 8px 28px oklch(0% 0 0 / .45); }
+  #static-toast[hidden] { display: none; }
+</style>
+<script>
+  // No question server runs behind this copy: heartbeats are dropped and a choice is shown
+  // as the words to send Claude, instead of being posted.
+  (function () {
+    try { navigator.sendBeacon = function () { return true; }; } catch (e) {}
+    var realFetch = window.fetch ? window.fetch.bind(window) : null;
+    function labelFor(a) {
+      if (a.optionId === 'reroll') return a.register ? 'Re-roll, ' + a.register + ' hand' : 'Re-roll';
+      if (a.optionId === 'canon') return 'The category standard';
+      var card = document.querySelector('article.card[data-id="' + String(a.optionId).replace(/"/g, '') + '"] h2');
+      return card ? card.textContent : String(a.optionId);
+    }
+    function showPick(a) {
+      var toast = document.getElementById('static-toast');
+      if (!toast) { toast = document.createElement('div'); toast.id = 'static-toast'; toast.setAttribute('role', 'status'); document.body.appendChild(toast); }
+      var text = 'Nothing was sent from this static copy. Tell Claude in chat: "' + labelFor(a) + '"';
+      if (a.steer) text += ', with your steer: "' + a.steer + '"';
+      toast.textContent = text + '.';
+      toast.hidden = false;
+      setTimeout(function () { document.querySelectorAll('.reroll-btn, #canon').forEach(function (b) { b.removeAttribute('disabled'); }); }, 0);
+    }
+    window.fetch = function (url, opts) {
+      if (typeof url === 'string' && url.charAt(0) === '/') {
+        if (url === '/answer' && opts && opts.body) { try { showPick(JSON.parse(opts.body)); } catch (e) {} }
+        return new Promise(function () {});
+      }
+      return realFetch ? realFetch(url, opts) : Promise.reject(new Error('no fetch'));
+    };
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600&family=Alumni+Sans:wght@100;400&display=swap" rel="stylesheet">
+<style>
+  /* Neo kinpaku tokens, mirrored from impeccable.style kinpaku-tokens.css */
+  :root {
+    color-scheme: dark;
+    --ks-kinpaku: oklch(84% 0.19 80.46);
+    --ks-kinpaku-pale: oklch(86% 0.07 84);
+    --ks-kinpaku-rich: oklch(77% 0.13 82);
+    --ks-kinpaku-deep: oklch(61% 0.085 78);
+    --ks-dark-ink: oklch(14% 0.018 95);
+    --ks-patina: oklch(70% 0.12 188);
+    --ks-lacquer: oklch(7% 0.006 95);
+    --ks-lacquer-raised: oklch(11% 0.006 95);
+    --ks-graphite: oklch(15% 0.008 95);
+    --ks-graphite-2: oklch(19% 0.008 95);
+    --ks-champagne: oklch(91% 0 0);
+    --ks-text: oklch(88% 0 0);
+    --ks-text-muted: oklch(72% 0 0);
+    --ks-text-faint: oklch(62% 0 0);
+    --ks-rule: oklch(78% 0 0 / 0.16);
+    --ks-font-display: "Alumni Sans", "Albert Sans", Arial, sans-serif;
+    --ks-font: "Albert Sans", "Avenir Next", "Helvetica Neue", Arial, system-ui, sans-serif;
+    --ks-mono: "SFMono-Regular", "Roboto Mono", "JetBrains Mono", Consolas, monospace;
+    /* One inset shared by the content column, the deck's snap padding, and
+       the sticky footer, so all three align on the same 90rem column. */
+    --page-inset: max(clamp(1rem, 5vw, 4rem), calc((100vw - 90rem) / 2));
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--ks-lacquer); color: var(--ks-text); font: 15px/1.55 var(--ks-font); padding: 1.8rem clamp(1rem, 5vw, 4rem) 0; min-height: 100dvh; display: flex; flex-direction: column; overflow-x: clip; }
+  #ambient { position: fixed; inset: -40px; z-index: 0; background-size: cover; background-position: center; filter: blur(34px) saturate(1.05); opacity: 0; transition: opacity .55s ease, background-image .2s; pointer-events: none; }
+  #scrim { position: fixed; inset: 0; z-index: 0; background: linear-gradient(180deg, oklch(7% 0.006 95 / 0.62), oklch(7% 0.006 95 / 0.78)); pointer-events: none; }
+  header, main, footer { position: relative; z-index: 1; }
+  #lightbox { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; background: oklch(4% 0.004 95 / 0.93); cursor: zoom-out; opacity: 0; transition: opacity .25s ease; }
+  #lightbox[hidden] { display: none; }
+  #lightbox.open { opacity: 1; }
+  #lightbox img { max-width: 94vw; max-height: 94vh; border: 1px solid var(--ks-rule); border-radius: 8px; box-shadow: 0 30px 80px oklch(0% 0 0 / 0.6); }
+  header { width: 100%; max-width: 90rem; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: .55rem; color: var(--ks-kinpaku); }
+  .brand svg { width: 22px; height: 22px; }
+  .wordmark { font-family: var(--ks-font-display); font-weight: 400; font-size: 1.125rem; letter-spacing: 0.15em; text-transform: uppercase; line-height: 1; color: var(--ks-kinpaku); }
+  .headline { display: flex; align-items: center; gap: .9rem; flex-wrap: wrap; }
+  .headline-die { flex: none; width: 34px; height: 34px; color: var(--ks-kinpaku); }
+  h1 { font-family: var(--ks-font-display); font-weight: 100; font-size: clamp(2.6rem, 5vw, 4.2rem); letter-spacing: -0.01em; line-height: 1.02; color: var(--ks-champagne); }
+  .question { color: var(--ks-text-muted); margin-top: .7rem; max-width: 52rem; }
+  main { flex: 1; display: flex; align-items: center; width: 100%; max-width: 90rem; margin: 0 auto; }
+  .stage { width: 100%; display: flex; flex-direction: column; gap: 1.5rem; }
+  /* The deck bleeds to the viewport edges while the first card aligns with the
+     content column; a carousel cut off at an invisible container edge reads as
+     a rendering bug, but one cut off at the screen edge reads as more cards. */
+  .deck-shell { position: relative; width: 100vw; margin-left: calc(50% - 50vw); }
+  /* One row in a wide viewport, one column in a tall one; the deck scrolls on
+     its axis with snap points and the arrows page it card by card. */
+  .grid { --deck-inset: var(--page-inset); display: flex; gap: 1.6rem; width: 100%; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 6px var(--deck-inset); scroll-padding-inline: var(--deck-inset); align-items: stretch; }
+  .grid::-webkit-scrollbar { display: none; }
+  /* Wide enough that the comp carries the card: at 27vw the imagery read
+     as a thumbnail above a column of copy, and the copy won the attention
+     contest the comp is supposed to win. */
+  .grid > .card { flex: 0 0 clamp(24rem, 34vw, 34rem); scroll-snap-align: center; }
+  /* Short landscape viewports (13-inch laptops): header, a 34vw card, and the
+     footer do not fit 800px of height, so the headline compacts and the deck
+     narrows. Height is the axis that gives; the sticky footer keeps the
+     round's verbs on screen while a too-tall card scrolls. */
+  @media (min-aspect-ratio: 1/1) and (max-height: 900px) {
+    body { padding-top: 1.1rem; }
+    h1 { font-size: clamp(2rem, 3.4vw, 2.9rem); }
+    .question { margin-top: .45rem; }
+    .stage { gap: 1rem; }
+    .grid > .card { flex-basis: clamp(20rem, 27vw, 27rem); }
+    .grid > .card.declined { flex-basis: clamp(13rem, 18vw, 18rem); }
+  }
+  .nav { position: absolute; z-index: 6; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: oklch(7% 0.006 95 / 0.78); border: 1px solid var(--ks-rule); color: var(--ks-kinpaku); cursor: pointer; backdrop-filter: blur(6px); transition: border-color .2s, color .2s, opacity .2s; }
+  .nav:hover { border-color: var(--ks-kinpaku-deep); color: var(--ks-kinpaku-pale); }
+  .nav[disabled] { opacity: .25; cursor: default; }
+  .nav[hidden] { display: none; }
+  .nav svg { width: 16px; height: 16px; }
+  .nav.prev { left: 14px; top: 50%; transform: translateY(-50%); }
+  .nav.next { right: 14px; top: 50%; transform: translateY(-50%); }
+  /* A side that hides more cards fades out; a hard edge means the end. */
+  .fade { position: absolute; z-index: 5; pointer-events: none; opacity: 0; transition: opacity .3s ease; }
+  .fade-prev { left: 0; top: 0; bottom: 0; width: 88px; background: linear-gradient(90deg, var(--ks-lacquer), transparent); }
+  .fade-next { right: 0; top: 0; bottom: 0; width: 88px; background: linear-gradient(270deg, var(--ks-lacquer), transparent); }
+  .deck-shell.can-prev .fade-prev { opacity: 1; }
+  .deck-shell.can-next .fade-next { opacity: 1; }
+  @media (max-aspect-ratio: 1/1) {
+    .grid { flex-direction: column; overflow-x: hidden; overflow-y: auto; scroll-snap-type: y mandatory; max-height: min(68dvh, 44rem); scroll-padding-block: 6px; }
+    .grid > .card { flex: 0 0 auto; }
+    /* In the vertical deck the pager is the primary way forward, so it grows
+       into a labeled pill instead of a bare chevron nobody notices. */
+    .nav { width: auto; height: 38px; border-radius: 19px; padding: 0 16px; gap: 8px; border-color: var(--ks-kinpaku-deep); background: oklch(7% 0.006 95 / 0.88); font-family: var(--ks-mono); font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; }
+    .nav svg { transform: rotate(90deg); }
+    .nav.prev::after { content: "Back"; }
+    .nav.next::after { content: "More"; }
+    .nav.prev { left: 50%; top: 6px; transform: translate(-50%, 0); }
+    .nav.next { right: auto; left: 50%; top: auto; bottom: 6px; transform: translate(-50%, 0); }
+    .fade-prev { top: 0; left: 0; right: 0; bottom: auto; width: auto; height: 72px; background: linear-gradient(180deg, var(--ks-lacquer), transparent); }
+    .fade-next { top: auto; left: 0; right: 0; bottom: 0; width: auto; height: 72px; background: linear-gradient(0deg, var(--ks-lacquer), transparent); }
+    /* In the vertical deck the cross axis is horizontal: flex-start would
+       shrink a declined card to content WIDTH, not height, so it stretches
+       like every other card and its height is already its own. */
+    .grid > .card.declined { align-self: stretch; }
+    /* The sticky bar is a wide-viewport fix. Here it would sit over the
+       deck's More pager and cost a third of a phone screen, and the deck
+       already scrolls internally, so the footer stays in the page flow. */
+    footer { position: static; width: auto; margin: 1rem 0 0; padding: .7rem 0 1.2rem; background: transparent; border-top: 0; backdrop-filter: none; }
+  }
+  .card { position: relative; perspective: 1400px; transform: rotate(var(--fan, 0deg)); transition: transform .25s cubic-bezier(.16, 1, .3, 1); }
+  .card:hover { transform: rotate(0deg) translateY(-4px); }
+  .card-inner { position: relative; height: 100%; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.16, 1, .3, 1); }
+  .card.flipped .card-inner { transform: rotateY(180deg); }
+  .face { background: var(--ks-lacquer-raised); border: 1px solid var(--ks-rule); border-radius: 10px; box-shadow: 0 18px 40px oklch(0% 0 0 / 0.35); overflow: hidden; display: flex; flex-direction: column; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .face.front { position: relative; height: 100%; }
+  .face.back { position: absolute; inset: 0; transform: rotateY(180deg); }
+  /* Only the visible face is interactive: a hidden backface still hit-tests
+     in Chrome, so the front's pip would otherwise sit invisibly over the
+     back's chips, showing its zoom cursor and eating the flip-back click. */
+  .face.back { pointer-events: none; }
+  .card.flipped .face.back { pointer-events: auto; }
+  .card.flipped .face.front { pointer-events: none; }
+  .face.lead { border-color: var(--ks-kinpaku); box-shadow: 0 0 0 1px var(--ks-kinpaku), 0 18px 40px oklch(0% 0 0 / 0.45); }
+  .card:hover .face { border-color: var(--ks-kinpaku-deep); }
+  .card:hover .face.lead { border-color: var(--ks-kinpaku); }
+  @media (prefers-reduced-motion: reduce) { .card-inner { transition: none; } }
+  .kicker { position: absolute; z-index: 2; top: 12px; left: 12px; padding: 4px 10px; background: var(--ks-kinpaku); color: var(--ks-dark-ink); font-family: var(--ks-mono); font-size: .625rem; letter-spacing: .24em; text-transform: uppercase; border-radius: 4px; }
+  /* Text-only card: a grounded direction with no rendered card drops the media
+     region entirely instead of reserving a blank 16:9 void. */
+  .face.text-only .kicker { position: static; align-self: flex-start; margin: 14px 0 0 14px; }
+  .face.text-only .body { padding-top: 12px; }
+  /* 16/10 matches the landscape comp frame; portrait art overrides the
+     slot with its own exact ratio at load (see the load listener), and the
+     deck narrows so portrait cards line up side by side. */
+  .media { position: relative; width: 100%; aspect-ratio: 16/10; flex: none; }
+  .grid.portrait-media > .card { flex-basis: clamp(14rem, 19vw, 19rem); }
+  .media img { width: 100%; height: 100%; object-fit: cover; display: block; background: linear-gradient(100deg, var(--ks-graphite) 40%, var(--ks-graphite-2) 50%, var(--ks-graphite) 60%); }
+  .media > img:not([hidden]) { cursor: zoom-in; }
+  .face.back { background: var(--ks-lacquer-raised); }
+  .back-bar { margin-top: auto; background: var(--ks-lacquer-raised); }
+  .hero-blank { width: 100%; height: 100%; background: linear-gradient(100deg, var(--ks-graphite) 40%, var(--ks-graphite-2) 50%, var(--ks-graphite) 60%); }
+  .back-bar { flex: none; flex-direction: row; align-items: center; justify-content: space-between; gap: .8rem; }
+  .chips { position: absolute; z-index: 1; right: 10px; bottom: 10px; display: flex; gap: 6px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 9px; font-family: var(--ks-mono); font-size: .625rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ks-text); background: oklch(7% 0.006 95 / 0.72); border: 1px solid var(--ks-rule); border-radius: 5px; cursor: pointer; backdrop-filter: blur(4px); transition: color .2s, border-color .2s; }
+  .chip:hover { color: var(--ks-kinpaku); border-color: var(--ks-kinpaku-deep); }
+  .chip svg { width: 12px; height: 12px; }
+  .body { padding: .95rem 1.1rem 1.2rem; display: flex; flex-direction: column; gap: .5rem; flex: 1; }
+  .tier { font-family: var(--ks-mono); font-size: .625rem; letter-spacing: .24em; text-transform: uppercase; color: var(--ks-text-faint); }
+  h2 { font-family: var(--ks-font); font-size: 1.125rem; font-weight: 500; line-height: 1.35; color: var(--ks-champagne); }
+  .detail { color: var(--ks-text-muted); font-size: .88rem; white-space: pre-wrap; }
+  .detail.more { font-size: .8rem; color: var(--ks-text-faint); }
+  .thesis { color: var(--ks-text); font-size: .95rem; line-height: 1.45; }
+  .identity { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 2px 0; }
+  .swatches { display: inline-flex; gap: 4px; margin-right: 4px; }
+  .swatches i { width: 18px; height: 18px; border-radius: 5px; border: 1px solid oklch(100% 0 0 / 0.18); box-shadow: inset 0 0 0 1px oklch(0% 0 0 / 0.25); }
+  .tag { font-family: var(--ks-mono); font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ks-text-muted); border: 1px solid var(--ks-rule); border-radius: 4px; padding: 3px 7px; }
+  .fact { font-size: .8rem; color: var(--ks-text-muted); line-height: 1.45; }
+  .fact-label { display: inline-block; font-family: var(--ks-mono); font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ks-text-faint); margin-right: .55em; transform: translateY(-1px); }
+  .fact.clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  /* The back is the full read: first viewport, the case, the whole risk, and
+     the board when the world has one. */
+  .back-head { display: flex; align-items: center; justify-content: space-between; gap: .8rem; padding: 14px 14px 0; }
+  .media.back-media { aspect-ratio: 16/6; }
+  .media.back-media img { width: 100%; height: 100%; object-fit: cover; }
+  .body.back-body { overflow-y: auto; flex: 1; scrollbar-width: thin; }
+  /* Inspiration rides picture-in-picture: the catalog world explains where the
+     direction comes from without promising what the build will look like. */
+  /* Hovering the inspiration takes over the whole media region; the comp is
+     the promise, the inspiration is a glance, so the glance must cost nothing. */
+  .pip { position: absolute; z-index: 2; left: 10px; bottom: 10px; margin: 0; width: 84px; height: 64px; border: 1px solid var(--ks-rule); border-radius: 6px; overflow: hidden; background: var(--ks-lacquer); cursor: zoom-in; transition: left .35s cubic-bezier(.16,1,.3,1), bottom .35s cubic-bezier(.16,1,.3,1), width .35s cubic-bezier(.16,1,.3,1), height .35s cubic-bezier(.16,1,.3,1), border-radius .35s ease; box-shadow: 0 6px 18px oklch(0% 0 0 / 0.45); }
+  .pip img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .pip figcaption { position: absolute; left: 0; right: 0; bottom: 0; font-family: var(--ks-mono); font-size: .5rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ks-text); text-align: center; padding: 3px 0 4px; background: oklch(7% 0.006 95 / 0.72); backdrop-filter: blur(3px); }
+  .pip:hover { left: 0; bottom: 0; width: 100%; height: 100%; border-radius: 0; z-index: 3; }
+  .comp-note { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--ks-mono); font-size: .66rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ks-text-faint); }
+  /* Catalog art standing in for a comp-less card is a reference, and says so
+     on its face; the same pill later carries "artwork unavailable". */
+  .media-label { position: absolute; z-index: 2; left: 10px; bottom: 10px; margin: 0; font-family: var(--ks-mono); font-size: .5rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ks-text); padding: 3px 8px 4px; background: oklch(7% 0.006 95 / 0.72); border: 1px solid var(--ks-rule); border-radius: 4px; backdrop-filter: blur(3px); }
+  /* Art that never arrives collapses to the card's own palette (painted
+     inline from its swatches) instead of sitting as a dark void wearing a
+     zoom cursor; the scrim keeps the label legible over saturated fields,
+     passes clicks through, and the flip chips stay above it. A card with no
+     palette falls back to the quiet graphite field. */
+  .media.unavailable { background: linear-gradient(100deg, var(--ks-graphite) 40%, var(--ks-graphite-2) 50%, var(--ks-graphite) 60%); }
+  .media.unavailable::after { content: ""; position: absolute; inset: 0; z-index: 1; background: oklch(10% 0.008 95 / 0.45); pointer-events: none; }
+  .media.unavailable .chips { z-index: 2; }
+  /* A stand-in is honest about being one: dimmed, labeled, and replaced by
+     the real comp whenever it lands. */
+  .media.stand-in img.comp { filter: brightness(.72) saturate(.85); }
+  .media.stand-in .pip { display: none; }
+  .stand-in-label { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; margin: 0; font-family: var(--ks-mono); font-size: .56rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ks-text); text-align: center; padding: 4px 0 5px; background: oklch(7% 0.006 95 / 0.78); backdrop-filter: blur(3px); }
+  .media.comp-pending { position: relative; }
+  .media.comp-pending .shimmer { position: absolute; inset: 0; }
+  .media img.comp { position: relative; z-index: 1; }
+  /* The generic .media img display:block would defeat [hidden] and float an
+     empty block over the shimmer; an unloaded comp must truly not render. */
+  .media img[hidden] { display: none; }
+  /* Declined challengers: the weighing demoted them, so the card is narrower
+     and quieter, its catalog art rides as a labeled thumb in the body, and
+     the action reads "Adopt anyway". Adoptable, never deleted: the demoted
+     row is the hand's proof of judgment. */
+  /* Narrow AND short: without align-self the stretch default drags a thin
+     declined card to the tallest contender's height, a strange stilt of a
+     card beside the full hand. */
+  .grid > .card.declined { flex: 0 0 clamp(15rem, 21vw, 21rem); align-self: flex-start; }
+  .card.declined .face { background: var(--ks-graphite); }
+  .card.declined:hover .face { border-color: var(--ks-text-faint); }
+  .card.declined h2 { font-size: 1rem; color: var(--ks-text); }
+  .kicker.declined-k { background: transparent; border: 1px solid var(--ks-rule); color: var(--ks-text-faint); }
+  .card.declined button.choose { background: transparent; color: var(--ks-text-muted); border: 1px solid var(--ks-rule); font-size: .85rem; padding: 8px 22px; }
+  .card.declined button.choose:hover { background: var(--ks-graphite-2); border-color: var(--ks-text-muted); }
+  /* Wireframe media: the code-led schematic. Quiet boxes in the card's own
+     chrome; uniform salience across cards by construction, so it needs no
+     parity rules. */
+  .media.wire { background: var(--ks-lacquer); border-bottom: 1px solid var(--ks-rule); }
+  .wire-field { position: absolute; inset: 12px 12px 26px; }
+  .wire-region { position: absolute; border: 1px solid oklch(78% 0 0 / 0.26); border-radius: 3px; background: oklch(78% 0 0 / 0.05); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .wire-region span { font-family: var(--ks-mono); font-size: .55rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ks-text-faint); text-align: center; padding: 2px 4px; }
+  .wire-region.accent { border-color: oklch(84% 0.19 80.46 / 0.5); background: oklch(84% 0.19 80.46 / 0.06); }
+  .wire-region.accent span { color: var(--ks-kinpaku-rich); }
+  /* Thumb-scale inspiration: present, labeled, zoomable, and incapable of
+     outshouting a text-only assigned card. */
+  .inspo { position: relative; flex: none; margin: 2px 0; width: 104px; height: 64px; border: 1px solid var(--ks-rule); border-radius: 6px; overflow: hidden; cursor: zoom-in; background: var(--ks-lacquer); }
+  .inspo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .inspo figcaption { position: absolute; left: 0; right: 0; bottom: 0; font-family: var(--ks-mono); font-size: .48rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ks-text); text-align: center; padding: 2px 0 3px; background: oklch(7% 0.006 95 / 0.72); }
+  /* Raises: the improvements the dealt worlds donated to the assigned
+     direction, each named for its donor world. Patina, not kinpaku:
+     provenance, not a call to action. A quiet contained panel, never an
+     accent side-tab. */
+  .raises { display: flex; flex-direction: column; gap: 4px; margin: 2px 0; padding: 7px 10px 8px; background: oklch(70% 0.12 188 / 0.06); border: 1px solid oklch(70% 0.12 188 / 0.22); border-radius: 8px; }
+  .raise { font-size: .78rem; color: var(--ks-text-muted); line-height: 1.45; }
+  .raise .fact-label { color: var(--ks-patina); }
+  /* Several kept ideas cycle instead of stacking: one visible at a time, a
+     counter for the rest, the whole block advances on click. */
+  .raises-cycle { cursor: pointer; transition: border-color .2s ease; }
+  .raises-cycle:hover { border-color: oklch(70% 0.12 188 / 0.45); }
+  .raises-cycle .raise { display: none; }
+  .raises-cycle .raise.active { display: block; }
+  .raises-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .raises-head .fact-label { color: var(--ks-patina); }
+  .raises-count { font-family: var(--ks-mono); font-size: .58rem; letter-spacing: .14em; color: var(--ks-text-faint); }
+  .raises-count::after { content: " \203A"; }
+  .raises-cycle:hover .raises-count { color: var(--ks-patina); }
+  .sr-live { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  /* The standing exit as a card: present with full anatomy, never dressed as a
+     contender. Graphite instead of kinpaku, and it never takes the lead ring. */
+  .card.canon .face { border-color: var(--ks-rule); background: var(--ks-graphite); }
+  .card.canon:hover .face { border-color: var(--ks-text-faint); }
+  .card.canon .kicker.standing { background: transparent; border: 1px solid var(--ks-rule); color: var(--ks-text-faint); }
+  .card.canon button.choose { background: transparent; color: var(--ks-text); border: 1px solid var(--ks-rule); }
+  .card.canon button.choose:hover { border-color: var(--ks-text-muted); background: var(--ks-graphite-2); }
+  button.choose { margin-top: auto; align-self: start; background: var(--ks-kinpaku); color: var(--ks-dark-ink); border: 0; font-family: var(--ks-font); font-size: 1rem; font-weight: 500; line-height: 1.35; padding: 10px 38px; border-radius: 6px; cursor: pointer; transition: background .15s; }
+  button.choose:hover { background: var(--ks-kinpaku-pale); }
+  /* The round's verbs stay reachable on short viewports: the footer is a
+     full-bleed bar stuck to the viewport bottom and the deck scrolls under
+     it. Same inset as the content column, so the controls stay aligned. */
+  footer { position: sticky; bottom: 0; z-index: 10; width: 100vw; margin: 1.2rem calc(50% - 50vw) 0; padding: .7rem var(--page-inset) calc(.7rem + env(safe-area-inset-bottom, 0px)); display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; background: oklch(7% 0.006 95 / 0.82); backdrop-filter: blur(10px); border-top: 1px solid var(--ks-rule); }
+  #steer { flex: 1; min-width: 16rem; background: var(--ks-lacquer-raised); color: var(--ks-text); border: 1px solid var(--ks-rule); border-radius: 7px; padding: .6rem .85rem; font: inherit; }
+  #steer:focus { outline: none; border-color: var(--ks-patina); }
+  /* Build-path toggle: a workflow preference surfaced as a quiet segmented
+     control on the headline row, right-aligned opposite the title, its trade stated in
+     one line that changes with the selection. The default comes from the
+     payload (settings); flipping binds this session only, and the agent
+     learns about a code-to-comp flip live. Rendered only when the payload
+     offers it, which the agent does only when image generation exists. */
+  #build-path { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; flex: none; margin-left: auto; }
+  .bp-switch { display: inline-flex; border: 1px solid var(--ks-rule); border-radius: 6px; overflow: hidden; }
+  .bp-note { text-align: right; }
+  .bp-opt { font-family: var(--ks-mono); font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; padding: 7px 12px; background: transparent; border: 0; color: var(--ks-text-faint); cursor: pointer; transition: color .2s ease, background-color .2s ease; }
+  .bp-opt + .bp-opt { border-left: 1px solid var(--ks-rule); }
+  .bp-opt.active { color: var(--ks-dark-ink); background: var(--ks-kinpaku-rich); }
+  .bp-opt:not(.active):hover { color: var(--ks-text); }
+  .bp-note { font-family: var(--ks-mono); font-size: .58rem; letter-spacing: .04em; color: var(--ks-text-faint); max-width: 21rem; line-height: 1.5; }
+  /* Flipping to comp starts billed, minutes-long generation, so it asks
+     first; flipping back is free and never does. */
+  #bp-confirm { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; background: oklch(4% 0.004 95 / 0.72); opacity: 0; transition: opacity .2s ease; }
+  #bp-confirm[hidden] { display: none; }
+  #bp-confirm.open { opacity: 1; }
+  .bp-confirm-panel { max-width: 26rem; margin: 1rem; background: var(--ks-lacquer-raised); border: 1px solid var(--ks-rule); border-radius: 10px; padding: 1.4rem 1.5rem 1.3rem; box-shadow: 0 30px 80px oklch(0% 0 0 / 0.55); }
+  .bp-confirm-panel h2 { font-family: var(--ks-font); font-size: 1.125rem; font-weight: 500; color: var(--ks-champagne); margin-bottom: .55rem; }
+  .bp-confirm-panel p { font-size: .875rem; line-height: 1.55; color: var(--ks-text-muted); }
+  .bp-confirm-actions { display: flex; gap: .6rem; margin-top: 1.1rem; }
+  .bp-confirm-go { background: var(--ks-kinpaku); color: var(--ks-dark-ink); border: 0; font: inherit; font-weight: 500; padding: 9px 22px; border-radius: 6px; cursor: pointer; }
+  .bp-confirm-go:hover { background: var(--ks-kinpaku-pale); }
+  .bp-confirm-stay { background: transparent; color: var(--ks-text-muted); border: 1px solid var(--ks-rule); font: inherit; padding: 9px 18px; border-radius: 6px; cursor: pointer; }
+  .bp-confirm-stay:hover { color: var(--ks-text); border-color: var(--ks-text-faint); }
+  .reroll-btn { display: inline-flex; align-items: center; align-self: stretch; gap: 8px; padding: 0 16px; font-family: var(--ks-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ks-kinpaku); background: transparent; border: 1px solid var(--ks-rule); border-radius: 6px; cursor: pointer; transition: border-color .2s ease, color .2s ease; }
+  .reroll-btn:hover { color: var(--ks-kinpaku-pale); border-color: var(--ks-kinpaku-deep); }
+  .reroll-btn svg { width: 15px; height: 15px; }
+  .reroll-btn[disabled] { opacity: .4; cursor: default; }
+  /* The register steers read quieter than the plain roll: they are exits from
+     the current register, not the round's main verbs. */
+  #reroll-safer, #reroll-bolder { color: var(--ks-text-muted); min-height: 38px; }
+  #reroll-safer:hover, #reroll-bolder:hover { color: var(--ks-text); border-color: var(--ks-text-faint); }
+  /* The quiet exit: always available, never argued with, visually subordinate
+     to the dealt cards and the re-roll so it reads as the user's own door,
+     not a recommendation. */
+  #canon { align-self: center; padding: 0 4px; font-family: var(--ks-mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: inherit; opacity: .45; background: transparent; border: none; border-bottom: 1px dotted currentColor; cursor: pointer; transition: opacity .2s ease; }
+  #canon:hover { opacity: .85; }
+  #canon[disabled] { opacity: .18; cursor: default; }
+  .card.skeleton .media { background: var(--ks-graphite); }
+  .shimmer { width: 100%; height: 100%; background: linear-gradient(100deg, var(--ks-graphite) 35%, var(--ks-graphite-2) 50%, var(--ks-graphite) 65%); background-size: 220% 100%; animation: shimmer 1.4s linear infinite; }
+  .card.skeleton .line { height: 11px; border-radius: 4px; background: linear-gradient(100deg, var(--ks-graphite) 35%, var(--ks-graphite-2) 50%, var(--ks-graphite) 65%); background-size: 220% 100%; animation: shimmer 1.4s linear infinite; }
+  .card.skeleton .line.tier { height: 8px; }
+  .card.skeleton .line.title { height: 17px; border-radius: 5px; }
+  .card.skeleton .line.button { height: 38px; width: 128px; border-radius: 6px; margin-top: auto; }
+  .card.skeleton .w40 { width: 40%; } .card.skeleton .w70 { width: 70%; } .card.skeleton .w90 { width: 90%; } .card.skeleton .w80 { width: 80%; } .card.skeleton .w60 { width: 60%; }
+  .card.skeleton .body { flex: 1; }
+  @keyframes shimmer { from { background-position: 120% 0; } to { background-position: -80% 0; } }
+  @media (prefers-reduced-motion: reduce) { .shimmer, .card.skeleton .line { animation: none; } }
+  .done { display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 7rem 1rem; font-family: var(--ks-font-display); font-size: 1.4rem; color: var(--ks-champagne); text-align: center; }
+  .stall { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 1.2rem; padding: 4.5rem 1rem; font-family: var(--ks-font-display); font-size: 1.4rem; color: var(--ks-champagne); text-align: center; }
+  .stall .choose { align-self: center; margin-top: 0; }
+</style>
+<div id="ambient" aria-hidden="true"></div>
+<div id="scrim" aria-hidden="true"></div>
+<div id="lightbox" hidden><img alt=""></div>
+<template id="tpl-expand-chip"><button type="button" class="chip expand" aria-label="Expand the image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 15v5h-5M20 9V4h-5M4 15v5h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button></template>
+
+<header>
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 2.5 L13.5 2.5 L5.5 21.5 L5 21.5 Q2.5 21.5 2.5 19 L2.5 5 Q2.5 2.5 5 2.5 Z"/><path d="M16.5 2.5 L19 2.5 Q21.5 2.5 21.5 5 L21.5 19 Q21.5 21.5 19 21.5 L8.5 21.5 Z"/></svg>
+    <span class="wordmark">Impeccable</span>
+  </div>
+</header>
+<main>
+  <div class="stage">
+    <div class="headline">
+      <svg class="headline-die" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8.4" cy="8.4" r="1.5" fill="currentColor"/><circle cx="15.6" cy="8.4" r="1.5" fill="currentColor"/><circle cx="8.4" cy="15.6" r="1.5" fill="currentColor"/><circle cx="15.6" cy="15.6" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+      <h1>GridLock: choose the visual direction</h1>
+      
+    </div>
+    <p class="question">The roll dealt The Plan Sheet, already raised by the six worlds it beat. Keep it, take Impeccable's pick or the category standard, adopt a declined world, or re-roll.</p>
+    <p class="static-note">Static copy of the decision page: the buttons send nothing. Click the improvements box on The Plan Sheet to step through its six raises, then tell Claude your pick in chat: a card name, Re-roll, Safer hand or Bolder hand, with any steer.</p>
+    <div class="deck-shell">
+      <div class="grid">
+    <article class="card" style="--fan:0deg;--deal:0ms" data-id="assigned">
+      <div class="card-inner">
+        <div class="face front lead text-only">
+          <span class="kicker">THE ROLL</span>
+          
+          <div class="body">
+            <p class="tier">Regional transmission plan project pages (SERTP 2025, DESC SCRTP 2026 to 2030)</p>
+            <h2>The Plan Sheet</h2>
+            <p class="thesis">Every opportunity filed like a page of the plans it came from: labelled fields, a folio, a citation you can open.</p>
+            <div class="identity"><span class="swatches"><i style="background:#f7f8fa" title="#f7f8fa"></i><i style="background:#1f2733" title="#1f2733"></i><i style="background:#c9d0d9" title="#c9d0d9"></i><i style="background:#f2e64d" title="#f2e64d"></i><i style="background:#1d3b73" title="#1d3b73"></i><i style="background:#b8481f" title="#b8481f"></i></span><span class="tag">ruled plan page</span><span class="tag">labelled fields</span><span class="tag">page citations</span><span class="tag">one highlighter mark</span></div>
+            <div class="raises raises-cycle" role="button" tabindex="0" title="Click or press Enter for the next improvement" aria-label="How Impeccable's worlds improved this direction; activate to see the next improvement">
+              <div class="raises-head"><span class="fact-label">Improved by Impeccable's worlds</span><span class="raises-count" data-raises-count>1/6</span></div>
+              <p class="raise"><span class="fact-label">From Iridescent Cloud Edge</span>Colour never touches chrome or text: the panel stays achromatic, and colour lives only on map lines, band rings and the one highlighter mark.</p><p class="raise"><span class="fact-label">From Cloud Quarry</span>Every quantity is set like a tally board: tabular figures, right aligned, unit in a lighter weight, so km, kV, years and dollars scan as one column.</p><p class="raise"><span class="fact-label">From Cassette J-Card</span>Approximate is pencil, exact is ink: a lighter dashed line and a lighter label wherever a location is approximate, in list, map and detail.</p><p class="raise"><span class="fact-label">From Busytown Cross-Section</span>The selected pair and the top opportunities carry printed labels on hairline leaders, so the map never needs a legend lookup.</p><p class="raise"><span class="fact-label">From One-Bit Desktop</span>Distance bands carry a hatch density as well as a tint, so they survive grayscale, colour blindness and the printed report.</p><p class="raise"><span class="fact-label">From Phosphor Terminal</span>State prints itself: one status line reports every change as a plain sentence, for eyes and screen readers alike.</p>
+              <span class="sr-live" aria-live="polite"></span>
+            </div>
+            <p class="fact"><span class="fact-label">First viewport</span>Full-bleed map captioned as the plan's figure; a docked summary table ranks the pairs with the top row highlighted; in-service years 2026 to 2035 run along the bottom edge as the slider.</p>
+            
+            
+            <p class="fact"><span class="fact-label">Risk</span>A document look can feel static on a live map; it only works if the panel stays a working tool, never a report to read.</p>
+            <button class="choose" data-id="assigned">Build this</button>
+          </div>
+        </div>
+        
+      </div>
+    </article>
+
+    <article class="card" style="--fan:1.4deg;--deal:90ms" data-id="model-pick">
+      <div class="card-inner">
+        <div class="face front text-only">
+          <span class="kicker">IMPECCABLE’S PICK</span>
+          
+          <div class="body">
+            <p class="tier">Utility transmission system maps on planning office walls</p>
+            <h2>The System Wall Map</h2>
+            <p class="thesis">The wall map every planning office keeps, made live: line weight by voltage, colour by utility, the state line drawn heavy.</p>
+            <div class="identity"><span class="swatches"><i style="background:#f4f6f4" title="#f4f6f4"></i><i style="background:#23282e" title="#23282e"></i><i style="background:#c3c9cf" title="#c3c9cf"></i><i style="background:#1d3b73" title="#1d3b73"></i><i style="background:#b8481f" title="#b8481f"></i><i style="background:#6d5bd0" title="#6d5bd0"></i></span><span class="tag">legend box</span><span class="tag">title block</span><span class="tag">voltage line weights</span><span class="tag">named substations</span></div>
+            <p class="fact"><span class="fact-label">First viewport</span>The SC and GA border full-bleed at wall-map scale; a docked panel drawn as the legend and title block holds search, filters and the ranked list.</p>
+            
+            
+            <p class="fact"><span class="fact-label">Risk</span>Where most tools in this category land: familiar and effective, and easy to mistake for any GIS viewer.</p>
+            <button class="choose" data-id="model-pick">Build this</button>
+          </div>
+        </div>
+        
+      </div>
+    </article>
+
+    <article class="card canon" style="--fan:-1.2deg;--deal:180ms" data-id="canon">
+      <div class="card-inner">
+        <div class="face front text-only">
+          <span class="kicker standing">The standing door</span>
+          
+          <div class="body">
+            
+            <h2>The category standard</h2>
+            <p class="thesis">A clean GIS web app played straight: neutral basemap, a left panel with search, filters and a ranked list.</p>
+            <div class="identity"><span class="swatches"><i style="background:#fdfdfd" title="#fdfdfd"></i><i style="background:#1f2937" title="#1f2937"></i><i style="background:#e5e7eb" title="#e5e7eb"></i><i style="background:#2563eb" title="#2563eb"></i></span><span class="tag">neutral basemap</span><span class="tag">left panel</span><span class="tag">one blue accent</span></div>
+            <p class="fact"><span class="fact-label">First viewport</span>Map on the right; a white left panel with a search field, filter chips and ranked result rows.</p>
+            
+            
+            <p class="fact"><span class="fact-label">Risk</span>Looks like every map tool; nothing on screen says two utilities' plans.</p>
+            <button class="choose" data-id="canon">Play it straight</button>
+          </div>
+        </div>
+        
+      </div>
+    </article>
+
+    <article class="card declined" style="--fan:1.4deg;--deal:270ms" data-id="challenger-iridescent-cloud-edge">
+      <div class="card-inner">
+        <div class="face front text-only">
+          <span class="kicker declined-k">Declined</span>
+          
+          <div class="body">
+            <p class="tier">Atmospheric optics: a cloud edge diffracting sunlight</p>
+            <h2>Iridescent Cloud Edge</h2>
+            <p class="thesis">An achromatic tool where colour appears only as a thin spectral fringe at each distance band's edge.</p>
+            <div class="identity"><span class="swatches"><i style="background:#f7f8fa" title="#f7f8fa"></i><i style="background:#3d4654" title="#3d4654"></i><i style="background:#9fe0c9" title="#9fe0c9"></i><i style="background:#f0a3b5" title="#f0a3b5"></i><i style="background:#8b6fd6" title="#8b6fd6"></i></span><span class="tag">hairline colour fringes</span><span class="tag">wide white margins</span><span class="tag">thin humanist sans</span></div>
+            <figure class="inspo" title="Inspiration: the world this direction draws from. Your page will not look like this image."><img src="https://impeccable.style/worlds/cards/clouds-storms-auroras-iridescent-cloud-edge-hero.webp" alt=""><figcaption>inspired by</figcaption></figure>
+            <p class="fact"><span class="fact-label">First viewport</span>White map and panel; the 40 km, 8 km and 1.6 km rings drawn as mint, rose and violet hairlines around the selected pair.</p>
+            <p class="fact"><span class="fact-label">The case</span>Fuses with the band rings, but planners do not know this world and the pastel fringes carry little on a projector.</p>
+            <p class="fact"><span class="fact-label">Kept</span>The discipline: colour only on data, never on chrome or text.</p>
+            <p class="fact"><span class="fact-label">Risk</span>Pastel hairlines fail the 3:1 line contrast rule on a light basemap.</p>
+            <button class="choose" data-id="challenger-iridescent-cloud-edge">Adopt anyway</button>
+          </div>
+        </div>
+        
+      </div>
+    </article>
+
+    <article class="card declined" style="--fan:-1.2deg;--deal:360ms" data-id="challenger-cloud-quarry">
+      <div class="card-inner">
+        <div class="face front text-only">
+          <span class="kicker declined-k">Declined</span>
+          
+          <div class="body">
+            <p class="tier">Surreal worlds: a quarry cutting blocks of weather</p>
+            <h2>Cloud Quarry</h2>
+            <p class="thesis">Opportunities cut like blocks from a cloud cliff and stacked over deep blue gaps.</p>
+            <div class="identity"><span class="swatches"><i style="background:#f4f6f8" title="#f4f6f8"></i><i style="background:#4a8fd6" title="#4a8fd6"></i><i style="background:#5d6570" title="#5d6570"></i><i style="background:#b9c2cc" title="#b9c2cc"></i></span><span class="tag">cut blocks</span><span class="tag">stencil caps</span><span class="tag">tally boards</span></div>
+            <figure class="inspo" title="Inspiration: the world this direction draws from. Your page will not look like this image."><img src="https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-cloud-quarry-hero.webp" alt=""><figcaption>inspired by</figcaption></figure>
+            <p class="fact"><span class="fact-label">First viewport</span>Panel sections stacked as cut blocks over blue gaps; the selected pair edged by one silver saw line.</p>
+            <p class="fact"><span class="fact-label">The case</span>Its tally boards carry numbers well; the surreal world tells a planner nothing about transmission.</p>
+            <p class="fact"><span class="fact-label">Kept</span>Quantities set like a tally board: tabular, right aligned, unit lighter.</p>
+            <p class="fact"><span class="fact-label">Risk</span>Reads as a game; a regulator would not trust it with a filing.</p>
+            <button class="choose" data-id="challenger-cloud-quarry">Adopt anyway</button>
+          </div>
+        </div>
+        
+      </div>
+    </article>
+
+    <article class="card declined" style="--fan:1.4deg;--deal:450ms" data-id="challenger-cassette-j-card">
+      <div class="card-inner">
+        <div class="face front text-only">
+          <span class="kicker declined-k">Declined</span>
+          
+          <div class="body">
+            <p class="tier">Vernacular ephemera: the mixtape J-card</p>
+            <h2>Cassette J-Card</h2>
+            <p class="thesis">Each pair as a folded J-card: side A one utility's project, side B the other's, years right aligned.</p>
+            <div class="identity"><span class="swatches"><i style="background:#fafafa" title="#fafafa"></i><i style="background:#1f3fa6" title="#1f3fa6"></i><i style="background:#8a8f98" title="#8a8f98"></i><i style="background:#c8302c" title="#c8302c"></i></span><span class="tag">ruled inlay</span><span class="tag">ballpoint caps</span><span class="tag">pencil for tentative</span></div>
+            <figure class="inspo" title="Inspiration: the world this direction draws from. Your page will not look like this image."><img src="https://impeccable.style/worlds/cards/vernacular-ephemera-cassette-j-card-hero.webp" alt=""><figcaption>inspired by</figcaption></figure>
+            <p class="fact"><span class="fact-label">First viewport</span>The pair detail opens as a J-card: side A the Dominion project, side B the Georgia project, in-service years right aligned.</p>
+            <p class="fact"><span class="fact-label">The case</span>Two hard halves fit a two-utility pair and pencil fits approximate data; handwriting costs trust and scan speed.</p>
+            <p class="fact"><span class="fact-label">Kept</span>Approximate is pencil, exact is ink, on every surface.</p>
+            <p class="fact"><span class="fact-label">Risk</span>Handwritten caps are slow to scan and read as a toy in front of a regulator.</p>
+            <button class="choose" data-id="challenger-cassette-j-card">Adopt anyway</button>
+          </div>
+        </div>
+        
+      </div>
+    </article>
+
+    <article class="card declined" style="--fan:-1.2deg;--deal:540ms" data-id="challenger-busytown-cross-section">
+      <div class="card-inner">
+        <div class="face front text-only">
+          <span class="kicker declined-k">Declined</span>
+          
+          <div class="body">
+            <p class="tier">Picture-book publishing: the labelled cutaway spread</p>
+            <h2>Busytown Cross-Section</h2>
+            <p class="thesis">One continuous labelled scene where every project wears its printed name on a hairline pointer.</p>
+            <div class="identity"><span class="swatches"><i style="background:#fafaf8" title="#fafaf8"></i><i style="background:#b5452f" title="#b5452f"></i><i style="background:#f2b705" title="#f2b705"></i><i style="background:#4f9a3a" title="#4f9a3a"></i><i style="background:#6b4a2f" title="#6b4a2f"></i></span><span class="tag">gouache flats</span><span class="tag">hairline label pointers</span><span class="tag">cutaway facades</span></div>
+            <figure class="inspo" title="Inspiration: the world this direction draws from. Your page will not look like this image."><img src="https://impeccable.style/worlds/cards/graphic-worlds-publishing-busytown-cross-section-hero.webp" alt=""><figcaption>inspired by</figcaption></figure>
+            <p class="fact"><span class="fact-label">First viewport</span>The border region as one labelled scene; opening a substation slices it away to show both utilities' work inside.</p>
+            <p class="fact"><span class="fact-label">The case</span>Direct labels make a map explain itself; the picture-book register undercuts a planner's trust.</p>
+            <p class="fact"><span class="fact-label">Kept</span>Printed labels on hairline leaders for the selected pair and top opportunities.</p>
+            <p class="fact"><span class="fact-label">Risk</span>Its red and green midtones collide for colour-blind viewers, and it reads as a children's book.</p>
+            <button class="choose" data-id="challenger-busytown-cross-section">Adopt anyway</button>
+          </div>
+        </div>
+        
+      </div>
+    </article>
+
+    <article class="card declined" style="--fan:1.4deg;--deal:630ms" data-id="challenger-one-bit-desktop">
+      <div class="card-inner">
+        <div class="face front text-only">
+          <span class="kicker declined-k">Declined</span>
+          
+          <div class="body">
+            <p class="tier">Medium native: the early one-bit desktop</p>
+            <h2>One-Bit Desktop</h2>
+            <p class="thesis">Map, list and pair as one-bit windows; bands as dither densities, selection as inversion.</p>
+            <div class="identity"><span class="swatches"><i style="background:#f5f5f5" title="#f5f5f5"></i><i style="background:#8c8c8c" title="#8c8c8c"></i><i style="background:#161616" title="#161616"></i></span><span class="tag">ordered dither</span><span class="tag">window chrome</span><span class="tag">marching ants</span></div>
+            <figure class="inspo" title="Inspiration: the world this direction draws from. Your page will not look like this image."><img src="https://impeccable.style/worlds/cards/medium-native-one-bit-desktop-hero.webp" alt=""><figcaption>inspired by</figcaption></figure>
+            <p class="fact"><span class="fact-label">First viewport</span>Three windows (Map, Opportunities, Pair) on a dithered desktop; the 40 km circle wears marching ants.</p>
+            <p class="fact"><span class="fact-label">The case</span>Pattern coding is excellent for bands and print; pixel type and overlapping windows fail at 390 px.</p>
+            <p class="fact"><span class="fact-label">Kept</span>Bands hatched by density as well as tint, so they survive grayscale and print.</p>
+            <p class="fact"><span class="fact-label">Risk</span>Pixel type and stacked windows cost legibility and break the system font rule.</p>
+            <button class="choose" data-id="challenger-one-bit-desktop">Adopt anyway</button>
+          </div>
+        </div>
+        
+      </div>
+    </article>
+
+    <article class="card declined" style="--fan:-1.2deg;--deal:720ms" data-id="challenger-phosphor-terminal">
+      <div class="card-inner">
+        <div class="face front text-only">
+          <span class="kicker declined-k">Declined</span>
+          
+          <div class="body">
+            <p class="tier">Signals and instruments: the green-phosphor terminal</p>
+            <h2>Phosphor Terminal</h2>
+            <p class="thesis">GridLock as a typed transcript: ask for a place and the ranked pairs print back.</p>
+            <div class="identity"><span class="swatches"><i style="background:#0b120c" title="#0b120c"></i><i style="background:#33ff66" title="#33ff66"></i><i style="background:#1f8a3e" title="#1f8a3e"></i><i style="background:#b8ffc9" title="#b8ffc9"></i></span><span class="tag">phosphor glow</span><span class="tag">80-column field</span><span class="tag">scanlines</span></div>
+            <figure class="inspo" title="Inspiration: the world this direction draws from. Your page will not look like this image."><img src="https://impeccable.style/worlds/cards/signals-instruments-phosphor-terminal-midnight-hero.webp" alt=""><figcaption>inspired by</figcaption></figure>
+            <p class="fact"><span class="fact-label">First viewport</span>A command line over a dark map: typing Savannah prints the ranked pairs as numbered lines.</p>
+            <p class="fact"><span class="fact-label">The case</span>Keyboard first and self-reporting state are right; green on black hides the map and is the dark dashboard rut.</p>
+            <p class="fact"><span class="fact-label">Kept</span>State prints itself: one status line reports every change as a plain sentence.</p>
+            <p class="fact"><span class="fact-label">Risk</span>Glow and monospace-only type break the system font rule and the light projector default.</p>
+            <button class="choose" data-id="challenger-phosphor-terminal">Adopt anyway</button>
+          </div>
+        </div>
+        
+      </div>
+    </article></div>
+      <div class="fade fade-prev" aria-hidden="true"></div>
+      <div class="fade fade-next" aria-hidden="true"></div>
+      <button class="nav prev" hidden aria-label="Previous card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5 8 12l6.5 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="nav next" hidden aria-label="Next card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5 16 12l-6.5 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+</main>
+<footer>
+  <input id="steer" placeholder="Optional steer: what should be different or kept?">
+  <button class="reroll-btn" id="reroll-safer" title="Deal the familiar register: conventional grounded directions plus the category standard against named competitors"><span>&larr; Safer hand</span></button><button class="reroll-btn" id="reroll"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8.4" cy="8.4" r="1.5" fill="currentColor"/><circle cx="15.6" cy="8.4" r="1.5" fill="currentColor"/><circle cx="8.4" cy="15.6" r="1.5" fill="currentColor"/><circle cx="15.6" cy="15.6" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg><span>Re-roll</span></button><button class="reroll-btn" id="reroll-bolder" title="Deal foreign forms only, at full commitment"><span>Bolder hand &rarr;</span></button>
+  
+</footer>
+<script>
+  const steer = () => document.getElementById('steer')?.value || '';
+  // A followup round's pick keeps the tab: the next round arrives via
+  // --update, so the page shows the loading hand instead of goodbye. Detached
+  // mode only, and the page must agree with the server: a blocking server
+  // exits on any pick and has no update channel, so a followup payload there
+  // still gets the goodbye screen, never a loading hand nothing will resolve.
+  const FOLLOWUP = false;
+  const beat = () => { try { navigator.sendBeacon('/heartbeat'); } catch { fetch('/heartbeat', { method: 'POST' }); } };
+  beat();
+  const beatTimer = setInterval(beat, 5000);
+  // A dead server must fail loudly: awaiting a rejected fetch here used to
+  // swallow the click and never print the confirmation, so the user believed
+  // a choice had landed that no one would ever collect.
+  async function answer(optionId) {
+    // Quiet at the click: a re-roll or canon posted while this pick's POST
+    // is in flight would overwrite the answer being collected.
+    document.querySelectorAll('.reroll-btn, #canon').forEach(b => b.setAttribute('disabled', ''));
+    try {
+      await fetch('/answer', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ optionId, steer: steer() }) });
+    } catch {
+      document.body.innerHTML = '<div class="done">The question server went away before this choice could land.<br>Tell the agent your pick in the chat instead.</div>';
+      return;
+    }
+    if (FOLLOWUP) { await awaitNextRound(true); return; }
+    document.body.innerHTML = '<div class="done"><svg viewBox="0 0 24 24" width="38" height="38" fill="oklch(84% 0.19 80.46)" aria-hidden="true"><path d="M5 2.5 L13.5 2.5 L5.5 21.5 L5 21.5 Q2.5 21.5 2.5 19 L2.5 5 Q2.5 2.5 5 2.5 Z"/><path d="M16.5 2.5 L19 2.5 Q21.5 2.5 21.5 5 L21.5 19 Q21.5 21.5 19 21.5 L8.5 21.5 Z"/></svg>Choice recorded. The agent is resuming; you can close this tab.</div>';
+  }
+  document.querySelectorAll('button.choose').forEach(b => b.addEventListener('click', () => answer(b.dataset.id)));
+  document.querySelectorAll('.flip').forEach(b => b.addEventListener('click', (e) => {
+    e.stopPropagation();
+    b.closest('.card').classList.toggle('flipped');
+  }));
+
+  // Raise cycler: click (or Enter) advances to the next donation.
+  document.querySelectorAll('.raises-cycle').forEach(cycle => {
+    const raises = [...cycle.querySelectorAll('.raise')];
+    const count = cycle.querySelector('[data-raises-count]');
+    let at = 0;
+    const live = cycle.querySelector('.sr-live');
+    const show = (announce) => {
+      raises.forEach((raise, i) => raise.classList.toggle('active', i === at));
+      if (count) count.textContent = (at + 1) + '/' + raises.length;
+      // Screen readers hear the raise they just advanced to; the initial
+      // render stays quiet so page load does not narrate every card.
+      if (announce && live) live.textContent = 'Improvement ' + (at + 1) + ' of ' + raises.length + ': ' + (raises[at]?.textContent || '');
+    };
+    show(false);
+    const advance = (e) => { e.stopPropagation(); at = (at + 1) % raises.length; show(true); };
+    cycle.addEventListener('click', advance);
+    cycle.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); advance(e); } });
+  });
+
+  // Deal from the stack: cards begin piled at the grid's center, blurred,
+  // then travel to their seats with a stagger.
+  const cards = [...document.querySelectorAll('.card')];
+  // The deal is decoration: a hidden tab throttles rAF, so never let the
+  // animation hold the cards at opacity 0. Skip it when hidden, and force
+  // the final state after a beat no matter what the animation did.
+  setTimeout(() => cards.forEach(c => { c.style.opacity = ''; c.style.transform = ''; c.style.filter = ''; c.style.transition = ''; c.style.zIndex = ''; }), 1600);
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && cards.length && !document.hidden) {
+    const grid = document.querySelector('.grid').getBoundingClientRect();
+    const cx = grid.left + grid.width / 2, cy = grid.top + grid.height / 2;
+    cards.forEach((card, i) => {
+      const r = card.getBoundingClientRect();
+      const dx = cx - (r.left + r.width / 2), dy = cy - (r.top + r.height / 2);
+      card.style.transition = 'none';
+      card.style.transform = 'translate(' + dx + 'px,' + (dy + 14) + 'px) rotate(' + (i % 2 ? 5 : -4) + 'deg) scale(.9)';
+      card.style.opacity = '0';
+      card.style.filter = 'blur(10px)';
+      card.style.zIndex = String(cards.length - i);
+    });
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      cards.forEach((card, i) => {
+        const delay = i * 110;
+        card.style.transition = 'transform .7s cubic-bezier(.16,1,.3,1) ' + delay + 'ms, opacity .45s ease ' + delay + 'ms, filter .55s ease ' + delay + 'ms';
+        card.style.transform = ''; card.style.opacity = '1'; card.style.filter = '';
+        card.addEventListener('transitionend', function done(e) {
+          if (e.propertyName !== 'transform') return;
+          card.style.transition = ''; card.style.opacity = ''; card.style.zIndex = '';
+          card.removeEventListener('transitionend', done);
+        });
+      });
+    }));
+  }
+
+  // Comps stream in after the deal: poll each slot until the file lands,
+  // then swap the shimmer for the image. Generation is genuinely slow and a
+  // sequential batch puts the last card many minutes out, so patience is the
+  // default: a slot only shows its inspiration as a stand-in when it has
+  // waited four minutes AND nothing has landed anywhere for four minutes, the
+  // stand-in is labeled as such, and polling continues so the real comp
+  // still swaps in whenever it arrives. Progress anywhere resets patience.
+  const landTracker = { last: Date.now() };
+  const pollComp = (m) => {
+    const url = m.dataset.comp;
+    // A converted slot is the SAME node across flip cycles, so a probe from an
+    // earlier cycle can still be in flight when the next one starts. Without a
+    // generation stamp its late onload settles the new slot: shimmer stripped,
+    // pending state cleared, comp still hidden, live poll stopped.
+    const generation = String(Number(m.dataset.pollGen || 0));
+    const current = () => String(Number(m.dataset.pollGen || 0)) === generation;
+    const img = m.querySelector('img.comp');
+    const note = m.querySelector('.comp-note');
+    const started = Date.now();
+    // A live elapsed count is the difference between "working" and "frozen".
+    const tick = setInterval(() => { if (note) note.textContent = 'rendering · ' + Math.round((Date.now() - started) / 1000) + 's'; }, 1000);
+    const settle = () => { clearInterval(tick); m.classList.remove('comp-pending', 'stand-in'); m.querySelector('.shimmer')?.remove(); m.querySelector('.stand-in-label')?.remove(); };
+    const fallback = () => {
+      const pip = m.querySelector('.pip img');
+      if (pip) {
+        if (m.classList.contains('stand-in')) return false;
+        img.src = pip.getAttribute('src'); img.hidden = false;
+        m.classList.add('stand-in');
+        m.querySelector('.shimmer')?.remove();
+        clearInterval(tick);
+        const label = document.createElement('p');
+        label.className = 'stand-in-label';
+        label.textContent = 'inspiration · comp pending';
+        m.appendChild(label);
+        return false;
+      }
+
+      // No comp and no inspiration is the text-only card the payload would
+      // have rendered without a comp declaration. Bring the complete read
+      // forward before removing the now-unreachable back face.
+      const card = m.closest('.card');
+      const front = card?.querySelector('.face.front');
+      const body = front?.querySelector('.body');
+      const back = card?.querySelector('.face.back');
+      const textOnlyFacts = m.querySelector('template.text-only-facts');
+      const choose = body?.querySelector(':scope > button.choose');
+      if (body && textOnlyFacts && choose) {
+        const plainDetail = body.querySelector(':scope > .detail:not(.more)');
+        [...body.children].filter((el) => el.classList.contains('fact') || el.matches('.detail.more')).forEach((el) => el.remove());
+        choose.before(textOnlyFacts.content.cloneNode(true));
+        if (plainDetail) choose.before(plainDetail);
+      }
+      card?.classList.remove('flipped');
+      front?.classList.add('text-only');
+      back?.remove();
+      settle();
+      m.remove();
+      return true;
+    };
+    const tryLoad = () => {
+      // A slot the user flipped back out of either leaves the DOM or, when it
+      // was an inspiration face converted in place, stays and loses its
+      // pending state. Either way its loop is done.
+      if (!m.isConnected || !m.classList.contains('comp-pending') || !current()) { clearInterval(tick); return; }
+      const probe = new Image();
+      probe.onload = () => {
+        // A stale generation also ends this run's clock. tryLoad clears it on
+        // re-entry, and an in-flight probe that finishes stale schedules no
+        // re-entry, so returning without clearing ran the interval for the rest
+        // of the page's life.
+        if (!current()) { clearInterval(tick); return; }
+        landTracker.last = Date.now();
+        const target = m.querySelector('img.comp') || img;
+        target.src = probe.src;
+        target.hidden = false;
+        settle();
+      };
+      probe.onerror = () => {
+        if (!current()) { clearInterval(tick); return; }
+        const quiet = Date.now() - landTracker.last > 240000;
+        if (Date.now() - started > 240000 && quiet && fallback()) return;
+        setTimeout(tryLoad, m.classList.contains('stand-in') ? 5000 : 2500);
+      };
+      probe.src = url + (url.includes('?') ? '&' : '?') + 't=' + Date.now();
+    };
+    tryLoad();
+  };
+  document.querySelectorAll('.media.comp-pending').forEach(pollComp);
+
+  // Build-path toggle: the default is the round's recorded preference and
+  // flipping binds this session only. Flipping code to comp swaps every
+  // reserve slot (data-comp-slot) to its shimmer and tells the server, so
+  // the waiting agent starts generating; flipping back is free: pending
+  // slots return to their wireframes, a comp that already landed stays.
+  const bp = document.getElementById('build-path');
+  if (bp) {
+    const notes = {
+      comp: 'An image sets the bar first and the build must match it. Bolder composition; comps render before code.',
+      code: 'Code builds directly; the ambition is written into the contract and audited at the finish. Leaner, faster.',
+    };
+    const noteEl = bp.querySelector('[data-bp-note]');
+    let current = bp.dataset.default;
+    const set = (value) => {
+      current = value;
+      bp.querySelectorAll('.bp-opt').forEach(b => {
+        const on = b.dataset.bp === value;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-checked', String(on));
+      });
+      if (noteEl) noteEl.textContent = notes[value];
+    };
+    set(current);
+    const INSPO_TITLE = 'Inspiration: the world this direction draws from. Your page will not look like this image.';
+    // Every media slot carries the expand affordance. A slot built here after
+    // the deal used to ship without one, so a comp the user waited minutes for
+    // could not be opened.
+    const ensureChips = (m) => {
+      if (m.querySelector('.chips')) return;
+      const tpl = document.getElementById('tpl-expand-chip');
+      if (!tpl) return;
+      const chips = document.createElement('div');
+      chips.className = 'chips';
+      chips.appendChild(tpl.content.cloneNode(true));
+      m.appendChild(chips);
+    };
+    const shimmerHtml = '<div class="shimmer"><span class="comp-note">rendering&hellip;</span></div><img class="comp" alt="" hidden>';
+    const enterComp = () => {
+      document.querySelectorAll('.card[data-comp-slot]').forEach(card => {
+        const front = card.querySelector('.face.front');
+        if (!front || front.querySelector('.media.comp-pending') || front.querySelector('.media img.comp:not([hidden])')) return;
+        // On a code-led card the inspiration IS the face. Comp-first demotes it
+        // to the corner, so convert that slot in place rather than inserting a
+        // second one: two stacked images say the catalog art and the comp are
+        // peers, and the whole point of the corner is that they are not.
+        const inspo = front.querySelector('.media:not(.wire):not(.comp-pending)');
+        let m;
+        if (inspo) {
+          m = inspo;
+          m.dataset.compRestore = 'inspiration';
+          m.dataset.comp = card.dataset.compSlot;
+          m.classList.add('comp-pending');
+          m.removeAttribute('title');
+          m.querySelector('.media-label')?.remove();
+          const art = m.querySelector(':scope > img');
+          if (art) {
+            const pip = document.createElement('figure');
+            pip.className = 'pip';
+            pip.title = INSPO_TITLE;
+            const cap = document.createElement('figcaption');
+            cap.textContent = 'inspiration';
+            pip.append(art, cap);
+            m.appendChild(pip);
+          }
+          m.insertAdjacentHTML('afterbegin', shimmerHtml);
+        } else {
+          m = document.createElement('div');
+          m.className = 'media comp-pending';
+          m.dataset.comp = card.dataset.compSlot;
+          m.innerHTML = shimmerHtml;
+          const wireEl = front.querySelector('.media.wire');
+          if (wireEl) { wireEl.hidden = true; front.insertBefore(m, wireEl); }
+          else { front.classList.remove('text-only'); front.insertBefore(m, front.querySelector('.body')); }
+        }
+        ensureChips(m);
+        pollComp(m);
+      });
+    };
+    const exitComp = () => {
+      document.querySelectorAll('.card[data-comp-slot]').forEach(card => {
+        const front = card.querySelector('.face.front');
+        const pending = front?.querySelector('.media.comp-pending');
+        if (!pending) return; // landed comps stay; they exist either way
+        // A converted slot is restored, not removed: the inspiration goes back
+        // to being the face, so flipping back leaves the card as it was dealt.
+        if (pending.dataset.compRestore === 'inspiration') {
+          // Everything the pending state added has to leave, presentation
+          // included: a slot that reached stand-in kept its "inspiration comp
+          // pending" label beside a fresh one, and a slot whose art had failed
+          // came back still marked unavailable.
+          pending.classList.remove('comp-pending', 'stand-in');
+          delete pending.dataset.compRestore;
+          delete pending.dataset.comp;
+          pending.dataset.pollGen = String(Number(pending.dataset.pollGen || 0) + 1);
+          pending.querySelector('.shimmer')?.remove();
+          pending.querySelector('img.comp')?.remove();
+          pending.querySelector('.stand-in-label')?.remove();
+          pending.querySelectorAll('.media-label').forEach((el) => el.remove());
+          const pip = pending.querySelector('.pip');
+          const art = pip?.querySelector('img');
+          if (art) pending.insertBefore(art, pending.firstChild);
+          pip?.remove();
+          // No art means the image failed to load before the flip, so hand the
+          // slot back to the same honest treatment rather than calling it art.
+          const label = document.createElement('p');
+          label.className = 'media-label';
+          label.textContent = art ? 'inspiration' : 'artwork unavailable';
+          pending.insertBefore(label, pending.querySelector('.chips'));
+          if (art) pending.title = INSPO_TITLE; else pending.classList.add('unavailable');
+          return;
+        }
+        pending.remove();
+        const wireEl = front.querySelector('.media.wire');
+        if (wireEl) wireEl.hidden = false;
+        else if (!front.querySelector('.media')) front.classList.add('text-only');
+      });
+    };
+    const apply = (value) => {
+      set(value);
+      fetch('/build-path', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ value }) });
+      if (value === 'comp') enterComp(); else exitComp();
+    };
+    // Flipping to comp starts real generation, so it confirms first; the
+    // flip back is free and applies immediately.
+    const confirm = document.getElementById('bp-confirm');
+    const closeConfirm = () => { confirm.classList.remove('open'); confirm.hidden = true; };
+    confirm.querySelector('[data-confirm]').addEventListener('click', () => { closeConfirm(); apply('comp'); });
+    confirm.querySelector('[data-cancel]').addEventListener('click', closeConfirm);
+    confirm.addEventListener('click', (e) => { if (e.target === confirm) closeConfirm(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !confirm.hidden) closeConfirm(); });
+    bp.querySelectorAll('.bp-opt').forEach(b => b.addEventListener('click', () => {
+      const value = b.dataset.bp;
+      if (value === current) return;
+      if (value === 'comp') {
+        confirm.hidden = false;
+        requestAnimationFrame(() => confirm.classList.add('open'));
+        return;
+      }
+      apply(value);
+    }));
+  }
+
+  // A declared image that never loads (missing catalog asset, offline shell)
+  // must not sit as a dark void: the slot collapses to the card's own
+  // palette, labeled honestly, and the card competes on its facts. Sketch
+  // slots are excluded; their polling owns the wait.
+  const artFailed = (img) => {
+    const m = img.closest('.media');
+    if (!m || m.classList.contains('comp-pending') || m.classList.contains('unavailable')) return;
+    m.classList.add('unavailable');
+    const colors = [...(img.closest('.card')?.querySelectorAll('.swatches i') || [])].map(i => i.style.background).filter(Boolean);
+    if (colors.length) m.style.background = 'linear-gradient(135deg, ' + colors.map((c, i) => c + ' ' + Math.round(i * 100 / colors.length) + '% ' + Math.round((i + 1) * 100 / colors.length) + '%').join(', ') + ')';
+    m.querySelector('.media-label')?.remove();
+    m.querySelector('.chip.expand')?.remove();
+    m.removeAttribute('title');
+    img.remove();
+    const label = document.createElement('p');
+    label.className = 'media-label';
+    label.textContent = 'artwork unavailable';
+    m.appendChild(label);
+  };
+  document.querySelectorAll('.media:not(.comp-pending) > img').forEach(img => {
+    if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) artFailed(img);
+    else img.addEventListener('error', () => artFailed(img), { once: true });
+  });
+  // A broken inspiration PIP or thumb just leaves; nothing depends on it.
+  document.querySelectorAll('.pip img, .inspo img').forEach(img => {
+    const gone = () => img.closest('.pip, .inspo')?.remove();
+    if (img.complete && img.naturalWidth === 0) gone();
+    else img.addEventListener('error', gone, { once: true });
+  });
+
+  // Every zoom target resolves in ONE delegated listener, in priority order.
+  // Delegation is what lets a slot built by a build-path flip work at all, and
+  // a single listener is what keeps the targets from fighting: stopPropagation
+  // ends bubbling, not other listeners on the same target, so split across two
+  // handlers a click on the corner inspiration opened the inspiration and then
+  // the comp overwrote it in the lightbox. Per-element handlers elsewhere (the
+  // flip chip, the raise cycler) still stop bubbling before the event lands
+  // here, so they keep their own behavior.
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    if (!target || !target.closest) return;
+    // The corner inspiration wins over the slot it sits inside.
+    const pip = target.closest('.pip, .inspo');
+    if (pip) {
+      const art = pip.querySelector('img');
+      if (art) openLightbox(art);
+      return;
+    }
+    const chip = target.closest('.chip');
+    if (chip) {
+      // Only expand zooms. Any other chip owns its click and must not fall
+      // through to the media underneath it.
+      if (!chip.classList.contains('expand')) return;
+      const card = chip.closest('.card');
+      const face = card && card.classList.contains('flipped') ? '.face.back' : '.face.front';
+      const shown = card && card.querySelector(face + ' .media img:not([hidden])');
+      if (shown && shown.getAttribute('src')) openLightbox(shown);
+      return;
+    }
+    // The whole image is the zoom target, not just the chip; the chip stays as
+    // the visible affordance.
+    const media = target.closest('.media');
+    if (!media) return;
+    const art = media.querySelector(':scope > img:not([hidden])');
+    if (art && art.getAttribute('src')) openLightbox(art);
+  });
+
+  // Deck paging: arrows appear only when the deck overflows its axis, page
+  // one card at a time, and follow the aspect-ratio flip between row and column.
+  const deck = document.querySelector('.grid');
+  const prevBtn = document.querySelector('.nav.prev');
+  const nextBtn = document.querySelector('.nav.next');
+  const vertical = () => matchMedia('(max-aspect-ratio: 1/1)').matches;
+  function updateNav() {
+    if (!deck || !prevBtn) return;
+    const shell = deck.closest('.deck-shell');
+    const v = vertical();
+    const overflow = v ? deck.scrollHeight > deck.clientHeight + 4 : deck.scrollWidth > deck.clientWidth + 4;
+    prevBtn.hidden = nextBtn.hidden = !overflow;
+    const pos = v ? deck.scrollTop : deck.scrollLeft;
+    const max = v ? deck.scrollHeight - deck.clientHeight : deck.scrollWidth - deck.clientWidth;
+    const canPrev = overflow && pos > 2;
+    const canNext = overflow && pos < max - 2;
+    prevBtn.toggleAttribute('disabled', !canPrev);
+    nextBtn.toggleAttribute('disabled', !canNext);
+    shell?.classList.toggle('can-prev', canPrev);
+    shell?.classList.toggle('can-next', canNext);
+  }
+  function pageDeck(dir) {
+    const card = deck.querySelector('.card');
+    if (!card) return;
+    const r = card.getBoundingClientRect();
+    const step = (vertical() ? r.height : r.width) + 26;
+    deck.scrollBy(vertical() ? { top: dir * step, behavior: 'smooth' } : { left: dir * step, behavior: 'smooth' });
+  }
+  prevBtn?.addEventListener('click', () => pageDeck(-1));
+  nextBtn?.addEventListener('click', () => pageDeck(1));
+  deck?.addEventListener('scroll', updateNav, { passive: true });
+  addEventListener('resize', updateNav);
+  updateNav();
+
+  // Ambient: the hovered card's visible art bleeds into the page ground.
+  const ambient = document.getElementById('ambient');
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      const art = card.querySelector('.face.front .media img:not([hidden])') || card.querySelector('.face.front .pip img') || card.querySelector('.face.front .inspo img');
+      if (!art || !art.getAttribute('src')) return;
+      ambient.style.backgroundImage = 'url("' + art.getAttribute('src') + '")'; ambient.style.opacity = '1';
+    });
+    card.addEventListener('mouseleave', () => { ambient.style.opacity = '0'; });
+  });
+
+  // Expand: lightbox for whichever face is showing.
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('img');
+  // Declared, not assigned to a const, so the delegated handlers above can call
+  // it wherever they sit in this file.
+  function openLightbox(img) {
+    lightboxImg.src = img.getAttribute('src');
+    lightbox.hidden = false;
+    requestAnimationFrame(() => lightbox.classList.add('open'));
+  }
+  // Portrait art (native / mobile-first surfaces): the slot takes the
+  // image's own ratio so nothing crops, and the whole deck narrows so
+  // portrait cards sit side by side. Load events don't bubble; capture.
+  document.addEventListener('load', (e) => {
+    const img = e.target;
+    if (!(img instanceof HTMLImageElement) || !img.matches('.media > img')) return;
+    if (img.naturalHeight > img.naturalWidth * 1.05) {
+      const m = img.closest('.media');
+      m.classList.add('portrait');
+      m.style.aspectRatio = img.naturalWidth + ' / ' + img.naturalHeight;
+      document.querySelector('.grid')?.classList.add('portrait-media');
+    }
+  }, true);
+  const closeLightbox = () => { lightbox.classList.remove('open'); setTimeout(() => { lightbox.hidden = true; }, 250); };
+  lightbox.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lightbox.hidden) closeLightbox(); });
+  document.getElementById('canon')?.addEventListener('click', () => answer('canon'));
+  const dealAgain = async (register) => {
+    // Quiet at the click, not after the fly-out: the POST round-trip plus
+    // the 700ms animation was a window where a second click posted another
+    // re-roll and renewed the delivery deadline.
+    document.querySelectorAll('.reroll-btn, #canon').forEach(b => b.setAttribute('disabled', ''));
+    try {
+      await fetch('/answer', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ optionId: 'reroll', steer: steer(), ...(register ? { register } : {}) }) });
+    } catch {
+      document.body.innerHTML = '<div class="done">The question server went away before this choice could land.<br>Tell the agent your pick in the chat instead.</div>';
+      return;
+    }
+    await awaitNextRound(true);
+  };
+  async function awaitNextRound(animate, budgetMs = 600000) {
+    const grid = document.querySelector('.grid');
+    let poll;
+    let misses = 0;
+    const shuffleStart = Date.now();
+    const stall = (message) => {
+      clearInterval(poll);
+      // A stalled page is an abandoned flow: keep heartbeating and the
+      // daemon never reaches its idle grace, so --wait spins on WAITING
+      // forever. Go silent and let the server reclaim itself. Reload must
+      // not undo that silence: an unconditional reload re-serves the same
+      // unresolved round and its fresh page beats again, so check for a
+      // delivered hand first and only reload when one exists. The re-roll
+      // buttons and the canon exit go too: a stalled page served already
+      // expired never disabled them, a re-roll would renew the deadline the
+      // stall just enforced, and a canon pick would overwrite a re-roll
+      // --wait already collected, closing the table under the agent.
+      clearInterval(beatTimer);
+      document.querySelectorAll('.reroll-btn, #canon').forEach(b => b.setAttribute('disabled', ''));
+      // Silence is for heartbeats only: a hand delivered after the deadline
+      // must still land without a click, so a beat-free watch keeps checking
+      // and reloads into it. /next-status never beats, so the daemon's idle
+      // grace still reclaims a flow nobody resumes.
+      const watch = setInterval(async () => {
+        try { if ((await (await fetch('/next-status')).json()).ready) { clearInterval(watch); location.reload(); } } catch { /* server gone; the screen already says so */ }
+      }, 1500);
+      grid.innerHTML = '<div class="stall"><p>' + message + '</p><button type="button" class="choose">Reload</button></div>';
+      grid.querySelector('.stall .choose').addEventListener('click', async () => {
+        try {
+          if ((await (await fetch('/next-status')).json()).ready) { location.reload(); return; }
+          grid.querySelector('.stall p').textContent = 'Still nothing to deal. Check the agent session, or answer in the chat instead.';
+        } catch {
+          grid.querySelector('.stall p').textContent = 'The question server went away. Ask the agent to restart it, or answer in the chat instead.';
+        }
+      });
+    };
+    // A refresh that lands after the delivery deadline has nothing left to
+    // wait for: stall before the heartbeat timer's first tick can fire, so
+    // the served page stays silent.
+    if (budgetMs <= 0) { stall('The next hand never arrived. Check the agent session, then reload.'); return; }
+    const cardsNow = [...grid.querySelectorAll('.card')];
+    if (animate && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const g = grid.getBoundingClientRect();
+      const cx = g.left + g.width / 2, cy = g.top + g.height / 2;
+      cardsNow.forEach((card, i) => {
+        const r = card.getBoundingClientRect();
+        card.style.transition = 'transform .5s cubic-bezier(.5,0,.75,0) ' + (i * 60) + 'ms, opacity .4s ease ' + (i * 60 + 120) + 'ms, filter .45s ease ' + (i * 60) + 'ms';
+        card.style.transform = 'translate(' + (cx - (r.left + r.width / 2)) + 'px,' + (cy - (r.top + r.height / 2) + 14) + 'px) rotate(' + (i % 2 ? 6 : -5) + 'deg) scale(.9)';
+        card.style.opacity = '0';
+        card.style.filter = 'blur(8px)';
+      });
+      await new Promise(r => setTimeout(r, 700));
+    }
+    const cardHeight = cardsNow[0] ? cardsNow[0].getBoundingClientRect().height : 0;
+    grid.innerHTML = cardsNow.map(() => '<article class="card skeleton"' + (cardHeight ? ' style="height:' + cardHeight + 'px"' : '') + '><div class="card-inner"><div class="face front"><div class="media"><div class="shimmer"></div></div><div class="body"><div class="line tier w40"></div><div class="line title w70"></div><div class="line w90"></div><div class="line w80"></div><div class="line w60"></div><div class="line button"></div></div></div></div></article>').join('');
+    // Canon goes quiet with the re-roll buttons: a pick posted mid-wait can
+    // never be collected once --wait has the re-roll, only close the table.
+    document.querySelectorAll('.reroll-btn, #canon').forEach(b => b.setAttribute('disabled', ''));
+    // The wait must be able to end: a dead server rejects every tick and a
+    // round nobody delivers stays ready:false forever, and both used to spin
+    // the skeletons indefinitely. Distinguish them, say so, and offer a way
+    // out. The delivery deadline is the server's own idle grace, so the page
+    // never gives up on a server that would still accept the hand.
+    poll = setInterval(async () => {
+      try {
+        const status = await (await fetch('/next-status')).json();
+        misses = 0;
+        if (status.ready) { clearInterval(poll); location.reload(); }
+        else if (Date.now() - shuffleStart > budgetMs) stall('The next hand never arrived. Check the agent session, then reload.');
+      } catch {
+        misses += 1;
+        if (misses >= 8) stall('The question server went away. Ask the agent to restart it, or answer in the chat instead.');
+      }
+    }, 1200);
+  }
+  document.getElementById('reroll')?.addEventListener('click', () => dealAgain());
+  document.getElementById('reroll-safer')?.addEventListener('click', () => dealAgain('safer'));
+  document.getElementById('reroll-bolder')?.addEventListener('click', () => dealAgain('bolder'));
+  // A native refresh must not resurrect an answered round: while the server
+  // holds a collected re-roll or followup pick with no replacement delivered,
+  // it serves the page in waiting mode and the refresh re-enters the same
+  // bounded wait, with only the time the original deadline has left, instead
+  // of showing dead cards whose heartbeat props the daemon forever.
+  
+</script>

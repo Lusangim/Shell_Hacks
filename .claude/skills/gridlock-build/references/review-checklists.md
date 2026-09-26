@@ -134,4 +134,5 @@ renames, no new dependencies; stop and report instead of installing anything or 
 
 ## L. Escalation triggers — the Codex lead; Claude after delivery (from ECC `agents/loop-operator.md`)
 Stop dispatching and reassess when: no progress across two checkpoints · the same stack trace repeats ·
-merge conflicts block the queue · a usage-limit stop · verify totals drop · the hand-off is 30 minutes away.
+merge conflicts block the queue · a usage-limit stop · verify totals drop · a frozen copy's HEAD differs
+from the commit it was made for.

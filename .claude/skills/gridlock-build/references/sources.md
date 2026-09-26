@@ -135,8 +135,8 @@ update the founder asked for:
 - Two claude.ai plugins (Codex plan review; Codex dispatch via MCP) were enabled by the founder but had not
   synced to this machine on 2026-09-26; T0.7 reads them before any use.
 - Operating model (founder, 2026-09-26, plan v3): one Codex lead runs the build and every judging round
-  with up to five sub-agents and delivers by Sat 09:30; Claude reviews last. Codex's sub-agent support
-  inside `codex exec` is proven in T0.6 before the launch.
+  with up to five sub-agents, with no time limit ("remove the time limit just let it work"); Claude
+  reviews last. Codex's sub-agent support inside `codex exec` was proven in T0.6 before the launch.
 
 ## Prior art (read 2026-09-26) — pitch and inspiration only, never a data source
 

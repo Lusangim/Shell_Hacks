@@ -1,6 +1,6 @@
 ---
 name: gridlock-build
-description: How the GridLock hackathon app (ShellHacks 2026, Sperry Tech challenge) is built, verified, judged and submitted — Claude sets up and launches one Codex lead that builds and judges the project with up to five sub-agents and delivers by Sat 09:30; Claude then reviews last and ships with the founder. Per-merge quick gate, gates, scope ladder, demo and Devpost. Use for any work in this repo.
+description: How the GridLock hackathon app (ShellHacks 2026, Sperry Tech challenge) is built, verified, judged and submitted — Claude sets up and launches one Codex lead that builds and judges the whole project with up to five sub-agents, with no time limit; Claude then reviews last and ships with the founder. Per-merge quick gate, gates, scope ladder, demo and Devpost. Use for any work in this repo.
 ---
 
 # GridLock build — from approved plan to a submitted, demo-proof app
@@ -17,7 +17,7 @@ a Codex session starts a sub-agent that reads the role file as its prompt and us
 | Never-touch, glossary, environment, verify recipe, lenses, traps | `PROJECT-PROFILE.md` |
 | Live state of the pass | `reviews/2026-09-26-gridlock-build/TRACKER.md` |
 | Standing bar for "done" | `references/definition-of-done.md` |
-| Interface rules and audit thresholds | `references/ui-contract.md` (+ `house-patterns.md` from G1) |
+| Interface rules and audit thresholds | `references/ui-contract.md` (+ `reviews/2026-09-26-gridlock-build/house-patterns.md` from G1) |
 | Coordination brief (Claude API, eval, cost) | `references/ai-brief.md` |
 | Mission brief, sub-agent briefs, judge and agent prompts | `references/agent-prompts.md` |
 | Review checklists (merges, gates, briefs, sanitizer) | `references/review-checklists.md` |
@@ -26,9 +26,10 @@ a Codex session starts a sub-agent that reads the role file as its prompt and us
 
 ## 0. Always true
 
-- **Read the machine clock first** (`Get-Date`). The only fixed times: Codex delivers by **Sat 09:30 EDT**
-  at the latest (earlier if it finishes); Devpost closes **Sun 11:00 EDT**; the founder submits by 10:30.
-  There is no other schedule. Every recommendation is sized to the time left.
+- **Read the machine clock first** (`Get-Date`). The Codex lead has **no time limit** (founder, 2026-09-26):
+  it delivers when the project is complete and judged. The only fixed times: Devpost closes **Sun 11:00
+  EDT**; the founder submits by 10:30. There is no other schedule. Every recommendation is sized to the
+  time left.
 - Nothing outward without the founder: no push unless the founder says yes each time, no Devpost
   submission, no Claude API spend without a quoted cost, a ceiling and a yes, no download not on the
   approved list.
@@ -46,11 +47,12 @@ a Codex session starts a sub-agent that reads the role file as its prompt and us
 
 ## 1. Before any work — orient (2 minutes)
 
-1. Clock → which phase are we in (setup, Codex run, delivery, final review, ship)? Is the hand-off or the
-   T-2h point near? Go to §8.
+1. Clock → which phase are we in (setup, Codex run, delivery, final review, ship)? Is the T-2h point
+   (Sun 09:00) near? Go to §8.
 2. Read `TRACKER.md` (trust it over memory): what is running, Codex session ids, last verify, next actions.
 3. Pick the next unchecked task whose dependencies are checked (`tasks/todo.md`).
-4. Load the skills the task's lane needs (`references/agent-prompts.md` § Skills per lane).
+4. Load the skills the task's lane needs (`references/agent-prompts.md` § Skills per lane; Codex uses the
+   repo's references and loads nothing from `%USERPROFILE%\.codex\`).
 
 ## 2. One task = one tested vertical slice (builders)
 
@@ -77,7 +79,9 @@ missing, or the task needs a decision the spec does not cover.
   from `MISSION.md`: it assigns tasks to **up to five sub-agents at once** (founder's choice), reviews each
   result against its brief (`references/review-checklists.md` §A + the lane's section + §E), runs the
   quick gate, merges, runs VERIFY at every gate, runs every gate reviewer and judging round as fresh
-  sub-agents on frozen copies, loops on the findings, and delivers (`DELIVERY.md`) by the hand-off.
+  sub-agents on frozen copies, loops on the findings, rewrites `DELIVERY.md` at every gate, and delivers
+  when G4 passes — with no time limit. It never ends its turn before delivering: that would kill its
+  sub-agents.
 - **Claude after delivery — the final reviewer:** judges with its own Opus agents (at most three at a
   time), fixes what it judges worth fixing, sends a large batch of corrections back to Codex **with no
   Codex judging loop**, judges again, then ships with the founder.
@@ -104,7 +108,7 @@ repair brief follows §K). Green → merge, tick the task, one tracker line with
 | Launch | T0.0–T0.8 done; Codex fan-out proven or the founder's fallback chosen; mission brief reviewed |
 | G1a / G1 / G2 / G3 | `VERIFY.cmd` full matrix on `main`, quiet machine, passing totals ≥ baseline, gate reviewers' CRITICAL/HIGH closed, tracker updated |
 | G4 judged | Every Codex judge "material improvement: no", or only founder decisions / external dependencies left — say which |
-| Delivery | At G4 or the hand-off, whichever comes first, after the delivery judging round: `DELIVERY.md`, tag `delivered`, VERIFY summary |
+| Delivery | At G4: VERIFY green, sanitizer, README, final `DELIVERY.md`, tag `delivered` (no time limit) |
 | Final review | Claude's judges "no" or only founder decisions left; corrections merged; VERIFY green |
 | G5 ship-ready | `references/ship-checklist.md` all green |
 
@@ -120,21 +124,20 @@ Classify every red line (defect · stale assertion · flake · environment) and 
 Lenses: `PROJECT-PROFILE.md` § Auditor lenses; role files in `.claude/agents/`. **During the build** the
 lead runs them as fresh sub-agents: domain spot-check at G2 (T2.11); round 1 at G3 (domain expert ·
 first-week user + design · reliability + security); round 2 (business / hackathon fit · change-reviewer
-on every user-facing word · accessibility); a delivery round 30 minutes before the hand-off on whatever is
-built. **After delivery** Claude runs the same lenses on Opus (F2–F5). Judges change nothing, report only
+on every user-facing word · accessibility); frozen copies get a new name every round. **After delivery**
+Claude runs the same lenses on Opus (F2–F5). Judges change nothing, report only
 reproduced or line-cited findings, say what is genuinely good, and end with **material improvement still
 available: yes / no**. During the build, corrections go to the owning lane → quick gate → merge → VERIFY →
 smaller confirmation round. After delivery, Claude fixes or routes a batch to Codex with no judging loop.
 
-## 8. Hand-off, scope ladder and the T-2h protocol
+## 8. Delivery, scope ladder and the T-2h protocol
 
-The lead reads the clock at every merge. **30 minutes before the hand-off** it starts no new build task,
-parks what is in flight, runs the delivery judging round, fixes the P0/P1 findings that fit, runs VERIFY
-and delivers. Behind: cut in order from `tasks/plan.md` § Scope ladder (cut first = 1); the founder
-decides, and while they are away the unfinished feature is hidden from the demo path (never deleted) and
-listed in `DELIVERY.md`. **At Sun 09:00 (T-2h):** list done / not done; each open item is cut from the
-demo, stubbed honestly, or finished only if < 30 minutes remain. A working plain demo beats a broken
-polished one; never cut the "never cut" line.
+No time limit for Codex: it delivers when G4 passes. A blocked task (not a slow one) is parked, its
+feature hidden from the demo path (never deleted) and listed in `DELIVERY.md`. If the founder ever stops
+the run, the latest `DELIVERY.md` (rewritten at every gate) is the hand-off. Cuts, if the founder asks
+for them, follow `tasks/plan.md` § Scope ladder (cut first = 1). **At Sun 09:00 (T-2h):** list done / not
+done; each open item is cut from the demo, stubbed honestly, or finished only if < 30 minutes remain. A
+working plain demo beats a broken polished one; never cut the "never cut" line.
 
 ## 9. Ship
 

@@ -17,7 +17,7 @@ $runs = Join-Path $dev 'gridlock-runs'
 $wt = Join-Path $dev 'gridlock-wt'
 # Codex's sandbox keeps any folder named .git read-only, so the clone keeps its git data here
 # (created with: git init --separate-git-dir). It must be writable for branches, worktrees and commits.
-$gitdir = Join-Path $dev 'gridlock-gitdir'
+$gitdir = Join-Path $dev 'gridlock-git'
 $codex = Join-Path $env:LOCALAPPDATA 'Programs\OpenAI\Codex\bin\codex.exe'
 if (-not (Test-Path $codex)) { throw "Codex CLI not found at $codex" }
 if (-not (Test-Path $Brief)) { throw "Brief not found: $Brief" }
@@ -29,6 +29,10 @@ $env:GRIDLOCK_PY = Join-Path $dev 'gridlock-venv\Scripts\python.exe'
 $env:GRIDLOCK_AI = 'off'
 $env:GRIDLOCK_TEST_PORT = $Port
 $env:PLAYWRIGHT_BROWSERS_PATH = Join-Path $dev 'ms-playwright'
+$env:PSExecutionPolicyPreference = 'Bypass'
+# Codex must never inherit the launching Claude session's credentials or session variables.
+Get-ChildItem Env: | Where-Object { $_.Name -match '^(ANTHROPIC_|CLAUDE_|CLAUDECODE$|USE_.*OAUTH)' } |
+  ForEach-Object { Remove-Item -LiteralPath ('Env:' + $_.Name) }
 
 $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
 $jsonl = Join-Path $runs ("codex\{0}-{1}.jsonl" -f $stamp, $Name)
@@ -52,9 +56,13 @@ if ($WhatIf) {
 }
 
 $started = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
+# Wait on the Codex process only: Start-Process -Wait would also wait for any server or browser a
+# sub-agent left running, and the completion notice would never arrive.
 $p = Start-Process -FilePath $codex -ArgumentList $argv -WorkingDirectory $Repo `
   -RedirectStandardInput $Brief -RedirectStandardOutput $jsonl -RedirectStandardError $errf `
-  -NoNewWindow -Wait -PassThru
+  -NoNewWindow -PassThru
+$null = $p.Handle
+$p.WaitForExit()
 
 $sid = ''
 foreach ($line in (Get-Content $jsonl -Encoding UTF8)) {

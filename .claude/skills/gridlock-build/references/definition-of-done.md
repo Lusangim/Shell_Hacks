@@ -23,7 +23,7 @@ rules; not renegotiated under deadline pressure (that is a red flag, not a trade
 - [ ] Claims about a pair ("same substation", "shared endpoint") say only what the PDFs support.
 
 ### Quality
-- [ ] Matches house patterns (`references/house-patterns.md` once written; `SPEC.md` § Code style before).
+- [ ] Matches house patterns (`reviews/2026-09-26-gridlock-build/house-patterns.md` once written; `SPEC.md` § Code style before).
 - [ ] No debug output, commented-out code, dead files or stray `print`/`console.log`.
 - [ ] Only your lane's files changed; anything else is an exact patch in your report.
 - [ ] Data strings reach the page via `textContent` / safe attributes only.

@@ -1,9 +1,9 @@
 # Pass brief — GridLock build (2026-09-26)
 
 **Goal:** the complete GridLock app per `SPEC.md` (plan v3), built and judged by one Codex lead with up to
-five sub-agents, delivered by **Sat 2026-09-26 09:30 EDT** at the latest (earlier if it finishes), then
-reviewed last by Claude. The founder and team review both results and decide the next round. Devpost
-closes Sun 2026-09-27 11:00 EDT; the founder submits by 10:30.
+five sub-agents, with **no time limit** (it delivers when complete and judged, and rewrites `DELIVERY.md`
+at every gate), then reviewed last by Claude. The founder and team follow progress, review both results
+and decide the next round. Devpost closes Sun 2026-09-27 11:00 EDT; the founder submits by 10:30.
 
 **Working copy:** `%USERPROFILE%\dev\gridlock` (clone of the OneDrive repo; the OneDrive copy is left as it
 is). Venv `%USERPROFILE%\dev\gridlock-venv`; Playwright browsers `%USERPROFILE%\dev\ms-playwright`; lane
