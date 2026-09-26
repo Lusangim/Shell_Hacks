@@ -274,6 +274,19 @@ def test_accuracy_is_encoded_in_line_style_and_unknowns_stay_unmapped(shell_serv
         browser.close()
 
 
+def test_svg_project_paths_use_the_ranked_list_for_accessibility(shell_server):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        page.goto(shell_server)
+        paths = page.get_by_test_id("project-feature")
+        expect(paths).to_have_count(12)
+        expect(page.get_by_test_id("overlap-row")).to_have_count(11)
+        assert page.evaluate("""() => Array.from(document.querySelectorAll('[data-testid="project-feature"]'))
+          .every(path => !path.hasAttribute('aria-label') && !path.hasAttribute('tabindex'))""")
+        browser.close()
+
+
 def test_first_map_view_contains_savannah_and_augusta(shell_server):
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()

@@ -133,7 +133,6 @@ export function renderMap(projects, basemap) {
         if (element) {
           element.dataset.testid = "project-feature";
           element.dataset.projectId = feature.properties.id;
-          element.setAttribute("aria-label", `${projectProperties(feature).name ?? "Unnamed project"}, ${projectProperties(feature).utility ?? "utility not stated"}`);
         }
       });
     },
