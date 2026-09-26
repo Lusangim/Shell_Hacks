@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/web/css/app.css">
   <link rel="stylesheet" href="/web/css/tour.css">
   <link rel="stylesheet" href="/web/css/detail.css">
+  <link rel="stylesheet" href="/web/css/brief.css">
   <link rel="stylesheet" href="/web/css/print.css">
   <script defer src="/web/vendor/leaflet/leaflet.js"></script>
   <script defer type="module" src="/web/js/app.js"></script>
@@ -118,6 +119,16 @@
           <h2 id="overlap-detail-heading">Overlap detail</h2>
           <p id="overlap-state" class="overlap-state" data-testid="overlap-state" role="status"></p>
           <div id="overlap-content"></div>
+        </section>
+        <section id="brief-panel" class="brief-panel" aria-labelledby="brief-heading" hidden>
+          <h2 id="brief-heading">Coordination brief</h2>
+          <p id="brief-origin" class="brief-origin"></p>
+          <div id="brief-content"></div>
+          <p id="brief-state" class="brief-state" role="status"></p>
+          <div class="brief-actions">
+            <button id="brief-copy" type="button" disabled>Copy brief</button>
+            <button id="brief-retry" type="button" hidden>Retry brief</button>
+          </div>
         </section>
         <section id="opportunities" class="opportunities" aria-labelledby="opportunities-heading" tabindex="-1">
           <div class="section-head"><h2 id="opportunities-heading">Ranked overlaps</h2><span id="overlap-count" class="count" data-src="count"></span></div>
