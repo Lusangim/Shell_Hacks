@@ -48,7 +48,25 @@ pick-an-area explorer (40 km circle) · AI coordination brief per overlap.
   **Use:** validation that coordination tools exist and are used at street level; GridLock does the same
   for transmission, across state lines, from public filings only. **Idea:** its moratorium (a no-dig time
   window after repaving) is a time-window rule like our timeline overlap — a talking point, not new scope.
-- PEERS-PENDING (research agent running; filled before the launch)
+- **Peers** (full table, sources and "snippet" flags: `reviews/2026-09-26-gridlock-build/research/prior-art-2026-09-26.md`):
+  street and right-of-way coordination is an established category — Coordinate (formerly dotMaps; Chicago,
+  Seattle), Accela Right of Way (formerly Envista), Esri's Capital Project Coordination, the UK's
+  one.network, London's Infrastructure Coordination Service, Toronto, SEMCOG in Michigan, the FHWA SHRP2
+  R15B Utility Conflict Matrix and NJUNS. On the grid side there are data aggregators (Our Grid Future,
+  Interconnection.fyi, Open Infrastructure Map, ERCOT's TPIT), while SERTP posts its plans as documents.
+  **None found pairs two utilities' public transmission plans by distance and timing with page citations.**
+- **Adopted inside the decided features (no new scope, no new claim):** the CSV export is laid out like a
+  utility conflict matrix (T2.4); the loaded plan editions and their dates are always visible (T1.3);
+  shareable links with filters, year and area were already planned (T2.6).
+- **Candidates for the founder** (not in Codex's first run unless the founder adds them): a coordination
+  window (years left before the earlier in-service year) · an "interregional (SCRTP–SERTP)" label ·
+  "next party to act" in the brief · a "partnership-ready" tag · conflict vs opportunity wording · an
+  Order 1920 "right-sizing" tag · what changed between SERTP 2025 and the 2026 preliminary plan.
+- **Data notes from the research:** SERTP's 2026 Preliminary Expansion Plan Report (Non-CEII) is newer
+  than the 2025 plan we load — label our edition; DESC plans in SCRTP, so DESC × Georgia pairs are
+  interregional; HIFLD Open was retired on 2025-08-26, so our line geometry is cited as an archived,
+  frozen layer with its fetch date; SERTP cost estimates are use-restricted, and our SERTP extract carries
+  no costs (checked 2026-09-26).
 
 ## Who builds what (decided 2026-09-26)
 

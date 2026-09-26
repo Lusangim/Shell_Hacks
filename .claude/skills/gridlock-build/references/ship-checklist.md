@@ -56,7 +56,11 @@ savings assume and where each assumption comes from · why SERTP and not the IRP
 what is missing (Thomson–Vogtle, Bluffton not in the loaded plans) · how briefs avoid invented facts ·
 **who else does this** (PaverOps and the peers in SPEC § Prior art: street-level, members-only data;
 GridLock: transmission scale, across state lines, public filings only) · **why it doesn't exist already**
-(answer drafted from the cited prior-art research, never from memory) · what we would do next.
+(from `research/prior-art-2026-09-26.md`: SERTP posts documents only; inputs gated by confidentiality,
+CEII, forms or paid exports; HIFLD Open retired in 2025; the Order 1920 duty to share across regions is
+new) · **why this pair of utilities** (DESC plans in SCRTP, the Georgia utilities in SERTP: the pairs sit
+on an interregional boundary) · **which plan edition** (SERTP 2025; the 2026 preliminary report exists
+and is not loaded) · what we would do next.
 
 ## Presentation (T5.3)
 `docs/PRESENTATION.md`: title · problem · proof the need is real (street-level coordination platforms

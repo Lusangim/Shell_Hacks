@@ -145,4 +145,10 @@ update the founder asked for:
   detection, pavement plans and moratoriums, utility data sharing, "synchronous projects, cost sharing";
   membership restricted to local governments and utilities; no public data, API, pricing or case-study
   numbers on the site. Used in `SPEC.md` § Prior art, the Q&A crib, the presentation and the Devpost text.
-- PEERS-PENDING (the 2026-09-26 `/last30days` research, run in a sub-agent; filled before the launch).
+- **Peers** — the 2026-09-26 research (the `/last30days` skill v3.18.4 run inside a Claude Opus sub-agent,
+  plus WebSearch/WebFetch on vendors' pages): `reviews/2026-09-26-gridlock-build/research/prior-art-2026-09-26.md`
+  holds the tool table with URLs, the triaged ideas, the data notes and the pitch lines. Claims marked
+  "snippet" rest on search-result text (the site blocked automated reading) and are verified before any
+  pitch use. Taken: the conflict-matrix CSV layout (FHWA SHRP2 R15B), the visible plan editions, the
+  interregional framing (SCRTP–SERTP, FERC Order 1920) and the HIFLD archive note. Left for the founder:
+  the candidate ideas listed in `SPEC.md` § Prior art.

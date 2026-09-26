@@ -1,9 +1,15 @@
 # Obsidian notes vault (personal planning notes) - not part of the code repo
 /Shell Hacks/
 .obsidian/
-# Re-downloadable / intermediate
-gridlock-data/gaz_places.zip
-gridlock-data/sertp_2025_rtp.txt
+# Re-downloadable / intermediate (any folder: the pipeline restructure moves them)
+gaz_places.zip
+sertp_2025_rtp.txt
+cb_*_us_county_500k*.zip
 __pycache__/
 *.pyc
+.pytest_cache/
 .env
+.env.*
+# Lane worktrees and run output, if the Codex sandbox needs them inside the working copy
+/.wt/
+/.runs/

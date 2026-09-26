@@ -145,6 +145,10 @@ open a PDF page to check a value; nobody reads `%USERPROFILE%\.codex\`.
   Codex's sandbox. Keep the venv, runs and browsers under `%USERPROFILE%\dev\`.
 - 2026-09-26 an auto-compaction right after loading the long `/last30days` skill left a session unable to
   answer; run long-instruction skills inside a sub-agent.
+- 2026-09-26 HIFLD Open was retired on 2025-08-26 (research note; hsdl.org, EIA Atlas "Archive"): cite the
+  line layer as archived and frozen, with its fetch date. DESC plans in SCRTP, not SERTP (interregional).
+  SERTP 2025 is not the newest edition (a 2026 preliminary report exists). SERTP cost estimates are
+  use-restricted; our SERTP extract has no cost columns.
 
 ## Open founder inputs
 
