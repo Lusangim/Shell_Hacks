@@ -97,6 +97,7 @@ def shell_server():
             "unmapped_count": 1,
         },
         "/api/basemap": BASEMAP,
+        "/api/map-config": {"google_enabled": False, "google_key": None, "offline_available": False},
     }
 
     class Handler(SimpleHTTPRequestHandler):
@@ -138,6 +139,16 @@ def shell_server():
 def test_shell_server_reused_within_module():
     """Avoid repeated Windows binds for the same shell test module."""
     assert shell_server._fixture_function_marker.scope == "module"
+
+
+def test_shell_server_exposes_offline_map_config(shell_server):
+    with urlopen(f"{shell_server}/api/map-config", timeout=2) as response:
+        assert response.status == 200
+        assert json.load(response) == {
+            "google_enabled": False,
+            "google_key": None,
+            "offline_available": False,
+        }
 
 
 @pytest.fixture

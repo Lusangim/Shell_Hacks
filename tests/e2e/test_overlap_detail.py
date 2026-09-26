@@ -120,13 +120,13 @@ def test_map_highlight_has_a_separate_pair_entry(live_server):
         page.goto(live_server)
         paired = page.request.get(f"{live_server}/api/overlaps").json()
         ids = list({project_id for pair in paired for project_id in (pair["a"], pair["b"])})
-        project_id = page.evaluate("""ids => Array.from(document.querySelectorAll('[data-testid="project-feature"]'))
+        project_id = page.wait_for_function("""ids => Array.from(document.querySelectorAll('[data-testid="project-feature"]'))
           .map(path => {
             const box = path.getBoundingClientRect();
             const x = box.left + box.width/2, y = box.top + box.height/2;
             return {id:path.dataset.projectId, x, y, hit:document.elementFromPoint(x,y) === path};
           }).find(item => ids.includes(item.id) && item.hit && item.x > 450
-            && item.x < innerWidth - 20 && item.y > 20 && item.y < innerHeight - 20)?.id""", ids)
+            && item.x < innerWidth - 20 && item.y > 20 && item.y < innerHeight - 20)?.id""", arg=ids, timeout=5000).json_value()
         assert project_id
         page.locator(f'[data-testid="project-feature"][data-project-id="{project_id}"]').click()
         expect(page.get_by_test_id("project-detail")).to_be_visible()
