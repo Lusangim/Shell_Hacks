@@ -171,7 +171,7 @@ function setupSheet() {
 }
 
 initializeMap();
-const searchControl = setupSearch();
+const searchControl = setupSearch(filterControl);
 setupTheme();
 setupSheet();
 setupTour();

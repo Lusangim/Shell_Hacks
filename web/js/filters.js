@@ -1,5 +1,5 @@
 const FILTER_KEYS = ["utility", "voltage_kv", "year_min", "year_max", "project_type", "band", "cross_state"];
-const URL_KEYS = [...FILTER_KEYS, "year", "area"];
+const URL_KEYS = [...FILTER_KEYS, "year", "area", "radius_km"];
 const TYPES = new Set(["new_line", "rebuild_line", "reconductor", "new_substation", "substation_upgrade", "equipment", "other"]);
 const BANDS = new Set(["touching", "lt_1_6km", "lt_8km", "lt_40km"]);
 
@@ -44,7 +44,7 @@ export function setupFilters(onChange) {
   let knownUtilities = new Set();
   let knownVoltages = new Set();
   let current = emptyFilters();
-  let reserved = { year: "", area: "" };
+  let reserved = { year: "", area: "", radius_km: "" };
   let ready = false;
 
   function showWarning(message) {
@@ -55,7 +55,7 @@ export function setupFilters(onChange) {
   function readURL() {
     const params = new URLSearchParams(location.search);
     const next = emptyFilters();
-    const nextReserved = { year: "", area: "" };
+    const nextReserved = { year: "", area: "", radius_km: "" };
     let invalid = false;
     for (const value of params.getAll("utility")) {
       if (knownUtilities.has(value)) {
@@ -71,12 +71,13 @@ export function setupFilters(onChange) {
       cross_state: (value) => value === "true" || value === "false",
       year: validYear,
       area: validArea,
+      radius_km: (value) => /^\d+(?:\.\d+)?$/.test(value) && Number(value) >= 1 && Number(value) <= 80,
     };
     for (const key of URL_KEYS.slice(1)) {
       const values = params.getAll(key);
       if (values.length === 0) continue;
       if (values.length === 1 && validators[key](values[0])) {
-        if (key === "year" || key === "area") nextReserved[key] = values[0];
+        if (key === "year" || key === "area" || key === "radius_km") nextReserved[key] = values[0];
         else next[key] = values[0];
       } else invalid = true;
     }
@@ -95,6 +96,7 @@ export function setupFilters(onChange) {
     for (const [key, value] of active) url.searchParams.append(key, value);
     if (reserved.year) url.searchParams.set("year", reserved.year);
     if (reserved.area) url.searchParams.set("area", reserved.area);
+    if (reserved.area && reserved.radius_km) url.searchParams.set("radius_km", reserved.radius_km);
     if (replace) history.replaceState(null, "", url);
     else history.pushState(null, "", url);
   }
@@ -206,6 +208,20 @@ export function setupFilters(onChange) {
     writeURL(replace);
   }
 
+  function setArea(center, radius = 40) {
+    reserved.area = center ? `${center.lat},${center.lon}` : "";
+    reserved.radius_km = center ? String(radius) : "";
+    // Search and map entry can run before the filter choices finish loading.
+    const url = new URL(location.href);
+    url.searchParams.delete("area");
+    url.searchParams.delete("radius_km");
+    if (center) {
+      url.searchParams.set("area", reserved.area);
+      url.searchParams.set("radius_km", reserved.radius_km);
+    }
+    history.pushState(null, "", url);
+  }
+
   return { hydrate, clear, hasActive: () => filterQuery(current).toString() !== "", query: () => filterQuery(current),
-    year: () => reserved.year, setYear };
+    year: () => reserved.year, setYear, setArea };
 }

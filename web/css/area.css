@@ -1,0 +1,19 @@
+.area-panel { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 14px; overflow-wrap: anywhere; }
+.area-panel[hidden], .area-panel [hidden] { display: none; }
+.area-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.area-heading h2 { margin: 0; font-size: 20px; }
+.area-panel h3 { margin: 16px 0 8px; font-size: 16px; }
+.area-panel button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--rule-strong); border-radius: 4px; background: var(--panel); }
+.area-panel p { margin: 8px 0; }
+.area-panel label { margin-top: 12px; }
+.area-radius { display: flex; align-items: center; gap: 12px; }
+.area-radius input { min-width: 0; flex: 1; min-height: 44px; accent-color: var(--ink); }
+.area-radius output { min-width: 48px; font-variant-numeric: tabular-nums; }
+.area-panel dl { margin: 0; }
+.area-panel dl div { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; }
+.area-panel dd { margin: 0; font-variant-numeric: tabular-nums; }
+.area-panel summary { min-height: 44px; padding: 12px 0; cursor: pointer; }
+.area-panel ul, .area-panel ol { padding-left: 20px; }
+.area-panel li { margin: 12px 0; }
+.area-panel li p { margin: 4px 0; }
+.area-panel a { display: inline-block; min-height: 44px; padding: 8px 0; color: var(--ink); }
