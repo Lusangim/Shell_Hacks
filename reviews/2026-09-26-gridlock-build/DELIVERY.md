@@ -29,9 +29,10 @@
 | T2.3 | Done since G1; `79869e7`. Formula recorded before code; 201 clearly labelled screening ranges, 214 timing-too-far and 74 no-cost outcomes. Assumption text follows validated rates. Thirteen focused lead checks and integrated main quick gate 186 suite + 17 shell + 18 audits passed. |
 | T2.4 | Done since G1; `ae1fa7a`. Typed pair detail, unpaged BOM CSV with safe text cells, and two whitelisted local source PDFs. Eighteen focused lead checks and integrated main quick gate 204 suite + 17 shell + 18 audits passed. |
 | T2.5a | Partly done on parked `wt/web` commit `11a22d7`: seven new project-detail checks passed but an existing map selector failed after a new list row reused `data-project-id`. The original 390 px phone check also failed; after search integration it passes. Isolated `wt/web-b` repair is running; no merge yet. |
+| T2.10 | Done since G1; `5c92423`. The draft `docs/METHODOLOGY.md` has all six named examples, five sourced Savannah/Jasper/Augusta pair rows, PDF no-hit evidence and a cautious rank-1 demo pair. Four focused lead checks and integrated main quick gate 218 suite + 17 shell + 18 audits passed. |
 | T2.8a | Done since G1; `44aefc2`. Typed local search over 1,150 places and placed projects/stations, 12 focused lead rerun and integrated main quick gate 168 suite + 17 shell + 18 audits. |
 | T2.8b | Done since G1; `321bd0e`. Local keyboard search and source-backed duplicate choices, 390 px two-row sheet, ten focused lead e2e checks and integrated main quick gate 214 suite + 17 shell + 18 audits passed. Original `wt/web-2` branch remains a parked historical attempt. |
-| T2.5b–T2.7, T2.9–T2.11; T3.1–T3.5; T1.4b; T4.1–T4.4; D.1–D.3 | Not started or in progress on a branch. |
+| T2.5b–T2.7, T2.9, T2.11; T3.1–T3.5; T1.4b; T4.1–T4.4; D.1–D.3 | Not started or in progress on a branch. |
 | G1a | Passed: type review and confirmation, full VERIFY green. |
 | G1 | Passed: Python HIGH corrected and confirmed, JS ready, full VERIFY green, 1440/390 screenshots and house patterns committed. |
 | G2–G4 | Not started. |
@@ -49,6 +50,8 @@ G1 Python round 1 (`judge-python-g1-r1/JUDGMENT.md`) reproduced one HIGH: a Geor
 The original `wt/web-2` T2.8b branch remains parked as a historical failed attempt; the independent phone and duplicate-label repair is merged and verified. No feature cut was made. Unknown roster, licence, Okatie verification, and Claude access remain open founder questions. Safe defaults: no invented person or endpoint, Okatie stays inferred, no API calls or spend, no push or submission. Sperry acceptance of the public SERTP overview plan is also unconfirmed; only public material is used.
 
 Q2 provenance caveat for Sperry and G2 domain review: the already committed, publicly posted SERTP 2025 overview PDF has transmission-project page headers marked `(CEII)`. SPEC Q2/Q11 explicitly acknowledge this and set the unattended default to use the existing overview, while SPEC's boundary also says to use nothing marked CEII. DATA T2.10 is citing existing artifact fields and pages without newly transcribing marked passages. The founder and Sperry need to resolve whether the source is acceptable before any public push; the lead will not remove a decided source or rewrite history without that decision.
+
+Founder question from T2.10: whether to obtain and verify a specific Georgia Power IRP source for a potential Thomson–Vogtle hand-entry. The loaded plan artifacts contain no project by that name, so no hand-entry or location was invented.
 
 No change to Claude-owned files is proposed. The G1a contract guards were added before freeze; later changes require the SPEC type review procedure.
 

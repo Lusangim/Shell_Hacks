@@ -26,9 +26,12 @@
             <p class="eyebrow">Public transmission plans / GA + SC</p>
             <h1>GridLock</h1>
           </div>
-          <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to dark theme" title="Switch theme">
-            <img id="theme-icon" src="/web/icons/moon.svg" alt="" width="20" height="20">
-          </button>
+          <div class="title-actions">
+            <button id="projects-toggle" class="view-button" type="button" aria-pressed="false" aria-controls="projects-panel">Projects</button>
+            <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to dark theme" title="Switch theme">
+              <img id="theme-icon" src="/web/icons/moon.svg" alt="" width="20" height="20">
+            </button>
+          </div>
         </div>
         <p class="subhead">Coordination opportunities</p>
         <p id="editions" class="edition-line" data-src="source_documents">Loading plan editions</p>
@@ -65,6 +68,20 @@
           <div class="section-head"><h2 id="opportunities-heading">Ranked overlaps</h2><span id="overlap-count" class="count" data-src="count"></span></div>
           <div id="list-state" class="list-state" data-testid="loading-state" role="status">Loading ranked opportunities</div>
           <ol id="overlap-list" class="overlap-list"></ol>
+        </section>
+        <section id="projects-panel" class="projects-panel" aria-labelledby="projects-heading" hidden>
+          <h2 id="projects-heading">Projects</h2>
+          <label for="project-filter">Find a project</label>
+          <input id="project-filter" type="search" autocomplete="off">
+          <p id="projects-state" class="projects-state" data-testid="projects-state" role="status">Loading projects</p>
+          <ul id="project-list" class="project-list"></ul>
+        </section>
+        <section id="project-detail" class="project-detail" data-testid="project-detail" aria-labelledby="project-detail-heading" hidden>
+          <button id="project-back" class="back-button" type="button">Back to projects</button>
+          <h2 id="project-detail-heading" data-src="name"></h2>
+          <div id="project-fields"></div>
+          <h3>Overlaps within 40 km</h3>
+          <div id="project-overlaps"></div>
         </section>
         <details id="unknown-locations" class="unknown-locations" hidden>
           <summary id="unknown-heading">Location unknown</summary>
