@@ -72,6 +72,7 @@ when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT;
 - ~11:00 · e099697 · — · Founder amendment 3 read: T1.7 readable text, T1.8 walkthrough. Add acceptance checks and build after map, with brief text when Phase 3 UI exists.
 - ~11:00 · e099697 · — · Founder amendment 4 read: up to 8 sub-agents. This runtime exposes four total concurrent slots (lead plus three sub-agents); use every available independent slot, avoid file overlap, and monitor machine load.
 - 11:10 · fd13d48 · main baseline 267/18/18; T3.3a focused 107 passed, lane gate 382 pass/2 WEB map-readiness failures · founder direction v2 and T1.6–T1.8 tasks recorded; T1.6 WEB vendor/map work, T2.9 export/print disclosure repair and WEB map-readiness repair active in separate worktrees; API T1.6 Range/config brief and worktree ready for next free agent slot
+- 11:28 · d5e2366 · main baseline 267/18/18; WEB readiness repair lane 384/18/18 green and one lead focused check green · two T3.3a map click test races fixed by waiting for hit-testable SVG, cherry-picked test-only onto main; held API branch synced but gate exposed four T2.7 timeline hydration test races (390 pass/4 fail), WEB test repair assigned; T1.6 WEB portion 10 focused ×3 with reviewed screenshots, awaiting API route; T2.9 and T1.6 API gates building
 
 ## Environment facts
 - Working copy `C:\Users\lucia\dev\gridlock`; git data `C:\Users\lucia\dev\gridlock-git` (the `.git` in the
