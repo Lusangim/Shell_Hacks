@@ -46,7 +46,7 @@ async function load() {
     renderList(overlaps, projects);
     renderUnknownLocations(projects);
     projectView.renderProjects(projects.features, overlaps);
-    overlapView.restoreFromHash();
+    if (location.hash.startsWith("#overlap=")) overlapView.restoreFromHash();
     document.getElementById("editions").textContent = editionText(meta);
     const count = meta.stage_counts?.kept ?? projects.features.length;
     const noOverlap = meta.no_overlap_count;

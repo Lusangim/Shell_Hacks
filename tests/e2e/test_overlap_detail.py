@@ -225,3 +225,30 @@ def test_delayed_old_detail_cannot_replace_new_selection(live_server):
         assert page.url.endswith(f"#overlap={other}")
         expect(page.get_by_test_id("overlap-detail")).to_contain_text("DRESDEN")
         browser.close()
+
+
+def test_shell_load_finishing_after_projects_toggle_preserves_projects_view(live_server):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page()
+        page.add_init_script("""(() => {
+          const original = window.fetch;
+          window.releaseShell = null;
+          window.fetch = (url, options) => {
+            if (String(url) === '/api/overlaps') {
+              document.documentElement.dataset.shellPending = 'true';
+              return new Promise(resolve => { window.releaseShell = () => resolve(original(url, options)); });
+            }
+            return original(url, options);
+          };
+        })();""")
+        page.goto(live_server)
+        expect(page.locator("html[data-shell-pending='true']")).to_have_count(1)
+        page.get_by_role("button", name="Projects").click()
+        expect(page.get_by_test_id("project-row")).to_have_count(0)
+        expect(page.locator("#projects-panel")).to_be_visible()
+        page.evaluate("window.releaseShell()")
+        expect(page.get_by_test_id("project-row").first).to_be_visible()
+        expect(page.locator("#projects-panel")).to_be_visible()
+        expect(page.locator("#opportunities")).to_be_hidden()
+        browser.close()
