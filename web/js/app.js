@@ -80,7 +80,7 @@ function renderFiltered(projects, overlaps, initial) {
   renderMap(projects, state.basemap);
   renderList(overlaps, projects);
   renderUnknownLocations(projects);
-  projectView.renderProjects(projects.features, overlaps);
+  projectView.renderProjects(projects.features, overlaps, filterControl.hasActive());
   const selectedId = state.selectedOverlapId ?? hashOverlapId();
   const selectedVisible = selectedId ? restorePairSelection(selectedId) : false;
   mapPairOpen.hidden = !selectedVisible;
@@ -96,7 +96,7 @@ function renderFiltered(projects, overlaps, initial) {
     noOverlap.dataset.src = "no_overlap_count";
     const count = state.meta.stage_counts?.kept ?? projects.features.length;
     noOverlap.textContent = Number.isInteger(state.meta.no_overlap_count)
-      ? `${state.meta.no_overlap_count} of ${count} projects have no overlap within 40 km`
+      ? `${state.meta.no_overlap_count} of ${count} projects are not in computed pairs; ${projects.features.filter((feature) => !feature.geometry).length} locations unknown`
       : "No-overlap count unavailable";
   }
   if (overlaps.length === 0) {
@@ -177,7 +177,7 @@ setupSheet();
 setupTour();
 document.addEventListener("gridlock:project-click", (event) => {
   overlapView.close();
-  selectFirstOverlapForProject(event.detail.projectId);
+  selectFirstOverlapForProject(event.detail.projectId, filterControl.hasActive());
   projectView.openProject(event.detail.projectId, "overlaps");
 });
 document.addEventListener("gridlock:pair-highlighted", () => { mapPairOpen.hidden = false; });
