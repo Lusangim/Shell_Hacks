@@ -100,6 +100,7 @@ when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT;
 - 16:05 · d6a2858 · baseline 593; repaired full audit matrix 37/37 green on first integrated run; strict-boundary scratch 50/50 green · Audit probes were tightened from a 0.01 rounding allowance to exact 4.5/3/44 and speed thresholds; just-below cases fail and equality passes. The exact-comparator 37-case rerun and audit lane gate are underway; G3 remains pending.
 - 16:13 · 026882a · baseline 593; strict full matrix 37/37 passed, all 24 scenes green; scratch proofs 50/50, representative 3/3 ×3 · Worst measured scene content 1112.2 ms, slider 59.6 ms and CLS 0.002108 under exact limits. T1.4b full lane quick gate started; no product changes remain before G3 candidate verification.
 - 16:28 · 90f847e · baseline 593; held-out manifest and all 30 selected offline template grades 31/31 passed · T1.4b full lane gate is past halfway with no failures; all 24 scenes and strict scratch/repeat checks are already green. Main VERIFY and G3 tag wait for the completed lane gate and audit merge.
+- 16:39 · 2dc1f50 · T1.4b lane primary suite 674/674 passed and shell repeat 19/19 passed; separate 99-case audit rerun underway · Audit code review confirms the T1.7 copy-lint change strengthens source-marked authored text while preserving exact verbatim names. G3 VERIFY waits for the final audit repeat and merge.
 
 ## Environment facts
 - Working copy `C:\Users\lucia\dev\gridlock`; git data `C:\Users\lucia\dev\gridlock-git` (the `.git` in the
