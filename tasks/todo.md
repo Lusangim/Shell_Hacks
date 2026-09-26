@@ -123,7 +123,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [x] **T2.8b Search UI** (WEB-2) — `4869de9` correction merged as `321bd0e`; lead reran 10 search e2e; main quick gate 214 suite + 17 shell + 18 audits passed
   - Acceptance: `<input type="search" list>` + `<datalist>` (ARIA combobox only if an audit fails); Enter zooms and offers "Explore this area".
   - Verify: `tests/e2e/test_search.py` keyboard-only.
-- [ ] **T2.9 Export and print** (WEB-2)
+- [x] **T2.9 Export and print** (WEB-2) — `3057075` merged as `d6980c0`; lead reran three CSV parity cases; integrated lane gate 278 suite + 19 shell + 18 audit passed; scoped security review P0–P3 zero
   - Acceptance: "Export CSV" downloads the server CSV for current filters; "Print report": ranked table, selected overlap, assumptions, sources, attribution; Letter without cut-off columns.
   - Verify: `tests/e2e/test_export.py` — CSV rows == visible list == API list; print view has the CSV's required fields; `media=print` screenshot.
 - [ ] **T2.11 Domain spot-check** (JUDGE, Codex sub-agent with `gridlock-judge.md`, domain lens) — at G2
