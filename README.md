@@ -1,21 +1,30 @@
-# GridLock — ShellHacks 2026 (Sperry Tech challenge)
+# GridLock: ShellHacks 2026 (Sperry Tech challenge)
 
-Finds where neighboring electric utilities' **planned** transmission projects overlap in place and time, so they can share crews, equipment, land and permits.
-Scope: Georgia + South Carolina, focused on the SC–GA border (Dominion Energy SC vs Georgia Power / GTC / MEAG).
+GridLock finds where neighboring electric utilities' **planned** transmission projects come close in place
+and time: within 40 km of each other and entering service around the same years. Planners can then look
+at sharing crews, outages, land and permits. It compares Dominion Energy South Carolina's public plan with
+the Georgia Power, Georgia Transmission and MEAG projects in the SERTP 2025 regional plan. It shows them on
+an interactive street map of Georgia and South Carolina, with a ranked list of pairs, the source document
+and page for every project, a savings estimate with its assumptions, and a guided tour.
 
-- `gridlock-data/` — data pipeline, source documents and outputs. See [gridlock-data/README.md](gridlock-data/README.md).
-- `gridlock-data/preview.html` — quick preview map (open in a browser).
+## Quick start (Windows)
 
-## Run
-```
-cd gridlock-data
-pip install pypdf shapely pyproj
-python extract.py && python fetch_hifld.py && python place_projects.py && python find_overlaps.py && python build_preview.py
-```
+1. `git clone https://github.com/Lusangim/Shell_Hacks.git`
+2. Double-click **`SETUP.cmd`**: Python environment, packages and the modern street map (about 220 MB, once)
+3. Double-click **`START.cmd`**: http://127.0.0.1:8765 opens in your browser
+4. Click **Take the tour**
+
+Full instructions (Google Maps and Satellite view, rebuilding the data from the PDFs, tests, Mac and Linux,
+troubleshooting): **[RUNNING.md](RUNNING.md)**. How distances, bands and the ranking work (draft):
+[docs/METHODOLOGY.md](docs/METHODOLOGY.md).
 
 ## Data sources (all public)
-- Dominion Energy SC planned transmission projects 2026–2030 ≥ $2M — SCRTP (scrtp.com)
-- SERTP 2025 Regional Transmission Plan & Input Assumptions (southeasternrtp.com) — states it contains no CEII
-- HIFLD Electric Power Transmission Lines (U.S. DHS, via ArcGIS)
-- OpenStreetMap substations © OpenStreetMap contributors, ODbL
-- U.S. Census Gazetteer places; US state boundaries (PublicaMundi)
+
+- Dominion Energy SC planned transmission projects 2026-2030, $2M and above: SCRTP (scrtp.com)
+- SERTP 2025 Regional Transmission Plan and Input Assumptions, the publicly posted overview (southeasternrtp.com)
+- HIFLD Electric Power Transmission Lines (U.S. DHS; the archived public layer)
+- OpenStreetMap substations and street map, © OpenStreetMap contributors (ODbL); map tiles via Protomaps
+- U.S. Census Gazetteer places; U.S. state boundaries
+
+Independent student project; not affiliated with Dominion Energy, Georgia Power, Southern Company,
+Georgia Transmission, MEAG Power or Sperry Tech. Estimates are for discussion only.

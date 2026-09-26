@@ -1,5 +1,8 @@
 # Start the local app. ASCII only.
-param([int]$Port = 8765, [switch]$NoBrowser)
+# START.cmd                 open GridLock at http://127.0.0.1:8765
+# START.cmd -Google         also offer Google Maps / Satellite (needs your own key file; see RUNNING.md)
+# START.cmd -NoBrowser      start the server without opening a browser
+param([int]$Port = 8765, [switch]$NoBrowser, [switch]$Google)
 $ErrorActionPreference = 'Stop'
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 if (-not $env:GRIDLOCK_PY) { $env:GRIDLOCK_PY = Join-Path $env:USERPROFILE 'dev\gridlock-venv\Scripts\python.exe' }
@@ -7,6 +10,7 @@ if (-not (Test-Path -LiteralPath $env:GRIDLOCK_PY)) { Write-Error 'GridLock Pyth
 if (-not $env:PLAYWRIGHT_BROWSERS_PATH) { $env:PLAYWRIGHT_BROWSERS_PATH = Join-Path $env:USERPROFILE 'dev\ms-playwright' }
 $env:GRIDLOCK_AI = 'off'
 $env:GRIDLOCK_TEST_PORT = [string]$Port
+if ($Google) { $env:GRIDLOCK_GOOGLE = 'on' }
 Push-Location $repo
 try {
   & $env:GRIDLOCK_PY -c "from tests.harness import require_free_loopback_port; require_free_loopback_port($Port)"
