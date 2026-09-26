@@ -48,12 +48,14 @@ function tooltipFor(feature) {
 
 function styleForProject(feature) {
   const properties = projectProperties(feature);
+  const year = state.timelineYear;
+  const opacity = year == null || properties.year === year ? 1 : properties.year == null ? 0.55 : 0.32;
   return {
     color: token(utilityTokens.get(properties.utility) || "--minor"),
     weight: voltageWeight(properties),
     dashArray: properties.accuracy === "approximate" ? "8 5" : null,
-    opacity: 1,
-    fillOpacity: 1,
+    opacity,
+    fillOpacity: opacity,
   };
 }
 
@@ -221,6 +223,10 @@ export function highlightPair(overlap) {
 export function refreshMapTheme() {
   if (state.basemapLayers) state.basemapLayers.setStyle(styleForBasemap);
   if (state.casingLayers) state.casingLayers.setStyle(styleForCasing);
+  refreshProjectStyles();
+}
+
+export function refreshProjectStyles() {
   if (state.projectLayers) {
     state.projectLayers.setStyle(styleForProject);
     highlightPair(state.overlaps.find((overlap) => overlap.id === state.selectedOverlapId));
