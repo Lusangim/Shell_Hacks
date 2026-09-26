@@ -1,0 +1,4 @@
+{
+  "passed": 24,
+  "allowed_skips": ["no web shell yet (e2e smoke)", "no web shell yet (axe default)"]
+}

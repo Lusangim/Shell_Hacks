@@ -4,20 +4,19 @@ All sources are public. Confirm with Sperry Tech on site that the SERTP overview
 
 | File | What it is |
 |---|---|
-| `desc_scrtp_2026_2030.pdf` | Dominion Energy SC planned transmission projects ≥ $2M, 2026–2030 (SCRTP). Source: https://www.scrtp.com/assets/pdfs/home/2026-2030-2million-and-above-project-descriptions.pdf |
-| `desc_2026_2030_projects.csv` | 54 DESC projects parsed: name, ID, description, need, status, planned in-service date, total cost |
-| `sertp_2025_rtp.pdf` | SERTP 2025 Regional Transmission Plan & Input Assumptions (Nov 26 2025). Southern BAA (Georgia Power, GTC, MEAG, Savannah area) projects from p.60. Source: https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf |
-| `sertp_2025_projects.csv` | 427 SERTP projects parsed (326 in the SOUTHERN area): area, in-service year, name, description, need, page |
-| `extract.py` | The parser that made both CSVs (re-run it if the PDFs are updated) |
+| `data/raw/desc_scrtp_2026_2030.pdf` | Dominion Energy SC planned transmission projects ≥ $2M, 2026–2030 (SCRTP). Source: https://www.scrtp.com/assets/pdfs/home/2026-2030-2million-and-above-project-descriptions.pdf |
+| `data/raw/desc_2026_2030_projects.csv` | 54 DESC projects parsed: name, ID, description, need, status, planned in-service date, total cost |
+| `data/raw/sertp_2025_rtp.pdf` | SERTP 2025 Regional Transmission Plan & Input Assumptions (Nov 26 2025). Southern BAA (Georgia Power, GTC, MEAG, Savannah area) projects from p.60. Source: https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf |
+| `data/raw/sertp_2025_projects.csv` | 427 SERTP projects parsed (326 in the SOUTHERN area): area, in-service year, name, description, need, page |
+| `pipeline/extract.py` | The parser that made both source CSVs; parsing is a separate, reviewed source update |
 
-## Pipeline (run in order)
+## Offline rebuild
 ```
-python extract.py          # PDFs -> desc_2026_2030_projects.csv, sertp_2025_projects.csv
-python fetch_hifld.py      # HIFLD lines for GA/SC -> hifld_lines_ga_sc.geojson
-python place_projects.py   # -> projects.geojson + placement_report.csv
-python find_overlaps.py    # -> overlaps.json (ranked)
+& $env:GRIDLOCK_PY -m pipeline.build_all
 ```
-Other inputs: `osm_substations_sc_ga.json` (OpenStreetMap), `places_se.csv` (Census places, also for city search), `us_states.geojson`, `manual_locations.csv` (hand fixes; a note starting with INFERRED keeps the project "approximate").
+This uses the committed CSV and GIS inputs in `data/raw/`, the hand fixes in `data/manual/manual_locations.csv`, and writes `data/build/projects.geojson`, `placement_report.csv`, `overlaps.json`, and `meta.json`. The build checks that every parsed source row is kept or has an explicit drop reason. It makes no network call; `--refresh` explicitly downloads a new HIFLD line file and is not part of the offline check. Source PDFs and CSVs are changed only through a separately reviewed data update.
+
+Other inputs: `data/raw/osm_substations_sc_ga.json` (OpenStreetMap), `data/raw/places_se.csv` (Census places, also for city search), `data/raw/us_states.geojson`, `data/manual/manual_locations.csv` (hand fixes; a note starting with INFERRED keeps the project "approximate").
 
 Status 2026-09-26 01:30: 230 GA/SC projects kept, 181 placed (42 exact, 139 approximate), 49 unknown. 477 pairs within 40 km; 44 cross-state. #1 = Okatie–McIntosh tie vs McIntosh 230 kV relay upgrades (touching, both 2028).
 **To verify by hand:** Okatie location (inferred from HIFLD tap on the Jasper–Yemassee line). Augusta area is under-placed: only 3 cross-state pairs there.
