@@ -111,7 +111,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [x] **T2.6 Filters** (WEB) — `633c972` merged after 11 focused filter checks, a passing scoped security read, and main quick gate 256 suite + 17 shell + 18 audits
   - Acceptance: utility, voltage, year range, type, band, cross-state; counts; "Location unknown (n)" drawer with reasons; filter semantics per SPEC; URL state for filters, year, area centre and selection.
   - Verify: `tests/e2e/test_filters.py` — list count == API overlap count; map project features == API project count; clear-all; URL round trip.
-- [ ] **T2.7 Timeline slider** (WEB)
+- [x] **T2.7 Timeline slider** (WEB) — `87aea06` integrated as `c3e32bb`; lead reran the 2028 source-backed case, synced lane gate 267/18/18 and integrated main quick gate 267/18/18 passed
   - Acceptance: native range over the data's in-service years (Q4) + "All years" + play/pause; year Y emphasises projects **entering service in Y** and lights up overlaps whose two projects both enter service within Y ± 1; `<output>` + `aria-valuetext`; no animation on input; reduced motion honoured.
   - Verify: `tests/e2e/test_timeline.py` — 2028 lights the McIntosh pairs; arrows step; play stops at the end; All years restores.
 - [x] **T2.8a Search API** (API) — `6e1f176`, merged `44aefc2`; 12 focused lead rerun, integrated main quick gate 168 suite + 17 shell + 18 audits passed
