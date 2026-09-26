@@ -1,5 +1,11 @@
 import re, csv, pypdf
 # --- SERTP (Southern BA = Georgia Power / Southern Co.) ---
+import os
+if not os.path.exists('sertp_2025_rtp.txt'):
+    r=pypdf.PdfReader('sertp_2025_rtp.pdf')
+    open('sertp_2025_rtp.txt','w',encoding='utf-8').write('
+'.join('=====PAGE %d
+'%(i+1)+(p.extract_text() or '') for i,p in enumerate(r.pages)))
 t=open('sertp_2025_rtp.txt',encoding='utf-8').read()
 pages=re.split(r'=====PAGE (\d+)\n',t)
 rows=[]; ba=None
