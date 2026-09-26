@@ -81,7 +81,7 @@ BASEMAP = {
 }
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def shell_server():
     port = int(os.environ["GRIDLOCK_TEST_PORT"])
     require_free_loopback_port(port)
@@ -133,6 +133,11 @@ def shell_server():
         server.shutdown()
         server.server_close()
         thread.join(timeout=5)
+
+
+def test_shell_server_reused_within_module():
+    """Avoid repeated Windows binds for the same shell test module."""
+    assert shell_server._fixture_function_marker.scope == "module"
 
 
 @pytest.fixture
