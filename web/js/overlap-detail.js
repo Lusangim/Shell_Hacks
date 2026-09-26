@@ -1,6 +1,7 @@
 import { detailBlock, money, projectSummary, readableEvidence, touchReasonLabel } from "./project-detail.js";
 import { highlightPair } from "./map.js";
 import { state } from "./state.js";
+import { setupBrief } from "./brief.js";
 
 const ASSUMPTIONS = new Map([
   ["coordination_fraction_v1", "Team screening assumption, 2026-09-26: 1% to 3% of reference cost. This is not a measured saving or evidence of a shared asset."],
@@ -76,6 +77,7 @@ export function renderOverlapDetail(payload, content, heading) {
 }
 
 export function setupOverlapDetail(projectView) {
+  const brief = setupBrief();
   const detail = document.getElementById("overlap-detail");
   const content = document.getElementById("overlap-content");
   const stateMessage = document.getElementById("overlap-state");
@@ -111,6 +113,7 @@ export function setupOverlapDetail(projectView) {
   }
 
   function close({ push = false } = {}) {
+    brief.clear();
     requestNumber += 1;
     controller?.abort();
     controller = null;
@@ -119,6 +122,7 @@ export function setupOverlapDetail(projectView) {
   }
 
   async function open(overlapId, { push = false } = {}) {
+    brief.clear();
     requestNumber += 1;
     const ownRequest = requestNumber;
     controller?.abort();
@@ -148,6 +152,7 @@ export function setupOverlapDetail(projectView) {
       renderOverlapDetail(payload, content, heading);
       visiblePair = payload.overlap;
       select(visiblePair);
+      void brief.open(payload);
       stateMessage.textContent = state.overlaps.some((pair) => pair.id === overlapId)
         ? "Public plan screening detail. A coordination opportunity is unverified."
         : "This pair is outside the current filters; its public-plan detail is shown below.";
