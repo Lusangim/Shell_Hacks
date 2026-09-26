@@ -31,7 +31,10 @@ try {
   $failed = [int]$suite.failures + [int]$suite.errors
   $skipped = [int]$suite.skipped
   $passed = $total - $failed - $skipped
-  $skipReasons = @($suite.testcase | Where-Object { $_.skipped } | ForEach-Object { $_.skipped.message })
+  $skipReasons = @($suite.testcase | Where-Object { $_.skipped } | ForEach-Object {
+    if ($_.skipped.InnerText -match "Skipped: ([^'\r\n]+)") { $Matches[1].Trim() }
+    else { $_.skipped.message }
+  })
   $unknownSkips = @($skipReasons | Where-Object { $_ -notin $baseline.allowed_skips })
   $code = 0
   if ($pytestExit -ne 0 -or $failed -gt 0) { $code = 1 }
