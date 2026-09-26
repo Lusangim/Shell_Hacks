@@ -132,7 +132,9 @@ export function setupSearch() {
     selection.replaceChildren(document.createTextNode(`${result.type}: `), label);
     selection.hidden = false;
     exploreButton.hidden = false;
-    state.map.setView([result.lat, result.lon], 11, { animate: false });
+    state.map.flyTo([result.lat, result.lon], 11, {
+      animate: !matchMedia("(prefers-reduced-motion: reduce)").matches,
+    });
     delete status.dataset.src;
     status.textContent = "Map centered on search result. Explore this area to mark 40 km.";
   });
