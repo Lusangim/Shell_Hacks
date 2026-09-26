@@ -152,7 +152,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [x] **T3.3a Brief routes** (API) — 44 area/route cases independently rerun; default GET template, guarded POST
   - Acceptance: `GET /api/briefs/{id}` → cached if `input_hash` matches, else template (stale counted in meta); `POST /api/briefs/{id}/generate` only with Claude access **and** header `X-GridLock: 1` **and** same-origin; one at a time; capped by `GRIDLOCK_MAX_ONDEMAND` (default 5) and the spend ceiling; 409 otherwise.
   - Verify: `tests/api/test_brief_routes.py` — twin paths (cached, stale, template, no access, refusal) carry the same required fields; cross-origin POST refused; cap enforced; concurrent POSTs → one generation; atomic cache.
-- [ ] **T3.3b Brief UI** (WEB)
+- [x] **T3.3b Brief UI** (WEB) — guarded Template/cached labels, source-backed copy and stale parent/brief cancellation; 542/19/18 lane gate
   - Acceptance: card labelled "AI-drafted from public plan data. Check before use." or "Template"; sources; "Copy brief"; no Send.
   - Verify: `tests/e2e/test_brief.py` — cached, template, no access; switching overlap while a brief loads shows only the new one.
 - [x] **T3.4a Area API** (API) — projected local circle and typed summary, 519/19/18 branch gate
