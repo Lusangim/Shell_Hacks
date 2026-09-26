@@ -79,6 +79,7 @@ when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT;
 - 12:04 · fa29ecc · T1.6 WEB-2 search flight lane 326/19/18 and lead four-case rerun passed, merged; held T3.3a security 107 focused and zero P0–P3 · T1.6 WEB phone print CSS repair focused 13 green, full gate running; independent browser security review found one P2 delayed Google-to-Satellite switch race, exact RED/GREEN repair assigned to WEB before T1.6 merge
 - 12:14 · 0cd9dfb · WEB T1.6 phone print CSS gate 334/19/18 passed; P2 delayed-switch RED reproduced and first repair 16 modern-map checks ×3 green · final synced WEB lane gate running on committed `de0ce42`; owner is adding the judge's remaining stale-failure readiness case after this run, then another exact-code gate; T1.6 remains unmerged
 - 12:24 · 66d5a2e · WEB final 343/19/18 lane gate passed; lead reran two P2 cases; fresh independent confirmation closed T16-WEB-SEC-01 with seven focused and local cancellation probes, zero remaining P0–P3 · T1.6 WEB merged with API and WEB-2 search flight; final main quick gate running, G2 VERIFY and reviewers next
+- 12:34 · 509cfd5 · merged main quick gate 343/19/18 passed; one connected search→pair→detail→PDF→CSV demo-path test passed, four 1440/390 light/dark screenshots saved; baseline raised to 344 · final exact-code main quick gate over 60% with no reported failures, then G2 VERIFY/frozen reviewers
 
 ## Environment facts
 - Working copy `C:\Users\lucia\dev\gridlock`; git data `C:\Users\lucia\dev\gridlock-git` (the `.git` in the
