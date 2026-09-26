@@ -8,6 +8,7 @@ button:focus-visible, summary:focus-visible, a:focus-visible { outline: 3px soli
 .workspace { position: relative; width: 100%; height: 100dvh; min-height: 500px; overflow: hidden; }
 .map-region, .map { position: absolute; inset: 0; }
 .map { background: var(--map-water); }
+.map.leaflet-container:focus-visible { outline: 3px solid var(--focus); outline-offset: -4px; }
 .map-note { position: absolute; z-index: 500; right: 16px; bottom: 16px; max-width: 310px; margin: 0; padding: 8px 12px; background: var(--panel); color: var(--pencil); border: 1px solid var(--rule); border-radius: 4px; font-size: 12px; }
 .panel { position: absolute; z-index: 1100; inset: 12px auto 12px 12px; width: 420px; display: flex; flex-direction: column; overflow: hidden; background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; }
 .title-block { flex: none; padding: 16px 20px 12px; border-bottom: 1px solid var(--rule); }

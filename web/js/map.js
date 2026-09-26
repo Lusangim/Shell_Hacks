@@ -133,6 +133,7 @@ export function renderMap(projects, basemap) {
         if (element) {
           element.dataset.testid = "project-feature";
           element.dataset.projectId = feature.properties.id;
+          element.setAttribute("tabindex", "-1");
         }
       });
     },
