@@ -7,6 +7,7 @@ export const state = {
   projects: [],
   overlaps: [],
   selectedOverlapId: null,
+  timelineYear: null,
   basemap: null,
   meta: null,
   filterRequest: 0,

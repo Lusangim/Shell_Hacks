@@ -5,6 +5,7 @@ import { setupProjectDetail } from "./project-detail.js";
 import { setupOverlapDetail } from "./overlap-detail.js";
 import { setupSearch } from "./search.js";
 import { setupFilters } from "./filters.js";
+import { setupTimeline } from "./timeline.js";
 import { state } from "./state.js";
 
 const status = document.getElementById("status");
@@ -13,6 +14,7 @@ const projectView = setupProjectDetail();
 const overlapView = setupOverlapDetail(projectView);
 const mapPairOpen = document.getElementById("map-pair-open");
 const filterControl = setupFilters(() => { void applyFilters(); });
+const timeline = setupTimeline(filterControl);
 
 function showState(message, kind, retryAction = load) {
   listState.replaceChildren();
@@ -51,6 +53,7 @@ async function load() {
     state.basemap = basemap;
     state.meta = meta;
     filterControl.hydrate(projects.features);
+    timeline.hydrate(projects.features);
     document.getElementById("editions").textContent = editionText(meta);
     await applyFilters({ projects, overlaps }, true);
   } catch (_error) {
@@ -101,6 +104,7 @@ function renderFiltered(projects, overlaps, initial) {
   status.textContent = filterControl.hasActive()
     ? `${overlaps.length} ranked opportunities match filters. ${projects.features.length} projects shown.${selectedId && !selectedVisible ? " Selected pair is outside current filters." : ""}`
     : `${overlaps.length} ranked opportunities loaded.`;
+  timeline.refresh();
 }
 
 async function applyFilters(full = null, initial = false) {

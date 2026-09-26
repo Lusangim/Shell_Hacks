@@ -199,5 +199,13 @@ export function setupFilters(onChange) {
   panel.addEventListener("change", onControlsChanged);
   document.getElementById("filter-clear").addEventListener("click", clear);
   window.addEventListener("popstate", restoreFromHistory);
-  return { hydrate, clear, hasActive: () => filterQuery(current).toString() !== "", query: () => filterQuery(current) };
+  function setYear(value, replace = false) {
+    const next = value == null ? "" : String(value);
+    if (next === reserved.year) return;
+    reserved.year = next;
+    writeURL(replace);
+  }
+
+  return { hydrate, clear, hasActive: () => filterQuery(current).toString() !== "", query: () => filterQuery(current),
+    year: () => reserved.year, setYear };
 }
