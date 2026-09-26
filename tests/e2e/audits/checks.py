@@ -58,13 +58,24 @@ KEYBOARD_STATIC_JS = r"""() => {
 
 TEXT_LINT_JS = r"""() => {
   const own = [], visible = [];
+  // These markers describe computed presentation text, not verbatim plan prose.
+  const authored = new Set(['estimate_scope', 'savings_status', 'savings_caveat',
+    'assumption', 'assumption_evidence', 'geometry', 'location_caveat', 'accuracy',
+    'accuracy_pair', 'distance_km', 'touch_reason', 'timeline', 'year_gap']);
+  const names = [...new Set([...document.querySelectorAll('[data-src="name"]')]
+    .map(el => el.textContent.trim()).filter(Boolean))].sort((a, b) => b.length - a.length);
   const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   while (walk.nextNode()) {
     const node = walk.currentNode, parent = node.parentElement;
-    if (!parent || parent.closest('[data-src], script, style, noscript, [hidden], [aria-hidden="true"]')) continue;
+    if (!parent || parent.closest('script, style, noscript, [hidden], [aria-hidden="true"]')) continue;
+    const source = parent.closest('[data-src]')?.dataset.src;
+    if (source && !authored.has(source) && !source.startsWith('brief_')) continue;
     if (getComputedStyle(parent).display === 'none') continue;
     const text = node.textContent || '';
-    if (/[\u2013\u2014]|\b(seamless|unleash|revolutionize)\b/i.test(text)) own.push(text.trim().slice(0, 80));
+    // A brief answer can interpolate complete source names with their real dashes.
+    // Exempt only exact known names; lint the surrounding authored sentence.
+    const prose = source ? names.reduce((value, name) => value.replaceAll(name, ''), text) : text;
+    if (/[\u2013\u2014]|\b(seamless|unleash|revolutionize)\b/i.test(prose)) own.push(text.trim().slice(0, 80));
   }
   const text = document.body.innerText || '';
   if (/\b(?:undefined|NaN|null)\b|\[object\b/.test(text)) visible.push('placeholder token');
