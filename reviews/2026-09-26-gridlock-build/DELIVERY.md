@@ -27,7 +27,8 @@
 | T2.1 | Done since G1; `102b6ad`. 489 geodesic overlaps, 43 source-state cross-state, source-backed touch reasons, 21 focused lead rerun and 156 suite + 17 shell + 18 audit lane quick gate. |
 | T2.2 | Done since G1; `8efaaaa`. All 55 mapped border projects have named location provenance; 49 kept unknowns show reasons; Okatie remains INFERRED. Five lead checks and integrated main quick gate 173 suite + 17 shell + 18 audits passed. |
 | T2.8a | Done since G1; `44aefc2`. Typed local search over 1,150 places and placed projects/stations, 12 focused lead rerun and integrated main quick gate 168 suite + 17 shell + 18 audits. |
-| T2.3–T2.7, T2.8b–T2.11; T3.1–T3.5; T1.4b; T4.1–T4.4; D.1–D.3 | Not started or in progress on a branch. |
+| T2.8b | Partly done on parked `wt/web-2` commit `de97092`: seven search checks passed, existing 390 px shell visibility failed (second row bottom 965 > 844); no merge. A separate phone-layout repair is running on `wt/web-2-b`. |
+| T2.3–T2.7, T2.9–T2.11; T3.1–T3.5; T1.4b; T4.1–T4.4; D.1–D.3 | Not started or in progress on a branch. |
 | G1a | Passed: type review and confirmation, full VERIFY green. |
 | G1 | Passed: Python HIGH corrected and confirmed, JS ready, full VERIFY green, 1440/390 screenshots and house patterns committed. |
 | G2–G4 | Not started. |
@@ -42,7 +43,7 @@ G1 Python round 1 (`judge-python-g1-r1/JUDGMENT.md`) reproduced one HIGH: a Geor
 
 ## Parked work, choices and questions
 
-No branch is parked. No feature cut was made. Unknown roster, licence, Okatie verification, and Claude access remain open founder questions. Safe defaults: no invented person or endpoint, Okatie stays inferred, no API calls or spend, no push or submission. Sperry acceptance of the public SERTP overview plan is also unconfirmed; only public material is used.
+The original `wt/web-2` T2.8b branch is parked after its phone-layout regression; its repair branch is active and search remains unmerged. No feature cut was made. Unknown roster, licence, Okatie verification, and Claude access remain open founder questions. Safe defaults: no invented person or endpoint, Okatie stays inferred, no API calls or spend, no push or submission. Sperry acceptance of the public SERTP overview plan is also unconfirmed; only public material is used.
 
 No change to Claude-owned files is proposed. The G1a contract guards were added before freeze; later changes require the SPEC type review procedure.
 
@@ -54,4 +55,4 @@ T1.1 surfaced stale parsed CSVs with ASCII hyphens where the source PDF prints e
 
 2026-09-26 — A utility name cannot stand in for the source-backed state when a ranking rule depends on geography.
 
-The lead session ID is recorded in the newest `C:\Users\lucia\dev\gridlock-runs\codex\*-lead.jsonl`; resume it with `codex exec resume <session id>` and first read MISSION.md, TRACKER.md, todo.md and git status. G1 is tagged; DATA T2.1/T2.2 and API T2.8a have since merged. DATA T2.3 and WEB-2 search UI are running. The Codex lead continues.
+The lead session ID is recorded in the newest `C:\Users\lucia\dev\gridlock-runs\codex\*-lead.jsonl`; resume it with `codex exec resume <session id>` and first read MISSION.md, TRACKER.md, todo.md and git status. G1 is tagged; DATA T2.1/T2.2 and API T2.8a have since merged. DATA T2.3 and the independent WEB-2 phone repair are running. The Codex lead continues.

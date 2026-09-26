@@ -51,6 +51,7 @@ when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT;
 - 07:09 · 102b6ad · 156 suite + 17 shell + 18 audit lane quick gate; lead reran 21 focused · T2.1 merged after reconciling G1 state scoring: 489 geodesic overlaps, 43 cross-state, GA-only target score 0.064/rank 395, deterministic top ten; API search building, DATA T2.2 next
 - 07:16 · 44aefc2 · main quick gate 168 suite + 17 shell + 18 audit passed; lead reran 12 API search checks · T2.8a merged: local typed place/project/station search, short-query 422, deterministic ≤10 results, no outbound calls; DATA T2.2 running, WEB-2 search UI next
 - 07:24 · 8efaaaa · main quick gate 173 suite + 17 shell + 18 audit passed; lead reran five location checks · T2.2 merged: 55 mapped border projects provenance-audited, 49 kept unknowns with explicit reasons, Okatie still INFERRED, 489/43 pairs/cross-state and top ten unchanged; DATA T2.3 formula recorded before code, WEB-2 search UI running
+- 07:30 · WEB-2 de97092 parked · seven new search e2e passed; existing 390 px shell check failed (second ranked row bottom 965 > viewport 844) after search insertion; no quick gate/merge; independent phone-layout repair on wt/web-2-b, port 8778, while DATA T2.3 continues
 
 ## Environment facts
 - Working copy `C:\Users\lucia\dev\gridlock`; git data `C:\Users\lucia\dev\gridlock-git` (the `.git` in the
