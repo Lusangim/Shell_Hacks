@@ -7,4 +7,8 @@ export const state = {
   projects: [],
   overlaps: [],
   selectedOverlapId: null,
+  basemap: null,
+  meta: null,
+  filterRequest: 0,
+  filterAbort: null,
 };

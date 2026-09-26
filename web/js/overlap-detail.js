@@ -178,6 +178,13 @@ export function setupOverlapDetail(projectView) {
     }
   }
 
+  function refreshFilterState() {
+    if (detail.hidden || !location.hash.startsWith("#overlap=")) return;
+    stateMessage.textContent = state.overlaps.some((pair) => pair.id === state.selectedOverlapId)
+      ? "Public plan screening detail. A coordination opportunity is unverified."
+      : "This pair is outside the current filters; its public-plan detail is shown below.";
+  }
+
   back.addEventListener("click", () => {
     close({ push: true });
     const selected = Array.from(document.querySelectorAll(".overlap-row"))
@@ -186,5 +193,5 @@ export function setupOverlapDetail(projectView) {
   });
   window.addEventListener("popstate", restoreFromHash);
   window.addEventListener("hashchange", restoreFromHash);
-  return { open, close, restoreFromHash };
+  return { open, close, restoreFromHash, refreshFilterState };
 }

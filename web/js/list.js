@@ -1,5 +1,6 @@
 import { state } from "./state.js";
 import { fitPairBounds, highlightPair } from "./map.js";
+import { citation } from "./project-detail.js";
 
 function field(tag, value, source, className = "") {
   const element = document.createElement(tag);
@@ -93,6 +94,16 @@ export function selectFirstOverlapForProject(projectId) {
   if (button) selectOverlap(overlap, button, new Map(state.projects.map((feature) => [feature.properties.id, feature])), false);
 }
 
+export function restorePairSelection(overlapId) {
+  const pair = state.overlaps.find((overlap) => overlap.id === overlapId);
+  highlightPair(pair ?? null);
+  if (!pair) return false;
+  const row = Array.from(document.querySelectorAll(".overlap-row")).find((item) => item.dataset.overlapId === overlapId);
+  row?.querySelector("button")?.setAttribute("aria-pressed", "true");
+  state.selectedOverlapId = overlapId;
+  return true;
+}
+
 export function renderUnknownLocations(projects) {
   const unknown = projects.features.filter((feature) => !feature.geometry);
   const details = document.getElementById("unknown-locations");
@@ -105,6 +116,7 @@ export function renderUnknownLocations(projects) {
     item.append(field("span", feature.properties?.name, "name"));
     item.append(document.createTextNode(" / "));
     item.append(field("span", feature.properties?.location_source ?? "Location not stated in source", "location_source"));
+    item.append(document.createTextNode(" / "), citation(feature.properties?.source));
     list.append(item);
   }
 }
