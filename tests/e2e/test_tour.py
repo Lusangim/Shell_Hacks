@@ -7,7 +7,7 @@ import pytest
 from playwright.sync_api import expect, sync_playwright
 
 
-@pytest.mark.parametrize("width,height", [(1440, 900), (390, 844)])
+@pytest.mark.parametrize("width,height", [(1440, 900), (768, 900), (390, 844)])
 @pytest.mark.parametrize("theme", ["light", "dark"])
 def test_first_visit_invitation_keeps_projects_reachable(live_server, width, height, theme):
     with sync_playwright() as playwright:
@@ -24,10 +24,32 @@ def test_first_visit_invitation_keeps_projects_reachable(live_server, width, hei
         expect(page.locator(".overlap-button").first).to_be_visible()
         invitation = page.get_by_role("button", name="New here? Take the tour", exact=True)
         expect(invitation).to_be_visible()
+        page.evaluate("""async () => {
+          const {state} = await import('/web/js/state.js'); window.tourMap = state.map; window.tourState = state;
+        }""")
+        page.wait_for_function("window.tourState.initialMapFitted && !window.tourMap._animatingZoom")
+        for selector, delta in [(".leaflet-control-zoom-in", 1), (".leaflet-control-zoom-out", -1)]:
+            zoom = page.locator(selector)
+            button_box = zoom.bounding_box()
+            prompt_box = page.locator("#tour-invitation-box").bounding_box()
+            assert (button_box["x"] + button_box["width"] <= prompt_box["x"]
+                    or prompt_box["x"] + prompt_box["width"] <= button_box["x"]
+                    or button_box["y"] + button_box["height"] <= prompt_box["y"]
+                    or prompt_box["y"] + prompt_box["height"] <= button_box["y"])
+            expect(zoom).to_have_attribute("aria-disabled", "false")
+            before = page.evaluate("window.tourMap.getZoom()")
+            page.mouse.click(button_box["x"] + button_box["width"] / 2,
+                             button_box["y"] + button_box["height"] / 2)
+            page.wait_for_function("z => window.tourMap.getZoom() === z && !window.tourMap._animatingZoom", arg=before + delta)
+            expect(invitation).to_be_visible()
+            expect(page.locator("#tour-card")).to_be_hidden()
         page.wait_for_timeout(1000)
         initial_cls = page.evaluate("window.tourInitialCls")
         print({"width": width, "theme": theme, "initial_cls": initial_cls})
         assert initial_cls < 0.1
+        evidence = Path.home() / "dev" / "gridlock-runs" / "web2-t43"
+        evidence.mkdir(parents=True, exist_ok=True)
+        page.screenshot(path=str(evidence / f"invitation-{width}-{theme}.png"))
         if width == 390:
             first_view = page.evaluate("""() => {
               const rows = document.querySelectorAll('[data-testid="overlap-row"]');
@@ -84,7 +106,7 @@ def test_first_visit_invitation_keeps_projects_reachable(live_server, width, hei
         browser.close()
 
 
-@pytest.mark.parametrize("width,height", [(1440, 900), (390, 844)])
+@pytest.mark.parametrize("width,height", [(1440, 900), (768, 900), (390, 844)])
 @pytest.mark.parametrize("theme", ["light", "dark"])
 def test_keyboard_tour_walk_and_focus_return(live_server, width, height, theme):
     with sync_playwright() as playwright:
@@ -109,6 +131,18 @@ def test_keyboard_tour_walk_and_focus_return(live_server, width, height, theme):
             expect(card).to_be_focused()
             title = card.locator("h2").inner_text()
             titles.append(title)
+            if title == "Explore an area":
+                expect(page.locator("#search-form")).to_have_class(re.compile("tour-target"))
+                expect(card.locator("#tour-body")).to_contain_text("Search")
+                expect(card.locator("#tour-body")).to_contain_text("Enter")
+                expect(card.locator("#tour-body")).to_contain_text("Explore this area")
+            if title == "Read a coordination brief":
+                expect(page.locator("#brief-panel")).to_have_class(re.compile("tour-target"))
+                expect(page.locator("#brief-origin")).to_have_text("Template")
+                expect(page.locator("#brief-copy")).to_be_enabled()
+                evidence = Path.home() / "dev" / "gridlock-runs" / "web2-t43"
+                evidence.mkdir(parents=True, exist_ok=True)
+                page.screenshot(path=str(evidence / f"tour-brief-{width}-{theme}.png"))
             if len(titles) == 1:
                 axe_source = (Path(__file__).parent / "vendor" / "axe.min.js").read_text(encoding="utf-8")
                 audit = page.evaluate(axe_source + "\nwindow.axe.run(document, {runOnly: {type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']}})")
@@ -137,7 +171,7 @@ def test_keyboard_tour_walk_and_focus_return(live_server, width, height, theme):
         assert 8 <= len(titles) <= 12, titles
         assert {"Public plans, shared possibilities", "Read the map", "How pairs are ranked", "Find Savannah",
                 "Open the top pair", "Check the source", "Estimates and uncertainty", "Compare years",
-                "Narrow the results", "Keep a copy"}.issubset(titles), titles
+                "Narrow the results", "Explore an area", "Read a coordination brief", "Keep a copy"}.issubset(titles), titles
         expect(card).not_to_be_visible()
         expect(launch).to_be_focused()
         assert page.evaluate("location.search") == initial_query
@@ -242,4 +276,43 @@ def test_tour_keeps_active_filters_and_skips_failed_detail(live_server):
         expect(page.locator(".overlap-button")).to_have_count(rows)
         expect(page.get_by_role("button", name="Take the tour", exact=True)).to_be_focused()
         assert errors == []
+        browser.close()
+
+
+@pytest.mark.parametrize("brief_fails", [False, True])
+def test_tour_preserves_selected_search_and_handles_failed_brief(live_server, brief_fails):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": 390, "height": 844}, reduced_motion="reduce")
+        if brief_fails:
+            page.route("**/api/briefs/*", lambda route: route.fulfill(
+                status=503, content_type="application/json", body="{}"))
+        page.goto(f"{live_server}/?band=touching")
+        expect(page.locator(".overlap-button").first).to_be_visible()
+        search = page.get_by_label("Search a city or project")
+        search.fill("Savannah")
+        expect(page.locator("#search-options option")).not_to_have_count(0)
+        search.press("Enter")
+        expect(page.locator("#search-selection")).to_contain_text("Savannah city")
+        initial_query = page.evaluate("location.search")
+        page.locator("#tour-launch").click()
+        card = page.get_by_role("dialog", name="GridLock tour")
+        titles = []
+        for _ in range(12):
+            expect(card).to_be_focused()
+            titles.append(card.locator("h2").inner_text())
+            button = card.get_by_role("button", name=re.compile(r"^(Next|Finish tour)$"))
+            last = button.inner_text() == "Finish tour"
+            button.press("Enter")
+            if last:
+                break
+        expect(card).to_be_hidden()
+        assert "Explore an area" in titles
+        assert ("Read a coordination brief" in titles) is not brief_fails
+        expect(search).to_have_value("Savannah")
+        expect(page.locator("#search-selection")).to_contain_text("Savannah city")
+        expect(page.locator("#explore-area")).to_be_visible()
+        expect(page.locator("#filter-band")).to_have_value("touching")
+        assert page.evaluate("location.search") == initial_query
+        expect(page.locator("#tour-launch")).to_be_focused()
         browser.close()

@@ -68,10 +68,12 @@ export function setupSearch(filterControl) {
       for (const result of results) {
         labelCounts.set(result.label, (labelCounts.get(result.label) || 0) + 1);
       }
+      const labelOrdinals = new Map();
       for (const result of results) {
-        const source = result.ref || `${result.lat}, ${result.lon}`;
+        const ordinal = (labelOrdinals.get(result.label) || 0) + 1;
+        labelOrdinals.set(result.label, ordinal);
         const value = labelCounts.get(result.label) > 1
-          ? `${result.label} (${result.type}: ${source})` : result.label;
+          ? `${result.label} (${result.type} ${ordinal} of ${labelCounts.get(result.label)})` : result.label;
         choices.set(value, result);
         const option = document.createElement("option");
         option.value = value;

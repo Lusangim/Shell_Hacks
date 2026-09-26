@@ -45,7 +45,9 @@ function projectBlock(project, tag = "section") {
   }
   const props = project.properties;
   block.append(text("p", props.name, "name"));
-  field(block, "Utility", props.utility, "utility");
+  const utility = props.utility_basis === "inferred_from_location"
+    ? `${props.utility} (inferred)` : props.utility;
+  field(block, "Utility", utility, "utility");
   field(block, "In service", props.in_service, "in_service");
   field(block, "Year", props.year, "year");
   field(block, "Accuracy", props.accuracy, "accuracy");
