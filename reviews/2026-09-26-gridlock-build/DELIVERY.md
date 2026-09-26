@@ -47,6 +47,8 @@ G1 Python round 1 (`judge-python-g1-r1/JUDGMENT.md`) reproduced one HIGH: a Geor
 
 The original `wt/web-2` T2.8b branch remains parked as a historical failed attempt; the independent phone and duplicate-label repair is merged and verified. No feature cut was made. Unknown roster, licence, Okatie verification, and Claude access remain open founder questions. Safe defaults: no invented person or endpoint, Okatie stays inferred, no API calls or spend, no push or submission. Sperry acceptance of the public SERTP overview plan is also unconfirmed; only public material is used.
 
+Q2 provenance caveat for Sperry and G2 domain review: the already committed, publicly posted SERTP 2025 overview PDF has transmission-project page headers marked `(CEII)`. SPEC Q2/Q11 explicitly acknowledge this and set the unattended default to use the existing overview, while SPEC's boundary also says to use nothing marked CEII. DATA T2.10 is citing existing artifact fields and pages without newly transcribing marked passages. The founder and Sperry need to resolve whether the source is acceptable before any public push; the lead will not remove a decided source or rewrite history without that decision.
+
 No change to Claude-owned files is proposed. The G1a contract guards were added before freeze; later changes require the SPEC type review procedure.
 
 T1.1 surfaced stale parsed CSVs with ASCII hyphens where the source PDF prints en dashes. The lead assigned those two derived CSV files to DATA T1.1 for an offline, completeness-checked re-extraction; 22 DESC names were corrected, the SERTP CSV stayed byte-identical, and original PDFs remained read-only.
