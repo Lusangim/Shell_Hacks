@@ -1,0 +1,9 @@
+# Obsidian notes vault (personal planning notes) - not part of the code repo
+/Shell Hacks/
+.obsidian/
+# Re-downloadable / intermediate
+gridlock-data/gaz_places.zip
+gridlock-data/sertp_2025_rtp.txt
+__pycache__/
+*.pyc
+.env

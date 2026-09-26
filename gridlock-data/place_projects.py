@@ -1,0 +1,275 @@
+"""Place GridLock projects on the map.
+
+Inputs (all in this folder):
+  desc_2026_2030_projects.csv   Dominion Energy SC plan (SCRTP)
+  sertp_2025_projects.csv       SERTP 2025 plan (Georgia side = SOUTHERN area)
+  osm_substations_sc_ga.json    OpenStreetMap substations (Overpass export)
+  hifld_lines_ga_sc.geojson     HIFLD transmission lines (with SUB_1 / SUB_2 names)
+  us_states.geojson             State boundaries
+
+Output:
+  projects.geojson              One feature per GA/SC project, with accuracy + source
+  placement_report.csv          What matched, what didn't (for hand-fixing)
+  manual_locations.csv          (optional, you edit) hand-placed substations: name,lat,lon,note
+"""
+import csv, json, math, re
+from collections import defaultdict
+from shapely.geometry import shape, Point, LineString, mapping
+
+DASH = r"\s+[\-–—�]\s+|[–—�]"   # spaced hyphen or any en/em dash
+PREFIX_UTILITY = {"GTC": "Georgia Transmission Corp.", "MEAG": "MEAG Power", "SAV": "Georgia Power",
+                  "DU": "Dalton Utilities", "PS": "PowerSouth", "GRID": "Georgia ITS (joint)"}
+STRIP_WORDS = r"\b(SUBSTATION|SUB|SWITCHING STATION|SWITCHYARD|SWITCH|STATION|PRIMARY|TS|SS|DS|PLANT|GT|TRANSMISSION|DISTRIBUTION|STEAM|HYDRO|TAP|JCT|JUNCTION)\b"
+
+
+def norm(name):
+    n = name.upper().replace("&", " AND ")
+    n = re.sub(r"\(.*?\)", " ", n)                  # (SAV), (WHITE), ...
+    n = re.sub(r"\b\d+(/\d+)*\s*-?\s*(KV)?\b", " ", n)  # voltages / numbers
+    n = re.sub(r"[#.,'`]", " ", n)
+    return " ".join(n.split())
+
+
+def keys(name):
+    """Normalized lookup keys for a substation name, most specific first."""
+    a = norm(name)
+    b = " ".join(re.sub(STRIP_WORDS, " ", a).split())
+    out = [k for k in dict.fromkeys([a, b]) if k and not k.startswith(("UNKNOWN", "NOT AVAILABLE"))]
+    return out
+
+
+def dist_km(p, q):
+    (lat1, lon1), (lat2, lon2) = p, q
+    r = math.radians
+    x = (r(lon2) - r(lon1)) * math.cos((r(lat1) + r(lat2)) / 2)
+    return 6371 * math.hypot(x, r(lat2) - r(lat1))
+
+
+# ---------------- state boundaries ----------------
+states = {f["properties"]["name"]: shape(f["geometry"]) for f in json.load(open("us_states.geojson"))["features"]}
+GA, SC = states["Georgia"], states["South Carolina"]
+
+
+def state_of(lat, lon):
+    p = Point(lon, lat)
+    if GA.buffer(0.02).contains(p):
+        return "GA"
+    if SC.buffer(0.02).contains(p):
+        return "SC"
+    return "other"
+
+
+# ---------------- gazetteer: name -> candidate points ----------------
+gaz = defaultdict(list)   # key -> [dict(lat,lon,src,label,operator)]
+
+for e in json.load(open("osm_substations_sc_ga.json", encoding="utf-8"))["elements"]:
+    t = e.get("tags", {})
+    if not t.get("name"):
+        continue
+    lat, lon = (e["lat"], e["lon"]) if "lat" in e else (e["center"]["lat"], e["center"]["lon"])
+    for k in keys(t["name"]):
+        gaz[k].append(dict(lat=lat, lon=lon, src="OpenStreetMap", label=t["name"], operator=t.get("operator", "")))
+
+hifld = json.load(open("hifld_lines_ga_sc.geojson"))["features"]
+end_votes = defaultdict(list)   # key -> candidate endpoint coords from HIFLD lines
+line_index = defaultdict(list)  # frozenset(keyA,keyB) -> [feature]
+for f in hifld:
+    p, g = f["properties"], f["geometry"]
+    if not g:
+        continue
+    coords = g["coordinates"] if g["type"] == "LineString" else [c for part in g["coordinates"] for c in part]
+    ends = [(coords[0][1], coords[0][0]), (coords[-1][1], coords[-1][0])]
+    ka, kb = keys(p.get("SUB_1") or ""), keys(p.get("SUB_2") or "")
+    for k in ka + kb:
+        end_votes[k].extend(ends)       # we don't know which end is which; vote below
+    for x in ka:
+        for y in kb:
+            line_index[frozenset((x, y))].append(f)
+
+# A HIFLD name's true location is the endpoint that recurs across its lines (>= 2 lines agree within 1.5 km)
+for k, pts in end_votes.items():
+    best, support = None, 0
+    for p in pts:
+        s = sum(1 for q in pts if dist_km(p, q) < 1.5)
+        if s > support:
+            best, support = p, s
+    if best and support >= 2 and not any(dist_km((c["lat"], c["lon"]), best) < 2 for c in gaz[k]):
+        gaz[k].append(dict(lat=best[0], lon=best[1], src="HIFLD line endpoints", label=k, operator=""))
+
+# Second pass: a name seen on only one HIFLD line gets the end of that line away from its known neighbour
+for f in hifld:
+    p, g = f["properties"], f["geometry"]
+    if not g:
+        continue
+    coords = g["coordinates"] if g["type"] == "LineString" else [c for part in g["coordinates"] for c in part]
+    ends = [(coords[0][1], coords[0][0]), (coords[-1][1], coords[-1][0])]
+    for this, other in ((p.get("SUB_1") or "", p.get("SUB_2") or ""), (p.get("SUB_2") or "", p.get("SUB_1") or "")):
+        tk, ok = keys(this), [c for k in keys(other) for c in gaz.get(k, [])]
+        if not tk or not ok or any(gaz.get(k) for k in tk):
+            continue
+        near = min(ends, key=lambda e: min(dist_km(e, (c["lat"], c["lon"])) for c in ok))
+        far = ends[1] if near == ends[0] else ends[0]
+        if min(dist_km(near, (c["lat"], c["lon"])) for c in ok) < 3:
+            gaz[tk[0]].append(dict(lat=far[0], lon=far[1], src="HIFLD line end", label=this, operator=""))
+
+# Town fallback (Census places): used only when no substation matches; always "approximate - town"
+towns = defaultdict(list)
+for r in csv.DictReader(open("places_se.csv", encoding="utf-8")):
+    nm = re.sub(r"\s+(city|town|CDP|village|consolidated government.*|unified government.*|metropolitan government.*|\(balance\))$", "", r["name"])
+    for k in keys(nm):
+        towns[k].append(dict(lat=float(r["lat"]), lon=float(r["lon"]), src="Census town centre", label=r["name"] + ", " + r["state"],
+                             operator="", town=True))
+
+try:   # hand-placed fixes win
+    for r in csv.DictReader(open("manual_locations.csv", encoding="utf-8")):
+        for k in keys(r["name"]):
+            gaz[k].insert(0, dict(lat=float(r["lat"]), lon=float(r["lon"]), src="Hand-placed: " + r.get("note", ""),
+                                  label=r["name"], operator="", manual=True,
+                                  inferred=r.get("note", "").upper().startswith("INFERRED")))
+except FileNotFoundError:
+    pass
+
+
+def lookup(name, region):
+    """Candidates for a substation name, limited to the project's region."""
+    for k in keys(name):
+        c = [x for x in gaz.get(k, []) if region(x["lat"], x["lon"])]
+        if c:
+            return c
+    for k in keys(name):
+        c = [x for x in towns.get(k, []) if region(x["lat"], x["lon"])]
+        if c:
+            return c
+    return []
+
+
+# ---------------- parse endpoints from project names ----------------
+def endpoints(name):
+    n = re.sub(r"^[A-Z]{2,5}:\s*", "", name.strip())
+    n = re.split(r":|,|\bFold-in\b", n, maxsplit=1, flags=re.I)[0]
+    n = re.split(r"\s\d[\d./\-\s]*kV\b", n, maxsplit=1, flags=re.I)[0]
+    n = re.split(r"\b(Sub|Substation|Transmission Line|Tie|Line|Area|Tap)\b", n, maxsplit=1, flags=re.I)[0]
+    n = re.sub(r"(?<=[A-Za-z0-9)])\s*-\s*(?=[A-Za-z])", " - ", n)   # "Yemassee- Ritter" -> "Yemassee - Ritter"
+    parts = [p.strip(" -#") for p in re.split(DASH, n) if p.strip(" -#")]
+    return parts
+
+
+# ---------------- load projects ----------------
+projects = []
+for i, r in enumerate(csv.DictReader(open("desc_2026_2030_projects.csv", encoding="utf-8")), 1):
+    y = re.findall(r"(20\d\d|/\d\d)\b", r["planned_in_service"])
+    yr = y[-1] if y else ""
+    yr = ("20" + yr[1:]) if yr.startswith("/") else yr
+    projects.append(dict(id=f"DESC-{i:02d}", utility="Dominion Energy SC", name=r["project_name"],
+                         description=r["description"], need=r["need"], status=r["status"],
+                         in_service=r["planned_in_service"], year=int(yr) if yr else None,
+                         cost=r["total_cost"], source_doc="SCRTP Planned Facilities 2026-2030 $2M & Above",
+                         source_page=i, project_id=r["project_id"], home="SC"))
+
+for i, r in enumerate(csv.DictReader(open("sertp_2025_projects.csv", encoding="utf-8")), 1):
+    if r["utility_area"] != "SOUTHERN":
+        continue
+    m = re.match(r"([A-Z]{2,5}):", r["project_name"])
+    util = PREFIX_UTILITY.get(m.group(1), m.group(1)) if m else "Southern Company"
+    projects.append(dict(id=f"SERTP-{i:03d}", utility=util, name=r["project_name"], description=r["description"],
+                         need=r["need"], status="Planned", in_service=r["in_service_year"],
+                         year=int(r["in_service_year"]) if r["in_service_year"] else None, cost="",
+                         source_doc="SERTP 2025 Regional Transmission Plan (Nov 26 2025)",
+                         source_page=int(r["source_page"]), project_id="",
+                         home="SAV" if util == "Georgia Power" and m else "GA"))
+
+REGIONS = {
+    "SC":  lambda la, lo: state_of(la, lo) == "SC" or (state_of(la, lo) == "GA" and lo > -82.3),  # DESC + border ties
+    "GA":  lambda la, lo: state_of(la, lo) in ("GA", "other"),
+    "SAV": lambda la, lo: 31.7 < la < 32.6 and -81.8 < lo < -80.8,
+}
+
+
+def pick(cands, near=None):
+    if not cands:
+        return None, False
+    manual = [c for c in cands if c.get("manual")]
+    if manual:
+        return manual[0], False
+    if near:
+        cands = sorted(cands, key=lambda c: dist_km((c["lat"], c["lon"]), near))
+    return cands[0], len({(round(c["lat"], 2), round(c["lon"], 2)) for c in cands}) > 1
+
+
+features, report = [], []
+for p in projects:
+    names = endpoints(p["name"])
+    region = REGIONS[p["home"]]
+    cands = [lookup(n, region) for n in names]
+    geom, accuracy, loc_src, ambiguous = None, "unknown", "", False
+
+    if len(names) >= 2 and all(cands):
+        # choose the combination of candidates that keeps the chain shortest
+        chosen = [None] * len(names)
+        best = None
+        for c0 in cands[0][:6]:
+            chain, total = [c0], 0
+            for cs in cands[1:]:
+                nxt = min(cs, key=lambda c: dist_km((c["lat"], c["lon"]), (chain[-1]["lat"], chain[-1]["lon"])))
+                total += dist_km((nxt["lat"], nxt["lon"]), (chain[-1]["lat"], chain[-1]["lon"]))
+                chain.append(nxt)
+            if best is None or total < best[0]:
+                best = (total, chain)
+        total, chosen = best
+        ambiguous = any(len(c) > 1 for c in cands)
+        if total > 200:                       # implausible - probably a wrong match
+            chosen, geom = None, None
+        else:
+            # real route from HIFLD if a line connects the two end substations
+            hit = None
+            for x in keys(names[0]):
+                for y in keys(names[-1]):
+                    hit = hit or line_index.get(frozenset((x, y)))
+            if hit and len(names) == 2:
+                geom, accuracy, loc_src = hit[0]["geometry"], "exact", "HIFLD line route"
+            else:
+                geom = mapping(LineString([(c["lon"], c["lat"]) for c in chosen]))
+                accuracy = "approximate"
+                loc_src = "Straight line between " + " / ".join(sorted({c["src"] for c in chosen}))
+    if geom is None:
+        found = [(n, c) for n, c in zip(names, cands) if c]
+        if found:
+            n, c = found[0]
+            c, ambiguous = pick(c)
+            geom = mapping(Point(c["lon"], c["lat"]))
+            single_site = len(names) == 1
+            accuracy = "exact" if single_site and not ambiguous and not c.get("town") and not c.get("inferred") else "approximate"
+            loc_src = f'{c["src"]} ({c["label"]})' + ("" if single_site else f" - only '{n}' located")
+
+    state = ""
+    if geom:
+        g = shape(geom)
+        state = state_of(g.centroid.y, g.centroid.x)
+    georgia_only_orgs = ("Georgia Transmission Corp.", "MEAG Power", "Dalton Utilities", "Georgia ITS (joint)")
+    keep = (p["utility"] == "Dominion Energy SC" or state == "GA"
+            or (geom is None and (p["home"] == "SAV" or p["utility"] in georgia_only_orgs)))
+    if p["utility"] in ("PowerSouth",):
+        keep = False
+    report.append(dict(id=p["id"], utility=p["utility"], name=p["name"], endpoints=" | ".join(names),
+                       matched=" | ".join("yes" if c else "NO" for c in cands), accuracy=accuracy,
+                       location_source=loc_src, state=state or "?", kept=keep))
+    if not keep:
+        continue
+    if p["utility"] == "Southern Company":
+        p["utility"] = "Georgia Power"
+    props = dict(p, accuracy=accuracy, location_source=loc_src, ambiguous=ambiguous, state=state, endpoints=names)
+    props.pop("home")
+    features.append(dict(type="Feature", geometry=geom, properties=props))
+
+json.dump(dict(type="FeatureCollection", features=features), open("projects.geojson", "w", encoding="utf-8"),
+          ensure_ascii=False)
+with open("placement_report.csv", "w", newline="", encoding="utf-8") as f:
+    w = csv.DictWriter(f, fieldnames=report[0].keys())
+    w.writeheader()
+    w.writerows(report)
+
+from collections import Counter
+print("kept projects:", len(features))
+print("by utility:", Counter(f["properties"]["utility"] for f in features))
+print("accuracy:", Counter((f["properties"]["utility"] == "Dominion Energy SC", f["properties"]["accuracy"]) for f in features))
+print("dropped (outside GA/SC or PowerSouth):", sum(1 for r in report if not r["kept"]))

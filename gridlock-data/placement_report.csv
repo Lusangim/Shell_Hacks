@@ -1,0 +1,381 @@
+id,utility,name,endpoints,matched,accuracy,location_source,state,kept
+DESC-01,Dominion Energy SC,Summerville 115kV Loop: Rebuild,Summerville,yes,approximate,"Census town centre (Summerville town, SC)",SC,True
+DESC-02,Dominion Energy SC,Columbia Canal 115 kV: Rebuild,Columbia Canal,yes,exact,OpenStreetMap (Columbia Canal Substation),SC,True
+DESC-03,Dominion Energy SC,Scout 230 kV Sub and Fold-in: Construct,Scout,NO,unknown,,?,True
+DESC-04,Dominion Energy SC,Eastover - Sumter 115kV DEP Tie: Rebuild with 1272 ACSR,Eastover | Sumter,yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,SC,True
+DESC-05,Dominion Energy SC,Batesburg - Saluda County 115kV: Rebuild,Batesburg | Saluda County,yes | NO,approximate,OpenStreetMap (Batesburg Substation) - only 'Batesburg' located,SC,True
+DESC-06,Dominion Energy SC,Summerville-Boone Hill 115kV: Move Line for US78 SCDOT Road Widening,Summerville | Boone Hill,yes | NO,approximate,"Census town centre (Summerville town, SC) - only 'Summerville' located",SC,True
+DESC-07,Dominion Energy SC,Urquhart - Toolebeck 115kV line: Rebuild,Urquhart | Toolebeck,yes | yes,approximate,Straight line between HIFLD line endpoints / OpenStreetMap,SC,True
+DESC-08,Dominion Energy SC,Dawson 230kV Sub and Fold-in: Construct and Rebuild,Dawson,NO,unknown,,?,True
+DESC-09,Dominion Energy SC,Cainhoy - Hamlin 115kV: Rebuild Line and Cainhoy - Hamlin 115 kV #2: Construct New 115 kV Line,Cainhoy | Hamlin,yes | yes,approximate,Straight line between OpenStreetMap,SC,True
+DESC-10,Dominion Energy SC,Coit - Gills Creek 115kV: Construct,Coit | Gills Creek,yes | NO,approximate,HIFLD line endpoints (COIT) - only 'Coit' located,SC,True
+DESC-11,Dominion Energy SC,"Okatie 230-115kV Substation, Jasper - Yemassee 230kV #1 Fold-in",Okatie,yes,approximate,Hand-placed: INFERRED - junction on the Jasper-Yemassee 230 kV line (HIFLD TAP170160); DESC plans to fold that line into Okatie. Verify on Dominion's Jasper-Okatie route map. (Okatie),SC,True
+DESC-12,Dominion Energy SC,Jasper - Okatie 230 kV #2: Construct,Jasper | Okatie,yes | yes,approximate,Straight line between Hand-placed: INFERRED - junction on the Jasper-Yemassee 230 kV line (HIFLD TAP170160); DESC plans to fold that line into Okatie. Verify on Dominion's Jasper-Okatie route map. / OpenStreetMap,SC,True
+DESC-13,Dominion Energy SC,Riverport 115kV Tap: Construct Tap,Riverport,NO,unknown,,?,True
+DESC-14,Dominion Energy SC,Flat Rock 115kV Sub and Tap: Construct,Flat Rock,NO,unknown,,?,True
+DESC-15,Dominion Energy SC,Saluda Hydro - Bush River 115kV #1 and #2 Tie Lines Rebuild,Saluda Hydro | Bush River,yes | NO,approximate,OpenStreetMap (Saluda Substation) - only 'Saluda Hydro' located,SC,True
+DESC-16,Dominion Energy SC,Church Creek - Faber Place - Charleston Transmission: Add 230kV Line,Church Creek | Faber Place | Charleston Transmission,yes | yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,SC,True
+DESC-17,Dominion Energy SC,Yemassee- Ritter 230kV #1 & #2: Construct SPDC with B-1272,Yemassee | Ritter,yes | NO,approximate,OpenStreetMap (Yemassee Substation) - only 'Yemassee' located,SC,True
+DESC-18,Dominion Energy SC,Fairfax-Yemassee 115kV: Upgrade for DESCSQ #1151 Interconnection,Fairfax | Yemassee,yes | yes,approximate,Straight line between OpenStreetMap,SC,True
+DESC-19,Dominion Energy SC,St George - Sumter 230kV Tie: Rebuild Line from Santee Substation - Duke/Progress Energy Tie,St George | Sumter,yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,SC,True
+DESC-20,Dominion Energy SC,Hooks - Modoc 115/46 kV Rebuild,Hooks | Modoc,NO | yes,approximate,OpenStreetMap (Modoc Substation) - only 'Modoc' located,SC,True
+DESC-21,Dominion Energy SC,Burton-St Helena 115kV: Rebuild Frogmore Distribution - St. Helena Section,Burton | St Helena,yes | NO,approximate,OpenStreetMap (Burton Substation) - only 'Burton' located,SC,True
+DESC-22,Dominion Energy SC,Wagener 115kV Tap: Construct Tap,Wagener,yes,exact,OpenStreetMap (Wagener Substation),SC,True
+DESC-23,Dominion Energy SC,Cameron Jct - Elloree 46 kV Rebuild,Cameron Jct | Elloree,yes | yes,approximate,Straight line between OpenStreetMap,SC,True
+DESC-24,Dominion Energy SC,Atomic Road 115/12kV Sub:  Construct,Atomic Road,NO,unknown,,?,True
+DESC-25,Dominion Energy SC,Elloree - Santee City 46 kV: Rebuild,Elloree | Santee City,yes | NO,approximate,OpenStreetMap (Elloree Substation) - only 'Elloree' located,SC,True
+DESC-26,Dominion Energy SC,Urquhart - Aiken PSA 46 kV: Rebuild,Urquhart | Aiken PSA,yes | NO,approximate,HIFLD line endpoints (URQUHART) - only 'Urquhart' located,GA,True
+DESC-27,Dominion Energy SC,Wateree-Hopkins 230kV Line #1: Rebuild,Wateree | Hopkins,yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,SC,True
+DESC-28,Dominion Energy SC,Adams Run - Red House Road 46 kV:  Replace Dawhoo River Crossing and other Structures,Adams Run | Red House Road,yes | NO,approximate,OpenStreetMap (Adams Run Substation) - only 'Adams Run' located,SC,True
+DESC-29,Dominion Energy SC,Lyles - Kilbourne Park 115kV: Replace Structure 67 - Kilbourne Park,Lyles | Kilbourne Park,NO | NO,unknown,,?,True
+DESC-30,Dominion Energy SC,Winnsboro West 230-115 kV Sub and Fold-in: Construct,Winnsboro West,NO,unknown,,?,True
+DESC-31,Dominion Energy SC,Williams-Summerville 230kV: Upgrade to SPDC B1272 ACSR,Williams | Summerville,yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,SC,True
+DESC-32,Dominion Energy SC,Church Creek - Ritter 230kV - Replace 38 Large Angles and Dead Ends,Church Creek | Ritter,yes | NO,approximate,OpenStreetMap (Church Creek Substation) - only 'Church Creek' located,SC,True
+DESC-33,Dominion Energy SC,Jackson 115kV: Construct 115 - 12kV Distribution Substation,Jackson,yes,approximate,"Census town centre (Jackson town, SC)",SC,True
+DESC-34,Dominion Energy SC,Harleyville 115KV Transmission Tap - Construct (1.4 miles),Harleyville,yes,exact,OpenStreetMap (Harleyville Substation),SC,True
+DESC-35,Dominion Energy SC,Orangeburg #1 - Cameron Jct 46kV Line Rebuild,Orangeburg #1 | Cameron Jct,yes | yes,approximate,Straight line between OpenStreetMap,SC,True
+DESC-36,Dominion Energy SC,VCS1-Denny Terrace 230kV & VCS1-Pineland 230kV: Rebuild Single Circuit Sections,VCS1 | Denny Terrace,NO | yes,approximate,OpenStreetMap (Denny Terrace Substation) - only 'Denny Terrace' located,SC,True
+DESC-37,Dominion Energy SC,Coast Guard 115kV Substation and Tap: Construct,Coast Guard,NO,unknown,,?,True
+DESC-38,Dominion Energy SC,Millrace 115 kV Tap: Construct,Millrace,NO,unknown,,?,True
+DESC-39,Dominion Energy SC,"Williams St Sub: Replace Sw House & Relays, AM Williams Sub: Replace Sw House, and McMeekin Sub: Add Sw House",Williams St,NO,unknown,,?,True
+DESC-40,Dominion Energy SC,Cameron Jct - Cameron - St Matthews 46 kV Rebuild,Cameron Jct | Cameron | St Matthews,yes | yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,SC,True
+DESC-41,Dominion Energy SC,Okatie - McIntosh 115kV Tie: Add Series Reactor,Okatie | McIntosh,yes | yes,approximate,Straight line between Hand-placed: INFERRED - junction on the Jasper-Yemassee 230 kV line (HIFLD TAP170160); DESC plans to fold that line into Okatie. Verify on Dominion's Jasper-Okatie route map. / OpenStreetMap,SC,True
+DESC-42,Dominion Energy SC,CAE Industrial Park - Springdale Sub 115kV: Replace Laminated Wood Polls.,CAE Industrial Park | Springdale,NO | yes,approximate,OpenStreetMap (Springdale Substation) - only 'Springdale' located,SC,True
+DESC-43,Dominion Energy SC,St. George- Holly Hill 115kV: Rebuild Structures 83-108,St. George | Holly Hill,yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,SC,True
+DESC-44,Dominion Energy SC,Canadys-Ritter 115KV: Rebuild SPDC 230/115KV 1272 (Approx 18 Miles),Canadys | Ritter,yes | NO,approximate,OpenStreetMap (Canadys Substation) - only 'Canadys' located,SC,True
+DESC-45,Dominion Energy SC,Wateree-Killian 230kV: Rebuild,Wateree | Killian,yes | NO,approximate,OpenStreetMap (Wateree Substation) - only 'Wateree' located,SC,True
+DESC-46,Dominion Energy SC,Church Creek - Dawson 230 kV: Rebuild from Long Savannah to Dawson,Church Creek | Dawson,yes | NO,approximate,OpenStreetMap (Church Creek Substation) - only 'Church Creek' located,SC,True
+DESC-47,Dominion Energy SC,Long Savannah 115 kV Tap: Construct,Long Savannah,NO,unknown,,?,True
+DESC-48,Dominion Energy SC,Modoc - McCormick 115/46 kV Rebuild,Modoc | McCormick,yes | yes,approximate,Straight line between OpenStreetMap,SC,True
+DESC-49,Dominion Energy SC,Stevens Creek - Graniteville 115 kV: Rebuild,Stevens Creek | Graniteville,yes | yes,approximate,Straight line between Census town centre / HIFLD line endpoints,SC,True
+DESC-50,Dominion Energy SC,Calhoun County - North 46 kV Rebuild,Calhoun County | North,NO | yes,approximate,OpenStreetMap (North Substation) - only 'North' located,SC,True
+DESC-51,Dominion Energy SC,Union Pier 115-13.8 kV Sub: Tap,Union Pier,NO,unknown,,?,True
+DESC-52,Dominion Energy SC,Faber Place-Bayfront 115kV: Rebuild North Bridge Terrace to Bayfront Section,Faber Place | Bayfront,yes | NO,approximate,OpenStreetMap (Faber Place Substation) - only 'Faber Place' located,SC,True
+DESC-53,Dominion Energy SC,Clements Ferry Rd Sub: 115kV Tap from Cainhoy,Clements Ferry Rd,NO,unknown,,?,True
+DESC-54,Dominion Energy SC,VCS2-Ward 230kV: Rebuild Line,VCS2 | Ward,NO | yes,approximate,OpenStreetMap (Ward Substation) - only 'Ward' located,SC,True
+SERTP-102,Southern Company,"ADAMSVILLE – BUZZARD ROOST 230 KV TRANSMISSION LINE, REBUILD AND JUMPER UPGRADE",ADAMSVILLE | BUZZARD ROOST,yes | NO,approximate,"Census town centre (Adamsville city, AL) - only 'ADAMSVILLE' located",other,False
+SERTP-103,Southern Company,"ARKWRIGHT, BUS AND JUMPER REPLACEMENT",ARKWRIGHT,yes,exact,HIFLD line endpoints (ARKWRIGHT),GA,True
+SERTP-104,Southern Company,"BARTLETTS FERRY, JUMPER REPLACEMENT",BARTLETTS FERRY,yes,exact,HIFLD line endpoints (BARTLETTS FERRY),GA,True
+SERTP-105,Southern Company,"BLANKETS CREEK – WOODSTOCK 115 KV TRANSMISSION LINE, REBUILD",BLANKETS CREEK | WOODSTOCK,NO | yes,approximate,"Census town centre (Woodstock town, AL) - only 'WOODSTOCK' located",other,False
+SERTP-106,Southern Company,"BRUNSWICK – MCMANUS 115 KV LINES, RE-TERMINATION",BRUNSWICK | MCMANUS,yes | yes,approximate,Straight line between Census town centre / OpenStreetMap,GA,True
+SERTP-107,Southern Company,"CASS PINE 230/25 KV, NEW SUBSTATION AND AREA IMPROVEMENTS",CASS PINE,NO,unknown,,?,False
+SERTP-108,Dalton Utilities,"DU: EAST DALTON – OOSTANAULA 115 KV TRANSMISSION LINE, REBUILD",EAST DALTON | OOSTANAULA,NO | NO,unknown,,?,True
+SERTP-109,Dalton Utilities,"DU: LOOPERS FARM – SOUTH DALTON 230 KV, CONSTRUCT",LOOPERS FARM | SOUTH DALTON,NO | NO,unknown,,?,True
+SERTP-110,Southern Company,"EAST POINT 115 KV AND 230 KV, RELAY MODERNIZATION",EAST POINT,yes,approximate,"Census town centre (East Point CDP, AL)",other,False
+SERTP-111,Southern Company,"EMBLEM RIVERSIDE 230 KV, NEW SUBSTATION, CONSTRUCT",EMBLEM RIVERSIDE,NO,unknown,,?,False
+SERTP-112,Southern Company,"FAYETTEVILLE AREA TRANSMISSION NEEDS, CONSTRUCT",FAYETTEVILLE,yes,exact,HIFLD line endpoints (FAYETTEVILLE),other,False
+SERTP-113,Southern Company,"FENWICK STREET – SAND BAR FERRY 115 KV TRANSMISSION LINE, REBUILD",FENWICK STREET | SAND BAR FERRY,NO | NO,unknown,,?,False
+SERTP-114,Southern Company,"FULLER ROAD – COLUMBUS FIRST AVE 115 KV TRANSMISSION LINE, RECONDUCTOR",FULLER ROAD | COLUMBUS FIRST AVE,NO | NO,unknown,,?,False
+SERTP-115,Southern Company,"GARRETT ROAD 230 KV SWITCHING STATION – TRAE LANE, NEW TRANSMISSION LINE, CONSTRUCT",GARRETT ROAD,NO,unknown,,?,False
+SERTP-116,Southern Company,"GOAT ROCK – NORTH OPELIKA 230 KV TRANSMISSION LINE, UPGRADE",GOAT ROCK | NORTH OPELIKA,yes | NO,approximate,HIFLD line endpoints (GOAT ROCK) - only 'GOAT ROCK' located,GA,True
+SERTP-117,Southern Company,"GOAT ROCK 230 KV SWITCH, JUMPER, AND LINE TRAP, REPLACEMENT",GOAT ROCK,yes,exact,HIFLD line endpoints (GOAT ROCK),GA,True
+SERTP-118,Southern Company,"GORDON – N DUBLIN 115 KV (GORDON – ENGL MCI J) TRANSMISSION LINE, REBUILD",GORDON | N DUBLIN,yes | NO,approximate,OpenStreetMap (Gordon Substation) - only 'GORDON' located,GA,True
+SERTP-119,Southern Company,"GRADY 230/115 KV, RELAY MODERNIZATION",GRADY,NO,unknown,,?,False
+SERTP-120,Southern Company,"GRADY – WEST END 115 KV TRANSMISSION LINE, REBUILD",GRADY | WEST END,NO | yes,approximate,HIFLD line endpoints (WEST END) - only 'WEST END' located,other,False
+SERTP-121,Southern Company,"GRID – GAINESVILLE #2 EQUIPMENT, REPLACEMENT",GRID | GAINESVILLE #2 EQUIPMENT,NO | NO,unknown,,?,False
+SERTP-122,Georgia Transmission Corp.,"GTC: CONYERS – CORNISH MOUNTAIN 115 KV LINE, UPGRADE",CONYERS | CORNISH MOUNTAIN,yes | NO,approximate,"Census town centre (Conyers city, GA) - only 'CONYERS' located",GA,True
+SERTP-123,Georgia Transmission Corp.,"GTC: DRESDEN 500 KV, BUS EXPANSION",DRESDEN,yes,exact,HIFLD line endpoints (DRESDEN),GA,True
+SERTP-124,Georgia Transmission Corp.,"GTC: GORDON – SANDERSVILLE #1 115 KV TRANSMISSION LINE, REBUILD",GORDON | SANDERSVILLE #1,yes | yes,approximate,Straight line between OpenStreetMap,GA,True
+SERTP-125,Georgia Transmission Corp.,"GTC: LAGRANGE – NORTH OPELIKA 230 KV, NEW TRANSMISSION LINE, CONSTRUCT",LAGRANGE | NORTH OPELIKA,yes | NO,approximate,HIFLD line endpoints (LAGRANGE) - only 'LAGRANGE' located,GA,True
+SERTP-126,Georgia Transmission Corp.,"GTC: LIZARD LOPE – WESTOVER 115 KV, NEW TRANSMISSION LINE, CONSTRUCT",LIZARD LOPE | WESTOVER,NO | yes,approximate,"Census town centre (Westover town, AL) - only 'WESTOVER' located",other,False
+SERTP-127,Georgia Transmission Corp.,"GTC: ROBINS SPRING, BUS REPLACEMENT",ROBINS SPRING,yes,exact,OpenStreetMap (Robins Spring Substation),GA,True
+SERTP-128,Georgia Transmission Corp.,"GTC: ROBINS SPRING, CAPACITOR BANK INSTALLATION",ROBINS SPRING,yes,exact,OpenStreetMap (Robins Spring Substation),GA,True
+SERTP-129,Southern Company,"GULFPORT LANDON RD – KILN 115 KV TRANSMISSION LINE, REBUILD",GULFPORT LANDON RD | KILN,NO | yes,approximate,"Census town centre (Kiln CDP, MS) - only 'KILN' located",other,False
+SERTP-130,Southern Company,"HAMMOND – WEISS DAM 115 KV TRANSMISSION LINE, REBUILD",HAMMOND | WEISS DAM,yes | NO,approximate,HIFLD line endpoints (HAMMOND) - only 'HAMMOND' located,GA,True
+SERTP-131,Southern Company,"HILLS BRIDGE 500/230 KV, NEW SUBSTATION, CONSTRUCT",HILLS BRIDGE,NO,unknown,,?,False
+SERTP-132,Southern Company,"JORDAN DAM – MARTIN DAM B 115 KV TRANSMISSION LINE, RECONDUCTOR",JORDAN DAM | MARTIN DAM B,NO | NO,unknown,,?,False
+SERTP-133,Southern Company,KATHLEEN AREA IMPROVEMENTS,KATHLEEN,yes,approximate,"Census town centre (Kathleen CDP, FL)",other,False
+SERTP-134,Southern Company,"KLONDIKE, RELAY MODERNIZATION",KLONDIKE,yes,exact,HIFLD line endpoints (KLONDIKE),GA,True
+SERTP-135,Southern Company,"LAGRANGE – NORTH OPELIKA TS 230 KV, NEW TRANSMISSION LINE, CONSTRUCT",LAGRANGE | NORTH OPELIKA TS,yes | NO,approximate,HIFLD line endpoints (LAGRANGE) - only 'LAGRANGE' located,GA,True
+SERTP-136,Southern Company,"LAUDERDALE EAST – VIMVILLE 230 KV TRANSMISSION LINE, RECONDUCTOR",LAUDERDALE EAST | VIMVILLE,NO | NO,unknown,,?,False
+SERTP-137,MEAG Power,"MEAG: DRESDEN – LAGRANGE PRIMARY 230 KV, UPGRADE AND JUMPER REPLACEMENT",DRESDEN | LAGRANGE PRIMARY,yes | yes,exact,HIFLD line route,GA,True
+SERTP-138,MEAG Power,"MEAG: RAY PLACE RD – WASHINGTON 115 KV TRANSMISSION LINE, REBUILD",RAY PLACE RD | WASHINGTON,yes | yes,approximate,Straight line between HIFLD line endpoints / OpenStreetMap,GA,True
+SERTP-139,MEAG Power,"MEAG: RAY PLACE RD – WASHINGTON (WASHNGTN – WASHNGTN 3) 115 KV TRANSMISSION LINE, REBUILD",RAY PLACE RD | WASHINGTON (WASHNGTN | WASHNGTN 3),yes | NO | NO,approximate,HIFLD line endpoints (RAY PLACE RD) - only 'RAY PLACE RD' located,GA,True
+SERTP-140,Southern Company,"MORROW – MOUNTAIN VIEW 115 KV TRANSMISSION LINE, REBUILD",MORROW | MOUNTAIN VIEW,yes | yes,approximate,"Census town centre (Morrow city, GA) - only 'MORROW' located",GA,True
+SERTP-141,Southern Company,"MORROW 115 KV, RELAY UPGRADE",MORROW,yes,approximate,"Census town centre (Morrow city, GA)",GA,True
+SERTP-142,Southern Company,"OHARA 115 KV, BREAKER REPLACEMENT",OHARA,NO,unknown,,?,False
+SERTP-143,Southern Company,"OHARA LINE, PROTECTIVE RELAYING REPLACEMENT",OHARA,NO,unknown,,?,False
+SERTP-144,Southern Company,"PALMYRA, REACTOR REMOVAL",PALMYRA,NO,unknown,,?,False
+SERTP-145,Georgia Power,"SAV: BIG OGEECHEE 500/230 KV, NEW SUBSTATION, CONSTRUCT",BIG OGEECHEE,NO,unknown,,?,True
+SERTP-146,Georgia Power,"SAV: BOULEVARD – DEPTFORD 115 KV TRANSMISSION LINE, RECONDUCTOR",BOULEVARD | DEPTFORD,yes | yes,approximate,Straight line between OpenStreetMap,GA,True
+SERTP-147,Southern Company,"SAW MILL ROAD – VIDALIA 115 KV, SWITCH REPLACEMENT",SAW MILL ROAD | VIDALIA,NO | yes,approximate,OpenStreetMap (Vidalia Substation) - only 'VIDALIA' located,GA,True
+SERTP-148,Southern Company,"SCOTTDALE, RELAY MODERNIZATION",SCOTTDALE,yes,approximate,"Census town centre (Scottdale CDP, GA)",GA,True
+SERTP-149,Southern Company,"STONEWALL TELL ROAD, CONSTRUCT",STONEWALL TELL ROAD,NO,unknown,,?,False
+SERTP-150,Southern Company,"UNION CITY (WHITE) – YATES 230 KV TRANSMISSION LINE, REBUILD",UNION CITY (WHITE) | YATES,yes | yes,approximate,Straight line between Census town centre / HIFLD line endpoints,GA,True
+SERTP-151,Southern Company,"UNION CITY – YATES 230 KV (WHITE), SWITCH AND TRAP REPLACEMENT",UNION CITY | YATES,yes | yes,approximate,Straight line between Census town centre / HIFLD line endpoints,GA,True
+SERTP-152,Southern Company,"WANSLEY LINE, PROTECTIVE RELAYING REPLACEMENT",WANSLEY,yes,exact,HIFLD line endpoints (WANSLEY),GA,True
+SERTP-153,Southern Company,"WEST TECH, CAPACITOR BANKS",WEST TECH,NO,unknown,,?,False
+SERTP-154,Southern Company,"ATHENA – EAST WATKINSVILLE 115 KV TRANSMISSION LINE, REBUILD",ATHENA | EAST WATKINSVILLE,yes | yes,approximate,Straight line between OpenStreetMap,GA,True
+SERTP-155,Southern Company,"AUTAUGAVILLE – EAST PELHAM 230 KV, NEW TRANSMISSION LINE, CONSTRUCT",AUTAUGAVILLE | EAST PELHAM,yes | NO,approximate,"Census town centre (Autaugaville town, AL) - only 'AUTAUGAVILLE' located",other,False
+SERTP-156,Southern Company,"BESSEMER – SOUTH BESSEMER 115 KV TRANSMISSION LINE, RECONDUCTOR (PHASE 1)",BESSEMER | SOUTH BESSEMER,yes | NO,approximate,"Census town centre (Bessemer city, AL) - only 'BESSEMER' located",other,False
+SERTP-157,Southern Company,"BIG SHANTY 500 KV, BREAKER INSTALLATION",BIG SHANTY,yes,exact,HIFLD line endpoints (BIG SHANTY),GA,True
+SERTP-158,Southern Company,"BROADWAY – ECHECONNEE 115 KV TRANSMISSION LINE, RECONDUCTOR",BROADWAY | ECHECONNEE,yes | NO,approximate,"Census town centre (Broadway town, NC) - only 'BROADWAY' located",other,False
+SERTP-159,Southern Company,"NEW MERIDIAN 230 KV SUBSTATION, NEW TRANSMISSION LINE, CONSTRUCT",NEW MERIDIAN,NO,unknown,,?,False
+SERTP-160,Southern Company,"DOYLE – LG&E MONROE 230 KV, JACKS CREEK LOOP-IN",DOYLE | LG&E MONROE,yes | NO,approximate,"Census town centre (Doyle town, TN) - only 'DOYLE' located",other,False
+SERTP-161,Southern Company,"EAST POINT – UNION CITY, FIBER INSTALLATION",EAST POINT | UNION CITY,yes | yes,approximate,Straight line between Census town centre,GA,True
+SERTP-162,Southern Company,ELLENWOOD AREA NETWORK IMPROVEMENTS,ELLENWOOD,NO,unknown,,?,False
+SERTP-163,Southern Company,"ENTERPRISE TS – PINCKARD #2 115 KV TRANSMISSION LINE, RECONDUCTOR",ENTERPRISE TS | PINCKARD #2,yes | yes,approximate,Straight line between Census town centre / HIFLD line endpoints,other,False
+SERTP-164,PowerSouth,"PS: GASKIN – SOUTHPORT 115 KV, NEW TRANSMISSION LINE, CONSTRUCT",GASKIN | SOUTHPORT,NO | yes,approximate,"Census town centre (Southport CDP, FL) - only 'SOUTHPORT' located",other,False
+SERTP-165,Southern Company,"GRADY 115 KV, BREAKER REPLACEMENTS",GRADY,NO,unknown,,?,False
+SERTP-166,Georgia ITS (joint),"GRID: ARKWRIGHT – LLOYD SHOALS 115 KV TRANSMISSION LINE, REBUILD",ARKWRIGHT | LLOYD SHOALS,yes | yes,approximate,Straight line between HIFLD line endpoints,GA,True
+SERTP-167,Georgia Transmission Corp.,"GTC: ADAMSVILLE – BUZZARD ROOST 230 KV TRANSMISSION LINE, REBUILD",ADAMSVILLE | BUZZARD ROOST,yes | NO,approximate,"Census town centre (Adamsville city, AL) - only 'ADAMSVILLE' located",other,False
+SERTP-168,Georgia Transmission Corp.,"GTC: DOUGLASVILLE – VILLA RICA 230 KV TRANSMISSION LINE, REBUILD",DOUGLASVILLE | VILLA RICA,yes | yes,approximate,Straight line between Census town centre / HIFLD line endpoints,GA,True
+SERTP-169,Georgia Transmission Corp.,"GTC: DOYLE – WINDER PRIMARY 230 KV LINE, JUMPER REPLACEMENT",DOYLE | WINDER PRIMARY,yes | yes,approximate,"Census town centre (Doyle town, TN) - only 'DOYLE' located",other,False
+SERTP-170,Georgia Transmission Corp.,"GTC: EAST MOULTRIE – HIGHWAY 112 230 KV, NEW TRANSMISSION LINE, CONSTRUCT",EAST MOULTRIE | HIGHWAY,NO | NO,unknown,,?,True
+SERTP-171,Georgia Transmission Corp.,GTC: EAST WALTON 500/230 KV PROJECT,EAST WALTON,NO,unknown,,?,True
+SERTP-172,Georgia Transmission Corp.,"GTC: GARRETT RD – V. RICA 230 KV TRANSMISSION LINE, RECONDUCTOR",GARRETT RD | V. RICA,NO | NO,unknown,,?,True
+SERTP-173,Georgia Transmission Corp.,"GTC: GLENWOOD SPRINGS – LICK CREEK 115 KV TRANSMISSION LINE, REBUILD",GLENWOOD SPRINGS | LICK CREEK,NO | NO,unknown,,?,True
+SERTP-174,Georgia Transmission Corp.,"GTC: HICKORY LEVEL – VILLA RICA 230 KV TRANSMISSION LINE, RECONDUCTOR",HICKORY LEVEL | VILLA RICA,NO | yes,approximate,HIFLD line endpoints (VILLA RICA) - only 'VILLA RICA' located,GA,True
+SERTP-175,Georgia Transmission Corp.,"GTC: JACKSON 115 KV, BUS AND JUMPER UPGRADES",JACKSON,yes,approximate,"Census town centre (Jackson city, AL)",other,False
+SERTP-176,Georgia Transmission Corp.,"GTC: MORNING HORNET, SECOND 230/115 KV AUTOTRANSFORMER, AND STANTON SP 115 KV, CONSTRUCT",MORNING HORNET,NO,unknown,,?,True
+SERTP-177,Georgia Transmission Corp.,"GTC: SOUTH HAZLEHURST 230/115 KV, AUTOTRANSFORMERS REPLACEMENT",SOUTH HAZLEHURST,NO,unknown,,?,True
+SERTP-178,Georgia Transmission Corp.,"GTC: RIDDLEVILLE 115 KV, BUS REPLACEMENT",RIDDLEVILLE,yes,approximate,"Census town centre (Riddleville town, GA)",GA,True
+SERTP-179,Georgia Transmission Corp.,"GTC: SKC 115 KV, BUS AND JUMPER REPLACEMENT",SKC,NO,unknown,,?,True
+SERTP-180,Georgia Transmission Corp.,"GTC: SWITCH WAY – THORNTON ROAD 230 KV TRANSMISSION LINE, REBUILD",SWITCH WAY | THORNTON ROAD,NO | NO,unknown,,?,True
+SERTP-181,Southern Company,GULLATT ROAD TRANSMISSION IMPROVEMENTS,GULLATT ROAD TRANSMISSION IMPROVEMENTS,NO,unknown,,?,False
+SERTP-182,Southern Company,"HILL VIEW & GRASSY HOLLOW SUBSTATION, CONSTRUCT",HILL VIEW & GRASSY HOLLOW,NO,unknown,,?,False
+SERTP-183,Southern Company,"JESUP – OFFERMAN 115 KV TRANSMISSION LINE, REBUILD",JESUP | OFFERMAN,yes | yes,approximate,Straight line between OpenStreetMap,GA,True
+SERTP-184,Southern Company,"JONESBORO – MORROW, RELAY PROTECTION UPGRADE",JONESBORO | MORROW,yes | yes,approximate,Straight line between Census town centre,GA,True
+SERTP-185,Southern Company,"LAWRENCEVILLE – WINDER PRIMARY 230 KV TRANSMISSION LINE, REBUILD",LAWRENCEVILLE | WINDER PRIMARY,yes | yes,approximate,Straight line between Census town centre / HIFLD line endpoints,GA,True
+SERTP-186,Southern Company,"LINE CREEK 115 KV, BREAKER REPLACEMENTS",,,unknown,,?,False
+SERTP-187,MEAG Power,MEAG: FORTSON SUBSTATION MODERNIZATION,FORTSON,yes,exact,HIFLD line endpoints (FORTSON),GA,True
+SERTP-188,MEAG Power,"MEAG: RAY PLACE RD – WARRENTON PRIMARY 115 KV TRANSMISSION LINE, RECONDUCTOR",RAY PLACE RD | WARRENTON PRIMARY,yes | yes,exact,HIFLD line route,GA,True
+SERTP-189,Southern Company,"MERIDIAN HWY 80 SOUTH 230 KV, NEW SWITCHING STATION, CONSTRUCT",MERIDIAN HWY 80 SOUTH,NO,unknown,,?,False
+SERTP-190,Southern Company,"MERIDIAN NORTHEAST – LAUDERDALE EAST 230 KV TRANSMISSION LINE, REBUILD",MERIDIAN NORTHEAST | LAUDERDALE EAST,NO | NO,unknown,,?,False
+SERTP-191,Southern Company,"MORROW – YATES COMMON 115 KV TRANSMISSION LINE, REBUILD",MORROW | YATES COMMON,yes | NO,approximate,"Census town centre (Morrow city, GA) - only 'MORROW' located",GA,True
+SERTP-192,Southern Company,"OLIVER DAM & BULL CREEK 115 KV, PROTECTION RELAY UPGRADE",OLIVER DAM & BULL CREEK,NO,unknown,,?,False
+SERTP-193,Southern Company,"POSSUM BRANCH – YATES COMMON 115 KV TRANSMISSION LINE (YATES TO CLEM), REBUILD",POSSUM BRANCH | YATES COMMON,NO | NO,unknown,,?,False
+SERTP-194,Southern Company,"LLOYD SHOALS 115 KV LIMITING ELEMENTS, REMOVAL",LLOYD SHOALS,yes,exact,HIFLD line endpoints (LLOYD SHOALS),GA,True
+SERTP-195,Southern Company,"SANDERSVILLE #1 – WADLEY PRI. 115 KV TRANSMISSION LINE, REBUILD",SANDERSVILLE #1 | WADLEY PRI.,yes | NO,approximate,OpenStreetMap (Sandersville Substation #1) - only 'SANDERSVILLE #1' located,GA,True
+SERTP-196,Georgia Power,"SAV: GOSHEN (SAV) – KRAFT 115 KV TRANSMISSION LINE, REBUILD",GOSHEN (SAV) | KRAFT,yes | yes,approximate,Straight line between OpenStreetMap,GA,True
+SERTP-197,Southern Company,SHUGART FARMS AREA IMPROVEMENT,SHUGART FARMS,NO,unknown,,?,False
+SERTP-198,Southern Company,"SOUTH MACON 115 KV, BUSES 1 & 2, REPLACEMENT",SOUTH MACON,NO,unknown,,?,False
+SERTP-199,Southern Company,"STANTON SP – THUMBS UP 115 KV TRANSMISSION LINE, REBUILD",STANTON SP | THUMBS UP,NO | NO,unknown,,?,False
+SERTP-200,Southern Company,"SUMMER LAKE – VILLA RICA 230 KV TRANSMISSION LINE, REBUILD",SUMMER LAKE | VILLA RICA,NO | yes,approximate,HIFLD line endpoints (VILLA RICA) - only 'VILLA RICA' located,GA,True
+SERTP-201,Southern Company,"THURLOW DAM – UNION SPRINGS 115 KV TRANSMISSION LINE, REBUILD",THURLOW DAM | UNION SPRINGS,NO | yes,approximate,"Census town centre (Union Springs city, AL) - only 'UNION SPRINGS' located",other,False
+SERTP-202,Southern Company,"TOMOCHICHI 500/230 KV, NEW SUBSTATION, CONSTRUCT",TOMOCHICHI,NO,unknown,,?,False
+SERTP-203,Southern Company,"ACIPCO TS – BOYLES 230 KV, NEW TRANSMISSION LINE, CONSTRUCT",ACIPCO TS | BOYLES,NO | NO,unknown,,?,False
+SERTP-204,Southern Company,"EAST VILLA RICA SWITCHING STATION, ADVANCED POWER FLOW CONTROLLERS, INSTALLATION",EAST VILLA RICA SWITCHING STATION,NO,unknown,,?,False
+SERTP-205,Southern Company,"ANNISTON – HAMMOND 230 KV TRANSMISSION LINE, REACTOR INSTALLATION",ANNISTON | HAMMOND,yes | yes,approximate,Straight line between Census town centre / HIFLD line endpoints,other,False
+SERTP-206,Southern Company,"BARRY – ELLICOTT 230 KV, SERIES REACTORS INSTALLATION",BARRY | ELLICOTT,NO | NO,unknown,,?,False
+SERTP-207,Southern Company,"BARTLETTS FERRY – BACKWATER TAP 115 KV TRANSMISSION LINE, REBUILD",BARTLETTS FERRY | BACKWATER,yes | NO,approximate,HIFLD line endpoints (BARTLETTS FERRY) - only 'BARTLETTS FERRY' located,GA,True
+SERTP-208,Southern Company,"BARTLETTS FERRY – WEST POINT 115 KV TRANSMISSION LINE, REBUILD",BARTLETTS FERRY | WEST POINT,yes | yes,approximate,Straight line between HIFLD line endpoints,GA,True
+SERTP-209,Southern Company,"BOWEN, SERIES REACTOR INSTALLATION",BOWEN,yes,exact,HIFLD line endpoints (BOWEN),GA,True
+SERTP-210,Southern Company,"BREMEN – CROOKED CREEK 115 KV TRANSMISSION LINE, RECONDUCTOR",BREMEN | CROOKED CREEK,yes | yes,approximate,Straight line between Census town centre,GA,True
+SERTP-211,Southern Company,"CARTERSVILLE – EMERSON 230 KV TRANSMISSION LINE, REBUILD",CARTERSVILLE | EMERSON,yes | yes,approximate,Straight line between Census town centre,GA,True
+SERTP-212,Southern Company,"CENTRE – HAMMOND 115 KVTRANSMISSION LINE, REACTOR INSTALLATION",CENTRE | HAMMOND 115 KVTRANSMISSION,yes | NO,approximate,"Census town centre (Centre city, AL) - only 'CENTRE' located",other,False
+SERTP-213,Southern Company,"NEW MERIDIAN 230 KV SUBSTATION, CONSTRUCT",NEW MERIDIAN,NO,unknown,,?,False
+SERTP-214,Southern Company,"LAUDERDALE WEST – PLANT SWEATT 230KV, CONSTRUCT",LAUDERDALE WEST | PLANT SWEATT,NO | NO,unknown,,?,False
+SERTP-215,Southern Company,"CORN CRIB – LAGRANGE 115 KV TRANSMISSION LINE, RECONDUCTOR",CORN CRIB | LAGRANGE,NO | yes,approximate,HIFLD line endpoints (LAGRANGE) - only 'LAGRANGE' located,GA,True
+SERTP-216,Southern Company,"DEER CREEK 500/230 KV, NEW SUBSTATION, CONSTRUCT",DEER CREEK,NO,unknown,,?,False
+SERTP-217,Southern Company,"DYER ROAD – EAST ROANOKE 115 KV TRANSMISSION LINE, REBUILD",DYER ROAD | EAST ROANOKE,NO | NO,unknown,,?,False
+SERTP-218,Southern Company,"EAST VILLA RICA, NEW SWITCHING STATION, CONSTRUCT",EAST VILLA RICA,NO,unknown,,?,False
+SERTP-219,Southern Company,"EUTAW – GREENE COUNTY 115 KV TRANSMISSION LINE, REBUILD",EUTAW | GREENE COUNTY,yes | NO,approximate,"Census town centre (Eutaw city, AL) - only 'EUTAW' located",other,False
+SERTP-220,Southern Company,"FIRST AVENUE – NORTH COLUMBUS 115 KV TRANSMISSION LINE, REBUILD",FIRST AVENUE | NORTH COLUMBUS,NO | NO,unknown,,?,False
+SERTP-221,Southern Company,"FITZGERALD – PITTS 115 KV TRANSMISSION LINE, REBUILD",FITZGERALD | PITTS,yes | yes,approximate,Straight line between HIFLD line endpoints / OpenStreetMap,GA,True
+SERTP-222,Southern Company,"GASTON – BYNUM 230 KV TRANSMISSION LINE, UPGRADE",GASTON | BYNUM,yes | NO,approximate,"Census town centre (Gaston town, NC) - only 'GASTON' located",other,False
+SERTP-223,Southern Company,"GORDON 115 KV, OVERSTRESSED BREAKER REPLACEMENT",GORDON,yes,exact,OpenStreetMap (Gordon Substation),GA,True
+SERTP-224,Georgia Transmission Corp.,"GTC: BARNEYVILLE – EAST MOULTRIE 115 KV, NEW TRANSMISSION LINE, CONSTRUCT",BARNEYVILLE | EAST MOULTRIE,NO | NO,unknown,,?,True
+SERTP-225,Georgia Transmission Corp.,"GTC: BONAIRE PRIMARY 500/230 KV, TRANSFORMER REPLACEMENT AND RELAY MODERNIZATION",BONAIRE PRIMARY,yes,exact,HIFLD line endpoints (BONAIRE),GA,True
+SERTP-226,Georgia Transmission Corp.,"GTC: BOSTWICK – EAST SOCIAL CIRCLE 230 KV TRANSMISSION LINE, RECONDUCTOR",BOSTWICK | EAST SOCIAL CIRCLE,yes | yes,approximate,Straight line between Census town centre / HIFLD line endpoints,GA,True
+SERTP-227,Georgia Transmission Corp.,"GTC: DYER ROAD – SOUTH COWETA 115 KV TRANSMISSION LINE, REBUILD (PHASE 1)",DYER ROAD | SOUTH COWETA,NO | NO,unknown,,?,True
+SERTP-228,Georgia Transmission Corp.,"GTC: MCDONOUGH – SOUTH GRIFFIN 115 KV TRANSMISSION LINE, REBUILD",MCDONOUGH | SOUTH GRIFFIN,yes | NO,approximate,"Census town centre (McDonough city, GA) - only 'MCDONOUGH' located",GA,True
+SERTP-229,Georgia Transmission Corp.,"GTC: NEW HAMPTON 230/115 KV, NEW SUBSTATION, CONSTRUCT",NEW HAMPTON,NO,unknown,,?,True
+SERTP-230,Georgia Transmission Corp.,"GTC: NORTH DUBLIN 230/115 KV TRANSFORMERS AND BUS-TIE BREAKER, REPLACEMENT",NORTH DUBLIN,NO,unknown,,?,True
+SERTP-231,Georgia Transmission Corp.,"GTC: SOUTH COWETA BANK A LIMITING ELEMENTS, REMOVAL",SOUTH COWETA BANK A LIMITING ELEMENTS,NO,unknown,,?,True
+SERTP-232,Georgia Transmission Corp.,"GTC: RUM CREEK 500 KV, NEW SWITCHING STATION, CONSTRUCT",RUM CREEK,NO,unknown,,?,True
+SERTP-233,Southern Company,"HAMMOND, REACTORS INSTALLATION",HAMMOND,yes,exact,HIFLD line endpoints (HAMMOND),GA,True
+SERTP-234,Southern Company,"HAMPTON AREA 115 TO 230 KV, CONVERSION",HAMPTON,yes,approximate,"Census town centre (Hampton city, FL)",other,False
+SERTP-235,Southern Company,"LINE CREEK, TERMINAL EQUIPMENT REPLACEMENT",,,unknown,,?,False
+SERTP-236,Southern Company,"LLOYD SHOALS – PORTERDALE PRIMARY 115 KV TRANSMISSION LINE, REBUILD",LLOYD SHOALS | PORTERDALE PRIMARY,yes | yes,approximate,Straight line between Census town centre / HIFLD line endpoints,GA,True
+SERTP-237,Southern Company,"MARTIN DAM – CROOKED CREEK #1 115 KV TRANSMISSION LINE, UPGRADE",MARTIN DAM | CROOKED CREEK #1,yes | yes,approximate,HIFLD line endpoints (MARTIN DAM) - only 'MARTIN DAM' located,other,False
+SERTP-238,Southern Company,"MARTIN DAM – CROOKED CREEK #2 115 KV TRANSMISSION LINE, UPGRADE",MARTIN DAM | CROOKED CREEK #2,yes | yes,approximate,HIFLD line endpoints (MARTIN DAM) - only 'MARTIN DAM' located,other,False
+SERTP-239,Southern Company,"MCINTOSH 230 KV, BREAKER CONTROL RELAY UPGRADES",MCINTOSH,yes,exact,OpenStreetMap (McIntosh Substation),GA,True
+SERTP-240,MEAG Power,"MEAG: BRUMBLEY CREEK – SOUTH BAINBRIDGE 115 KV TRANSMISSION LINE, REBUILD",BRUMBLEY CREEK | SOUTH BAINBRIDGE,NO | NO,unknown,,?,True
+SERTP-241,MEAG Power,"MEAG: NEW SOUTH GRIFFIN 230/115 KV, NEW SUBSTATION, CONSTRUCT",NEW SOUTH GRIFFIN,NO,unknown,,?,True
+SERTP-242,MEAG Power,"MEAG: THOMASVILLE 230/115 KV AUTOBANK, REPLACEMENT",THOMASVILLE,yes,approximate,"Census town centre (Thomasville city, AL)",other,False
+SERTP-243,Southern Company,"MILLER SP 500 KV, BREAKER INSTALLATION",MILLER SP,NO,unknown,,?,False
+SERTP-244,Southern Company,"OHARA 115 KV, TARGETED EQUIPMENT REPLACEMENT",OHARA,NO,unknown,,?,False
+SERTP-245,Southern Company,"PITTMAN ROAD – WEST POINT DAM (USA) 115 KV TRANSMISSION LINE, RECONDUCTOR",PITTMAN ROAD | WEST POINT DAM (USA),NO | NO,unknown,,?,False
+SERTP-246,Southern Company,"PLANT YATES 230 KV BREAKER AND HALF SUBSTATION, REBUILD",PLANT YATES,yes,exact,HIFLD line endpoints (YATES),GA,True
+SERTP-247,Southern Company,"RAINBOW DRIVE AREA, CAPACITOR INSTALLATION",RAINBOW DRIVE,NO,unknown,,?,False
+SERTP-248,Southern Company,"MORROW BANK A LIMITING ELEMENTS, REMOVAL",MORROW BANK A LIMITING ELEMENTS,NO,unknown,,?,False
+SERTP-249,Georgia Power,"SAV: COLEMAN – DEAN FOREST 115 KV TRANSMISSION LINE, REBUILD",COLEMAN | DEAN FOREST,yes | yes,approximate,Straight line between OpenStreetMap,GA,True
+SERTP-250,Georgia Power,"SAV: GOSHEN (SAV) – MCINTOSH 115 KV TRANSMISSION LINE, REBUILD",GOSHEN (SAV) | MCINTOSH,yes | yes,approximate,Straight line between OpenStreetMap,GA,True
+SERTP-251,Georgia Power,"SAV: RICE HOPE, NEW 230/115 KV AUTOTRANSFORMER, INSTALL",RICE HOPE,NO,unknown,,?,True
+SERTP-252,Southern Company,"THURLOW DAM – PIN OAKS 115 KV TRANSMISSION LINE, RECONDUCTOR",THURLOW DAM | PIN OAKS,NO | NO,unknown,,?,False
+SERTP-253,Southern Company,"UNION CITY – LINE CREEK – YATES 230 KV TRANSMISSION LINES, REBUILD",UNION CITY,yes,approximate,"Census town centre (Union City city, GA)",GA,True
+SERTP-254,PowerSouth,"PS: UNION SPRINGS 115 KV, NEW SWITCHING STATION, CONSTRUCT",UNION SPRINGS,yes,approximate,"Census town centre (Union Springs city, AL)",other,False
+SERTP-255,Southern Company,"VILLA RICA SUBSTATION, UPGRADES",VILLA RICA,yes,exact,HIFLD line endpoints (VILLA RICA),GA,True
+SERTP-256,Southern Company,"WEST MCINTOSH, 230 KV LOW SIDE BREAKERS, REPLACEMENT",WEST MCINTOSH,yes,exact,OpenStreetMap (West McIntosh Substation),GA,True
+SERTP-257,Southern Company,"ANNISTON – BYNUM 115 KV TRANSMISSION LINE, REACTOR INSTALLATION",ANNISTON | BYNUM,yes | NO,approximate,"Census town centre (Anniston city, AL) - only 'ANNISTON' located",other,False
+SERTP-258,Southern Company,"ASHLEY PARK 500 KV BREAKERS, INSTALLATION",ASHLEY PARK,NO,unknown,,?,False
+SERTP-259,Southern Company,"ASHLEY PARK-WANSLEY 500 KV, NEW TRANSMISSION LINE, CONSTRUCT",ASHLEY PARK | WANSLEY,NO | yes,approximate,HIFLD line endpoints (WANSLEY) - only 'WANSLEY' located,GA,True
+SERTP-260,Southern Company,"ATKINSON – NORTHWEST 115 KV TRANSMISSION LINE, REBUILD",ATKINSON | NORTHWEST,yes | yes,approximate,Straight line between Census town centre,other,False
+SERTP-261,PowerSouth,"PS: BASSETT CREEK – TENSAW 230 KV (LOWMAN 230 KV), NEW TRANSMISSION LINE, CONSTRUCT",BASSETT CREEK | TENSAW,NO | NO,unknown,,?,False
+SERTP-262,Southern Company,"BASSETT CREEK – TENSAW 230 KV TRANSMISSION LINE, LOOP-IN",BASSETT CREEK | TENSAW,NO | NO,unknown,,?,False
+SERTP-263,Southern Company,"BOULEVARD – VIRGINIA AVENUE 230 KV TRANSMISSION LINE, REBUILD",BOULEVARD | VIRGINIA AVENUE,yes | NO,approximate,OpenStreetMap (Boulevard Substation) - only 'BOULEVARD' located,GA,True
+SERTP-264,Southern Company,"BUZZARD ROOST – FACTORY SHOALS 230 KV, NEW TRANSMISSION LINE, CONSTRUCT",BUZZARD ROOST | FACTORY SHOALS,NO | NO,unknown,,?,False
+SERTP-265,Southern Company,"CALVERT – WEST MCINTOSH 230 KV TRANSMISSION LINE, RECONDUCTOR",CALVERT | WEST MCINTOSH,yes | yes,approximate,"Census town centre (Calvert CDP, AL) - only 'CALVERT' located",other,False
+SERTP-266,Southern Company,"CENTRE – HAMMOND 115 KV TRANSMISSION LINE, RECONDUCTOR",CENTRE | HAMMOND,yes | yes,approximate,Straight line between Census town centre / HIFLD line endpoints,other,False
+SERTP-267,Southern Company,"CONYERS – KLONDIKE 230 KV, NEW TRANSMISSION LINE, CONSTRUCT",CONYERS | KLONDIKE,yes | yes,approximate,Straight line between Census town centre / HIFLD line endpoints,GA,True
+SERTP-268,Southern Company,"COUNTY LINE RD TS 230 KV, REACTOR INSTALLATION",COUNTY,NO,unknown,,?,False
+SERTP-269,Southern Company,"DEMOPOLIS – SELMA 115 KV TRANSMISSION LINE, RECONDUCTOR/UPGRADE",DEMOPOLIS | SELMA,yes | yes,approximate,Straight line between Census town centre,other,False
+SERTP-270,Southern Company,"EAST POINT – MORROW 115 KV TRANSMISSION LINE LIMITING ELEMENTS, REPLACEMENT",EAST POINT | MORROW,yes | yes,approximate,Straight line between Census town centre,GA,True
+SERTP-271,PowerSouth,"PS: ELISKA SW – FREEMANVILLE SW. 115 KV, NEW TRANSMISSION LINE, CONSTRUCT",ELISKA SW | FREEMANVILLE SW.,NO | NO,unknown,,?,False
+SERTP-272,Southern Company,"GADSDEN – GULF STATES STEEL 115 KV TRANSMISSION LINE, RECONDUCTOR (PHASE 1)",GADSDEN | GULF STATES STEEL,yes | NO,approximate,"Census town centre (Gadsden city, AL) - only 'GADSDEN' located",other,False
+SERTP-273,Southern Company,"GOAT ROCK 230 KV, REACTORS INSTALLATION",GOAT ROCK,yes,exact,HIFLD line endpoints (GOAT ROCK),GA,True
+SERTP-274,Southern Company,"GRADY – MORROW (WHITE) 115 KV TRANSMISSION LINE, REBUILD",GRADY | MORROW (WHITE),NO | yes,approximate,"Census town centre (Morrow city, GA) - only 'MORROW (WHITE)' located",GA,True
+SERTP-275,Southern Company,"GREENE COUNTY – NORTH SELMA 230 KV TRANSMISSION LINE, UPGRADE",GREENE COUNTY | NORTH SELMA,NO | NO,unknown,,?,False
+SERTP-276,Georgia ITS (joint),"GRID: OFFERMAN – THALMANN (BLACK) 230 KV TRANSMISSION LINE, REBUILD",OFFERMAN | THALMANN (BLACK),yes | yes,exact,HIFLD line route,GA,True
+SERTP-277,Georgia ITS (joint),"GRID: OFFERMAN – THALMANN (WHITE) 230 KV TRANSMISSION LINE, REBUILD",OFFERMAN | THALMANN (WHITE),yes | yes,exact,HIFLD line route,GA,True
+SERTP-278,Georgia Transmission Corp.,"GTC: BARNESVILLE – SOUTH GRIFFIN 230 KV, NEW TRANSMISSION LINE, CONSTRUCT",BARNESVILLE | SOUTH GRIFFIN,yes | NO,approximate,"Census town centre (Barnesville city, GA) - only 'BARNESVILLE' located",GA,True
+SERTP-279,Georgia Transmission Corp.,"GTC: BARNESVILLE PRIMARY – THOMASTON 230 KV TRANSMISSION LINE, REBUILD",BARNESVILLE PRIMARY | THOMASTON,yes | yes,approximate,Straight line between Census town centre,GA,True
+SERTP-280,Georgia Transmission Corp.,"GTC: BAY CREEK, SECOND 230/115 KV AUTOTRANSFORMER, INSTALLATION",BAY CREEK,NO,unknown,,?,True
+SERTP-281,Georgia Transmission Corp.,"GTC: BUZZARD ROOST – THORNTON ROAD 230 KV TRANSMISSION LINE, REBUILD",BUZZARD ROOST | THORNTON ROAD,NO | NO,unknown,,?,True
+SERTP-282,Georgia Transmission Corp.,"GTC: CLARKSBORO – WINDER PRIMARY 230 KV TRANSMISSION LINE, REBUILD",CLARKSBORO | WINDER PRIMARY,NO | yes,approximate,HIFLD line endpoints (WINDER) - only 'WINDER PRIMARY' located,GA,True
+SERTP-283,Georgia Transmission Corp.,"GTC: CLIFTONDALE – LINE CREEK 230 KV, NEW TRANSMISSION LINE, CONSTRUCT",CLIFTONDALE,NO,unknown,,?,True
+SERTP-284,Georgia Transmission Corp.,"GTC: DAWSON CROSSING – NELSON (BLACK) TRANSMISSION LINE, REBUILD",DAWSON CROSSING | NELSON (BLACK),NO | yes,approximate,"Census town centre (Nelson city, GA) - only 'NELSON (BLACK)' located",GA,True
+SERTP-285,Georgia Transmission Corp.,"GTC: DRESDEN – TALBOT 500 KV, NEW TRANSMISSION LINE, CONSTRUCT",DRESDEN | TALBOT,yes | NO,approximate,HIFLD line endpoints (DRESDEN) - only 'DRESDEN' located,GA,True
+SERTP-286,Georgia Transmission Corp.,"GTC: DRESDEN 230 KV, BREAKER REPLACEMENTS",DRESDEN,yes,exact,HIFLD line endpoints (DRESDEN),GA,True
+SERTP-287,Georgia Transmission Corp.,"GTC: HEARD COUNTY 500 KV, BREAKER REPLACEMENTS",HEARD COUNTY,yes,exact,HIFLD line endpoints (HEARD COUNTY),GA,True
+SERTP-288,Georgia Transmission Corp.,"GTC: MCDONOUGH – SOUTH GRIFFIN 115 KV TRANSMISSION LINE, REBUILD",MCDONOUGH | SOUTH GRIFFIN,yes | NO,approximate,"Census town centre (McDonough city, GA) - only 'MCDONOUGH' located",GA,True
+SERTP-289,Georgia Transmission Corp.,"GTC: NEW TENASKA – WANSLEY 500 KV, NEW TRANSMISSION LINE, CONSTRUCT",NEW TENASKA | WANSLEY,NO | yes,approximate,HIFLD line endpoints (WANSLEY) - only 'WANSLEY' located,GA,True
+SERTP-290,Georgia Transmission Corp.,"GTC: OHARA – SOUTH GRIFFIN 230 KV TRANSMISSION LINE, RECONDUCTOR",OHARA | SOUTH GRIFFIN,NO | NO,unknown,,?,True
+SERTP-291,Georgia Transmission Corp.,"GTC: RUM CREEK – TOMOCHICHI (BLACK) 500 KV, NEW TRANSMISSION LINE, CONSTRUCT",RUM CREEK | TOMOCHICHI (BLACK),NO | NO,unknown,,?,True
+SERTP-292,Georgia Transmission Corp.,"GTC: TALBOT CO #1 230 KV, BREAKER REPLACEMENTS",TALBOT CO #1,NO,unknown,,?,True
+SERTP-293,Georgia Transmission Corp.,"GTC: TALBOT CO #2 230 KV, BREAKER REPLACEMENTS",TALBOT CO #2,NO,unknown,,?,True
+SERTP-294,Georgia Transmission Corp.,"GTC: UNION CITY PRIMARY 230 KV, BREAKER REPLACEMENTS",UNION CITY PRIMARY,yes,approximate,"Census town centre (Union City city, GA)",GA,True
+SERTP-295,Southern Company,"HICKORY LEVEL – POST RD 115 KV TRANSMISSION LINE, REBUILD (PHASE 1)",HICKORY LEVEL | POST RD,NO | NO,unknown,,?,False
+SERTP-296,Southern Company,"HOLT STREET – CARTER HILL RD 115 KV TRANSMISSION LINE, RECONDUCTOR",HOLT STREET | CARTER HILL RD,NO | NO,unknown,,?,False
+SERTP-297,Southern Company,"JACKSON SHOALS – LOGAN MARTIN DAM 115 KV TRANSMISSION LINE, UPGRADE",JACKSON SHOALS | LOGAN MARTIN DAM,NO | NO,unknown,,?,False
+SERTP-298,Southern Company,"KETTLE CREEK PRIMARY – PINE GROVE PRIMARY 115 KV TRANSMISSION LINE, REBUILD",KETTLE CREEK PRIMARY | PINE GROVE PRIMARY,yes | yes,approximate,Straight line between HIFLD line endpoints / OpenStreetMap,GA,True
+SERTP-299,Southern Company,"MARTIN DAM – PEAR TREE 115 KV TRANSMISSION LINE, RECONDUCTOR",MARTIN DAM | PEAR TREE,yes | NO,approximate,HIFLD line endpoints (MARTIN DAM) - only 'MARTIN DAM' located,other,False
+SERTP-300,Southern Company,"MCEVER ROAD – SHOAL CREEK 115 KV TRANSMISSION LINE, REBUILD",MCEVER ROAD | SHOAL CREEK,NO | yes,approximate,"Census town centre (Shoal Creek CDP, AL) - only 'SHOAL CREEK' located",other,False
+SERTP-301,MEAG Power,"MEAG: AULTMAN ROAD – FORT VALLEY #1 115 KV TRANSMISSION LINE, REBUILD",AULTMAN ROAD | FORT VALLEY #1,NO | yes,approximate,"Census town centre (Fort Valley city, GA) - only 'FORT VALLEY #1' located",GA,True
+SERTP-302,MEAG Power,"MEAG: SLAPPEY DRIVE – WESTOVER 115 KV TRANSMISSION LINE, REBUILD",SLAPPEY DRIVE | WESTOVER,NO | yes,approximate,"Census town centre (Westover town, AL) - only 'WESTOVER' located",other,False
+SERTP-303,Southern Company,"MERIDIAN NORTHEAST – LAUDERDALE WEST 230 KV TRANSMISSION LINE, REBUILD",MERIDIAN NORTHEAST | LAUDERDALE WEST,NO | NO,unknown,,?,False
+SERTP-304,Southern Company,"MORROW 115 KV, BREAKER REPLACEMENTS",MORROW,yes,approximate,"Census town centre (Morrow city, GA)",GA,True
+SERTP-305,Southern Company,"MOSS POINT EAST – PASCAGOULA BAYOU CASOTTE 115 KV, NEW TRANSMISSION LINE",MOSS POINT EAST | PASCAGOULA BAYOU CASOTTE,NO | NO,unknown,,?,False
+SERTP-306,Southern Company,"NORCROSS – NORTH DRUID HILLS 115 KV TRANSMISSION LINE, REBUILD",NORCROSS | NORTH DRUID HILLS,yes | yes,approximate,Straight line between Census town centre / HIFLD line endpoints,GA,True
+SERTP-307,Southern Company,"OPP – SOUTH ENTERPRISE 230 KV TRANSMISSION LINE, RECONDUCTOR",OPP | SOUTH ENTERPRISE,yes | NO,approximate,HIFLD line end (OPP) - only 'OPP' located,other,False
+SERTP-308,Southern Company,"HURRICANE CREEK 230/115 KV AUTOBANK, REPLACEMENT",HURRICANE CREEK,NO,unknown,,?,False
+SERTP-309,Georgia Power,"SAV: BOULEVARD – MAGNOLIA – TRUMAN PARKWAY 115 KV TRANSMISSION LINES, REBUILD",BOULEVARD | MAGNOLIA | TRUMAN PARKWAY,yes | yes | NO,approximate,OpenStreetMap (Boulevard Substation) - only 'BOULEVARD' located,GA,True
+SERTP-310,Georgia Power,"SAV: COLEMAN – MELDRIM 115 KV TRANSMISSION LINE, REBUILD",COLEMAN | MELDRIM,yes | yes,approximate,Straight line between OpenStreetMap,GA,True
+SERTP-311,Georgia Power,"SAV: DEAN FOREST – LITTLE OGEECHEE 230 KV TRANSMISSION LINE, REBUILD",DEAN FOREST | LITTLE OGEECHEE,yes | yes,exact,HIFLD line route,GA,True
+SERTP-312,Georgia Power,"SAV: LITTLE OGEECHEE 230/115 KV, BANK REPLACEMENT",LITTLE OGEECHEE,yes,exact,OpenStreetMap (Little Ogeechee Substation),GA,True
+SERTP-313,Southern Company,"SOUTH TUSCALOOSA – 31ST AVENUE 115 KV TRANSMISSION LINE, RECONDUCTOR",SOUTH TUSCALOOSA | 31ST AVENUE,NO | NO,unknown,,?,False
+SERTP-314,Southern Company,"TENASKA 500 KV, BREAKER REPLACEMENTS",TENASKA,NO,unknown,,?,False
+SERTP-315,Southern Company,"THOMASTON 230 KV, NETWORK AREA IMPROVEMENT",THOMASTON,yes,approximate,"Census town centre (Thomaston town, AL)",other,False
+SERTP-316,Southern Company,"VIRGINIA AVENUE – WABASH AVENUE 230 KV TRANSMISSION LINE, REBUILD",VIRGINIA AVENUE | WABASH AVENUE,NO | NO,unknown,,?,False
+SERTP-317,Southern Company,"WANSLEY 500 KV, OVERSTRESSED BREAKER REPLACEMENTS",WANSLEY,yes,exact,HIFLD line endpoints (WANSLEY),GA,True
+SERTP-318,Southern Company,"WANSLEY 500 KV, OVERSTRESSED BREAKER REPLACEMENTS",WANSLEY,yes,exact,HIFLD line endpoints (WANSLEY),GA,True
+SERTP-319,Southern Company,"WIGGINS SWITCHING STATION – HURRICANE CREEK 115 KV TRANSMISSION LINE, REBUILD",WIGGINS SWITCHING STATION | HURRICANE CREEK,yes | NO,approximate,"Census town centre (Wiggins city, MS) - only 'WIGGINS SWITCHING STATION' located",other,False
+SERTP-320,Southern Company,"ATTALLA – GULF STATES STEEL 115 KV TRANSMISSION LINE, UPGRADE",ATTALLA | GULF STATES STEEL,yes | NO,approximate,"Census town centre (Attalla city, AL) - only 'ATTALLA' located",other,False
+SERTP-321,Southern Company,"BAINBRIDGE TRANSMISSION: EAST RIVER ROAD, EAST BAINBRIDGE, NEW SUBSTATION, CONSTRUCT",BAINBRIDGE TRANSMISSION,yes,approximate,"Census town centre (Bainbridge city, GA)",GA,True
+SERTP-322,Southern Company,"BASSETT CREEK – SUNNY SOUTH 115 KV TRANSMISSION LINE, REBUILD",BASSETT CREEK | SUNNY SOUTH,NO | NO,unknown,,?,False
+SERTP-323,Southern Company,"BASSETT CREEK – THOMASVILLE 115 KV TRANSMISSION LINE, REBUILD",BASSETT CREEK | THOMASVILLE,NO | yes,approximate,"Census town centre (Thomasville city, AL) - only 'THOMASVILLE' located",other,False
+SERTP-324,Southern Company,"BESSEMER – SOUTH BESSEMER 115 KV TRANSMISSION LINE, RECONDUCTOR (PHASE 2)",BESSEMER | SOUTH BESSEMER,yes | NO,approximate,"Census town centre (Bessemer city, AL) - only 'BESSEMER' located",other,False
+SERTP-325,Southern Company,"BESSEMER – SOUTH BESSEMER 230 KV TRANSMISSION LINE, REBUILD",BESSEMER | SOUTH BESSEMER,yes | NO,approximate,"Census town centre (Bessemer city, AL) - only 'BESSEMER' located",other,False
+SERTP-326,Southern Company,"BIG TAZEWELL – FARLEY 500 SS 500 KV, NEW TRANSMISSION LINE, CONSTRUCT",BIG TAZEWELL | FARLEY 500 SS,NO | NO,unknown,,?,False
+SERTP-327,Southern Company,"BOWEN – JUDY MOUNTAIN 230 KV TRANSMISSION LINE, REBUILD",BOWEN | JUDY MOUNTAIN,yes | NO,approximate,HIFLD line endpoints (BOWEN) - only 'BOWEN' located,GA,True
+SERTP-328,Southern Company,"BOWEN-BRANDON FARM RD 230 KV TRANSMISSION LINE, REBUILD",BOWEN | BRANDON FARM RD,yes | NO,approximate,HIFLD line endpoints (BOWEN) - only 'BOWEN' located,GA,True
+SERTP-329,Southern Company,"BROADWAY – ECHECONNEE 115 KV TRANSMISSION LINE, REBUILD",BROADWAY | ECHECONNEE,yes | NO,approximate,"Census town centre (Broadway town, NC) - only 'BROADWAY' located",other,False
+SERTP-330,Southern Company,"BROADWAY – SOUTH MACON 115 KV TRANSMISSION LINE, REBUILD",BROADWAY | SOUTH MACON,yes | NO,approximate,"Census town centre (Broadway town, NC) - only 'BROADWAY' located",other,False
+SERTP-331,Southern Company,"BUZZARD ROOST – TRIBUTARY 230 KV TRANSMISSION LINE, REBUILD",BUZZARD ROOST | TRIBUTARY,NO | NO,unknown,,?,False
+SERTP-332,Southern Company,"CAVENDER DRIVE – WANSLEY 500 KV, NEW TRANSMISSION LINE, CONSTRUCT",CAVENDER DRIVE | WANSLEY,NO | yes,approximate,HIFLD line endpoints (WANSLEY) - only 'WANSLEY' located,GA,True
+SERTP-333,Southern Company,"CORNELIA – TALLULAH LODGE 115 KV TRANSMISSION LINE, REBUILD",CORNELIA | TALLULAH LODGE,yes | NO,approximate,"Census town centre (Cornelia city, GA) - only 'CORNELIA' located",GA,True
+SERTP-334,Dalton Utilities,"DU: DAWSON CROSSING – NELSON (WHITE) 115 KV TRANSMISSION LINE, REBUILD",DAWSON CROSSING | NELSON (WHITE),NO | yes,approximate,"Census town centre (Nelson city, GA) - only 'NELSON (WHITE)' located",GA,True
+SERTP-335,Southern Company,"EAST POINT – TRIBUTARY 230 KV TRANSMISSION LINE, REBUILD",EAST POINT | TRIBUTARY,yes | NO,approximate,"Census town centre (East Point CDP, AL) - only 'EAST POINT' located",other,False
+SERTP-336,Southern Company,EAST POINT 230 KV BREAKER REPLACEMENTS,EAST POINT,yes,approximate,"Census town centre (East Point CDP, AL)",other,False
+SERTP-337,Southern Company,"EAST POINT 230 KV, SWITCH REPLACEMENT",EAST POINT,yes,approximate,"Census town centre (East Point CDP, AL)",other,False
+SERTP-338,Southern Company,"ECHECONNEE – WELLSTON 115 KV TRANSMISSION LINE, REBUILD",ECHECONNEE | WELLSTON,NO | NO,unknown,,?,False
+SERTP-339,Southern Company,"GAINESVILLE #2 – MCEVER ROAD 115 KV TRANSMISSION LINE, REBUILD",GAINESVILLE #2 | MCEVER ROAD,yes | NO,approximate,"Census town centre (Gainesville town, AL) - only 'GAINESVILLE #2' located",other,False
+SERTP-340,Southern Company,"GLENWOOD SPRINGS – LAKE OCONEE 115 KV TRANSMISSION LINE, REBUILD",GLENWOOD SPRINGS | LAKE OCONEE,NO | yes,approximate,OpenStreetMap (Lake Oconee Substation) - only 'LAKE OCONEE' located,GA,True
+SERTP-341,Southern Company,"GLENWOOD SPRINGS 115 KV, CAPACITOR BANK INSTALLATION",GLENWOOD SPRINGS,NO,unknown,,?,False
+SERTP-342,Southern Company,"GOLDENS CREEK – WARRENTON PRIMARY 230 KV TRANSMISSION LINE, REBUILD",GOLDENS CREEK | WARRENTON PRIMARY,NO | yes,approximate,HIFLD line endpoints (WARRENTON PRIMARY) - only 'WARRENTON PRIMARY' located,GA,True
+SERTP-343,Southern Company,"GORDON – SANDERSVILLE #1 115 KV TRANSMISSION LINE (DEEPSTEP-SAND #6), REBUILD",GORDON | SANDERSVILLE #1,yes | yes,approximate,Straight line between OpenStreetMap,GA,True
+SERTP-344,Southern Company,"GREENE COUNTY – S. BESSEMER 500 KV, NEW TRANSMISSION LINE, CONSTRUCT",GREENE COUNTY | S. BESSEMER,NO | NO,unknown,,?,False
+SERTP-345,Georgia Transmission Corp.,"GTC: BONAIRE PRIMARY – EASTMAN PRIMARY 115 KV TRANSMISSION LINE, REBUILD",BONAIRE PRIMARY | EASTMAN PRIMARY,yes | yes,approximate,Straight line between HIFLD line endpoints / OpenStreetMap,GA,True
+SERTP-346,Georgia Transmission Corp.,"GTC: BUZZARD ROOST – ROCKHOUSE RD 230 KV TRANSMISSION LINE, REBUILD",BUZZARD ROOST | ROCKHOUSE RD,NO | NO,unknown,,?,True
+SERTP-347,Georgia Transmission Corp.,"GTC: CAVENDER DRIVE, NEW 500/230 KV AUTOTRANSFORMER, INSTALLATION",CAVENDER DRIVE,NO,unknown,,?,True
+SERTP-348,Georgia Transmission Corp.,"GTC: DOUGLASVILLE – EAST VILLA RICA SS 230 KV TRANSMISSION LINE, REBUILD",DOUGLASVILLE | EAST VILLA RICA SS,yes | NO,approximate,"Census town centre (Douglasville city, GA) - only 'DOUGLASVILLE' located",GA,True
+SERTP-349,Georgia Transmission Corp.,"GTC: EAST WATKINSVILLE 230 KV, REACTOR INSTALLATION",EAST WATKINSVILLE,yes,exact,OpenStreetMap (East Watkinsville Substation),GA,True
+SERTP-350,Georgia Transmission Corp.,"GTC: HARTWELL DAM – HARTWELL ENERGY 230 KV, SERIES REACTORS REPLACEMENT",HARTWELL DAM | HARTWELL ENERGY,NO | NO,unknown,,?,True
+SERTP-351,Georgia Transmission Corp.,"GTC: HARTWELL ENERGY – MIDDLE FORK 230 KV, NEW TRANSMISSION LINE, CONSTRUCT",HARTWELL ENERGY | MIDDLE FORK,NO | NO,unknown,,?,True
+SERTP-352,Georgia Transmission Corp.,"GTC: POND FORK – MIDWAY 115 KV, NEW TRANSMISSION LINE, CONSTRUCT",POND FORK | MIDWAY,NO | yes,approximate,"Census town centre (Midway town, AL) - only 'MIDWAY' located",other,False
+SERTP-353,Georgia Transmission Corp.,"GTC: ROCKVILLE – TIGER CREEK -WARTHEN 500 KV, NEW TRANSMISSION LINES, CONSTRUCT",ROCKVILLE | TIGER CREEK | WARTHEN,yes | yes | yes,approximate,"Census town centre (Rockville CDP, AL) - only 'ROCKVILLE' located",other,False
+SERTP-354,Georgia Transmission Corp.,"GTC: TALBOT #2 – BIG TAZEWELL 500 KV, NEW TRANSMISSION LINE, CONSTRUCT",TALBOT #2 | BIG TAZEWELL,NO | NO,unknown,,?,True
+SERTP-355,Georgia Transmission Corp.,"GTC: THORNTON RD- CAVENDER DRIVE 230 KV, NEW TRANSMISSION LINE, CONSTRUCT",THORNTON RD | CAVENDER DRIVE,NO | NO,unknown,,?,True
+SERTP-356,Georgia Transmission Corp.,"GTC: UNION CITY, LINE TRAP REPLACEMENT",UNION CITY,yes,approximate,"Census town centre (Union City city, GA)",GA,True
+SERTP-357,Georgia Transmission Corp.,"GTC: YATES – LINE CREEK (GREEN) 230 KV TRANSMISSION LINE, REBUILD",YATES,yes,exact,HIFLD line endpoints (YATES),GA,True
+SERTP-358,Georgia Transmission Corp.,"GTC: YATES – LINE CREEK (RED) 230 KV TRANSMISSION LINE, REBUILD",YATES,yes,exact,HIFLD line endpoints (YATES),GA,True
+SERTP-359,Southern Company,"LINE CREEK 230 KV, IPO BREAKER UPGRADES",,,unknown,,?,False
+SERTP-360,Southern Company,"JEFFERSON ROAD – WINDER PRIMARY 115 KV TRANSMISSION LINE, REBUILD",JEFFERSON ROAD | WINDER PRIMARY,yes | yes,approximate,Straight line between HIFLD line endpoints,GA,True
+SERTP-361,Southern Company,"KIA MOTORS – PITTMAN RD 115 KV TRANSMISSION LINE, REBUILD",KIA MOTORS | PITTMAN RD,NO | NO,unknown,,?,False
+SERTP-362,Southern Company,"LAWRENCEVILLE – WINDER PRIMARY 115 KV TRANSMISSION LINE, REBUILD",LAWRENCEVILLE | WINDER PRIMARY,yes | yes,approximate,Straight line between Census town centre / HIFLD line endpoints,GA,True
+SERTP-363,Southern Company,"LEEDS TS – MOODY SS 115 KV TRANSMISSION LINE, RECONDUCTOR",LEEDS TS | MOODY SS,yes | yes,approximate,Straight line between Census town centre,other,False
+SERTP-364,Southern Company,"MARTIN DAM – NORTH AUBURN 115 KV TRANSMISSION LINE, RECONDUCTOR",MARTIN DAM | NORTH AUBURN,yes | NO,approximate,HIFLD line endpoints (MARTIN DAM) - only 'MARTIN DAM' located,other,False
+SERTP-365,MEAG Power,"MEAG: ATHENA – WARRENTON 230 KV TRANSMISSION LINE, CONVERSION",ATHENA | WARRENTON,yes | yes,approximate,Straight line between OpenStreetMap,GA,True
+SERTP-366,MEAG Power,"MEAG: BARNESVILLE PRIMARY 230/115 KV BANK B, REPLACEMENT",BARNESVILLE PRIMARY,yes,approximate,"Census town centre (Barnesville city, GA)",GA,True
+SERTP-367,MEAG Power,"MEAG: FORTSON – TALBOT CO #2 230 KV TRANSMISSION LINE, REBUILD",FORTSON | TALBOT CO #2,yes | NO,approximate,HIFLD line endpoints (FORTSON) - only 'FORTSON' located,GA,True
+SERTP-368,MEAG Power,MEAG: GOSHEN AREA STRATEGIC SOLUTION,GOSHEN,yes,approximate,OpenStreetMap (Goshen Substation),GA,True
+SERTP-369,Southern Company,"NORTH GEORGIA, NEW 115 KV TRANSMISSION LINE, CONSTRUCT",NORTH GEORGIA,NO,unknown,,?,False
+SERTP-370,Southern Company,"SWITCH WAY 230 KV, BREAKER REPLACEMENTS",SWITCH WAY,NO,unknown,,?,False
+SERTP-371,Southern Company,"TALLULAH LODGE – TOCCOA 115 KV TRANSMISSION LINE, REBUILD",TALLULAH LODGE | TOCCOA,NO | yes,approximate,"Census town centre (Toccoa city, GA) - only 'TOCCOA' located",GA,True
+SERTP-372,Southern Company,"WARTHEN 500 KV SUBSTATION, RECONFIGURATION",WARTHEN,yes,exact,OpenStreetMap (Warthen Substation),GA,True
+SERTP-373,Southern Company,"ANNISTON – CROOKED CREEK 115 KV TRANSMISSION LINE, RECONDUCTOR",ANNISTON | CROOKED CREEK,yes | yes,approximate,"Census town centre (Anniston city, AL) - only 'ANNISTON' located",other,False
+SERTP-374,Southern Company,"BARNESVILLE AREA 115 KV, NETWORK SOLUTION",BARNESVILLE,yes,approximate,"Census town centre (Barnesville city, GA)",GA,True
+SERTP-375,Southern Company,"BAY CREEK – CONYERS 230 KV TRANSMISSION LINE, REBUILD",BAY CREEK | CONYERS,NO | yes,approximate,"Census town centre (Conyers city, GA) - only 'CONYERS' located",GA,True
+SERTP-376,Southern Company,"BOWEN #10 500/230 KV, AUTOBANK REPLACEMENT",BOWEN #10,yes,exact,HIFLD line endpoints (BOWEN),GA,True
+SERTP-377,Southern Company,"ELLICOTT SUBSTATION, EXPANSION PROJECT",ELLICOTT,NO,unknown,,?,False
+SERTP-378,Georgia Transmission Corp.,"GTC: ACHORD ROAD – NORTH DUBLIN 115 KV TRANSMISSION LINE, REBUILD",ACHORD ROAD | NORTH DUBLIN,yes | NO,approximate,OpenStreetMap (Achord Road Substation) - only 'ACHORD ROAD' located,GA,True
+SERTP-379,Georgia Transmission Corp.,"GTC: AVERY – HOPEWELL 115 KV TRANSMISSION LINE, RECONDUCTOR",AVERY | HOPEWELL,NO | yes,approximate,HIFLD line endpoints (HOPEWELL) - only 'HOPEWELL' located,other,False
+SERTP-380,Georgia Transmission Corp.,"GTC: BONAIRE PRIMARY – ECHECONNEE 115 KV TRANSMISSION LINE, REBUILD",BONAIRE PRIMARY | ECHECONNEE,yes | NO,approximate,HIFLD line endpoints (BONAIRE) - only 'BONAIRE PRIMARY' located,GA,True
+SERTP-381,Georgia Transmission Corp.,"GTC: DRESDEN 230 KV, JUMPER REPLACEMENT",DRESDEN,yes,exact,HIFLD line endpoints (DRESDEN),GA,True
+SERTP-382,Georgia Transmission Corp.,"GTC: MCDONOUGH – OLA 115 KV TRANSMISSION LINE, REBUILD",MCDONOUGH | OLA,yes | NO,approximate,"Census town centre (McDonough city, GA) - only 'MCDONOUGH' located",GA,True
+SERTP-383,Georgia Transmission Corp.,"GTC: OLA – PORTERDALE 115 KV TRANSMISSION LINE, REBUILD",OLA | PORTERDALE,NO | yes,approximate,"Census town centre (Porterdale city, GA) - only 'PORTERDALE' located",GA,True
+SERTP-384,Southern Company,"HATCH – WADLEY 500 KV, NEW TRANSMISSION LINE, CONSTRUCT",HATCH | WADLEY,NO | yes,approximate,OpenStreetMap (Wadley #4 Substation) - only 'WADLEY' located,GA,True
+SERTP-385,Southern Company,"HICKORY LEVEL – POST RD 115 KV TRANSMISSION LINE, REBUILD (PHASE 2)",HICKORY LEVEL | POST RD,NO | NO,unknown,,?,False
+SERTP-386,Southern Company,HOPE HULL AREA SOLUTION,HOPE HULL,NO,unknown,,?,False
+SERTP-387,MEAG Power,MEAG: PIO NONO 230/115 KV AREA SOLUTION,PIO NONO,NO,unknown,,?,True
+SERTP-388,Southern Company,PELL CITY AREA SOLUTION,PELL CITY,yes,approximate,"Census town centre (Pell City city, AL)",other,False
+SERTP-389,Southern Company,"PITTMAN RD – WEST POINT (APC) 115 KV TRANSMISSION LINE, REBUILD",PITTMAN RD | WEST POINT (APC),NO | yes,approximate,HIFLD line endpoints (WEST POINT) - only 'WEST POINT (APC)' located,GA,True
+SERTP-390,Georgia Power,"SAV: GOSHEN (SAV) – KRAFT 115 KV TRANSMISSION LINE TRANSMISSION LINE, REBUILD",GOSHEN (SAV) | KRAFT,yes | yes,approximate,Straight line between OpenStreetMap,GA,True
+SERTP-391,Southern Company,"ADAMSVILLE – EAST POINT 230 KV TRANSMISSION LINE, RESAG AND LIMITING ELEMENTS REPLACEMENT",ADAMSVILLE | EAST POINT,yes | yes,approximate,Straight line between Census town centre,other,False
+SERTP-392,Southern Company,"ALBERTA CITY – HOLT 115 KV TRANSMISSION LINE, RECONDUCTOR",ALBERTA CITY | HOLT,NO | yes,approximate,"Census town centre (Holt CDP, AL) - only 'HOLT' located",other,False
+SERTP-393,Southern Company,"ATKINSON – NORTHSIDE DRIVE 115 KV TRANSMISSION LINE, REBUILD",ATKINSON | NORTHSIDE DRIVE,yes | NO,approximate,"Census town centre (Atkinson town, NC) - only 'ATKINSON' located",other,False
+SERTP-394,Southern Company,"FLOMATON, NEW 230/115 KV AUTOTRANSFORMER INSTALLATION",FLOMATON,yes,approximate,"Census town centre (Flomaton town, AL)",other,False
+SERTP-395,Georgia Transmission Corp.,"GTC: DYER ROAD – SOUTH COWETA 115 KV TRANSMISSION LINE, REBUILD (PHASE 2)",DYER ROAD | SOUTH COWETA,NO | NO,unknown,,?,True
+SERTP-396,Southern Company,"JUDY MOUNTAIN – ROME 115 KV TRANSMISSION LINE, REBUILD",JUDY MOUNTAIN | ROME,NO | yes,approximate,"Census town centre (Rome city, GA) - only 'ROME' located",GA,True
+SERTP-397,Southern Company,"BAY CREEK – CONYERS 230 KV, LIMITING ELEMENT REPLACEMENT",BAY CREEK | CONYERS,NO | yes,approximate,"Census town centre (Conyers city, GA) - only 'CONYERS' located",GA,True
+SERTP-398,Southern Company,"EAST POINT – MOUNTAIN VIEW 115 KV TRANSMISSION LINE, REBUILD",EAST POINT | MOUNTAIN VIEW,yes | yes,approximate,"Census town centre (East Point CDP, AL) - only 'EAST POINT' located",other,False
+SERTP-399,Georgia Transmission Corp.,"GTC: CENTER PRIMARY – CLARKSBORO 230 KV TRANSMISSION LINE, REBUILD",CENTER PRIMARY | CLARKSBORO,yes | NO,approximate,OpenStreetMap (Center Primary Substation) - only 'CENTER PRIMARY' located,GA,True
+SERTP-400,Georgia Transmission Corp.,"GTC: EAST SOCIAL CIRCLE – SNELLVILLE 230 KV, LIMINTING ELEMENT REPLACEMENT",EAST SOCIAL CIRCLE | SNELLVILLE,yes | yes,approximate,Straight line between Census town centre / HIFLD line endpoints,GA,True
+SERTP-401,Georgia Transmission Corp.,"GTC: EAST WALTON – MIDDLE FORK 500 KV, NEW TRANSMISSION LINE, CONSTRUCT",EAST WALTON | MIDDLE FORK,NO | NO,unknown,,?,True
+SERTP-402,Georgia Transmission Corp.,"GTC: SHOAL CREEK – SOUTH HALL 230 KV TRANSMISSION LINE, REBUILD",SHOAL CREEK | SOUTH HALL,yes | yes,approximate,"Census town centre (Shoal Creek CDP, AL) - only 'SHOAL CREEK' located",other,False
+SERTP-403,Southern Company,"MCEVER ROAD – SHOAL CREEK 115 KV TRANSMISSION LINE, REBUILD",MCEVER ROAD | SHOAL CREEK,NO | yes,approximate,"Census town centre (Shoal Creek CDP, AL) - only 'SHOAL CREEK' located",other,False
+SERTP-404,Southern Company,"MCGRAU FORD – MIDDLE FORK 500 KV, NEW TRANSMISSION LINE, CONSTRUCT",MCGRAU FORD | MIDDLE FORK,NO | NO,unknown,,?,False
+SERTP-405,Southern Company,"PINE GROVE PRIMARY – WEST VALDOSTA 115 KV TRANSMISSION LINE, REBUILD",PINE GROVE PRIMARY | WEST VALDOSTA,yes | NO,approximate,OpenStreetMap (Pine Grove Substation) - only 'PINE GROVE PRIMARY' located,GA,True
+SERTP-406,Georgia Power,"SAV: MELDRIM 230/115 KV, BANK D REPLACEMENT",MELDRIM,yes,exact,OpenStreetMap (Meldrim Substation),GA,True
+SERTP-407,Southern Company,"WINDER PRIMARY 230 KV, BREAKER INSTALLATION",WINDER PRIMARY,yes,exact,HIFLD line endpoints (WINDER),GA,True
+SERTP-408,Southern Company,ALEX CITY AREA SOLUTION,ALEX CITY,NO,unknown,,?,False
+SERTP-409,Southern Company,"ALICEVILLE – STANSEL 115 KV, NEW TRANSMISSION LINE, CONSTRUCT",ALICEVILLE | STANSEL,yes | NO,approximate,"Census town centre (Aliceville city, AL) - only 'ALICEVILLE' located",other,False
+SERTP-410,Southern Company,"BELLAMY – EPES 115 KV TRANSMISSION LINE, REBUILD",BELLAMY | EPES,yes | yes,approximate,Straight line between Census town centre,other,False
+SERTP-411,Southern Company,"BESSEMER – EAST PELHAM 230 KV TRANSMISSION LINE, UPGRADE",BESSEMER | EAST PELHAM,yes | NO,approximate,"Census town centre (Bessemer city, AL) - only 'BESSEMER' located",other,False
+SERTP-412,Southern Company,"BULL SLUICE – POWERS FERRY 230 KV TRANSMISSION LINE, REBUILD",BULL SLUICE | POWERS FERRY,yes | NO,approximate,HIFLD line endpoints (BULL SLUICE) - only 'BULL SLUICE' located,GA,True
+SERTP-413,Southern Company,"DEMOPOLIS TS – CEMEX 115 KV, NEW TRANSMISSION LINE, CONSTRUCT",DEMOPOLIS TS | CEMEX,yes | NO,approximate,"Census town centre (Demopolis city, AL) - only 'DEMOPOLIS TS' located",other,False
+SERTP-414,Southern Company,"GORGAS – MILLER 230 KV TRANSMISSION LINE, UPGRADE",GORGAS | MILLER,NO | NO,unknown,,?,False
+SERTP-415,Georgia Transmission Corp.,"GTC: CUMMING – DAWSON CROSSING 115 KV TRANSMISSION LINE, REBUILD",CUMMING | DAWSON CROSSING,yes | NO,approximate,"Census town centre (Cumming city, GA) - only 'CUMMING' located",GA,True
+SERTP-416,Southern Company,"HOLLY SPRINGS PRIMARY – NELSON 115 KV TRANSMISSION LINE, REBUILD",HOLLY SPRINGS PRIMARY | NELSON,yes | yes,approximate,Straight line between Census town centre,GA,True
+SERTP-417,Southern Company,"MOBILE AREA NETWORKING – 3RD PATH, CONSTRUCT",MOBILE,yes,approximate,"Census town centre (Mobile city, AL)",other,False
+SERTP-418,Southern Company,"MOUNDVILLE, NEW TRANSMISSION LINE, CONSTRUCT",MOUNDVILLE,yes,approximate,"Census town centre (Moundville town, AL)",other,False
+SERTP-419,Southern Company,NORTH THEODORE AREA SOLUTION,NORTH THEODORE,NO,unknown,,?,False
+SERTP-420,Southern Company,"DECATUR – SCOTTDALE 115 KV TRANSMISSION LINE, JUMPER REPLACEMENT",DECATUR | SCOTTDALE,yes | yes,approximate,Straight line between Census town centre,GA,True
+SERTP-421,Southern Company,"EAST POINT – MORROW 115 KV TRANSMISSION LINE, REBUILD",EAST POINT | MORROW,yes | yes,approximate,Straight line between Census town centre,GA,True
+SERTP-422,Southern Company,"EAST POINT – UNION CITY (WHITE) 230 KV TRANSMISSION LINE, REBUILD",EAST POINT | UNION CITY (WHITE),yes | yes,approximate,Straight line between Census town centre,GA,True
+SERTP-423,Southern Company,"GADSDEN – GULF STATES STEEL 115 KV TRANSMISSION LINE, RECONDUCTOR (PHASE 2)",GADSDEN | GULF STATES STEEL,yes | NO,approximate,"Census town centre (Gadsden city, AL) - only 'GADSDEN' located",other,False
+SERTP-424,Georgia Transmission Corp.,"GTC: AVERY – HOLLY SPRINGS 115 KV TRANSMISSION LINE, REBUILD",AVERY | HOLLY SPRINGS,NO | yes,approximate,"Census town centre (Holly Springs city, GA) - only 'HOLLY SPRINGS' located",GA,True
+SERTP-425,Southern Company,"MADISON PARK – MOUNT MEIGS DS 115 KV TRANSMISSION LINE, RECONDUCTOR",MADISON PARK | MOUNT MEIGS DS,NO | NO,unknown,,?,False
+SERTP-426,Georgia Power,"SAV: MELDRIM, NEW 230/115 KV, AUTOTRANSFORMER INSTALLATION",MELDRIM,yes,exact,OpenStreetMap (Meldrim Substation),GA,True
+SERTP-427,Southern Company,"UNION SPRINGS – PINCKARD 115 KV TRANSMISSION LINE, RECONDUCTOR",UNION SPRINGS | PINCKARD,yes | yes,approximate,Straight line between Census town centre / HIFLD line endpoints,other,False
