@@ -114,6 +114,9 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [x] **T2.7 Timeline slider** (WEB) — `87aea06` integrated as `c3e32bb`; lead reran the 2028 source-backed case, synced lane gate 267/18/18 and integrated main quick gate 267/18/18 passed
   - Acceptance: native range over the data's in-service years (Q4) + "All years" + play/pause; year Y emphasises projects **entering service in Y** and lights up overlaps whose two projects both enter service within Y ± 1; `<output>` + `aria-valuetext`; no animation on input; reduced motion honoured.
   - Verify: `tests/e2e/test_timeline.py` — 2028 lights the McIntosh pairs; arrows step; play stops at the end; All years restores.
+- [ ] **T1.6 Modern base map, zoom and restyle** (WEB + API + LEAD; founder amendment 2, direction v2)
+  - Acceptance: offline Protomaps PMTiles for Georgia and South Carolina through a validated HTTP Range route, visible outline fallback when the external file is absent, optional Google roadmap/satellite switch only with a configured key and online state, default Google-off tests, GA + SC first view, wheel/double-click/pinch/keyboard zoom 6–17, panel scroll isolation, modern floating cards and readable line contrast in light/dark. No real key read in tests or committed map archive.
+  - Verify: API Range/config and fallback tests; browser checks for both-state fit, zoom and panel scroll, offline/no-key/no-Google-request, missing-file fallback, line contrast, keyboard and 390 px layout; full quick gate and scoped security review of file path/config/CSP changes.
 - [x] **T2.8a Search API** (API) — `6e1f176`, merged `44aefc2`; 12 focused lead rerun, integrated main quick gate 168 suite + 17 shell + 18 audits passed
   - Acceptance: `GET /api/search?q=` over `places.json` + project and substation names; prefix + word match; ≤ 10 typed results; q < 2 chars → 422.
   - Verify: `tests/api/test_search.py` ("sav" → Savannah first; "okat" → Okatie projects).
@@ -132,6 +135,13 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 ---
 
 ## Phase 3 — Brief, area explorer, resilience → G3
+
+- [ ] **T1.7 Readable detail text** (WEB; DATA/API for source-built structured text; founder amendment 3)
+  - Acceptance: each project, pair, savings, location, accuracy and brief block shows the answer first, at most three short bullets, and raw evidence behind a disclosure. No internal IDs, raw enum values, file paths or code-like strings appear on screen. Keep estimate, assumption, source/page and not-verified honesty labels. Any new structured field uses a recorded contract review; never parse prose in the browser.
+  - Verify: e2e scan of every rendered detail view for `desc-p`, `sertp-p`, underscore-joined enum and `data/` path patterns; copy lint and change-reviewer read of every user-facing string.
+- [ ] **T1.8 Guided walkthrough** (WEB-2; founder amendment 3; after T2.9, parallel with WEB T1.7)
+  - Acceptance: Take the tour and first-visit prompt; 8–12 short, skippable steps on the real demo path; one reviewable content file; missing targets skip safely; keyboard Back/Next/Esc, focus return and visible target ring; reduced motion and 1440/390 px support; no external library.
+  - Verify: e2e keyboard walk of every step at 1440 and 390 px, focus return/Esc, missing-target skip and no-error case.
 
 - [ ] **T3.1 Eval set, grader, template** (API) — before any model code
   - Acceptance: 30 real overlaps (20 dev / 10 held-out; hard classes per `references/ai-brief.md` incl. an injection fixture); deterministic grader with number normalisation and allowed constants; `data/manual/contacts.json`; template brief 30/30.
