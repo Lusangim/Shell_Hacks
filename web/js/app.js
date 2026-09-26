@@ -1,9 +1,10 @@
-import { loadShellData } from "./api.js";
+import { loadFilteredData, loadShellData } from "./api.js";
 import { initializeMap, refreshMapTheme, renderMap } from "./map.js";
-import { renderList, renderUnknownLocations, selectFirstOverlapForProject } from "./list.js";
+import { renderList, renderUnknownLocations, restorePairSelection, selectFirstOverlapForProject } from "./list.js";
 import { setupProjectDetail } from "./project-detail.js";
 import { setupOverlapDetail } from "./overlap-detail.js";
 import { setupSearch } from "./search.js";
+import { setupFilters } from "./filters.js";
 import { state } from "./state.js";
 
 const status = document.getElementById("status");
@@ -11,8 +12,9 @@ const listState = document.getElementById("list-state");
 const projectView = setupProjectDetail();
 const overlapView = setupOverlapDetail(projectView);
 const mapPairOpen = document.getElementById("map-pair-open");
+const filterControl = setupFilters(() => { void applyFilters(); });
 
-function showState(message, kind) {
+function showState(message, kind, retryAction = load) {
   listState.replaceChildren();
   listState.hidden = false;
   listState.className = `list-state ${kind}`;
@@ -22,8 +24,14 @@ function showState(message, kind) {
     const retry = document.createElement("button");
     retry.type = "button";
     retry.textContent = "Try again";
-    retry.addEventListener("click", load);
+    retry.addEventListener("click", retryAction);
     listState.append(retry);
+  } else if (kind === "empty" && filterControl.hasActive()) {
+    const clear = document.createElement("button");
+    clear.type = "button";
+    clear.textContent = "Clear filters";
+    clear.addEventListener("click", filterControl.clear);
+    listState.append(clear);
   }
 }
 
@@ -40,32 +48,77 @@ async function load() {
   try {
     const { projects, overlaps, meta, basemap } = await loadShellData();
     if (!Array.isArray(projects.features) || !Array.isArray(overlaps)) throw new Error("Invalid data shape");
-    state.projects = projects.features;
-    state.overlaps = overlaps;
-    renderMap(projects, basemap);
-    renderList(overlaps, projects);
-    renderUnknownLocations(projects);
-    projectView.renderProjects(projects.features, overlaps);
-    if (location.hash.startsWith("#overlap=")) overlapView.restoreFromHash();
+    state.basemap = basemap;
+    state.meta = meta;
+    filterControl.hydrate(projects.features);
     document.getElementById("editions").textContent = editionText(meta);
-    const count = meta.stage_counts?.kept ?? projects.features.length;
-    const noOverlap = meta.no_overlap_count;
-    document.getElementById("no-overlap").textContent = Number.isInteger(noOverlap)
-      ? `${noOverlap} of ${count} projects have no overlap within 40 km`
-      : "No-overlap count unavailable";
-    if (overlaps.length === 0) {
-      showState("No overlaps in the loaded plans. Try again after checking the source data.", "empty");
-      status.textContent = "No ranked opportunities in the loaded plans.";
-    } else {
-      listState.hidden = true;
-      status.dataset.src = "count";
-      status.textContent = `${overlaps.length} ranked opportunities loaded.`;
-    }
+    await applyFilters({ projects, overlaps }, true);
   } catch (_error) {
     projectView.showLoadError();
     showState("Could not load public plan data. Check the local server and try again.", "error");
     delete status.dataset.src;
     status.textContent = "Public plan data could not be loaded.";
+  }
+}
+
+function hashOverlapId() {
+  if (!location.hash.startsWith("#overlap=")) return null;
+  try { return decodeURIComponent(location.hash.slice(9)); }
+  catch (_error) { return null; }
+}
+
+function renderFiltered(projects, overlaps, initial) {
+  state.projects = projects.features;
+  state.overlaps = overlaps;
+  renderMap(projects, state.basemap);
+  renderList(overlaps, projects);
+  renderUnknownLocations(projects);
+  projectView.renderProjects(projects.features, overlaps);
+  const selectedId = state.selectedOverlapId ?? hashOverlapId();
+  const selectedVisible = selectedId ? restorePairSelection(selectedId) : false;
+  mapPairOpen.hidden = !selectedVisible;
+  if (initial && location.hash.startsWith("#overlap=")) overlapView.restoreFromHash();
+  else overlapView.refreshFilterState();
+  const noOverlap = document.getElementById("no-overlap");
+  if (filterControl.hasActive()) {
+    const paired = new Set(overlaps.flatMap((pair) => [pair.a, pair.b]));
+    const unpaired = projects.features.filter((feature) => !paired.has(feature.properties.id)).length;
+    delete noOverlap.dataset.src;
+    noOverlap.textContent = `${unpaired} of ${projects.features.length} filtered projects are not in shown pairs`;
+  } else {
+    noOverlap.dataset.src = "no_overlap_count";
+    const count = state.meta.stage_counts?.kept ?? projects.features.length;
+    noOverlap.textContent = Number.isInteger(state.meta.no_overlap_count)
+      ? `${state.meta.no_overlap_count} of ${count} projects have no overlap within 40 km`
+      : "No-overlap count unavailable";
+  }
+  if (overlaps.length === 0) {
+    showState(filterControl.hasActive()
+      ? "No matches for these filters. Clear filters to see all ranked opportunities."
+      : "No overlaps in the loaded plans. Try again after checking the source data.", "empty");
+  } else listState.hidden = true;
+  status.dataset.src = "count";
+  status.textContent = filterControl.hasActive()
+    ? `${overlaps.length} ranked opportunities match filters. ${projects.features.length} projects shown.${selectedId && !selectedVisible ? " Selected pair is outside current filters." : ""}`
+    : `${overlaps.length} ranked opportunities loaded.`;
+}
+
+async function applyFilters(full = null, initial = false) {
+  const ownRequest = ++state.filterRequest;
+  state.filterAbort?.abort();
+  state.filterAbort = new AbortController();
+  showState("Loading projects and ranked opportunities", "loading");
+  try {
+    const result = full && !filterControl.hasActive()
+      ? full : await loadFilteredData(filterControl.query(), state.filterAbort.signal);
+    if (ownRequest !== state.filterRequest) return;
+    if (!Array.isArray(result.projects.features) || !Array.isArray(result.overlaps)) throw new Error("Invalid filtered data shape");
+    renderFiltered(result.projects, result.overlaps, initial);
+  } catch (error) {
+    if (ownRequest !== state.filterRequest || error.name === "AbortError") return;
+    showState("Could not load filtered public plan data. Check the local server and try again.", "error", () => applyFilters());
+    delete status.dataset.src;
+    status.textContent = "Filtered public plan data could not be loaded.";
   }
 }
 

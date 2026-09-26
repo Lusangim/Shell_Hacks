@@ -55,11 +55,44 @@
           <p>Distance bands: ● Touching / ▦ Under 1.6 km / ▥ Under 8 km / ▧ Under 40 km.</p>
         </details>
         <section class="search-region" aria-label="Find a place or project">
-          <form id="search-form" role="search">
-            <label for="search-input">Search a city or project</label>
-            <input id="search-input" type="search" list="search-options" autocomplete="off" minlength="2">
-            <datalist id="search-options"></datalist>
-          </form>
+          <div class="search-controls">
+            <button id="filters-toggle" class="filters-toggle" type="button" aria-expanded="false" aria-controls="filter-panel" disabled>Filters</button>
+            <form id="search-form" role="search">
+              <label for="search-input">Search a city or project</label>
+              <input id="search-input" type="search" list="search-options" autocomplete="off" minlength="2">
+              <datalist id="search-options"></datalist>
+            </form>
+          </div>
+          <div id="filter-panel" class="filter-panel" hidden>
+            <fieldset id="filter-utilities" class="filter-utilities"><legend>Utilities</legend><div id="filter-utility-options"></div></fieldset>
+            <label for="filter-band">Distance band</label>
+            <select id="filter-band" name="band">
+              <option value="">All bands</option>
+              <option value="touching">Touching / crossing</option>
+              <option value="lt_1_6km">Under 1.6 km</option>
+              <option value="lt_8km">Under 8 km</option>
+              <option value="lt_40km">Under 40 km</option>
+            </select>
+            <details id="more-filters"><summary>More filters</summary>
+              <div class="more-filter-fields">
+                <label for="filter-voltage">Voltage</label><select id="filter-voltage" name="voltage_kv"><option value="">All voltages</option></select>
+                <div class="year-filter-grid">
+                  <div><label for="filter-year-min">In service from</label><input id="filter-year-min" name="year_min" type="number" min="1900" max="2200" step="1" inputmode="numeric"></div>
+                  <div><label for="filter-year-max">Through</label><input id="filter-year-max" name="year_max" type="number" min="1900" max="2200" step="1" inputmode="numeric"></div>
+                </div>
+                <label for="filter-type">Project type</label><select id="filter-type" name="project_type">
+                  <option value="">All types</option><option value="new_line">New line</option><option value="rebuild_line">Rebuild line</option>
+                  <option value="reconductor">Reconductor</option><option value="new_substation">New substation</option>
+                  <option value="substation_upgrade">Substation upgrade</option><option value="equipment">Equipment</option><option value="other">Other</option>
+                </select>
+                <label for="filter-cross-state">Cross-state</label><select id="filter-cross-state" name="cross_state">
+                  <option value="">All pairs</option><option value="true">Cross-state only</option><option value="false">Within one state</option>
+                </select>
+              </div>
+            </details>
+            <button id="filter-clear" class="filter-clear" type="button">Clear all filters</button>
+          </div>
+          <p id="filter-warning" class="filter-warning" data-testid="filter-warning" role="status" hidden></p>
           <p id="search-state" class="search-state" data-testid="search-state" role="status">Enter at least 2 characters to search local plans.</p>
           <p id="search-selection" class="search-selection" data-testid="search-selection" hidden></p>
           <button id="explore-area" class="explore-button" type="button" hidden>Explore this area</button>
