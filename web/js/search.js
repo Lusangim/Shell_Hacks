@@ -20,7 +20,7 @@ export function setupSearch() {
     delete status.dataset.src;
     status.textContent = message;
   });
-  const known = new Map();
+  const choices = new Map();
   let sequence = 0;
   let controller = null;
   let currentQuery = "";
@@ -51,6 +51,7 @@ export function setupSearch() {
     controller = new AbortController();
     currentQuery = "";
     currentResults = [];
+    choices.clear();
     options.replaceChildren();
     showMessage("Searching local plans for ", query);
     try {
@@ -63,11 +64,18 @@ export function setupSearch() {
       if (request !== sequence) return null;
       currentQuery = query;
       currentResults = results;
+      const labelCounts = new Map();
       for (const result of results) {
-        known.set(result.label, result);
+        labelCounts.set(result.label, (labelCounts.get(result.label) || 0) + 1);
+      }
+      for (const result of results) {
+        const source = result.ref || `${result.lat}, ${result.lon}`;
+        const value = labelCounts.get(result.label) > 1
+          ? `${result.label} (${result.type}: ${source})` : result.label;
+        choices.set(value, result);
         const option = document.createElement("option");
-        option.value = result.label;
-        option.label = `${result.label} (${result.type})`;
+        option.value = value;
+        option.label = labelCounts.get(result.label) > 1 ? value : `${result.label} (${result.type})`;
         options.append(option);
       }
       showMessage(results.length ? `${results.length} local matches for ` : "No local matches for ", query);
@@ -82,11 +90,16 @@ export function setupSearch() {
   input.addEventListener("input", () => {
     const query = input.value.trim();
     clearSelection();
+    if (choices.has(query)) {
+      showMessage("Press Enter to center the selected result.");
+      return;
+    }
     if (query.length < 2) {
       ++sequence;
       if (controller) controller.abort();
       currentQuery = "";
       currentResults = [];
+      choices.clear();
       options.replaceChildren();
       showMessage("Enter at least 2 characters to search local plans.");
       return;
@@ -101,7 +114,7 @@ export function setupSearch() {
       showMessage("Enter at least 2 characters to search local plans.");
       return;
     }
-    let result = known.get(query);
+    let result = choices.get(query);
     if (!result) {
       const results = currentQuery === query ? currentResults : await search(query);
       if (input.value.trim() !== query || !results) return;

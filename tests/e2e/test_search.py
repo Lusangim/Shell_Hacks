@@ -154,3 +154,73 @@ def test_malicious_search_label_is_text_only(live_server):
         assert page.locator("img[src='x']").count() == 0
         assert page.evaluate("window.injected === undefined")
         browser.close()
+
+
+def test_two_bluffton_places_can_each_be_selected_by_keyboard(live_server):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page()
+        page.goto(live_server)
+        expected = [item for item in page.request.get(f"{live_server}/api/search?q=Bluffton").json()
+                    if item["type"] == "place" and item["label"] == "Bluffton town"]
+        assert len(expected) == 2
+        assert len({(item["lat"], item["lon"]) for item in expected}) == 2
+        focus_search_by_keyboard(page)
+        search = page.get_by_label("Search a city or project")
+        search.fill("Bluffton")
+        options = page.locator("#search-options option")
+        expect(options).to_have_count(2)
+        values = options.evaluate_all("nodes => nodes.map(node => node.value)")
+        assert len(set(values)) == 2, values
+        centers = set()
+        for value in values:
+            search.fill("Bluffton")
+            expect(options).to_have_count(2)
+            search.fill(value)
+            search.press("Enter")
+            expect(page.get_by_test_id("search-selection").locator('[data-src="label"]')).to_have_text("Bluffton town")
+            centers.add(tuple(page.evaluate("""async () => {
+              const { state } = await import('/web/js/state.js');
+              const center = state.map.getCenter();
+              return [center.lat, center.lng];
+            }""")))
+        assert centers == {(item["lat"], item["lon"]) for item in expected}
+        browser.close()
+
+
+def test_duplicate_project_choices_keep_distinct_source_refs(live_server):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page()
+        page.goto(live_server)
+        expected = page.request.get(f"{live_server}/api/search?q=WANSLEY%20500%20KV").json()
+        assert len(expected) == 2
+        assert len({item["ref"] for item in expected}) == 2
+        search = page.get_by_label("Search a city or project")
+        search.fill("WANSLEY 500 KV")
+        options = page.locator("#search-options option")
+        expect(options).to_have_count(2)
+        values = options.evaluate_all("nodes => nodes.map(node => node.value)")
+        assert len(set(values)) == 2, values
+        assert all(any(item["ref"] in value for value in values) for item in expected)
+        browser.close()
+
+
+def test_old_label_cannot_be_selected_when_current_query_has_no_match(live_server):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page()
+        page.route("**/api/search?*", lambda route: route.fulfill(status=200, content_type="application/json", body="[]")
+                   if "Bluffton%20town" in route.request.url else route.continue_())
+        page.goto(live_server)
+        search = page.get_by_label("Search a city or project")
+        search.fill("Bluffton")
+        expect(page.locator("#search-options option")).to_have_count(2)
+        search.fill("zzzz-no-such-place")
+        expect(page.get_by_test_id("search-state")).to_contain_text("No local matches")
+        search.fill("Bluffton town")
+        expect(page.get_by_test_id("search-state")).to_contain_text("No local matches")
+        search.press("Enter")
+        expect(page.get_by_test_id("search-selection")).to_be_hidden()
+        expect(page.locator("#explore-area")).to_be_hidden()
+        browser.close()
