@@ -44,16 +44,16 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 
 ## Phase 0b — Foundations (LEAD and sub-agents) → G1a
 
-- [ ] **T0.2 Restructure into packages** (DATA) — first build task
+- [x] **T0.2 Restructure into packages** (DATA) — `9368803`, merged `d9604b0`; 2 regression checks passed, two rebuilds byte-identical
   - Acceptance: `git mv` into `pipeline/` + `data/raw` + `data/manual` + `data/build`; `python -m pipeline.build_all` offline (`--refresh` only for downloads); stage counts reconcile and are written to `meta.json` (every source row kept, dropped with a reason, or the build fails); counts unchanged (230 kept · 181 placed · 477 overlaps · 44 cross-state) and top-10 pairs unchanged — any later legitimate change needs a before/after table the lead approves and records; v0 `preview.html`/`build_preview.py` removed; `gridlock-data/README.md` correction kept.
   - Verify: `tests/pipeline/test_rebuild_regression.py` green; two rebuilds byte-identical.
-- [ ] **T0.3a Contracts + fixtures** (LEAD) — parallel with T0.2
+- [x] **T0.3a Contracts + fixtures** (LEAD) — parallel with T0.2; `1b190e6`, 18 contract checks passed (RED: missing `server`; coordinate case failed before validation)
   - Acceptance: `server/schemas.py` = every model in SPEC § Contracts incl. `utility_basis`, `cost_flags`, `touch_reason` (5 values), `pair_note`, `savings.status`, `brief_status`, `no_overlap_count`, `unmapped_count`, `stale_brief_count`, Area, SearchResult, Error; JSON Schema exported to `contracts/`; fixtures in `tests/fixtures/api/` (normal, empty, unknown-location, no-cost, stale-brief, malicious-string, and a small `basemap` fixture) all schema-valid; T0.3a owns `tests/pipeline/test_contracts.py`. **Frozen at G1a.**
   - Verify: `tests/pipeline/test_contracts.py` validates fixtures.
 - [ ] **T0.3b Stable IDs + real pages** (DATA) — after T0.2, T0.3a
   - Acceptance: IDs per SPEC (`desc-p<N>`; `sertp-p<page>-<hash6(name+description)>` + `-2` in document order on collision); `source.page` = the real PDF page; all artifacts validate against `contracts/`.
   - Verify: `tests/pipeline/test_ids.py` — unique across all rows; identical across two rebuilds; for every project the cited page's text contains its name or project_id.
-- [ ] **T0.4 Harness + gates** (LEAD)
+- [x] **T0.4 Harness + gates** (LEAD) — `195fed5`, `36bfb57`, `fdd8539`; VERIFY 47 passed/1 allow-listed skip; deleted scratch check returned baseline exit 2; occupied port returned 3
   - Acceptance: `pytest.ini`; fixture starting uvicorn on `GRIDLOCK_TEST_PORT` (required; no default; fails at once if the port is already bound, so tests never hit another branch's server) against a given folder; the e2e smoke and axe steps are allow-listed skips ("no web shell yet") until T1.3 merges; socket guard failing any non-loopback connection from the server under test; `scripts/quick-gate.ps1` (compileall · pytest · e2e smoke 1440 light · console errors · axe default; ≤ 5 min); `scripts/verify.ps1` + `VERIFY.cmd` + `START.cmd` (ASCII; clear messages for missing venv / busy port); `SETUP.cmd` + `scripts/setup.ps1` for fresh clones (venv `%USERPROFILE%\dev\gridlock-venv` from `requirements.txt`, `PLAYWRIGHT_BROWSERS_PATH=%USERPROFILE%\dev\ms-playwright`, nothing under `%LOCALAPPDATA%`; idempotent; tested offline against the existing venv); `python -m server` for non-Windows teammates; run output in `%USERPROFILE%\dev\gridlock-runs`; every script sets `GRIDLOCK_PY` and `PLAYWRIGHT_BROWSERS_PATH` itself when they are unset; `scripts/verify-baseline.json` counts **passing** checks; skips only via a named allow-list; exit 0/1/2/3.
   - Verify: quick gate and VERIFY = 0 on the skeleton; delete a check in a scratch copy → 2; occupied port → 3.
 
@@ -70,7 +70,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [ ] **T1.5 Build extras** (DATA)
   - Acceptance: `build_all` also writes `places.json` (Census places GA + SC), `basemap.json` (state outlines + city labels now; counties added in T3.5), and full `meta.json` (stage counts, `no_overlap_count`, `unmapped_count` with reasons incl. unplaced Southern Company rows); `utility_basis` set (`inferred_from_location` for unprefixed Southern rows placed in GA).
   - Verify: `tests/pipeline/test_build_extras.py`.
-- [ ] **T1.2 API skeleton** (API)
+- [x] **T1.2 API skeleton** (API) — `d2d67b7`, merged `ca53d05`; lane quick gate 47 passed before WEB shell
   - Acceptance: `create_app()` and `server/__main__.py` (owned by this task); artifacts loaded once and validated at startup (refuses to start with a clear message if missing/invalid); settings object (no key read at import; `GRIDLOCK_AI` on/off); typed `response_model` everywhere; no CORS; 127.0.0.1 only; host check (127.0.0.1/localhost); security headers (CSP `default-src 'self'`, nosniff, referrer policy); `GET /api/health`, `/api/meta`, `/api/basemap` (serves `data/build/basemap.json` from T1.5; the fixture until then), `/api/projects` (+ filters), `/api/projects/{id}`, `/api/overlaps` (filters per SPEC semantics; rank order; limit ≤ 500, offset); errors `{error:{code,message}}`.
   - Verify: `tests/api/test_core.py` — happy paths, 422s, limit cap, bad host 400, contract validation of every response, socket guard.
 - [ ] **T1.3 Web shell** (WEB) — after T1.0 and T0.3a (fixtures until T1.2 lands)
