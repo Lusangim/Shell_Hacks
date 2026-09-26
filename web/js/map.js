@@ -80,11 +80,59 @@ function styleForBasemap(feature) {
   };
 }
 
+function cityMarker(feature, latlng) {
+  const label = document.createElement("span");
+  label.dataset.src = "name";
+  label.dataset.testid = "city-label";
+  label.textContent = feature.properties?.name ?? "";
+  label.setAttribute("aria-hidden", "true");
+  const icon = L.divIcon({ html: label, className: "city-label-icon", iconSize: [1, 1], iconAnchor: [0, 10] });
+  return L.marker(latlng, { icon, interactive: false, keyboard: false });
+}
+
+function cityPriority(feature) {
+  const name = feature.properties?.name;
+  if (name === "Savannah city") return 0;
+  if (name === "North Augusta city") return 1;
+  return 2;
+}
+
+function updateCityLabels() {
+  const map = state.map;
+  const size = map.getSize();
+  const limit = map.getZoom() < 9 ? 14 : map.getZoom() < 11 ? 32 : 80;
+  const occupied = [];
+  let shown = 0;
+  const center = map.getCenter();
+  const candidates = [...state.cityMarkers].sort((a, b) =>
+    cityPriority(a.feature) - cityPriority(b.feature)
+    || a.layer.getLatLng().distanceTo(center) - b.layer.getLatLng().distanceTo(center)
+    || (a.feature.properties?.name ?? "").localeCompare(b.feature.properties?.name ?? "")
+  );
+  for (const { feature, layer } of candidates) {
+    const icon = layer.getElement();
+    if (!icon) continue;
+    icon.classList.remove("city-label-visible");
+    if (shown >= limit) continue;
+    const point = map.latLngToContainerPoint(layer.getLatLng());
+    const name = feature.properties?.name ?? "";
+    const width = Math.max(60, name.length * 7 + 12);
+    const box = { left: point.x + 5, right: point.x + width + 5, top: point.y - 10, bottom: point.y + 10 };
+    if (!name || box.left < 8 || box.right > size.x - 8 || box.top < 8 || box.bottom > size.y - 8) continue;
+    if (occupied.some((used) => box.left < used.right + 8 && box.right + 8 > used.left
+      && box.top < used.bottom + 8 && box.bottom + 8 > used.top)) continue;
+    icon.classList.add("city-label-visible");
+    occupied.push(box);
+    shown += 1;
+  }
+}
+
 export function initializeMap() {
   const map = L.map("map", { zoomControl: false, preferCanvas: false, renderer: L.svg(), scrollWheelZoom: false });
   L.control.zoom({ position: "topright" }).addTo(map);
   map.setView([32.75, -81.55], 8);
   state.map = map;
+  map.on("moveend", updateCityLabels);
   return map;
 }
 
@@ -93,16 +141,23 @@ export function renderMap(projects, basemap) {
   if (state.basemapLayers) state.basemapLayers.clearLayers();
   if (state.casingLayers) state.casingLayers.clearLayers();
   if (state.projectLayers) state.projectLayers.clearLayers();
+  state.cityMarkers = [];
   state.basemapLayers = L.geoJSON(basemap, {
     style: styleForBasemap,
     interactive: false,
-    onEachFeature(_feature, layer) {
+    pointToLayer: cityMarker,
+    onEachFeature(feature, layer) {
+      if (feature.geometry?.type === "Point") state.cityMarkers.push({ feature, layer });
       layer.on("add", () => {
         const element = layer.getElement();
-        if (element) element.dataset.testid = "basemap-feature";
+        if (element) {
+          element.dataset.testid = "basemap-feature";
+          if (feature.geometry?.type === "Point") element.setAttribute("aria-hidden", "true");
+        }
       });
     },
   }).addTo(map);
+  updateCityLabels();
   state.casingLayers = L.geoJSON(projects, {
     renderer: L.svg(),
     style: styleForCasing,
