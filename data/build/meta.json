@@ -34,7 +34,7 @@
   ],
   "stage_counts": {
     "city_labels": 801,
-    "cross_state": 44,
+    "cross_state": 43,
     "dropped_outside_ga_sc_footprint": 69,
     "dropped_outside_selected_balancing_area": 101,
     "dropped_powersouth_excluded": 4,
