@@ -50,7 +50,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [x] **T0.3a Contracts + fixtures** (LEAD) — parallel with T0.2; `1b190e6`, 18 contract checks passed (RED: missing `server`; coordinate case failed before validation)
   - Acceptance: `server/schemas.py` = every model in SPEC § Contracts incl. `utility_basis`, `cost_flags`, `touch_reason` (5 values), `pair_note`, `savings.status`, `brief_status`, `no_overlap_count`, `unmapped_count`, `stale_brief_count`, Area, SearchResult, Error; JSON Schema exported to `contracts/`; fixtures in `tests/fixtures/api/` (normal, empty, unknown-location, no-cost, stale-brief, malicious-string, and a small `basemap` fixture) all schema-valid; T0.3a owns `tests/pipeline/test_contracts.py`. **Frozen at G1a.**
   - Verify: `tests/pipeline/test_contracts.py` validates fixtures.
-- [ ] **T0.3b Stable IDs + real pages** (DATA) — after T0.2, T0.3a
+- [x] **T0.3b Stable IDs + real pages** (DATA) — `bdc28f3`, merged `d635f20`; 230 project citations checked against PDF pages, 50 gate checks passed
   - Acceptance: IDs per SPEC (`desc-p<N>`; `sertp-p<page>-<hash6(name+description)>` + `-2` in document order on collision); `source.page` = the real PDF page; all artifacts validate against `contracts/`.
   - Verify: `tests/pipeline/test_ids.py` — unique across all rows; identical across two rebuilds; for every project the cited page's text contains its name or project_id.
 - [x] **T0.4 Harness + gates** (LEAD) — `195fed5`, `36bfb57`, `fdd8539`; VERIFY 47 passed/1 allow-listed skip; deleted scratch check returned baseline exit 2; occupied port returned 3
@@ -58,7 +58,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
   - Verify: quick gate and VERIFY = 0 on the skeleton; delete a check in a scratch copy → 2; occupied port → 3.
 
 ### Checkpoint G1a — foundations
-- [ ] Merged verify green · [ ] contracts frozen and committed · [ ] `gridlock-type-design` review of the contracts closed (§G) · [ ] tracker line
+- [x] Merged verify green · [x] contracts frozen and committed · [x] `gridlock-type-design` review of the contracts closed (§G): 2 HIGH fixed and confirmed; 2 MEDIUM remain recorded · [x] tracker line; VERIFY 58 passed, 1 named skip at `03ae694`
 
 ---
 

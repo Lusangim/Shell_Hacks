@@ -59,11 +59,19 @@ for i, g in enumerate(geoms):
         cross_state = "Dominion Energy SC" in (a["utility"], b["utility"])
         acc = ACCURACY_FACTOR[a["accuracy"]] * ACCURACY_FACTOR[b["accuracy"]]
         score = round(w * tf * acc * (1.5 if cross_state else 1.0), 3)
+        if a["id"] > b["id"]:
+            a, b = b, a
+        year_gap = abs(a["year"] - b["year"]) if a.get("year") is not None and b.get("year") is not None else None
+        accuracy_pair = "approximate" if "approximate" in (a["accuracy"], b["accuracy"]) else "exact"
         pairs.append(dict(
+            id=f'{a["id"]}__{b["id"]}',
             a=a["id"], b=b["id"], a_name=a["name"], b_name=b["name"], a_utility=a["utility"], b_utility=b["utility"],
             distance_km=round(d / 1000, 2), band=bid, band_label=label, can_share=share,
-            a_year=a.get("year"), b_year=b.get("year"), timeline=tl,
-            cross_state=cross_state, accuracy=f'{a["accuracy"]} / {b["accuracy"]}', score=score))
+            touch_reason="proximity", touch_detail="Measured distance between mapped geometries; no shared asset verified.",
+            a_year=a.get("year"), b_year=b.get("year"), year_gap=year_gap, timeline=tl,
+            cross_state=cross_state, pair_note=None, accuracy_pair=accuracy_pair, score=score,
+            savings={"status": "no_cost", "low_usd": None, "high_usd": None, "basis": None,
+                     "assumption_ids": []}, brief_status="none"))
 
 pairs.sort(key=lambda p: (-p["score"], p["distance_km"]))
 for rank, p in enumerate(pairs, 1):

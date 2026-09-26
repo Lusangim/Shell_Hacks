@@ -19,10 +19,12 @@ try {
     & $env:GRIDLOCK_PY -m pytest tests\e2e\test_shell.py -q
     if ($LASTEXITCODE -ne 0) { exit 1 }
   } else { Write-Output 'SKIP allow-list: no web shell yet (e2e smoke)' }
-  if (Test-Path -LiteralPath 'tests\e2e\audits') {
+  if ((Test-Path -LiteralPath 'web\index.html') -and (Test-Path -LiteralPath 'tests\e2e\audits')) {
     & $env:GRIDLOCK_PY -m pytest tests\e2e\audits -q
     if ($LASTEXITCODE -ne 0) { exit 1 }
-  } else { Write-Output 'SKIP allow-list: no web shell yet (axe default)' }
+  } elseif (-not (Test-Path -LiteralPath 'web\index.html')) {
+    Write-Output 'SKIP allow-list: no web shell yet (axe default)'
+  } else { Write-Error 'Web shell exists but the required axe audit is missing'; exit 1 }
   Write-Output 'QUICK GATE PASS'
   exit 0
 } finally { Pop-Location }

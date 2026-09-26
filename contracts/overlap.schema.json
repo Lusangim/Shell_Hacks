@@ -98,6 +98,7 @@
       "type": "string"
     },
     "a_utility": {
+      "minLength": 1,
       "title": "A Utility",
       "type": "string"
     },
@@ -124,6 +125,7 @@
       "type": "string"
     },
     "b_utility": {
+      "minLength": 1,
       "title": "B Utility",
       "type": "string"
     },

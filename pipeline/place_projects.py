@@ -15,6 +15,11 @@ Output:
 import csv, json, math, re
 from collections import defaultdict
 from shapely.geometry import shape, Point, LineString, mapping
+from ids import desc_id, sertp_ids
+
+
+DESC_URL = "https://www.scrtp.com/assets/pdfs/home/2026-2030-2million-and-above-project-descriptions.pdf"
+SERTP_URL = "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
 
 DASH = r"\s+[\-–—�]\s+|[–—�]"   # spaced hyphen or any en/em dash
 PREFIX_UTILITY = {"GTC": "Georgia Transmission Corp.", "MEAG": "MEAG Power", "SAV": "Georgia Power",
@@ -160,22 +165,33 @@ for i, r in enumerate(csv.DictReader(open("desc_2026_2030_projects.csv", encodin
     y = re.findall(r"(20\d\d|/\d\d)\b", r["planned_in_service"])
     yr = y[-1] if y else ""
     yr = ("20" + yr[1:]) if yr.startswith("/") else yr
-    projects.append(dict(id=f"DESC-{i:02d}", utility="Dominion Energy SC", name=r["project_name"],
-                         description=r["description"], need=r["need"], status=r["status"],
-                         in_service=r["planned_in_service"], year=int(yr) if yr else None,
-                         cost=r["total_cost"], source_doc="SCRTP Planned Facilities 2026-2030 $2M & Above",
-                         source_page=i, project_id=r["project_id"], home="SC"))
+    cost_text = r["total_cost"]
+    cost_usd = int(re.sub(r"[^0-9]", "", cost_text)) if re.fullmatch(r"\$[\d,]+", cost_text) else None
+    projects.append(dict(id=desc_id(i), utility="Dominion Energy SC", utility_basis="stated",
+                         name=r["project_name"], description=r["description"] or None,
+                         need=r["need"] or None, status=r["status"] or None,
+                         in_service=r["planned_in_service"] or None, year=int(yr) if yr else None,
+                         cost_usd=cost_usd, cost_basis="plan" if cost_usd is not None else "none",
+                         cost_flags=[], voltage_kv=[], project_type="other", miles=None,
+                         source={"doc": "SCRTP Planned Facilities 2026-2030 $2M & Above", "page": i,
+                                 "url": DESC_URL},
+                         project_id=r["project_id"] or None, home="SC"))
 
-for i, r in enumerate(csv.DictReader(open("sertp_2025_projects.csv", encoding="utf-8")), 1):
+sertp_rows = list(csv.DictReader(open("sertp_2025_projects.csv", encoding="utf-8")))
+for i, (r, stable_id) in enumerate(zip(sertp_rows, sertp_ids(sertp_rows)), 1):
     if r["utility_area"] != "SOUTHERN":
         continue
     m = re.match(r"([A-Z]{2,5}):", r["project_name"])
     util = PREFIX_UTILITY.get(m.group(1), m.group(1)) if m else "Southern Company"
-    projects.append(dict(id=f"SERTP-{i:03d}", utility=util, name=r["project_name"], description=r["description"],
-                         need=r["need"], status="Planned", in_service=r["in_service_year"],
-                         year=int(r["in_service_year"]) if r["in_service_year"] else None, cost="",
-                         source_doc="SERTP 2025 Regional Transmission Plan (Nov 26 2025)",
-                         source_page=int(r["source_page"]), project_id="",
+    projects.append(dict(id=stable_id, utility=util, utility_basis="stated",
+                         name=r["project_name"], description=r["description"] or None,
+                         need=r["need"] or None, status=None, in_service=r["in_service_year"] or None,
+                         year=int(r["in_service_year"]) if r["in_service_year"] else None,
+                         cost_usd=None, cost_basis="none", cost_flags=[], voltage_kv=[],
+                         project_type="other", miles=None,
+                         source={"doc": "SERTP 2025 Regional Transmission Plan (Nov 26 2025)",
+                                 "page": int(r["source_page"]), "url": SERTP_URL},
+                         project_id=None,
                          home="SAV" if util == "Georgia Power" and m else "GA"))
 
 REGIONS = {
@@ -257,7 +273,9 @@ for p in projects:
         continue
     if p["utility"] == "Southern Company":
         p["utility"] = "Georgia Power"
-    props = dict(p, accuracy=accuracy, location_source=loc_src, ambiguous=ambiguous, state=state, endpoints=names)
+        p["utility_basis"] = "inferred_from_location"
+    props = dict(p, accuracy=accuracy, location_source=loc_src or None,
+                 state=state if state in ("GA", "SC") else None, endpoints=names)
     props.pop("home")
     features.append(dict(type="Feature", geometry=geom, properties=props))
 

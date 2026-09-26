@@ -12,7 +12,10 @@ import subprocess
 import sys
 import tempfile
 from collections import Counter
+from math import isfinite
 from pathlib import Path
+
+from pipeline.ids import desc_id, sertp_ids
 
 
 RAW_INPUTS = (
@@ -23,7 +26,10 @@ RAW_INPUTS = (
     "us_states.geojson",
     "places_se.csv",
 )
-BUILD_OUTPUTS = ("projects.geojson", "placement_report.csv", "overlaps.json")
+BUILD_OUTPUTS = (
+    "projects.geojson", "placement_report.csv", "overlaps.json", "source_rows.json",
+    "places.json", "basemap.json",
+)
 
 
 def reconcile_rows(source_rows: int, kept: int, dropped_by_reason: dict[str, int]) -> None:
@@ -54,10 +60,11 @@ def _row_dispositions(
     placement: list[dict[str, str]],
     feature_ids: set[str],
 ) -> dict[str, dict[str, str | bool | None]]:
-    expected = {f"DESC-{i:02d}" for i in range(1, len(desc) + 1)}
+    expected = {desc_id(i) for i in range(1, len(desc) + 1)}
+    sertp_row_ids = sertp_ids(sertp)
     expected.update(
-        f"SERTP-{i:03d}"
-        for i, row in enumerate(sertp, 1)
+        row_id
+        for row, row_id in zip(sertp, sertp_row_ids)
         if row["utility_area"] == "SOUTHERN"
     )
     by_id = {row["id"]: row for row in placement}
@@ -66,9 +73,9 @@ def _row_dispositions(
 
     rows: dict[str, dict[str, str | bool | None]] = {}
     for i in range(1, len(desc) + 1):
-        rows[f"DESC-{i:02d}"] = _placement_disposition(by_id[f"DESC-{i:02d}"])
-    for i, source in enumerate(sertp, 1):
-        row_id = f"SERTP-{i:03d}"
+        row_id = desc_id(i)
+        rows[row_id] = _placement_disposition(by_id[row_id])
+    for source, row_id in zip(sertp, sertp_row_ids):
         rows[row_id] = (
             _placement_disposition(by_id[row_id])
             if source["utility_area"] == "SOUTHERN"
@@ -105,6 +112,57 @@ def _input_hash(raw: Path, manual: Path) -> str:
     return digest.hexdigest()
 
 
+def _places(raw: Path) -> list[dict[str, str | float]]:
+    """Keep each GA/SC Census place and its published coordinate verbatim."""
+    places: list[dict[str, str | float]] = []
+    for row in _csv_rows(raw / "places_se.csv"):
+        if row["state"] not in {"GA", "SC"}:
+            continue
+        lat, lon = float(row["lat"]), float(row["lon"])
+        if not isfinite(lat) or not isfinite(lon) or not (-90 <= lat <= 90 and -180 <= lon <= 180):
+            raise ValueError(f"invalid Census place coordinate: {row['state']} {row['name']}")
+        places.append({"state": row["state"], "name": row["name"], "lat": lat, "lon": lon})
+    return places
+
+
+def _basemap(raw: Path, places: list[dict[str, str | float]]) -> dict[str, object]:
+    states = _load_json(raw / "us_states.geojson")
+    outlines = []
+    for feature in states["features"]:
+        name = feature["properties"]["name"]
+        if name in {"Georgia", "South Carolina"}:
+            if not feature.get("geometry"):
+                raise ValueError(f"missing state geometry: {name}")
+            outlines.append({"type": "Feature", "properties": {"kind": "state_outline", "name": name},
+                             "geometry": feature["geometry"]})
+    if {feature["properties"]["name"] for feature in outlines} != {"Georgia", "South Carolina"}:
+        raise ValueError("both GA and SC outlines are required for the local basemap")
+    labels = [
+        {"type": "Feature", "properties": {"kind": "city_label", "name": place["name"],
+                                             "state": place["state"]},
+         "geometry": {"type": "Point", "coordinates": [place["lon"], place["lat"]]}}
+        for place in places if str(place["name"]).endswith((" city", " town"))
+    ]
+    return {"type": "FeatureCollection", "features": outlines + labels}
+
+
+def _unmapped_reasons(placement: list[dict[str, str]]) -> dict[str, int]:
+    reasons: Counter[str] = Counter()
+    for row in placement:
+        if row["accuracy"] != "unknown":
+            continue
+        if row["kept"] == "True":
+            reason = "kept_not_located"
+        elif row["kept"] == "False" and row["utility"] == "Southern Company":
+            reason = "unprefixed_southern_not_located"
+        elif row["kept"] == "False" and row["utility"] == "PowerSouth":
+            reason = "powersouth_not_located_excluded"
+        else:
+            raise ValueError(f"unmapped source row has no truthful reason: {row['id']}")
+        reasons[reason] += 1
+    return dict(sorted(reasons.items()))
+
+
 def build(root: Path) -> dict[str, object]:
     """Stage a complete rebuild, validate every row, then replace output files."""
     root = root.resolve()
@@ -137,31 +195,56 @@ def build(root: Path) -> dict[str, object]:
         pair_ids = {project_id for pair in overlaps for project_id in (pair["a"], pair["b"])}
         if not pair_ids.issubset(feature_ids):
             raise ValueError("overlap references a project outside the kept rows")
+        places = _places(raw)
+        basemap = _basemap(raw, places)
+        unmapped_reasons = _unmapped_reasons(placement)
+        unmapped = sum(unmapped_reasons.values())
+        if unmapped != sum(row["accuracy"] == "unknown" for row in placement):
+            raise ValueError("unmapped source rows do not reconcile")
+        stage_counts = {
+            "source_rows": len(rows),
+            "placement_candidates": len(placement),
+            "kept": kept,
+            "placed": placed,
+            "unmapped": unmapped,
+            "kept_unmapped": kept - placed,
+            "dropped_unmapped": unmapped - (kept - placed),
+            "overlaps": len(overlaps),
+            "cross_state": sum(bool(pair["cross_state"]) for pair in overlaps),
+            "places": len(places),
+            "state_outlines": 2,
+            "city_labels": len(basemap["features"]) - 2,
+        }
+        stage_counts.update({f"dropped_{reason}": count for reason, count in dropped.items()})
         meta: dict[str, object] = {
             "build_time": None,
-            "input_sha256": _input_hash(raw, manual),
             "source_documents": [
-                {"file": "desc_scrtp_2026_2030.pdf", "date": None},
-                {"file": "sertp_2025_rtp.pdf", "date": "2025-11-26"},
+                {"doc": "SCRTP Planned Facilities 2026-2030 $2M & Above", "date": None,
+                 "url": "https://www.scrtp.com/assets/pdfs/home/2026-2030-2million-and-above-project-descriptions.pdf"},
+                {"doc": "SERTP 2025 Regional Transmission Plan (Nov 26 2025)", "date": "2025-11-26",
+                 "url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"},
             ],
-            "stages": {
-                "source_rows": len(rows),
-                "placement_candidates": len(placement),
-                "kept": kept,
-                "placed": placed,
-                "unmapped": kept - placed,
-                "overlaps": len(overlaps),
-                "cross_state": sum(bool(pair["cross_state"]) for pair in overlaps),
-            },
-            "dropped_by_reason": dict(sorted(dropped.items())),
-            "source_rows": rows,
+            "stage_counts": stage_counts,
             "counts_by_utility": dict(sorted(Counter(f["properties"]["utility"] for f in features).items())),
             "counts_by_accuracy": dict(sorted(Counter(f["properties"]["accuracy"] for f in features).items())),
             "counts_by_band": dict(sorted(Counter(pair["band"] for pair in overlaps).items())),
             "no_overlap_count": len(feature_ids - pair_ids),
-            "unmapped_count": kept - placed,
+            "unmapped_count": unmapped,
+            "unmapped_reasons": unmapped_reasons,
             "stale_brief_count": 0,
         }
+        (stage / "source_rows.json").write_text(
+            json.dumps({"input_sha256": _input_hash(raw, manual), "rows": rows,
+                        "dropped_by_reason": dict(sorted(dropped.items()))},
+                       ensure_ascii=False, sort_keys=True, indent=2) + "\n", encoding="utf-8"
+        )
+        (stage / "places.json").write_text(
+            json.dumps(places, ensure_ascii=False, sort_keys=True, indent=2) + "\n", encoding="utf-8"
+        )
+        (stage / "basemap.json").write_text(
+            json.dumps(basemap, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n",
+            encoding="utf-8",
+        )
         (stage / "meta.json").write_text(
             json.dumps(meta, ensure_ascii=False, sort_keys=True, indent=2) + "\n", encoding="utf-8"
         )
@@ -178,7 +261,7 @@ def main() -> None:
     if args.refresh:
         _run_script(Path(__file__).resolve().parent / "fetch_hifld.py", root / "data" / "raw")
     meta = build(root)
-    print(json.dumps(meta["stages"], sort_keys=True))
+    print(json.dumps(meta["stage_counts"], sort_keys=True))
 
 
 if __name__ == "__main__":

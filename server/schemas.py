@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections import Counter
 from enum import Enum
 from math import isfinite
 from typing import Annotated, Literal
@@ -35,6 +36,8 @@ class Source(Contract):
 Longitude = Annotated[float, Field(ge=-180, le=180, allow_inf_nan=False)]
 Latitude = Annotated[float, Field(ge=-90, le=90, allow_inf_nan=False)]
 Position = tuple[Longitude, Latitude]
+LinePositions = Annotated[list[Position], Field(min_length=2)]
+Count = Annotated[int, Field(ge=0)]
 
 
 class PointGeometry(Contract):
@@ -49,7 +52,7 @@ class LineGeometry(Contract):
 
 class MultiLineGeometry(Contract):
     type: Literal["MultiLineString"]
-    coordinates: list[list[Position]] = Field(min_length=1)
+    coordinates: list[LinePositions] = Field(min_length=1)
 
 
 Geometry = PointGeometry | LineGeometry | MultiLineGeometry
@@ -129,8 +132,8 @@ class Overlap(Contract):
     id: str
     a: str
     b: str
-    a_utility: str
-    b_utility: str
+    a_utility: str = Field(min_length=1)
+    b_utility: str = Field(min_length=1)
     a_name: str
     b_name: str
     distance_km: float = Field(ge=0, lt=40)
@@ -155,6 +158,8 @@ class Overlap(Contract):
     def pair_consistency(self) -> Overlap:
         if self.a >= self.b or self.id != f"{self.a}__{self.b}":
             raise ValueError("pair IDs must be sorted and canonical")
+        if self.a_utility == self.b_utility:
+            raise ValueError("overlap requires different utilities")
         metres = self.distance_km * 1000
         expected = (
             Band.touching if metres <= 1 else
@@ -176,6 +181,17 @@ class BriefSavings(Contract):
     low_usd: int | None = Field(ge=0)
     high_usd: int | None = Field(ge=0)
     basis: str | None
+
+    @model_validator(mode="after")
+    def range_consistency(self) -> BriefSavings:
+        if self.status == "range":
+            if self.low_usd is None or self.high_usd is None or self.low_usd > self.high_usd:
+                raise ValueError("range requires ordered bounds")
+            if not self.basis or not self.basis.strip():
+                raise ValueError("range requires a basis")
+        elif self.low_usd is not None or self.high_usd is not None:
+            raise ValueError("non-range savings have no numeric bounds")
+        return self
 
 
 class Brief(Contract):
@@ -204,8 +220,16 @@ class Area(Contract):
     radius_km: float = Field(ge=1, le=80)
     projects: list[ProjectFeature]
     overlaps: list[Overlap]
-    counts_by_utility: dict[str, int]
-    counts_by_band: dict[str, int]
+    counts_by_utility: dict[str, Count]
+    counts_by_band: dict[Band, Count]
+
+    @model_validator(mode="after")
+    def count_consistency(self) -> Area:
+        if self.counts_by_utility != Counter(project.properties.utility for project in self.projects):
+            raise ValueError("utility counts must match projects")
+        if self.counts_by_band != Counter(overlap.band for overlap in self.overlaps):
+            raise ValueError("band counts must match overlaps")
+        return self
 
 
 class SourceDocument(Contract):
@@ -217,13 +241,13 @@ class SourceDocument(Contract):
 class Meta(Contract):
     build_time: str | None
     source_documents: list[SourceDocument]
-    stage_counts: dict[str, int]
-    counts_by_utility: dict[str, int]
-    counts_by_accuracy: dict[str, int]
-    counts_by_band: dict[str, int]
+    stage_counts: dict[str, Count]
+    counts_by_utility: dict[str, Count]
+    counts_by_accuracy: dict[str, Count]
+    counts_by_band: dict[str, Count]
     no_overlap_count: int = Field(ge=0)
     unmapped_count: int = Field(ge=0)
-    unmapped_reasons: dict[str, int]
+    unmapped_reasons: dict[str, Count]
     stale_brief_count: int = Field(ge=0)
 
 
