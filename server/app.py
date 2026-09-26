@@ -20,8 +20,10 @@ from pydantic import BaseModel, ConfigDict, Field, JsonValue, TypeAdapter, Valid
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.responses import Response
 
+from server.area import build_area
+from server.brief_routes import register_brief_routes, stale_brief_count
 from server.map_assets import GOOGLE_CSP, OFFLINE_CSP, MapConfig, archive_response, map_error, offline_available, same_origin
-from server.schemas import Band, ErrorResponse, LineGeometry, Meta, MultiLineGeometry, Overlap, PointGeometry, ProjectCollection, ProjectFeature, Savings, SearchResult, Source
+from server.schemas import Area, Band, ErrorResponse, LineGeometry, Meta, MultiLineGeometry, Overlap, PointGeometry, ProjectCollection, ProjectFeature, Savings, SearchResult, Source
 from server.settings import ROOT, Settings
 
 
@@ -328,7 +330,12 @@ def create_app(artifact_dir: Path | None = None, settings: Settings | None = Non
 
     @app.get("/api/meta", response_model=Meta, responses={400: {"model": ErrorResponse}})
     def meta(request: Request) -> Meta:
-        return request.app.state.artifacts.meta
+        artifacts: Artifacts = request.app.state.artifacts
+        count = stale_brief_count(
+            config.brief_cache_dir, artifacts.overlaps, artifacts.projects,
+            request.app.state.brief_contacts,
+        )
+        return artifacts.meta.model_copy(update={"stale_brief_count": count})
 
     @app.get("/api/basemap", response_model=Basemap, responses={400: {"model": ErrorResponse}})
     def basemap(request: Request) -> Basemap:
@@ -337,6 +344,16 @@ def create_app(artifact_dir: Path | None = None, settings: Settings | None = Non
     @app.get("/api/search", response_model=list[SearchResult], responses={422: {"model": ErrorResponse}})
     def search(request: Request, q: str) -> list[SearchResult]:
         return search_entries(request.app.state.artifacts.search_entries, q)
+
+    @app.get("/api/area", response_model=Area, responses={422: {"model": ErrorResponse}})
+    def area(
+        request: Request,
+        lat: Annotated[float, Query(ge=-90, le=90, allow_inf_nan=False)],
+        lon: Annotated[float, Query(ge=-180, le=180, allow_inf_nan=False)],
+        radius_km: Annotated[float, Query(ge=1, le=80, allow_inf_nan=False)] = 40.0,
+    ) -> Area:
+        artifacts: Artifacts = request.app.state.artifacts
+        return build_area(artifacts.projects, artifacts.overlaps, lat=lat, lon=lon, radius_km=radius_km)
 
     @app.get("/api/projects", response_model=ProjectCollection, responses={422: {"model": ErrorResponse}})
     def projects(
@@ -432,5 +449,6 @@ def create_app(artifact_dir: Path | None = None, settings: Settings | None = Non
             raise HTTPException(status_code=404, detail="Web shell not available")
         return FileResponse(page, media_type="text/html")
 
+    register_brief_routes(app, config)
     app.mount("/web", StaticFiles(directory=ROOT / "web"), name="web")
     return app
