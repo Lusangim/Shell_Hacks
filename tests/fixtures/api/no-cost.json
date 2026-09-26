@@ -1,0 +1,46 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81,
+          32
+        ]
+      },
+      "properties": {
+        "id": "desc-p3",
+        "project_id": null,
+        "utility": "Dominion Energy SC",
+        "utility_basis": "stated",
+        "name": "Synthetic test project",
+        "description": "Synthetic description",
+        "need": null,
+        "status": null,
+        "in_service": "2028",
+        "year": 2028,
+        "cost_usd": null,
+        "cost_basis": "none",
+        "cost_flags": [],
+        "voltage_kv": [
+          115
+        ],
+        "project_type": "other",
+        "miles": null,
+        "endpoints": [
+          "Fixture endpoint"
+        ],
+        "state": "SC",
+        "accuracy": "approximate",
+        "location_source": "Synthetic coordinates for contract test",
+        "source": {
+          "doc": "Synthetic test fixture",
+          "page": 1,
+          "url": "https://example.invalid/fixture.pdf"
+        }
+      }
+    }
+  ]
+}

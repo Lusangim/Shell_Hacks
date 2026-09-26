@@ -1,0 +1,35 @@
+{
+  "$defs": {
+    "ErrorDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "ErrorDetail",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "error": {
+      "$ref": "#/$defs/ErrorDetail"
+    }
+  },
+  "required": [
+    "error"
+  ],
+  "title": "ErrorResponse",
+  "type": "object"
+}

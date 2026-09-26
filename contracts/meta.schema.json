@@ -1,0 +1,121 @@
+{
+  "$defs": {
+    "SourceDocument": {
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Date"
+        },
+        "doc": {
+          "title": "Doc",
+          "type": "string"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "doc",
+        "date",
+        "url"
+      ],
+      "title": "SourceDocument",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "build_time": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Build Time"
+    },
+    "counts_by_accuracy": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Counts By Accuracy",
+      "type": "object"
+    },
+    "counts_by_band": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Counts By Band",
+      "type": "object"
+    },
+    "counts_by_utility": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Counts By Utility",
+      "type": "object"
+    },
+    "no_overlap_count": {
+      "minimum": 0,
+      "title": "No Overlap Count",
+      "type": "integer"
+    },
+    "source_documents": {
+      "items": {
+        "$ref": "#/$defs/SourceDocument"
+      },
+      "title": "Source Documents",
+      "type": "array"
+    },
+    "stage_counts": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Stage Counts",
+      "type": "object"
+    },
+    "stale_brief_count": {
+      "minimum": 0,
+      "title": "Stale Brief Count",
+      "type": "integer"
+    },
+    "unmapped_count": {
+      "minimum": 0,
+      "title": "Unmapped Count",
+      "type": "integer"
+    },
+    "unmapped_reasons": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Unmapped Reasons",
+      "type": "object"
+    }
+  },
+  "required": [
+    "build_time",
+    "source_documents",
+    "stage_counts",
+    "counts_by_utility",
+    "counts_by_accuracy",
+    "counts_by_band",
+    "no_overlap_count",
+    "unmapped_count",
+    "unmapped_reasons",
+    "stale_brief_count"
+  ],
+  "title": "Meta",
+  "type": "object"
+}

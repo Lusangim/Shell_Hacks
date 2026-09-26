@@ -1,0 +1,36 @@
+[
+  {
+    "id": "desc-p1__sertp-p1-abcdef",
+    "a": "desc-p1",
+    "b": "sertp-p1-abcdef",
+    "a_utility": "Dominion Energy SC",
+    "b_utility": "Georgia Power",
+    "a_name": "Synthetic test project",
+    "b_name": "Synthetic test project",
+    "distance_km": 0,
+    "band": "touching",
+    "band_label": "Touching / crossing",
+    "touch_reason": "shared_endpoint",
+    "touch_detail": "Synthetic test detail",
+    "can_share": "Synthetic test possibility",
+    "a_year": 2028,
+    "b_year": 2028,
+    "year_gap": 0,
+    "timeline": "same year",
+    "cross_state": true,
+    "pair_note": null,
+    "accuracy_pair": "approximate",
+    "score": 4.8,
+    "rank": 1,
+    "savings": {
+      "status": "range",
+      "low_usd": 100,
+      "high_usd": 200,
+      "basis": "Synthetic test assumption",
+      "assumption_ids": [
+        "fixture-1"
+      ]
+    },
+    "brief_status": "template"
+  }
+]

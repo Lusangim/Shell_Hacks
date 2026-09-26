@@ -1,0 +1,30 @@
+{
+  "build_time": null,
+  "source_documents": [
+    {
+      "doc": "Synthetic test fixture",
+      "date": null,
+      "url": "https://example.invalid/fixture.pdf"
+    }
+  ],
+  "stage_counts": {
+    "source_rows": 2,
+    "kept": 2,
+    "placed": 2,
+    "overlaps": 1
+  },
+  "counts_by_utility": {
+    "Dominion Energy SC": 1,
+    "Georgia Power": 1
+  },
+  "counts_by_accuracy": {
+    "approximate": 2
+  },
+  "counts_by_band": {
+    "touching": 1
+  },
+  "no_overlap_count": 0,
+  "unmapped_count": 0,
+  "unmapped_reasons": {},
+  "stale_brief_count": 0
+}
