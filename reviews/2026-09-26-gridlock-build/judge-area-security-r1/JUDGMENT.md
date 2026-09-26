@@ -48,4 +48,3 @@ Both test/probe processes exited 0. The fixture and browser were closed through 
 2026-09-26 lesson: Exercise stale responses with an intentionally ineffective abort, and inject source fields and fragment IDs together to verify the entire new rendering boundary.
 
 material improvement still available: no
-
