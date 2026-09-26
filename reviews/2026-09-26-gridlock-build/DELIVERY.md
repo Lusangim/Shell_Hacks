@@ -1,6 +1,6 @@
 # GridLock delivery report
 
-**In progress — last tagged gate G1. G2 VERIFY passed at 12:42 EDT on 2026-09-26; the G2 reviewer round is pending.** This is a current handoff, not the final delivery.
+**In progress — G2 passed on 2026-09-26.** The G2 VERIFY passed at 12:42 EDT; all three frozen-copy judgments are filed, with no P0/P1 and assigned P2/P3 findings. This is a current handoff, not the final delivery.
 
 ## What works now
 
@@ -19,28 +19,40 @@
 | T1.1, T1.2, T1.3, T1.5 | Done: parsed project fields, local API, keyboard map/list shell and source-backed places/outlines. |
 | T1.4a | Done: 18 quick audits, broken-page proofs and repeated green runs; `lead/T1.4a.md`. |
 | T1.6 | Done on main: API `5c0101d`, WEB `ccd0702`, WEB-2 search flight `18e2544`; source-backed two-state map and lazy optional Google. Main quick gate 344/19/18. API and browser security reviews finished with no open finding after the T16-WEB-SEC-01 repair. Desktop zoom 6–17; phone initial/minimum 5.5 is the declared fit needed to show both complete states above two ranked rows. Live Google compatibility is untested. |
-| T1.7, T1.8 | Not started: readable detail/print text and guided walkthrough, both added by the founder. Direction and acceptance are in `design/DIRECTION-v2.md` and `tasks/todo.md`. |
+| T1.7, T1.8 | Phase 3 in progress: readable-detail WEB brief and tour WEB-2 brief are committed; T1.8 builder is running on `wt/web-2-tour`. Direction and acceptance are in `design/DIRECTION-v2.md` and `tasks/todo.md`. |
 | T2.1, T2.2, T2.3, T2.4 | Done: 489 geodesic pairs and 43 true cross-state pairs; 55 border provenance repairs, 49 unknowns retained; 201 labelled savings ranges, 214 timing-too-far, 74 no-cost; typed detail, safe BOM CSV and two whitelisted local source PDFs. |
 | T2.5a, T2.5b, T2.6, T2.7 | Done: project and overlap detail, pair map highlighting/deep links, validated filters/URL state, source-year slider and play/pause. Existing browser hydration races were repaired in test-only commits `d5e2366` and `a507d8b` without removing assertions. |
 | T2.8a, T2.8b | Done: typed local place/project/station search and keyboard duplicate-choice UI. |
 | T2.9 | Done: server-byte CSV download for current filters and Letter print report, `3057075` merged as `d6980c0`; lead reran three CSV cases, synced lane gate 278/19/18, scoped security P0–P3 zero. |
 | T2.10 | Done: named-example table and cautious Savannah/Augusta demo wording in `docs/METHODOLOGY.md`; source-page no-hit evidence kept for unlisted projects. |
-| T2.11 / G2 reviewers | Pending on frozen main after the green G2 VERIFY: domain top-ten spot-check, behavioral test analysis and silent-failure sweep. |
+| T2.11 / G2 reviewers | Done on frozen `d355f75`: domain top-ten spot-check plus five exact distance recomputations, behavioral test analysis and silent-failure sweep. Reports are `judge-domain-g2-r1`, `judge-tests-g2-r1` and `judge-silent-g2-r1` under this review directory. No P0/P1; findings assigned below. |
 | T3.1, T3.2, T3.3a, T3.4a | Built on held `wt/api`, not merged before G2 tag. T3.1 real-ID eval/template and T3.2 fake-client generator passed a 359/18/18 lane gate; two T3.2 P2 malformed-input findings were confirmed closed. T3.3a guarded brief routes passed 107 focused and a separate security review with zero findings; its first full gate exposed WEB test timing races, repaired on main, and its synced full gate remains due after G2. T3.4a area API passed 254/17/18 on its earlier branch state. No real client/spend path is enabled. |
 | T3.3b, T3.4b, T3.5, T1.4b | Not started: brief UI, area UI, resilience/counties/dark-theme completion and full audit matrix. |
 | T4.1–T4.4, G3/G4, D.1–D.3 | Not started. The founder capped post-G3 judging at four rounds; the final delivery requires sanitizer, README, green VERIFY and tag `delivered`. |
 
 ## Verification and judgment
 
-G2 pre-review VERIFY summary: `C:\Users\lucia\dev\gridlock-runs\verify\20260926-123703-505\summary.json` — exit **0**, **344 passed**, **0 failed**, **0 skipped**, baseline **344**, commit `cfc300e`. Four pytest warnings concern `record_property` with JUnit xunit2; assertions passed. The final main quick gate on the same product and new connected demo-path test passed **344 suite + 19 shell + 18 audits**. The demo check walks search → pair → detail → both local source PDFs → server CSV. Four current 1440/390 light/dark screenshots are in `g2/`.
+G2 VERIFY summary: `C:\Users\lucia\dev\gridlock-runs\verify\20260926-123703-505\summary.json` — exit **0**, **344 passed**, **0 failed**, **0 skipped**, baseline **344**, commit `cfc300e`. Only gate/task/report documentation changed between that tested product and the G2 review freeze. Four pytest warnings concern `record_property` with JUnit xunit2; assertions passed. The final main quick gate on the same product and new connected demo-path test passed **344 suite + 19 shell + 18 audits**. The demo check walks search → pair → detail → both local source PDFs → server CSV. Four current 1440/390 light/dark screenshots are in `g2/`.
 
 G1a type review found two HIGH, both corrected and confirmed; two MEDIUM remain (nested Pydantic mutability and exported JSON Schema cross-field expressiveness). G1 Python review's false GA/GA cross-state bonus was corrected and confirmed; JS review was ready. The known pipeline publication MEDIUM remains: seven artifacts are replaced sequentially, so a late failure could leave mixed output. G1 is tagged `g1`.
 
-T2.6 scoped security review had no findings. T2.9 scoped security review had P0–P3 zero. T1.6 API security review had P0–P3 zero. T1.6 browser review round 1 found one P2 delayed Google→Satellite selection race; WEB reproduced and fixed it, added stale-layer/cancellation checks, and fresh round 2 found P0–P3 zero with `material improvement still available: no`. Held T3.2 and T3.3a security confirmations have no open finding. G2 domain, tests and silent-failure verdicts are pending.
+T2.6 scoped security review had no findings. T2.9 scoped security review had P0–P3 zero. T1.6 API security review had P0–P3 zero. T1.6 browser review round 1 found one P2 delayed Google→Satellite selection race; WEB reproduced and fixed it, added stale-layer/cancellation checks, and fresh round 2 found P0–P3 zero with `material improvement still available: no`. Held T3.2 and T3.3a security confirmations have no open finding.
+
+G2 domain verdict: two P2 wording findings, no P0/P1. Its top-ten source names, descriptions, dates, costs and links matched the cited PDFs; five independent distances matched stored values. G2 test verdict: ready with notes, two P2 test/race gaps and one P3 gesture-coverage gap, no P0/P1. G2 silent-failure verdict: two P2 false selection/wording paths, no P0/P1; all pipeline counts reconciled. Each judge concluded material improvement is still available, so the assigned repairs remain open for G3:
+
+| Finding | Owner and acceptance before G3 |
+|---|---|
+| JDOMAIN-01 | WEB T1.7: approximate non-touching pair wording must not imply contact; check all bands. |
+| JDOMAIN-02 | DATA wording repair: rank-3 evidence names the SERTP Goshen–Georgia Pacific work section and distinguishes it from the mapped full-line endpoint; ranks 1/3 invite verification rather than assert work at McIntosh. Rebuild artifacts and keep methodology/API/CSV/print aligned. |
+| Silent P2-1 | WEB T1.7: filter-limited results, unknown geometry, and the 48 placed unpaired / 49 unlocated aggregate must make different truthful claims, including map-click status. |
+| Silent P2-2 | WEB T1.7 owns canonical detail selection; WEB-2 owns print consumer/checks after T1.8. Deep link and Back/Forward must print the visible pair, including one outside filters. |
+| G2-TEST-01 | WEB T1.7: replace fixed 100 ms detail race wait with completion barriers for delayed headers and JSON; prove RED on scratch guard removals, GREEN three times. |
+| G2-TEST-02 | WEB T3.5: reproduce delayed offline initialization versus Google selection with fake key/layer, repair stale status only if reproduced, and check Map return. |
+| G2-TEST-03 | WEB T3.5: direct double-click and pinch gesture tests at desktop/phone zoom limits and panel isolation. |
 
 ## Parked work and founder decisions
 
-No decided feature was cut. Phase 3 API commits are held off main until G2 is tagged; their UI is not on the current demo path. Historical `wt/web` and `wt/web-2` failed attempts remain parked; the corrected implementations are on main. A missing external PMTiles archive shows an outline fallback. Optional Google controls stay hidden without a configured key or browser online state. This runtime exposes four total agent slots, including the lead, despite the founder's requested ceiling of eight.
+No decided feature was cut. Phase 3 API commits remain on held `wt/api` until the G2 tag; their UI is not on the current demo path. Historical `wt/web` and `wt/web-2` failed attempts remain parked; the corrected implementations are on main. A missing external PMTiles archive shows an outline fallback. Optional Google controls stay hidden without a configured key or browser online state. This runtime exposes four total agent slots, including the lead, despite the founder's requested ceiling of eight.
 
 - **SERTP/CEII (Q2):** the publicly posted SERTP overview has page headers marked `(CEII)` while the spec both acknowledges use of that overview and says to use nothing marked CEII. The unattended safe state is the already loaded, cited public overview, with no new transcription from marked passages; founder/Sperry must decide acceptability before public release.
 - **People and external services:** team roster/roles/Discord tags and licence are unknown; no person or contact was invented. Claude access and a spend ceiling are not approved, so briefs remain offline templates. A real Google browser key, provider restrictions, CSP host completeness and live roadmap/satellite loading were not tested; founder-run online acceptance is needed before presenting that optional mode.
@@ -56,4 +68,4 @@ No Claude-owned file was edited. Proposed profile correction after delivery: `PR
 
 2026-09-26 — Server-byte exports and current-filter revisions prevent browser reconstruction or stale print reports.
 
-The lead session ID is the `thread_id` in the newest `C:\Users\lucia\dev\gridlock-runs\codex\*-lead.jsonl`. To resume: `codex exec resume <session id>`, then read `MISSION.md`, `TRACKER.md`, `tasks/todo.md` and `git status`. No builder is running at this G2 pre-review freeze; the three G2 gate reviewers are next. This report will be rewritten after their findings and at every later gate.
+The lead session ID is the `thread_id` in the newest `C:\Users\lucia\dev\gridlock-runs\codex\*-lead.jsonl`. To resume: `codex exec resume <session id>`, then read `MISSION.md`, `TRACKER.md`, `tasks/todo.md` and `git status`. G2 reviewers have finished; WEB-2 T1.8 is building in its separate lane. This report will be rewritten at every later gate.
