@@ -34,6 +34,11 @@ when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT;
 - 04:21 · 72dd54c · — · T0.5 checks re-run; mirror identical; T0.8 review started
 - 04:45 · 5db51e4 · — · review findings applied; no time limit (founder); launch state committed
 - 04:49 · (this commit) · — · T0.9 launch of the Codex lead on the founder's "just go"
+- 04:56 · 1b190e6 · 18 passed · T0.3a contracts, exported schemas and synthetic API fixtures; DATA T0.2 and WEB T1.3 running in separate worktrees; build_time nullable for reproducible artifacts
+- 04:59 · d9604b0 · 2 DATA + 18 contract passed · T0.2 merged after diff review and focused rerun; 230 kept, 181 placed, 477 overlaps, 44 cross-state; WEB T1.3 and API T1.2 running, T0.4 harness under construction
+- ~05:00 · d9604b0 · — · Founder amendment 1 read: judging capped at 4 rounds after G3; gate reviewers do not count; fix P0/P1 after final round, VERIFY, then deliver for Claude review
+- 05:15 · ca53d05 · 47 passed · T1.2 API merged after diff review and lane quick gate; 14 routes/filter cases extended to 23 API checks; live artifacts still legacy-shaped pending DATA T0.3b/T1.5; WEB T1.3 and DATA T0.3b running
+- 05:18 · fdd8539 · 47 passed, 1 allow-listed skip · T0.4 harness/gates complete: SETUP offline pass, START fixture health 200 on 8770 and stopped, VERIFY 0 on main, scratch deleted check exit 2, occupied port exit 3; default axe/console audit activates with web shell
 
 ## Environment facts
 - Working copy `C:\Users\lucia\dev\gridlock`; git data `C:\Users\lucia\dev\gridlock-git` (the `.git` in the
