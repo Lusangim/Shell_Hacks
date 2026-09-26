@@ -206,21 +206,23 @@ h1 { margin: 4px 0 0; font-size: 24px; line-height: 1.3; letter-spacing: -.025em
 .map-pair-open { top: 186px; }
 .map-note { bottom: 36px; }
 @media (max-width: 700px) {
-  .panel { inset: auto 0 0; width: 100%; height: 56dvh; border-radius: 12px 12px 0 0; }
+  .panel { inset: auto 0 0; width: 100%; height: 58dvh; border-radius: 12px 12px 0 0; }
   .panel.expanded { height: 90dvh; }
-  .timeline { bottom: calc(56dvh + 32px); left: 16px; right: 16px; }
+  .timeline { bottom: calc(58dvh + 32px); left: 16px; right: 16px; }
   .basemap-controls { top: 12px; right: 12px; }
   .basemap-status { top: 12px; left: 12px; right: 72px; max-width: none; font-size: 12px; }
   .basemap-controls:not([hidden]) + .basemap-status { top: 178px; }
   .map-pair-open { top: 178px; right: 12px; }
-  .leaflet-bottom.leaflet-right { bottom: 56dvh; }
-  .leaflet-bottom.leaflet-left { bottom: 56dvh; }
+  .leaflet-bottom.leaflet-right { bottom: 58dvh; }
+  .leaflet-bottom.leaflet-left { bottom: 58dvh; }
   .state-label { font-size: 13px; }
   .panel:not(.expanded) .subhead,
+  .panel:not(.expanded) .eyebrow,
   .panel:not(.expanded) .edition-line,
   .panel:not(.expanded) .tally,
-  .panel:not(.expanded) .legend,
   .panel:not(.expanded) .row-main [data-src="source"] { display: none; }
+  .panel:not(.expanded) .legend { padding: 0 16px; }
+  .legend summary { min-height: 44px; padding: 10px 0; }
   .panel:not(.expanded) .search-state { display: none; }
   .panel:not(.expanded) .search-region label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
   .panel:not(.expanded) .row-main { font-size: 14px; }
