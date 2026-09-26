@@ -160,13 +160,22 @@ function setupTheme() {
 function setupSheet() {
   const button = document.getElementById("sheet-toggle");
   const sheet = document.querySelector(".panel");
-  button.addEventListener("click", () => {
-    const expanded = sheet.classList.toggle("expanded");
+  function setExpanded(expanded) {
+    sheet.classList.toggle("expanded", expanded);
     button.setAttribute("aria-expanded", String(expanded));
     button.textContent = expanded ? "Collapse opportunities" : "Expand opportunities";
     delete status.dataset.src;
     status.textContent = expanded ? "Opportunity sheet expanded." : "Opportunity sheet collapsed.";
     state.map.invalidateSize();
+  }
+  button.addEventListener("click", () => setExpanded(!sheet.classList.contains("expanded")));
+  document.addEventListener("focusin", (event) => {
+    if (matchMedia("(max-width: 700px)").matches && sheet.classList.contains("expanded")
+      && event.target.closest(".map-region, .timeline")) setExpanded(false);
+  });
+  const searchInput = document.getElementById("search-input");
+  searchInput.addEventListener("input", () => {
+    document.getElementById("search-state").dataset.active = String(searchInput.value.trim().length > 0);
   });
 }
 

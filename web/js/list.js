@@ -1,6 +1,6 @@
 import { state } from "./state.js";
 import { fitPairBounds, highlightPair } from "./map.js";
-import { citation, projectAbsenceMessage } from "./project-detail.js";
+import { citation, projectAbsenceMessage, utilityLabel } from "./project-detail.js";
 
 function field(tag, value, source, className = "") {
   const element = document.createElement(tag);
@@ -28,7 +28,7 @@ function selectOverlap(overlap, button, byId, openDetail = true) {
   const [a, b] = overlapProjects(overlap, byId);
   const status = document.getElementById("status");
   status.dataset.src = "utility";
-  status.textContent = `Selected overlap ${overlap.rank}: ${a?.properties?.utility ?? "utility not stated"} and ${b?.properties?.utility ?? "utility not stated"}.`;
+  status.textContent = `Selected overlap ${overlap.rank}: ${utilityLabel(a?.properties)} and ${utilityLabel(b?.properties)}.`;
   const layers = state.projectLayers;
   if (layers) {
     const bounds = L.latLngBounds([]);
@@ -61,7 +61,7 @@ export function renderList(overlaps, projects) {
     const main = document.createElement("span");
     main.className = "row-main";
     const utilities = document.createElement("strong");
-    utilities.append(field("span", a?.properties?.utility, "utility"), document.createTextNode(" / "), field("span", b?.properties?.utility, "utility"));
+    utilities.append(field("span", utilityLabel(a?.properties), "utility"), document.createTextNode(" / "), field("span", utilityLabel(b?.properties), "utility"));
     const names = document.createElement("span");
     names.className = "row-name";
     names.append(field("span", a?.properties?.name, "name"), document.createTextNode(" / "), field("span", b?.properties?.name, "name"));
