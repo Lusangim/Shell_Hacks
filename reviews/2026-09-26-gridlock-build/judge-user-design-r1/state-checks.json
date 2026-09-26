@@ -1,0 +1,272 @@
+[
+  [
+    "390-light",
+    "search",
+    0,
+    "Enter at least 2 characters to search local plans."
+  ],
+  [
+    "390-light",
+    "search",
+    501,
+    "No local matches for xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  ],
+  [
+    "390-light",
+    "search",
+    25,
+    "No local matches for <script>alert(1)</script>"
+  ],
+  [
+    "390-light",
+    "search",
+    2,
+    "No local matches for \u6771\u4eac"
+  ],
+  [
+    "390-light",
+    "search",
+    18,
+    "No local matches for zzzz-no-such-place"
+  ],
+  [
+    "390-light",
+    "area",
+    "17 projects in area; 40 overlaps with at least one project in area."
+  ],
+  [
+    "390-light",
+    "projects",
+    "3 projects shown."
+  ],
+  [
+    "390-light",
+    "repeat-pair",
+    "Overlap #2"
+  ],
+  [
+    "390-dark",
+    "search",
+    0,
+    "Enter at least 2 characters to search local plans."
+  ],
+  [
+    "390-dark",
+    "search",
+    501,
+    "No local matches for xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  ],
+  [
+    "390-dark",
+    "search",
+    25,
+    "No local matches for <script>alert(1)</script>"
+  ],
+  [
+    "390-dark",
+    "search",
+    2,
+    "No local matches for \u6771\u4eac"
+  ],
+  [
+    "390-dark",
+    "search",
+    18,
+    "No local matches for zzzz-no-such-place"
+  ],
+  [
+    "390-dark",
+    "area",
+    "17 projects in area; 40 overlaps with at least one project in area."
+  ],
+  [
+    "390-dark",
+    "projects",
+    "3 projects shown."
+  ],
+  [
+    "390-dark",
+    "repeat-pair",
+    "Overlap #2"
+  ],
+  [
+    "768-light",
+    "search",
+    0,
+    "Enter at least 2 characters to search local plans."
+  ],
+  [
+    "768-light",
+    "search",
+    501,
+    "No local matches for xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  ],
+  [
+    "768-light",
+    "search",
+    25,
+    "No local matches for <script>alert(1)</script>"
+  ],
+  [
+    "768-light",
+    "search",
+    2,
+    "No local matches for \u6771\u4eac"
+  ],
+  [
+    "768-light",
+    "search",
+    18,
+    "No local matches for zzzz-no-such-place"
+  ],
+  [
+    "768-light",
+    "area",
+    "17 projects in area; 40 overlaps with at least one project in area."
+  ],
+  [
+    "768-light",
+    "projects",
+    "3 projects shown."
+  ],
+  [
+    "768-light",
+    "repeat-pair",
+    "Overlap #2"
+  ],
+  [
+    "768-dark",
+    "search",
+    0,
+    "Enter at least 2 characters to search local plans."
+  ],
+  [
+    "768-dark",
+    "search",
+    501,
+    "No local matches for xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  ],
+  [
+    "768-dark",
+    "search",
+    25,
+    "No local matches for <script>alert(1)</script>"
+  ],
+  [
+    "768-dark",
+    "search",
+    2,
+    "No local matches for \u6771\u4eac"
+  ],
+  [
+    "768-dark",
+    "search",
+    18,
+    "No local matches for zzzz-no-such-place"
+  ],
+  [
+    "768-dark",
+    "area",
+    "17 projects in area; 40 overlaps with at least one project in area."
+  ],
+  [
+    "768-dark",
+    "projects",
+    "3 projects shown."
+  ],
+  [
+    "768-dark",
+    "repeat-pair",
+    "Overlap #2"
+  ],
+  [
+    "1440-light",
+    "search",
+    0,
+    "Enter at least 2 characters to search local plans."
+  ],
+  [
+    "1440-light",
+    "search",
+    501,
+    "No local matches for xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  ],
+  [
+    "1440-light",
+    "search",
+    25,
+    "No local matches for <script>alert(1)</script>"
+  ],
+  [
+    "1440-light",
+    "search",
+    2,
+    "No local matches for \u6771\u4eac"
+  ],
+  [
+    "1440-light",
+    "search",
+    18,
+    "No local matches for zzzz-no-such-place"
+  ],
+  [
+    "1440-light",
+    "area",
+    "17 projects in area; 40 overlaps with at least one project in area."
+  ],
+  [
+    "1440-light",
+    "projects",
+    "3 projects shown."
+  ],
+  [
+    "1440-light",
+    "repeat-pair",
+    "Overlap #2"
+  ],
+  [
+    "1440-dark",
+    "search",
+    0,
+    "Enter at least 2 characters to search local plans."
+  ],
+  [
+    "1440-dark",
+    "search",
+    501,
+    "No local matches for xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  ],
+  [
+    "1440-dark",
+    "search",
+    25,
+    "No local matches for <script>alert(1)</script>"
+  ],
+  [
+    "1440-dark",
+    "search",
+    2,
+    "No local matches for \u6771\u4eac"
+  ],
+  [
+    "1440-dark",
+    "search",
+    18,
+    "No local matches for zzzz-no-such-place"
+  ],
+  [
+    "1440-dark",
+    "area",
+    "17 projects in area; 40 overlaps with at least one project in area."
+  ],
+  [
+    "1440-dark",
+    "projects",
+    "3 projects shown."
+  ],
+  [
+    "1440-dark",
+    "repeat-pair",
+    "Overlap #2"
+  ]
+]

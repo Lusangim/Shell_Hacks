@@ -1,0 +1,237 @@
+[
+  [
+    390,
+    "light",
+    {
+      "rect": {
+        "x": 328,
+        "y": 128,
+        "width": 44,
+        "height": 44,
+        "top": 128,
+        "right": 372,
+        "bottom": 172,
+        "left": 328
+      },
+      "hit": "",
+      "tag": "SPAN",
+      "text": "\u2212",
+      "click": "blocked"
+    }
+  ],
+  [
+    390,
+    "light",
+    "tour",
+    [
+      "Public plans, shared possibilities",
+      "Read the map",
+      "How pairs are ranked",
+      "Find Savannah",
+      "Open the top pair",
+      "Check the source",
+      "Estimates and uncertainty",
+      "Compare years",
+      "Narrow the results",
+      "Keep a copy"
+    ],
+    "focus",
+    "tour-launch"
+  ],
+  [
+    390,
+    "dark",
+    {
+      "rect": {
+        "x": 328,
+        "y": 128,
+        "width": 44,
+        "height": 44,
+        "top": 128,
+        "right": 372,
+        "bottom": 172,
+        "left": 328
+      },
+      "hit": "",
+      "tag": "SPAN",
+      "text": "\u2212",
+      "click": "blocked"
+    }
+  ],
+  [
+    390,
+    "dark",
+    "tour",
+    [
+      "Public plans, shared possibilities",
+      "Read the map",
+      "How pairs are ranked",
+      "Find Savannah",
+      "Open the top pair",
+      "Check the source",
+      "Estimates and uncertainty",
+      "Compare years",
+      "Narrow the results",
+      "Keep a copy"
+    ],
+    "focus",
+    "tour-launch"
+  ],
+  [
+    768,
+    "light",
+    {
+      "rect": {
+        "x": 706,
+        "y": 128,
+        "width": 44,
+        "height": 44,
+        "top": 128,
+        "right": 750,
+        "bottom": 172,
+        "left": 706
+      },
+      "hit": "tour-dismiss",
+      "tag": "BUTTON",
+      "text": "\u00d7",
+      "click": "blocked"
+    }
+  ],
+  [
+    768,
+    "light",
+    "tour",
+    [
+      "Public plans, shared possibilities",
+      "Read the map",
+      "How pairs are ranked",
+      "Find Savannah",
+      "Open the top pair",
+      "Check the source",
+      "Estimates and uncertainty",
+      "Compare years",
+      "Narrow the results",
+      "Keep a copy"
+    ],
+    "focus",
+    "tour-launch"
+  ],
+  [
+    768,
+    "dark",
+    {
+      "rect": {
+        "x": 706,
+        "y": 128,
+        "width": 44,
+        "height": 44,
+        "top": 128,
+        "right": 750,
+        "bottom": 172,
+        "left": 706
+      },
+      "hit": "tour-dismiss",
+      "tag": "BUTTON",
+      "text": "\u00d7",
+      "click": "blocked"
+    }
+  ],
+  [
+    768,
+    "dark",
+    "tour",
+    [
+      "Public plans, shared possibilities",
+      "Read the map",
+      "How pairs are ranked",
+      "Find Savannah",
+      "Open the top pair",
+      "Check the source",
+      "Estimates and uncertainty",
+      "Compare years",
+      "Narrow the results",
+      "Keep a copy"
+    ],
+    "focus",
+    "tour-launch"
+  ],
+  [
+    1440,
+    "light",
+    {
+      "rect": {
+        "x": 1378,
+        "y": 128,
+        "width": 44,
+        "height": 44,
+        "top": 128,
+        "right": 1422,
+        "bottom": 172,
+        "left": 1378
+      },
+      "hit": "tour-dismiss",
+      "tag": "BUTTON",
+      "text": "\u00d7",
+      "click": "reachable"
+    }
+  ],
+  [
+    1440,
+    "light",
+    "tour",
+    [
+      "Public plans, shared possibilities",
+      "Read the map",
+      "How pairs are ranked",
+      "Find Savannah",
+      "Open the top pair",
+      "Check the source",
+      "Estimates and uncertainty",
+      "Compare years",
+      "Narrow the results",
+      "Keep a copy"
+    ],
+    "focus",
+    "tour-launch"
+  ],
+  [
+    1440,
+    "dark",
+    {
+      "rect": {
+        "x": 1378,
+        "y": 128,
+        "width": 44,
+        "height": 44,
+        "top": 128,
+        "right": 1422,
+        "bottom": 172,
+        "left": 1378
+      },
+      "hit": "tour-dismiss",
+      "tag": "BUTTON",
+      "text": "\u00d7",
+      "click": "reachable"
+    }
+  ],
+  [
+    1440,
+    "dark",
+    "tour",
+    [
+      "Public plans, shared possibilities",
+      "Read the map",
+      "How pairs are ranked",
+      "Find Savannah",
+      "Open the top pair",
+      "Open the top pair",
+      "Check the source",
+      "Estimates and uncertainty",
+      "Compare years",
+      "Narrow the results",
+      "Keep a copy"
+    ],
+    "focus",
+    "tour-launch"
+  ]
+]
