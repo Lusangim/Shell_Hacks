@@ -164,7 +164,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [x] **T3.5 Resilience and dark theme** (WEB) — `95fc5d4` merged as `eb28677`; local-only/full demo, counties from existing PMTiles, late offline/Google race, actual double-click/pinch and dark reload; 386/19/18 lane gate
   - Acceptance: counties in the basemap; dark theme remaps every token incl. the basemap (no flash); every surface's states per the contract; reduced motion; bottom sheet at 390 px.
   - Verify: `tests/e2e/test_offline.py` (non-local requests blocked → fully usable, 0 console errors); audits dark 1440/390.
-- [ ] **T1.4b Full audit gate** (LEAD) — by G3
+- [x] **T1.4b Full audit gate** (LEAD) — `4eeb008` merged; exact 24-scene matrix 37/37, scratch proofs 50/50, 674/19/99 lane gate green
   - Acceptance: remaining checks (4, 5, 8, 9, 11–14, 16–19, 21; 20 optional) over the six states × 1440/390 × light/dark; baseline raised.
   - Verify: each check proven against a broken scratch page.
 
@@ -178,7 +178,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [ ] **T4.1 Judges round 1** (JUDGE ×3, Codex sub-agents with `gridlock-judge.md`, frozen `g3` worktrees, ports 8781–8783): domain expert · first-week user + design (ui-contract critique procedure) · reliability + security.
 - [ ] **T4.2 Judges round 2** (×3): business / hackathon fit (`gridlock-judge.md`) · change-reviewer on every user-facing word (`gridlock-reviewer.md`) · accessibility (`gridlock-a11y.md`, §F).
 - [ ] **T4.3 Corrections wave** (builder sub-agents by ownership): reproduce → fix → check added → quick gate → merge; merged verify.
-- [ ] **T4.4 Confirmation round** (JUDGE, combined lenses): stop when every judge says "no" or only founder decisions remain.
+- [x] **T4.4 Confirmation round** — skipped by founder amendment 5 (2026-09-26); judging capped at T4.1 and T4.2 on frozen `g3`.
 
 ### Checkpoint G4
 - [ ] No open P0–P1 · [ ] merged verify green, totals ≥ baseline · [ ] tracker checkpoint
