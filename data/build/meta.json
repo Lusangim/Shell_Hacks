@@ -7,7 +7,7 @@
   },
   "counts_by_band": {
     "lt_1_6km": 3,
-    "lt_40km": 393,
+    "lt_40km": 405,
     "lt_8km": 19,
     "touching": 62
   },
@@ -42,7 +42,7 @@
     "dropped_unmapped": 79,
     "kept": 230,
     "kept_unmapped": 49,
-    "overlaps": 477,
+    "overlaps": 489,
     "placed": 181,
     "placement_candidates": 380,
     "places": 1150,

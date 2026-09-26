@@ -31,7 +31,7 @@ def test_real_georgia_only_pair_has_no_cross_state_bonus_or_claim(built_pairs: t
     assert (projects[pair["a"]]["state"], projects[pair["b"]]["state"]) == ("GA", "GA")
     assert pair["cross_state"] is False
     assert pair["score"] == 0.064  # 1 band * 0.1 timeline * 0.8 * 0.8 accuracy
-    assert pair["rank"] == 385
+    assert pair["rank"] == 395
     assert pair["pair_note"] == GA_PAIR_NOTE
 
 
@@ -46,12 +46,14 @@ def test_real_sc_ga_pair_keeps_cross_state_bonus(built_pairs: tuple) -> None:
 
 def test_every_built_pair_flag_and_count_match_sourced_states(built_pairs: tuple) -> None:
     projects, overlaps, meta = built_pairs
-    assert len(overlaps) == 477
+    assert len(overlaps) == 489
     for pair in overlaps:
         a_state, b_state = projects[pair["a"]]["state"], projects[pair["b"]]["state"]
         assert pair["cross_state"] is bool(a_state and b_state and a_state != b_state), pair["id"]
         if a_state == b_state == "GA":
             assert pair["pair_note"] == GA_PAIR_NOTE, pair["id"]
+        else:
+            assert pair["pair_note"] is None, pair["id"]
     assert sum(pair["cross_state"] for pair in overlaps) == meta["stage_counts"]["cross_state"] == 43
 
 
