@@ -1,4 +1,4 @@
 {
-  "passed": 58,
-  "allowed_skips": ["no web shell yet"]
+  "passed": 135,
+  "allowed_skips": []
 }
