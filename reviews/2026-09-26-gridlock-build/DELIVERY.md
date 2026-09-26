@@ -28,9 +28,10 @@
 | T2.2 | Done since G1; `8efaaaa`. All 55 mapped border projects have named location provenance; 49 kept unknowns show reasons; Okatie remains INFERRED. Five lead checks and integrated main quick gate 173 suite + 17 shell + 18 audits passed. |
 | T2.3 | Done since G1; `79869e7`. Formula recorded before code; 201 clearly labelled screening ranges, 214 timing-too-far and 74 no-cost outcomes. Assumption text follows validated rates. Thirteen focused lead checks and integrated main quick gate 186 suite + 17 shell + 18 audits passed. |
 | T2.4 | Done since G1; `ae1fa7a`. Typed pair detail, unpaged BOM CSV with safe text cells, and two whitelisted local source PDFs. Eighteen focused lead checks and integrated main quick gate 204 suite + 17 shell + 18 audits passed. |
+| T2.5a | Partly done on parked `wt/web` commit `11a22d7`: seven new project-detail checks passed but an existing map selector failed after a new list row reused `data-project-id`. The original 390 px phone check also failed; after search integration it passes. Isolated `wt/web-b` repair is running; no merge yet. |
 | T2.8a | Done since G1; `44aefc2`. Typed local search over 1,150 places and placed projects/stations, 12 focused lead rerun and integrated main quick gate 168 suite + 17 shell + 18 audits. |
 | T2.8b | Done since G1; `321bd0e`. Local keyboard search and source-backed duplicate choices, 390 px two-row sheet, ten focused lead e2e checks and integrated main quick gate 214 suite + 17 shell + 18 audits passed. Original `wt/web-2` branch remains a parked historical attempt. |
-| T2.5–T2.7, T2.9–T2.11; T3.1–T3.5; T1.4b; T4.1–T4.4; D.1–D.3 | Not started or in progress on a branch. |
+| T2.5b–T2.7, T2.9–T2.11; T3.1–T3.5; T1.4b; T4.1–T4.4; D.1–D.3 | Not started or in progress on a branch. |
 | G1a | Passed: type review and confirmation, full VERIFY green. |
 | G1 | Passed: Python HIGH corrected and confirmed, JS ready, full VERIFY green, 1440/390 screenshots and house patterns committed. |
 | G2–G4 | Not started. |
