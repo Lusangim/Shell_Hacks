@@ -60,6 +60,7 @@ when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT;
 - 08:39 · 5708198 · main quick gate 234 suite + 17 shell + 18 audit passed; 15 focused lead rerun · T2.5a project detail merged after 390 px and selector repairs; lead-owned transient Windows bind retry has a RED/GREEN harness check; baseline raised to 234; WEB T2.5b running, API T3.4a held for G2 and rechecking on synced branch
 - 08:57 · LEAD port lifecycle · main quick gate 235 suite + 17 shell + 18 audit passed; 49 focused lead rerun · T3.4a lane port 8772 failed twice after many function-scoped e2e server restarts; trial session scope conflicted with shell's separate server; module-scoped `live_server` passed, occupied-port guard remains; API lane rerun pending, WEB T2.5b running
 - 09:03 · API wt/api ff3e9f4 held · lane quick gate 254 suite + 17 shell + 18 audit passed, lead reran 19 focused area checks · T3.4a is ready but cannot merge before G2 tag; module-scoped test-server fix resolved the prior 8772 bind failures; WEB T2.5b still running
+- 09:12 · WEB T2.5b ea1e4c1 parked for repair · after sync lane quick gate 242 passed, 2 existing project-detail e2e failed as empty-hash restore reset a just-opened Projects view; exact failures and race sent to WEB; API T3.1 assigned on held wt/api branch while Phase 2 WEB work continues
 
 ## Environment facts
 - Working copy `C:\Users\lucia\dev\gridlock`; git data `C:\Users\lucia\dev\gridlock-git` (the `.git` in the
