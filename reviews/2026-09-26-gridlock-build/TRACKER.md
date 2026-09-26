@@ -45,6 +45,8 @@ when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT;
 - 05:55 · WEB a371314 merged · 73 passed + 11 shell + 1 axe · T1.3 map/list shell live on main against DATA artifacts; SVG aria-label removed, live test server function-scoped, no named skips; T1.4a audit build and DATA T1.1 field parsing underway
 - 06:07 · DATA 7298579 merged · 37 focused / 98 lane gate passed · T1.1 sourced years, cost columns and flags, voltage/type/miles, verbatim DESC dashes, 459 SERTP marker accounting; WEB focus correction underway for 801 default Leaflet city pins; root T1.4a all-stop audit still red until that WEB fix
 - 06:29 · WEB b74065a + DATA f05c037 merged · 135 suite + 17 shell + 18 audit passed · T1.4a seven quick audits with broken-scratch proofs and three 17-check runs complete; city pins replaced by sparse source-backed labels; source hash stable across CRLF/LF; occupied-port guard retained with transient bind retry; G1 review freeze next
+- 06:36–06:44 · cf95aa7 / G1 frozen · VERIFY 135/135, 0 fail/skip, baseline 135; production screenshots 1440/390 captured; Python review found one HIGH (Georgia-only pair flagged cross-state) and one MEDIUM (non-atomic artifact publication), JS review ready; DATA G1 repair assigned, G1 tag pending
+- 06:56 · 6ef63f8 · VERIFY 139/139, 0 fail/skip, baseline 139 · G1 cross-state HIGH repaired: 43 true different-state pairs, GA-only misflag removed, score 0.096→0.064; Python confirmation pending on frozen copy, publication MEDIUM tracked
 
 ## Environment facts
 - Working copy `C:\Users\lucia\dev\gridlock`; git data `C:\Users\lucia\dev\gridlock-git` (the `.git` in the
