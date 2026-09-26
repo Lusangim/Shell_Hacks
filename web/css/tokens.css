@@ -9,14 +9,17 @@
   --georgia-power: #004280;
   --meag-power: #863e7f;
   --dominion: #c04e29;
-  --gtc: #24998d;
+  --gtc: #187e73;
   --minor: #74655b;
   --highlight: #f2e64d;
   --highlight-ink: #23282e;
   --error: #8c342c;
   --focus: #23282e;
   --map-water: #e9eeed;
-  --map-land: #f4f6f4;
+  --map-land: #e2dfda;
+  --map-casing: #ffffff;
+  --card-shadow: 0 3px 18px #23282e24;
+  --line-glow: #23282e66;
   --map-state: #5b6670;
   --map-county: #c3c9cf;
 }
@@ -39,7 +42,10 @@
   --error: #f4a39c;
   --focus: #e8ecef;
   --map-water: #202a2d;
-  --map-land: #16191c;
+  --map-land: #1f1f1f;
+  --map-casing: #16191c;
+  --card-shadow: 0 3px 18px #00000066;
+  --line-glow: #e8ecef66;
   --map-state: #a7b1ba;
   --map-county: #3a4148;
 }

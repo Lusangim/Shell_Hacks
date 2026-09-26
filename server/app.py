@@ -22,6 +22,7 @@ from starlette.responses import Response
 
 from server.area import build_area
 from server.brief_routes import register_brief_routes, stale_brief_count
+from server.map_assets import GOOGLE_CSP, OFFLINE_CSP, MapConfig, archive_response, map_error, offline_available, same_origin
 from server.schemas import Area, Band, ErrorResponse, LineGeometry, Meta, MultiLineGeometry, Overlap, PointGeometry, ProjectCollection, ProjectFeature, Savings, SearchResult, Source
 from server.settings import ROOT, Settings
 
@@ -270,6 +271,7 @@ def export_csv(pairs: list[Overlap], projects: ProjectCollection) -> bytes:
 def create_app(artifact_dir: Path | None = None, settings: Settings | None = None) -> FastAPI:
     """Create a loopback-only application with configurable validated artifacts."""
     config = settings or Settings.from_env()
+    google_key = config.google_key if config.google == "on" else None
     directory = Path(artifact_dir) if artifact_dir is not None else config.artifact_dir
     explicit_dir = artifact_dir is not None or directory != ROOT / "data" / "build"
     fixture_dir = explicit_dir and (directory / "projects.json").exists() and not (directory / "projects.geojson").exists()
@@ -286,11 +288,18 @@ def create_app(artifact_dir: Path | None = None, settings: Settings | None = Non
         host = request.headers.get("host", "")
         if not re.fullmatch(r"(?:127\.0\.0\.1|localhost)(?::[0-9]{1,5})?", host, re.IGNORECASE):
             response = _error(400, "invalid_host", "Use 127.0.0.1 or localhost")
+        elif request.url.path == "/api/map-config" and not same_origin(request):
+            response = map_error(403, "invalid_origin", "Same-origin request required")
         else:
             response = await call_next(request)
-        response.headers["Content-Security-Policy"] = "default-src 'self'"
+        response.headers["Content-Security-Policy"] = GOOGLE_CSP if google_key else OFFLINE_CSP
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["Referrer-Policy"] = "no-referrer"
+        if google_key and (request.url.path == "/api/map-config" or response.headers.get("content-type", "").startswith("text/html")):
+            response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        if request.url.path == "/api/map-config":
+            response.headers["Cache-Control"] = "no-store"
+            response.headers["Cross-Origin-Resource-Policy"] = "same-origin"
         return response
 
     @app.exception_handler(RequestValidationError)
@@ -309,6 +318,15 @@ def create_app(artifact_dir: Path | None = None, settings: Settings | None = Non
     @app.get("/api/health", response_model=Health, responses={400: {"model": ErrorResponse}})
     def health() -> Health:
         return Health(status="ok")
+
+    @app.get("/api/map-config", response_model=MapConfig, responses={400: {"model": ErrorResponse}, 403: {"model": ErrorResponse}})
+    def map_config() -> MapConfig:
+        return MapConfig(google_enabled=google_key is not None, google_key=google_key, offline_available=offline_available(config.basemap_pmtiles))
+
+    @app.get("/basemap/gasc.pmtiles", response_class=Response, response_model=None, responses={206: {"description": "Single byte range"}, 404: {"model": ErrorResponse}, 416: {"model": ErrorResponse}})
+    def basemap_archive(request: Request) -> Response:
+        ranges = request.headers.getlist("range")
+        return archive_response(config.basemap_pmtiles, ",".join(ranges) if ranges else None)
 
     @app.get("/api/meta", response_model=Meta, responses={400: {"model": ErrorResponse}})
     def meta(request: Request) -> Meta:

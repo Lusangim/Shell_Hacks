@@ -11,7 +11,15 @@ from playwright.sync_api import expect, sync_playwright
 MCINTOSH = "desc-p41__sertp-p107-9bc088"
 
 
+def wait_for_timeline(page):
+    slider = page.locator("#timeline-year")
+    expect(slider).to_be_enabled(timeout=5000)
+    expect(slider).to_have_attribute("min", "2026")
+    expect(slider).to_have_attribute("max", "2035")
+
+
 def set_year(page, year):
+    wait_for_timeline(page)
     page.locator("#timeline-year").evaluate("""(element, value) => {
       element.value = String(value);
       element.dispatchEvent(new Event('input', {bubbles: true}));
@@ -168,6 +176,7 @@ def test_phone_keyboard_focus_reduced_motion_and_no_outbound_calls(live_server, 
         page.on("request", lambda request: external.append(request.url) if not request.url.startswith(live_server) else None)
         page.goto(live_server)
         expect(page.locator("#timeline-year")).to_be_visible()
+        wait_for_timeline(page)
         page.get_by_role("button", name="All years").focus()
         page.keyboard.press("Tab")
         expect(page.locator("#timeline-year")).to_be_focused()

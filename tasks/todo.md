@@ -114,7 +114,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [x] **T2.7 Timeline slider** (WEB) — `87aea06` integrated as `c3e32bb`; lead reran the 2028 source-backed case, synced lane gate 267/18/18 and integrated main quick gate 267/18/18 passed
   - Acceptance: native range over the data's in-service years (Q4) + "All years" + play/pause; year Y emphasises projects **entering service in Y** and lights up overlaps whose two projects both enter service within Y ± 1; `<output>` + `aria-valuetext`; no animation on input; reduced motion honoured.
   - Verify: `tests/e2e/test_timeline.py` — 2028 lights the McIntosh pairs; arrows step; play stops at the end; All years restores.
-- [ ] **T1.6 Modern base map, zoom and restyle** (WEB + API + LEAD; founder amendment 2, direction v2)
+- [x] **T1.6 Modern base map, zoom and restyle** (WEB + API + LEAD; founder amendment 2, direction v2) — API `5c0101d`, WEB `ccd0702`, search flight `18e2544` merged; main gate 344 suite + 19 shell + 18 audit passed; independent API and WEB security reviews closed. Phone overview/minimum is 5.5 to fit both complete states above the two-row sheet; desktop is 6–17. Live Google compatibility remains a founder-run check.
   - Acceptance: offline Protomaps PMTiles for Georgia and South Carolina through a validated HTTP Range route, visible outline fallback when the external file is absent, optional Google roadmap/satellite switch only with a configured key and online state, default Google-off tests, GA + SC first view, wheel/double-click/pinch/keyboard zoom 6–17, panel scroll isolation, modern floating cards and readable line contrast in light/dark. No real key read in tests or committed map archive.
   - Verify: API Range/config and fallback tests; browser checks for both-state fit, zoom and panel scroll, offline/no-key/no-Google-request, missing-file fallback, line contrast, keyboard and 390 px layout; full quick gate and scoped security review of file path/config/CSP changes.
 - [x] **T2.8a Search API** (API) — `6e1f176`, merged `44aefc2`; 12 focused lead rerun, integrated main quick gate 168 suite + 17 shell + 18 audits passed
@@ -123,14 +123,14 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [x] **T2.8b Search UI** (WEB-2) — `4869de9` correction merged as `321bd0e`; lead reran 10 search e2e; main quick gate 214 suite + 17 shell + 18 audits passed
   - Acceptance: `<input type="search" list>` + `<datalist>` (ARIA combobox only if an audit fails); Enter zooms and offers "Explore this area".
   - Verify: `tests/e2e/test_search.py` keyboard-only.
-- [ ] **T2.9 Export and print** (WEB-2)
+- [x] **T2.9 Export and print** (WEB-2) — `3057075` merged as `d6980c0`; lead reran three CSV parity cases; integrated lane gate 278 suite + 19 shell + 18 audit passed; scoped security review P0–P3 zero
   - Acceptance: "Export CSV" downloads the server CSV for current filters; "Print report": ranked table, selected overlap, assumptions, sources, attribution; Letter without cut-off columns.
   - Verify: `tests/e2e/test_export.py` — CSV rows == visible list == API list; print view has the CSV's required fields; `media=print` screenshot.
-- [ ] **T2.11 Domain spot-check** (JUDGE, Codex sub-agent with `gridlock-judge.md`, domain lens) — at G2
+- [x] **T2.11 Domain spot-check** (JUDGE, Codex sub-agent with `gridlock-judge.md`, domain lens) — G2 judgment `b9ff84a`: top-ten source fields and five distances checked; two P2 wording repairs assigned before G3
   - Acceptance: a transmission-planning read of the top 10 pairs, their wording, bands, years, costs and sources against the PDFs; Georgia-only pairs' note; findings to the owning lanes before G3.
 
 ### Checkpoint G2 — core demo path
-- [ ] Demo path e2e green · [ ] merged verify green · [ ] gate round (no new builder until VERIFY has run; reviewers on a frozen copy while builders resume): T2.11 + `gridlock-test-analyzer` + `gridlock-silent-failure` as sub-agents — findings closed or assigned · [ ] screenshots for the founder · [ ] `DELIVERY.md` rewritten · [ ] blocked tasks parked and listed
+- [x] Demo path e2e green · [x] merged verify green (344/344, 0 failed/skipped) · [x] gate round: T2.11 + `gridlock-test-analyzer` + `gridlock-silent-failure` on frozen `d355f75`; zero P0/P1, assigned all P2/P3 before G3 · [x] screenshots for the founder · [x] `DELIVERY.md` rewritten at gate · [x] blocked tasks and founder decisions listed
 
 ---
 

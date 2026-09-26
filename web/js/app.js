@@ -6,6 +6,7 @@ import { setupOverlapDetail } from "./overlap-detail.js";
 import { setupSearch } from "./search.js";
 import { setupFilters } from "./filters.js";
 import { setupTimeline } from "./timeline.js";
+import { setupExport } from "./export.js";
 import { state } from "./state.js";
 
 const status = document.getElementById("status");
@@ -15,6 +16,7 @@ const overlapView = setupOverlapDetail(projectView);
 const mapPairOpen = document.getElementById("map-pair-open");
 const filterControl = setupFilters(() => { void applyFilters(); });
 const timeline = setupTimeline(filterControl);
+const exportControl = setupExport(filterControl);
 
 function showState(message, kind, retryAction = load) {
   listState.replaceChildren();
@@ -44,6 +46,7 @@ function editionText(meta) {
 }
 
 async function load() {
+  exportControl.setReady(false);
   showState("Loading ranked opportunities", "loading");
   delete status.dataset.src;
   status.textContent = "Loading public plans.";
@@ -105,9 +108,11 @@ function renderFiltered(projects, overlaps, initial) {
     ? `${overlaps.length} ranked opportunities match filters. ${projects.features.length} projects shown.${selectedId && !selectedVisible ? " Selected pair is outside current filters." : ""}`
     : `${overlaps.length} ranked opportunities loaded.`;
   timeline.refresh();
+  exportControl.setReady(true);
 }
 
 async function applyFilters(full = null, initial = false) {
+  exportControl.setReady(false);
   const ownRequest = ++state.filterRequest;
   state.filterAbort?.abort();
   state.filterAbort = new AbortController();
