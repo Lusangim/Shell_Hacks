@@ -14,12 +14,17 @@ export function money(value) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
 }
 
+export function utilityLabel(props) {
+  const utility = props?.utility ?? "Utility not stated";
+  return props?.utility_basis === "inferred_from_location" ? `${utility} (inferred)` : utility;
+}
+
 export function readableEvidence(value, projects = []) {
   let result = value ?? "not stated";
   // Only presentation changes: summaries use structured fields, never extracted prose.
   for (const project of projects) {
     const props = project.properties;
-    result = result.replaceAll(props.id, `${props.utility} project`);
+    result = result.replaceAll(props.id, `${utilityLabel(props)} project`);
   }
   return result.replace(/\b(?:desc-p\d+|sertp-p\d+-[a-f0-9]+(?:-\d+)?)(?:__(?:desc-p\d+|sertp-p\d+-[a-f0-9]+(?:-\d+)?))?\b/g, "project")
     .replace(/\bdata[\\/][^\s;)]+/g, "committed source file")
@@ -55,12 +60,23 @@ export function projectSummary(feature, includeName = true) {
   const container = document.createElement("div");
   container.className = "overlap-project";
   if (includeName) container.append(sourced("h3", props.name, "name"));
-  const summary = detailBlock(props.utility, "utility", "Source text", [
+  const summary = detailBlock(utilityLabel(props), "utility", "Source text", [
     sourced("li", `In service: ${props.in_service ?? "not stated"}`, "in_service"),
   ]);
   const cost = document.createElement("li");
   cost.append(document.createTextNode("Plan cost: "), sourced("span",
     props.cost_basis === "plan" && Number.isFinite(props.cost_usd) ? money(props.cost_usd) : "not stated", "cost_usd"));
+  const warnings = {
+    printed_total_differs_from_sum: "Printed total differs from the year columns; verify the source.",
+    below_list_threshold: "Printed total is below the list's $2 million threshold.",
+  };
+  for (const flag of props.cost_flags ?? []) {
+    if (!warnings[flag]) continue;
+    const warning = document.createElement("span");
+    warning.className = "cost-warning";
+    warning.textContent = warnings[flag];
+    cost.append(warning);
+  }
   summary.list.append(cost);
   summary.block.insertBefore(citation(props.source), summary.list);
   summary.disclosure.append(sourced("p", props.description, "description"),
@@ -131,7 +147,9 @@ export function setupProjectDetail() {
       if (!row.hidden) visible += 1;
     }
     message.textContent = loadError ? "Could not load public plan data. Check the local server and try again."
-      : projects.length === 0 ? "No projects in the loaded plans."
+      : projects.length === 0 ? filtered
+        ? "No projects match the current filters. Open Filters and select Clear all filters to see all projects."
+        : "No projects in the loaded plans."
       : visible === 0 ? "No projects match this search." : `${visible} projects shown.`;
   }
 
@@ -150,7 +168,7 @@ export function setupProjectDetail() {
       item.dataset.searchText = `${props.name} ${props.utility}`.toLocaleLowerCase();
       const button = document.createElement("button");
       button.type = "button";
-      button.append(sourced("strong", props.name, "name"), sourced("span", props.utility, "utility"));
+      button.append(sourced("strong", props.name, "name"), sourced("span", utilityLabel(props), "utility"));
       button.addEventListener("click", () => openProject(props.id, "projects", button));
       item.append(button);
       list.append(item);

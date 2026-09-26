@@ -1,5 +1,6 @@
 import { state } from "./state.js";
 import { initializeBasemap, isolateMapControls } from "./basemap.js";
+import { utilityLabel } from "./project-detail.js";
 
 const utilityTokens = new Map([
   ["Dominion Energy SC", "--dominion"],
@@ -37,7 +38,7 @@ function tooltipFor(feature) {
   const meta = document.createElement("span");
   meta.className = "tooltip-meta";
   meta.dataset.src = "utility";
-  meta.textContent = properties.utility ?? "Utility not stated";
+  meta.textContent = utilityLabel(properties);
   const accuracy = document.createElement("span");
   accuracy.className = "tooltip-meta";
   accuracy.dataset.src = "accuracy";
