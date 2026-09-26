@@ -18,6 +18,14 @@ def required_test_port() -> int:
     return port
 
 
+def auxiliary_test_port(offset: int) -> int:
+    """Reserve a distinct deterministic loopback port inside each lane."""
+    port = required_test_port() + offset
+    if offset <= 0 or port > 65535:
+        raise RuntimeError("auxiliary test port is outside the valid range")
+    return port
+
+
 def require_free_loopback_port(port: int) -> None:
     deadline = time.monotonic() + 10
     while True:

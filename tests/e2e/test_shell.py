@@ -15,7 +15,7 @@ from urllib.request import urlopen
 
 import pytest
 from playwright.sync_api import expect, sync_playwright
-from tests.harness import require_free_loopback_port
+from tests.harness import auxiliary_test_port, require_free_loopback_port
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -83,7 +83,7 @@ BASEMAP = {
 
 @pytest.fixture(scope="module")
 def shell_server():
-    port = int(os.environ["GRIDLOCK_TEST_PORT"])
+    port = auxiliary_test_port(1000)
     require_free_loopback_port(port)
     responses = {
         "/api/projects": {"type": "FeatureCollection", "features": PROJECTS},
@@ -145,11 +145,12 @@ def api_shell_server(tmp_path):
     fixture_dir = ROOT / "tests" / "fixtures" / "api"
     for name in ("projects.json", "overlaps.json", "meta.json", "basemap.json"):
         shutil.copyfile(fixture_dir / name, tmp_path / name)
-    port = int(os.environ["GRIDLOCK_TEST_PORT"])
+    port = auxiliary_test_port(2000)
     require_free_loopback_port(port)
     env = os.environ.copy()
     env["GRIDLOCK_ARTIFACT_DIR"] = str(tmp_path)
     env["GRIDLOCK_AI"] = "off"
+    env["GRIDLOCK_TEST_PORT"] = str(port)
     process = subprocess.Popen(
         [os.environ["GRIDLOCK_PY"], "-m", "server"],
         cwd=ROOT,
