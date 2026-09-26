@@ -158,7 +158,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [x] **T3.4a Area API** (API) — projected local circle and typed summary, 519/19/18 branch gate
   - Acceptance: `GET /api/area?lat&lon&radius_km=40` (1–80; buffer in EPSG:5070; projects intersecting; overlaps with ≥ 1 project inside; counts).
   - Verify: `tests/api/test_area.py` — hand-computed case around McIntosh; bad input 422.
-- [ ] **T3.4b Area UI** (WEB-2)
+- [x] **T3.4b Area UI** (WEB-2) — map/search entry, radius, URL/history and stale-response guards; 555/19/18 lane gate and independent security no findings
   - Acceptance: map click or "Explore this area" draws the circle + summary panel; Esc clears; a second click while loading shows only the second result; area centre in the URL.
   - Verify: `tests/e2e/test_area.py` (click + keyboard path + race).
 - [x] **T3.5 Resilience and dark theme** (WEB) — `95fc5d4` merged as `eb28677`; local-only/full demo, counties from existing PMTiles, late offline/Google race, actual double-click/pinch and dark reload; 386/19/18 lane gate
