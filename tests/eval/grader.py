@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP, localcontext
 from pathlib import Path
 from typing import Any
 
@@ -73,13 +73,21 @@ def _source_free_text(text: str, a: ProjectFeature, b: ProjectFeature) -> str:
 
 
 def _money_matches(value: str, unit: str | None, allowed: set[int]) -> bool:
-    amount = Decimal(value.replace(",", ""))
-    multiplier = Decimal(1_000_000) if unit else Decimal(1)
-    precision = Decimal(1).scaleb(-max(0, -amount.as_tuple().exponent))
-    for source in allowed:
-        source_display = (Decimal(source) / multiplier).quantize(precision, rounding=ROUND_HALF_UP)
-        if source_display == amount:
-            return True
+    digits = value.replace(",", "").replace(".", "")
+    if len(digits) > 64:
+        return False
+    try:
+        with localcontext() as context:
+            context.prec = max(28, len(digits) + 24)
+            amount = Decimal(value.replace(",", ""))
+            multiplier = Decimal(1_000_000) if unit else Decimal(1)
+            precision = Decimal(1).scaleb(-max(0, -amount.as_tuple().exponent))
+            for source in allowed:
+                source_display = (Decimal(source) / multiplier).quantize(precision, rounding=ROUND_HALF_UP)
+                if source_display == amount:
+                    return True
+    except InvalidOperation:
+        return False
     return False
 
 
@@ -108,7 +116,7 @@ def _check_numbers(
 
     pages = {a.properties.source.page, b.properties.source.page}
     for match in _PAGE.finditer(residual):
-        if int(match.group(1)) not in pages:
+        if len(match.group(1)) > 64 or int(match.group(1)) not in pages:
             errors.append(f"number: unsupported page {match.group(1)}")
     residual = _PAGE.sub(" ", residual)
 
@@ -119,6 +127,9 @@ def _check_numbers(
     miles = {Decimal(str(p.properties.miles)) for p in (a, b) if p.properties.miles is not None}
     voltages = {Decimal(str(kv)) for p in (a, b) for kv in p.properties.voltage_kv}
     for match in _NUMBER.finditer(residual):
+        if len(match.group()) > 64:
+            errors.append("number: unsupported overlong value")
+            continue
         value = Decimal(match.group().replace(",", ""))
         following = residual[match.end():]
         unit = re.match(r"\s*(km|kV|miles?|years?)\b", following, re.I)

@@ -184,6 +184,22 @@ def test_source_voltage_can_be_written_without_a_space() -> None:
     assert not any("number" in item for item in errors(document, pair, a, b))
 
 
+def test_extreme_fractional_dollar_is_rejected_without_decimal_error() -> None:
+    brief, pair, a, b = baseline()
+    document = brief.model_dump()
+    document["what"] += " A cost is $1." + "0" * 40 + "."
+    found = errors(document, pair, a, b)
+    assert any("number" in item for item in found), found
+
+
+def test_malformed_grouped_number_is_rejected_without_decimal_error() -> None:
+    brief, pair, a, b = baseline()
+    document = brief.model_dump()
+    document["what"] += " The amount is 1,,,."
+    found = errors(document, pair, a, b)
+    assert any("number" in item for item in found), found
+
+
 @pytest.mark.parametrize("omitted", [(2026,), (2028,), (2026, 2028)])
 def test_stated_plan_years_must_appear_even_when_schedule_prose_is_long_enough(omitted: tuple[int, ...]) -> None:
     brief, pair, a, b = baseline("desc-p12__sertp-p107-9bc088")

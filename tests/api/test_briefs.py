@@ -156,6 +156,35 @@ def test_cached_matching_hash_is_still_regraded_before_use(tmp_path: Path) -> No
     assert grade_brief(result.brief, pair, a, b, CONTACTS).ok
 
 
+def test_extreme_fractional_dollar_falls_back_from_model_and_cache(tmp_path: Path) -> None:
+    pair, a, b = real_case()
+    good = make_template_brief(pair, a, b, CONTACTS)
+    bad = good.model_copy(update={"what": good.what + " A cost is $1." + "0" * 40 + "."})
+    fake = FakeClient([parsed(bad), parsed(bad)])
+    rejected = call(tmp_path, fake, budget=Budget(Decimal("0.48")))
+    assert (rejected.origin, rejected.reason, rejected.calls) == ("template", "grade_rejected", 2)
+    assert rejected.brief == good
+    assert not cache_path(tmp_path, pair.id).exists()
+
+    valid = call(tmp_path, FakeClient([parsed(good)]), budget=Budget(Decimal("0.24")))
+    path = cache_path(tmp_path, pair.id)
+    document = json.loads(path.read_text(encoding="utf-8"))
+    document["brief"]["what"] = bad.what
+    path.write_text(json.dumps(document), encoding="utf-8")
+    offline = call(tmp_path, None, access=False, budget=None)
+    assert (offline.origin, offline.reason, offline.calls) == ("template", "access_disabled", 0)
+    assert offline.brief == good and offline.cache_key == valid.cache_key
+
+
+def test_extreme_numeric_cache_json_is_a_miss(tmp_path: Path) -> None:
+    pair, _, _ = real_case()
+    path = cache_path(tmp_path, pair.id)
+    path.write_text('{"cache_key":' + "1" * 5000 + "}", encoding="utf-8")
+    assert load_cached_brief(tmp_path, pair.id, "0" * 64) is None
+    result = call(tmp_path, None, access=False, budget=None)
+    assert (result.origin, result.reason, result.calls) == ("template", "access_disabled", 0)
+
+
 def test_grade_rejection_does_not_write_cache_or_echo_bad_body(tmp_path: Path, capsys) -> None:
     pair, a, b = real_case()
     bad = make_template_brief(pair, a, b, CONTACTS).model_copy(update={

@@ -87,7 +87,7 @@ def load_cached_brief(
         if document["cache_key"] != expected_key:
             return None
         brief = Brief.model_validate(document["brief"])
-    except (OSError, UnicodeError, json.JSONDecodeError, KeyError, TypeError, ValidationError):
+    except (OSError, UnicodeError, ValueError, RecursionError, KeyError, TypeError, ValidationError):
         return None
     if brief.overlap_id != overlap_id or brief.input_hash != expected_key:
         return None
