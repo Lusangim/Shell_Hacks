@@ -118,6 +118,35 @@ def test_share_wording_depends_on_band_and_reason() -> None:
     assert "unverified" in can_share("touching", "same_area_approximate").lower()
 
 
+def test_shared_endpoint_opportunity_requires_work_location_verification() -> None:
+    opportunity = can_share("touching", "shared_endpoint")
+    assert "Verify work locations" in opportunity
+    assert "possible coordination" in opportunity
+    assert "shared assets unverified" in opportunity
+    assert "Coordinate work at the named endpoint" not in opportunity
+
+
+@pytest.mark.parametrize("reverse", [False, True])
+def test_goshen_section_is_distinct_from_named_mcintosh_endpoint(reverse: bool) -> None:
+    features = {
+        feature["properties"]["id"]: feature
+        for feature in json.loads((ROOT / "data/build/projects.geojson").read_text(encoding="utf-8"))["features"]
+    }
+    a, b = features["desc-p41"], features["sertp-p111-fe1e3b"]
+    if reverse:
+        a, b = b, a
+    reason, detail = classify_touch(
+        a["properties"], b["properties"], shape(a["geometry"]), shape(b["geometry"]), 0,
+    )
+    assert reason == "shared_endpoint"
+    assert "Goshen (Savannah)–Georgia Pacific (Rincon)" in detail
+    assert "6.7-mile" in detail
+    assert "mapped full Goshen–McIntosh line" in detail
+    assert "does not establish work at McIntosh" in detail
+    assert "Deerfield Switching Station, location not stated" in detail
+    assert "p. 41" in detail and "p. 111" in detail
+
+
 def test_rank_ties_use_full_distance_then_pair_id() -> None:
     pairs = [
         {"id": "z", "score": 3, "distance_km": 1.0000002},
@@ -138,6 +167,11 @@ def test_built_pairs_publish_reasons_note_and_deterministic_rank() -> None:
         assert "Deerfield" in pair["touch_detail"]
         assert pair["cross_state"] is True
         assert pair["pair_note"] is None
+        assert "Verify work locations" in pair["can_share"]
+        assert "shared assets unverified" in pair["can_share"]
+    assert "Goshen (Savannah)–Georgia Pacific (Rincon)" in goshen["touch_detail"]
+    assert "6.7-mile" in goshen["touch_detail"]
+    assert "does not establish work at McIntosh" in goshen["touch_detail"]
     georgia = by_id["sertp-p114-46d04f__sertp-p124-e36f41"]
     assert georgia["pair_note"] == "May already plan jointly through Georgia's Integrated Transmission System"
     assert [(pair["rank"], pair["id"]) for pair in pairs] == [
