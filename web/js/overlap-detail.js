@@ -1,4 +1,5 @@
-import { citation } from "./project-detail.js";
+import { detailBlock, money, projectSummary, readableEvidence, touchReasonLabel } from "./project-detail.js";
+import { highlightPair } from "./map.js";
 import { state } from "./state.js";
 
 const ASSUMPTIONS = new Map([
@@ -15,42 +16,7 @@ function text(tag, value, source, className = "") {
   return node;
 }
 
-function row(list, label, value, source) {
-  const wrapper = document.createElement("div");
-  wrapper.className = "project-field";
-  wrapper.append(text("dt", label), text("dd", value, source));
-  list.append(wrapper);
-}
-
-function money(value) {
-  if (value >= 1000000 && value % 1000000 === 0) return `$${value / 1000000}m`;
-  if (value >= 1000 && value % 1000 === 0) return `$${value / 1000}k`;
-  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
-}
-
-function projectCard(feature) {
-  const props = feature.properties;
-  const card = document.createElement("section");
-  card.className = "overlap-project";
-  card.append(text("h3", props.name, "name"), text("p", props.utility, "utility", "overlap-utility"),
-    text("span", `${props.accuracy ?? "unknown"} location`, "accuracy", "overlap-accuracy"));
-  const fields = document.createElement("dl");
-  fields.className = "project-fields";
-  row(fields, "Location basis", props.location_source, "location_source");
-  row(fields, "In service", props.in_service, "in_service");
-  const cost = Number.isFinite(props.cost_usd) ? money(props.cost_usd) : "not stated";
-  row(fields, "Cost", `${cost} (${props.cost_basis ?? "none"} basis)`, "cost_basis");
-  const sourceRow = document.createElement("div");
-  sourceRow.className = "project-field";
-  const value = document.createElement("dd");
-  value.append(citation(props.source));
-  sourceRow.append(text("dt", "Source"), value);
-  fields.append(sourceRow);
-  card.append(fields);
-  return card;
-}
-
-function render(payload, content, heading) {
+export function renderOverlapDetail(payload, content, heading) {
   const { overlap: pair, project_a: a, project_b: b, savings } = payload;
   if (!pair || !a?.properties || !b?.properties || !savings) throw new Error("Incomplete overlap detail");
   heading.textContent = `Overlap #${pair.rank}`;
@@ -58,43 +24,54 @@ function render(payload, content, heading) {
   container.className = "overlap-evidence";
   const projects = document.createElement("div");
   projects.className = "overlap-projects";
-  projects.append(projectCard(a), projectCard(b));
-  container.append(projects);
+  projects.append(projectSummary(a), projectSummary(b));
+  const confidence = pair.accuracy_pair === "approximate"
+    ? `Approximate locations${pair.band === "touching" ? ": possibly touching" : "; distance is approximate"}.`
+    : `${pair.accuracy_pair === "exact" ? "Exact" : "Unknown"} mapped locations.`;
+  const evidence = detailBlock(`${Number.isFinite(pair.distance_km) ? pair.distance_km.toFixed(1) + " km" : "Distance not stated"} · ${pair.band_label ?? "band not stated"}`,
+    "distance_km", "Pair evidence", [
+      text("li", touchReasonLabel(pair.touch_reason), "touch_reason"),
+      text("li", confidence, "accuracy_pair"),
+      text("li", `Timing: ${pair.timeline ?? "not stated"}. Sharing is not verified.`, "timeline"),
+    ]);
+  evidence.disclosure.append(text("p", readableEvidence(pair.touch_detail, [a, b]), "touch_detail"),
+    text("p", readableEvidence(pair.can_share, [a, b]), "can_share"),
+    text("p", Number.isInteger(pair.year_gap) ? `${pair.year_gap} years apart` : "Year gap not stated", "year_gap"),
+    text("p", readableEvidence(pair.pair_note, [a, b]), "pair_note"));
+  container.append(text("h3", "Why these projects appear together"), evidence.block, projects);
 
-  const evidence = document.createElement("dl");
-  evidence.className = "project-fields";
-  row(evidence, "Distance", `${Number.isFinite(pair.distance_km) ? pair.distance_km.toFixed(1) + " km" : "not stated"} · ${pair.band_label ?? "band not stated"}`, "distance_km");
-  row(evidence, "Touch reason", pair.touch_reason, "touch_reason");
-  row(evidence, "Source evidence", pair.touch_detail, "touch_detail");
-  row(evidence, "Opportunity", pair.can_share, "can_share");
-  row(evidence, "Timeline", pair.timeline, "timeline");
-  row(evidence, "Year gap", Number.isInteger(pair.year_gap) ? `${pair.year_gap} years` : "not stated", "year_gap");
-  row(evidence, "Location confidence", pair.accuracy_pair === "approximate" ? "Approximate locations: possibly touching" : `${pair.accuracy_pair ?? "unknown"} locations`, "accuracy_pair");
-  row(evidence, "Pair note", pair.pair_note, "pair_note");
-  container.append(text("h3", "Why these projects appear together"), evidence);
-
-  const savingsHeading = text("h3", "Screening savings");
-  container.append(savingsHeading);
+  let answer;
   if (savings.status === "range" && Number.isFinite(savings.low_usd) && Number.isFinite(savings.high_usd)) {
-    container.append(text("p", `${money(savings.low_usd)} to ${money(savings.high_usd)} screening range`, "savings_range", "overlap-range"));
+    answer = `Possible saving (estimate): ${money(savings.low_usd)} to ${money(savings.high_usd)}`;
   } else {
     const reasons = {
-      timing_too_far: "No screening range: project timing is too far apart.",
-      no_cost: "No screening range: usable cost or line mileage is not stated.",
-      unknown_year: "No screening range: at least one project year is unknown.",
+      timing_too_far: "No estimate: project timing is too far apart.",
+      no_cost: "No estimate: usable cost or line mileage is not stated.",
+      unknown_year: "No estimate: at least one project year is unknown.",
     };
-    container.append(text("p", reasons[savings.status] ?? "No screening range available.", "savings_status"));
+    answer = reasons[savings.status] ?? "No estimate available.";
   }
-  const savingsFields = document.createElement("dl");
-  savingsFields.className = "project-fields";
-  row(savingsFields, "Estimate basis", savings.basis, "savings_basis");
-  container.append(savingsFields);
-  const assumptions = document.createElement("ul");
-  assumptions.className = "overlap-assumptions";
+  const estimate = detailBlock(answer, "savings_status", "How we estimated this");
+  estimate.block.classList.add("savings-detail");
+  estimate.list.classList.add("overlap-assumptions");
+  const planCosts = [a, b].filter((project) => project.properties.cost_basis === "plan" && Number.isFinite(project.properties.cost_usd));
+  if (savings.status === "range") {
+    estimate.list.append(text("li", planCosts.length
+      ? "Based on the stated plan costs shown above; unstated partner costs are excluded."
+      : savings.assumption_ids?.includes("line_cost_per_mile_v1")
+        ? "Team cost proxy: $1 million to $3 million per stated line mile."
+        : "Based on stated line mileage; cost assumption details unavailable.", "estimate_scope"));
+  }
+  const assumptionLabels = [];
   for (const id of savings.assumption_ids ?? []) {
-    assumptions.append(text("li", ASSUMPTIONS.get(id) ?? `Assumption ${id}: details unavailable in this build.`, "assumption"));
+    if (id !== "line_cost_per_mile_v1") assumptionLabels.push(id === "coordination_fraction_v1"
+      ? "1% to 3% of reference cost" : "details unavailable");
+    estimate.disclosure.append(text("p", ASSUMPTIONS.get(id) ?? "Assumption details unavailable in this build.", "assumption_evidence"));
   }
-  if (assumptions.childElementCount) container.append(assumptions);
+  if (assumptionLabels.length) estimate.list.append(text("li", `Team screening assumption, 2026-09-26: ${assumptionLabels.join("; ")}.`, "assumption"));
+  estimate.list.append(text("li", "Not verified: the plans do not show shared work.", "savings_caveat"));
+  estimate.disclosure.append(text("p", readableEvidence(savings.basis, [a, b]), "savings_basis"));
+  container.append(text("h3", "Screening savings"), estimate.block);
   content.replaceChildren(container);
 }
 
@@ -106,6 +83,16 @@ export function setupOverlapDetail(projectView) {
   const back = document.getElementById("overlap-back");
   let requestNumber = 0;
   let controller = null;
+  let visiblePair = null;
+
+  function select(pair) {
+    state.selectedOverlapId = pair?.id ?? null;
+    document.querySelectorAll(".overlap-button[aria-pressed]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(Boolean(pair) && button.closest(".overlap-row").dataset.overlapId === pair.id));
+    });
+    highlightPair(pair);
+    document.getElementById("map-pair-open").hidden = !pair;
+  }
 
   function show(message) {
     projectView.showOverlapDetail();
@@ -136,6 +123,8 @@ export function setupOverlapDetail(projectView) {
     const ownRequest = requestNumber;
     controller?.abort();
     controller = null;
+    visiblePair = null;
+    select(null);
     if (push && location.hash !== `#overlap=${overlapId}`) history.pushState(null, "", `#overlap=${overlapId}`);
     show("Loading overlap detail.");
     if (!PAIR_ID.test(overlapId)) {
@@ -155,7 +144,10 @@ export function setupOverlapDetail(projectView) {
       if (!response.ok) throw new Error("Overlap detail request failed");
       const payload = await response.json();
       if (ownRequest !== requestNumber) return;
-      render(payload, content, heading);
+      if (payload.overlap?.id !== overlapId) throw new Error("Mismatched overlap detail");
+      renderOverlapDetail(payload, content, heading);
+      visiblePair = payload.overlap;
+      select(visiblePair);
       stateMessage.textContent = state.overlaps.some((pair) => pair.id === overlapId)
         ? "Public plan screening detail. A coordination opportunity is unverified."
         : "This pair is outside the current filters; its public-plan detail is shown below.";
@@ -179,7 +171,8 @@ export function setupOverlapDetail(projectView) {
   }
 
   function refreshFilterState() {
-    if (detail.hidden || !location.hash.startsWith("#overlap=")) return;
+    if (detail.hidden || !visiblePair || !location.hash.startsWith("#overlap=")) return;
+    select(visiblePair);
     stateMessage.textContent = state.overlaps.some((pair) => pair.id === state.selectedOverlapId)
       ? "Public plan screening detail. A coordination opportunity is unverified."
       : "This pair is outside the current filters; its public-plan detail is shown below.";
