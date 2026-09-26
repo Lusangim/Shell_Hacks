@@ -1,13 +1,13 @@
 # GridLock delivery report
 
-**In progress (last gate G1a, 2026-09-26 05:42 EDT).** This is a gate hand-off, not the final delivery.
+**In progress (last gate G1, 2026-09-26 07:00 EDT).** This is a gate hand-off, not the final delivery.
 
 ## What works now
 
-- Offline source processing keeps 230 of 481 source rows, places 181 projects, and produces 477 cross-utility overlaps, 44 across states. Each kept project cites a real PDF page.
+- Offline source processing keeps 230 of 481 source rows, places 181 projects, and produces 477 cross-utility overlaps, 43 across states. Each kept project cites a real PDF page.
 - The local API validates artifacts at startup and serves health, metadata, basemap, project and overlap routes with bounded filters.
 - `SETUP.cmd -Offline` passed with the existing environment; `START.cmd -Port 8770 -NoBrowser` served fixture health and was stopped; `VERIFY.cmd` is the full check.
-- Since G1a, DATA extras and the WEB shell have merged. The public map and ranked list now load from production artifacts on main.
+- The public map and ranked list load from production artifacts on main; keyboard, focus, axe, overflow, external-request and copy audits pass. G1 desktop and phone screenshots are in `g1/`.
 - No Claude API, network request, push, deployment or submission occurred.
 
 ## Task state
@@ -20,26 +20,27 @@
 | T0.3b | Done, `d635f20`; 230 page citations and artifact contracts checked. |
 | T0.4 | Done, `fdd8539`; offline setup, START fixture, port isolation and VERIFY proved. |
 | T1.2 | Done, `ca53d05`; API tests passed. |
-| T1.3 | Done, `c1e4e6c` plus `a371314`; main quick gate 73 passed, 11 shell checks and the default axe audit passed. |
+| T1.3 | Done, `c1e4e6c` with axe, focus and city-label corrections; main quick gate 139 passed, 17 shell checks and 18 audits passed. |
 | T1.5 | Done, `24e50d8`; 1,150 local places, basemap, full metadata, focused 3 passed and main quick gate 61 passed. |
 | T1.1 | Done since G1a, `7298579`; 37 focused checks, five PDF cost hand-checks, complete 459 SERTP marker accounting. |
 | T1.4a | Done; `reviews/2026-09-26-gridlock-build/lead/T1.4a.md`. Three 17-check runs passed, then the main quick gate passed 135 suite + 17 shell + 18 audit with no skip. |
-| T2.1 | Committed on DATA branch for post-G1 merge; 489 geodesic overlaps with boundary and source checks, review pending. |
+| T2.1 | Committed on DATA branch for post-G1 merge; 489 geodesic overlaps with boundary and source checks. Lead reviewed the diff, reran 17 focused checks, and ran its pre-integration quick gate (130 suite + 13 shell + 1 audit). Integration of the G1 cross-state repair is in progress on that branch. |
 | T2.2–T2.11; T3.1–T3.5; T1.4b; T4.1–T4.4; D.1–D.3 | Not started. |
 | G1a | Passed: type review and confirmation, full VERIFY green. |
-| G1–G4 | Not started. |
+| G1 | Passed: Python HIGH corrected and confirmed, JS ready, full VERIFY green, 1440/390 screenshots and house patterns committed. |
+| G2–G4 | Not started. |
 
 ## Verification and judgment
 
-`C:\Users\lucia\dev\gridlock-runs\verify\20260926-054237-812\summary.json`: exit 0, 58 passed against the raised 58 baseline, 0 failed, 1 named `no web shell yet` skip, no unknown skips. That skip belonged to G1a before the WEB shell merged; the current quick gate has no skips.
-
-Since G1a, the latest main quick gate passed 135 suite checks, 17 shell checks and 18 audits, with no skip. G1 VERIFY is pending; the preceding G1a summary remains the last full VERIFY evidence.
+G1 VERIFY: `C:\Users\lucia\dev\gridlock-runs\verify\20260926-065451-443\summary.json`: exit 0, 139 passed against baseline 139, 0 failed, 0 skipped. The preceding G1a VERIFY had 58 passed and one named temporary skip; G1 has no skip. The G1 lane quick gate passed 139 suite, 17 shell and 18 audit checks.
 
 G1a type design round 1 (`judge-type-g1a-r1/JUDGMENT.md`) found 2 HIGH and 4 MEDIUM; material improvement available. Round 2 (`judge-type-g1a-r2/JUDGMENT.md`) confirmed both HIGH closed by direct probes and fixtures, with 26 focused checks passing. Multiline member and nonnegative/reconciled count MEDIUMs are closed. Two MEDIUMs remain: nested lists in frozen Pydantic models can mutate, and exported JSON Schemas do not encode all runtime cross-field validators. The optional JSON Schema runtime probe could not run because `jsonschema` is not installed; no dependency was added. No CRITICAL or HIGH finding remains.
 
+G1 Python round 1 (`judge-python-g1-r1/JUDGMENT.md`) reproduced one HIGH: a Georgia/Georgia pair was flagged cross-state and scored with the 1.5 bonus. DATA repaired it in `eafbb0e`; the count changed 44→43, that pair's score 0.096→0.064 and rank 323→385, and top ten stayed unchanged. The fresh Python confirmation (`judge-python-g1-r2/JUDGMENT.md`) found no remaining CRITICAL/HIGH and said material improvement still available: no. The JavaScript reviewer (`judge-js-g1-r1/JUDGMENT.md`) reported ready, no findings and no material improvement available. One Python MEDIUM remains: `pipeline/build_all.py` publishes seven artifacts sequentially, so a late failed replacement could leave a mixed dataset; it is tracked for later DATA work.
+
 ## Parked work, choices and questions
 
-No branch is parked. No feature cut was made. The map shell is now merged on main; its initial live audit findings were fixed and the quick gate is green. Unknown roster, licence, Okatie verification, and Claude access remain open founder questions. Safe defaults: no invented person or endpoint, Okatie stays inferred, no API calls or spend, no push or submission. Sperry acceptance of the public SERTP overview plan is also unconfirmed; only public material is used.
+No branch is parked. No feature cut was made. Unknown roster, licence, Okatie verification, and Claude access remain open founder questions. Safe defaults: no invented person or endpoint, Okatie stays inferred, no API calls or spend, no push or submission. Sperry acceptance of the public SERTP overview plan is also unconfirmed; only public material is used.
 
 No change to Claude-owned files is proposed. The G1a contract guards were added before freeze; later changes require the SPEC type review procedure.
 
@@ -49,4 +50,6 @@ T1.1 surfaced stale parsed CSVs with ASCII hyphens where the source PDF prints e
 
 2026-09-26 — Contract fixtures need impossible-state probes; a valid fixture alone did not catch contradictory savings and same-utility overlaps.
 
-The lead session ID is recorded in the newest `C:\Users\lucia\dev\gridlock-runs\codex\*-lead.jsonl`; resume it with `codex exec resume <session id>` and first read MISSION.md, TRACKER.md, todo.md and git status. At this G1a checkpoint a confirmation judge has finished; no sub-agent is running. The Codex lead continues.
+2026-09-26 — A utility name cannot stand in for the source-backed state when a ranking rule depends on geography.
+
+The lead session ID is recorded in the newest `C:\Users\lucia\dev\gridlock-runs\codex\*-lead.jsonl`; resume it with `codex exec resume <session id>` and first read MISSION.md, TRACKER.md, todo.md and git status. At this G1 checkpoint the confirmation judge has finished; the DATA T2.1 integration sub-agent is running on its branch. The Codex lead continues.

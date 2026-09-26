@@ -81,7 +81,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
   - Verify: each check fails on a deliberately broken scratch page, then passes on the shell.
 
 ### Checkpoint G1 — walking skeleton
-- [ ] Merged verify green · [ ] gate reviewers `gridlock-python-reviewer` + `gridlock-js-reviewer` as sub-agents — CRITICAL/HIGH closed · [ ] screenshots 1440/390 in the pass folder for the founder · [ ] `reviews/2026-09-26-gridlock-build/house-patterns.md` written from the skeleton (patterns with `path:line`) and named in every brief from then on
+- [x] Merged verify green (139/139, 0 failed/skipped) · [x] gate reviewers `gridlock-python-reviewer` + `gridlock-js-reviewer` as sub-agents — Python HIGH closed in confirmation, JS ready · [x] screenshots 1440/390 in the pass folder for the founder · [x] `reviews/2026-09-26-gridlock-build/house-patterns.md` written from the skeleton (patterns with `path:line`) and named in every brief from then on
 
 ---
 
