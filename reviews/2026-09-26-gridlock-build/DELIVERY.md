@@ -22,13 +22,18 @@
 | T1.2 | Done, `ca53d05`; API tests passed. |
 | T1.3 | Done, `c1e4e6c` plus `a371314`; main quick gate 73 passed, 11 shell checks and the default axe audit passed. |
 | T1.5 | Done, `24e50d8`; 1,150 local places, basemap, full metadata, focused 3 passed and main quick gate 61 passed. |
-| T1.1, T1.4a; T2.1–T2.11; T3.1–T3.5; T1.4b; T4.1–T4.4; D.1–D.3 | Not started at G1a. |
+| T1.1 | Done since G1a, `7298579`; 37 focused checks, five PDF cost hand-checks, complete 459 SERTP marker accounting. |
+| T1.4a | Done; `reviews/2026-09-26-gridlock-build/lead/T1.4a.md`. Three 17-check runs passed, then the main quick gate passed 135 suite + 17 shell + 18 audit with no skip. |
+| T2.1 | Committed on DATA branch for post-G1 merge; 489 geodesic overlaps with boundary and source checks, review pending. |
+| T2.2–T2.11; T3.1–T3.5; T1.4b; T4.1–T4.4; D.1–D.3 | Not started. |
 | G1a | Passed: type review and confirmation, full VERIFY green. |
 | G1–G4 | Not started. |
 
 ## Verification and judgment
 
-`C:\Users\lucia\dev\gridlock-runs\verify\20260926-054237-812\summary.json`: exit 0, 58 passed against the raised 58 baseline, 0 failed, 1 named `no web shell yet` skip, no unknown skips. The temporary WEB absence also allow-lists e2e smoke and axe until the shell merges.
+`C:\Users\lucia\dev\gridlock-runs\verify\20260926-054237-812\summary.json`: exit 0, 58 passed against the raised 58 baseline, 0 failed, 1 named `no web shell yet` skip, no unknown skips. That skip belonged to G1a before the WEB shell merged; the current quick gate has no skips.
+
+Since G1a, the latest main quick gate passed 135 suite checks, 17 shell checks and 18 audits, with no skip. G1 VERIFY is pending; the preceding G1a summary remains the last full VERIFY evidence.
 
 G1a type design round 1 (`judge-type-g1a-r1/JUDGMENT.md`) found 2 HIGH and 4 MEDIUM; material improvement available. Round 2 (`judge-type-g1a-r2/JUDGMENT.md`) confirmed both HIGH closed by direct probes and fixtures, with 26 focused checks passing. Multiline member and nonnegative/reconciled count MEDIUMs are closed. Two MEDIUMs remain: nested lists in frozen Pydantic models can mutate, and exported JSON Schemas do not encode all runtime cross-field validators. The optional JSON Schema runtime probe could not run because `jsonschema` is not installed; no dependency was added. No CRITICAL or HIGH finding remains.
 
@@ -38,7 +43,7 @@ No branch is parked. No feature cut was made. The map shell is now merged on mai
 
 No change to Claude-owned files is proposed. The G1a contract guards were added before freeze; later changes require the SPEC type review procedure.
 
-T1.1 surfaced stale parsed CSVs with ASCII hyphens where the source PDF prints en dashes. The lead assigned those two derived CSV files to DATA T1.1 for an offline, completeness-checked re-extraction; original PDFs remain read-only.
+T1.1 surfaced stale parsed CSVs with ASCII hyphens where the source PDF prints en dashes. The lead assigned those two derived CSV files to DATA T1.1 for an offline, completeness-checked re-extraction; 22 DESC names were corrected, the SERTP CSV stayed byte-identical, and original PDFs remained read-only.
 
 ## Lessons and resume
 

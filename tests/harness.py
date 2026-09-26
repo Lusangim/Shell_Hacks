@@ -2,6 +2,7 @@
 
 import os
 import socket
+import time
 
 
 def required_test_port() -> int:
@@ -18,9 +19,18 @@ def required_test_port() -> int:
 
 
 def require_free_loopback_port(port: int) -> None:
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as listener:
-        listener.setsockopt(socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1)
-        try:
-            listener.bind(("127.0.0.1", port))
-        except OSError as exc:
-            raise RuntimeError(f"test port {port} is already bound") from exc
+    deadline = time.monotonic() + 3
+    while True:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as listener:
+            # Windows can retain a just-closed test server's port briefly.
+            listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            try:
+                listener.bind(("127.0.0.1", port))
+                return
+            except OSError as exc:
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as probe:
+                    probe.settimeout(0.1)
+                    occupied = probe.connect_ex(("127.0.0.1", port)) == 0
+                if occupied or time.monotonic() >= deadline:
+                    raise RuntimeError(f"test port {port} is already bound") from exc
+        time.sleep(0.05)
