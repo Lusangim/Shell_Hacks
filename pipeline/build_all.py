@@ -108,7 +108,10 @@ def _input_hash(raw: Path, manual: Path) -> str:
     digest = hashlib.sha256()
     for path in [*(raw / name for name in RAW_INPUTS), manual / "manual_locations.csv"]:
         digest.update(path.name.encode("utf-8"))
-        digest.update(path.read_bytes())
+        content = path.read_bytes()
+        if path.suffix.lower() in {".csv", ".json", ".geojson", ".txt"}:
+            content = content.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+        digest.update(content)
     return digest.hexdigest()
 
 
