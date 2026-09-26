@@ -40,6 +40,7 @@ when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT;
 - 05:15 · ca53d05 · 47 passed · T1.2 API merged after diff review and lane quick gate; 14 routes/filter cases extended to 23 API checks; live artifacts still legacy-shaped pending DATA T0.3b/T1.5; WEB T1.3 and DATA T0.3b running
 - 05:18 · fdd8539 · 47 passed, 1 allow-listed skip · T0.4 harness/gates complete: SETUP offline pass, START fixture health 200 on 8770 and stopped, VERIFY 0 on main, scratch deleted check exit 2, occupied port exit 3; default axe/console audit activates with web shell
 - 05:27 · d635f20 · 50 passed, 1 allow-listed skip · T0.3b merged after diff review and lane quick gate; all 230 project citations checked against PDF pages; artifacts contract-valid, 230/181/477/44 and top-ten order preserved; WEB T1.3 committed but waits on production basemap for its audit
+- 05:42 · 03ae694 · 58 passed, 1 allow-listed skip · G1a type review confirmed 2 HIGH closed; multiline and count guards added; 2 MEDIUM (nested mutability, exported schema cross-field constraints) documented; contracts frozen; DATA T1.5 ready for post-gate merge
 
 ## Environment facts
 - Working copy `C:\Users\lucia\dev\gridlock`; git data `C:\Users\lucia\dev\gridlock-git` (the `.git` in the

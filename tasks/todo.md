@@ -58,7 +58,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
   - Verify: quick gate and VERIFY = 0 on the skeleton; delete a check in a scratch copy → 2; occupied port → 3.
 
 ### Checkpoint G1a — foundations
-- [ ] Merged verify green · [ ] contracts frozen and committed · [ ] `gridlock-type-design` review of the contracts closed (§G) · [ ] tracker line
+- [x] Merged verify green · [x] contracts frozen and committed · [x] `gridlock-type-design` review of the contracts closed (§G): 2 HIGH fixed and confirmed; 2 MEDIUM remain recorded · [x] tracker line; VERIFY 58 passed, 1 named skip at `03ae694`
 
 ---
 
