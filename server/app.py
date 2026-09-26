@@ -13,11 +13,11 @@ from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, ConfigDict, JsonValue, ValidationError
+from pydantic import BaseModel, ConfigDict, Field, JsonValue, TypeAdapter, ValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.responses import Response
 
-from server.schemas import Band, ErrorResponse, Meta, Overlap, ProjectCollection, ProjectFeature
+from server.schemas import Band, ErrorResponse, LineGeometry, Meta, MultiLineGeometry, Overlap, PointGeometry, ProjectCollection, ProjectFeature, SearchResult
 from server.settings import ROOT, Settings
 
 
@@ -32,12 +32,21 @@ class Basemap(BaseModel):
     features: list[dict[str, JsonValue]]
 
 
+class Place(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+    name: str = Field(min_length=1)
+    state: Literal["GA", "SC"]
+    lat: float = Field(ge=-90, le=90, allow_inf_nan=False)
+    lon: float = Field(ge=-180, le=180, allow_inf_nan=False)
+
+
 @dataclass(frozen=True)
 class Artifacts:
     projects: ProjectCollection
     overlaps: tuple[Overlap, ...]
     meta: Meta
     basemap: Basemap
+    search_entries: tuple[SearchResult, ...]
 
 
 ModelT = TypeVar("ModelT", bound=BaseModel)
@@ -58,6 +67,68 @@ def _load_model(path: Path, model: type[ModelT]) -> ModelT:
         raise RuntimeError(f"Invalid GridLock artifact {path}: {exc}") from exc
 
 
+def _load_places(path: Path, *, required: bool) -> tuple[Place, ...]:
+    if not required and not path.exists():
+        return ()
+    try:
+        return tuple(TypeAdapter(list[Place]).validate_python(_read_json(path)))
+    except ValidationError as exc:
+        raise RuntimeError(f"Invalid GridLock artifact {path}: {exc}") from exc
+
+
+def _project_anchor(project: ProjectFeature) -> tuple[float, float] | None:
+    geometry = project.geometry
+    if isinstance(geometry, PointGeometry | LineGeometry):
+        return geometry.coordinates if isinstance(geometry, PointGeometry) else geometry.coordinates[0]
+    if isinstance(geometry, MultiLineGeometry):
+        return next((part[0] for part in geometry.coordinates if part), None)
+    return None
+
+
+def _search_entries(projects: ProjectCollection, places: tuple[Place, ...]) -> tuple[SearchResult, ...]:
+    entries = [SearchResult(type="place", label=place.name, lat=place.lat, lon=place.lon, ref=None) for place in places]
+    seen_stations: set[tuple[str, float, float]] = set()
+    for project in projects.features:
+        anchor = _project_anchor(project)
+        if anchor is None:
+            continue
+        lon, lat = anchor
+        props = project.properties
+        entries.append(SearchResult(type="project", label=props.name, lat=lat, lon=lon, ref=props.id))
+        if not isinstance(project.geometry, PointGeometry) or len(props.endpoints) != 1:
+            continue
+        endpoint = props.endpoints[0]
+        location_source = props.location_source or ""
+        if endpoint.casefold() not in location_source.casefold():
+            continue
+        if "substation" not in location_source.casefold() and "substation" not in props.name.casefold():
+            continue
+        key = (endpoint.casefold(), lat, lon)
+        if key not in seen_stations:
+            entries.append(SearchResult(type="substation", label=endpoint, lat=lat, lon=lon, ref=props.id))
+            seen_stations.add(key)
+    return tuple(entries)
+
+
+def _match_rank(label: str, query: str) -> int | None:
+    folded = label.casefold()
+    if folded.startswith(query):
+        return 0
+    if any(word.startswith(query) for word in re.findall(r"\w+", folded)):
+        return 1
+    return None
+
+
+def search_entries(entries: tuple[SearchResult, ...], query: str) -> list[SearchResult]:
+    term = query.strip().casefold()
+    if len(term) < 2:
+        raise HTTPException(status_code=422, detail="q must contain at least two characters")
+    priorities = {"place": 0, "substation": 1, "project": 2}
+    matches = ((rank, item) for item in entries if (rank := _match_rank(item.label, term)) is not None)
+    ordered = sorted(matches, key=lambda row: (row[0], priorities[row[1].type], row[1].label.casefold(), row[1].ref or ""))
+    return [item for _, item in ordered[:10]]
+
+
 def load_artifacts(directory: Path, *, fixture_dir: bool = False) -> Artifacts:
     """Validate the full API boundary once; never disguise a legacy artifact."""
     project_name = "projects.json" if fixture_dir and not (directory / "projects.geojson").exists() else "projects.geojson"
@@ -69,6 +140,7 @@ def load_artifacts(directory: Path, *, fixture_dir: bool = False) -> Artifacts:
             raise RuntimeError(f"Invalid GridLock artifact {directory / 'overlaps.json'}: {exc}") from exc
         meta = _load_model(directory / "meta.json", Meta)
         basemap = _load_model(directory / "basemap.json", Basemap)
+        places = _load_places(directory / "places.json", required=not fixture_dir)
         project_ids = {project.properties.id for project in projects.features}
         if len(project_ids) != len(projects.features):
             raise ValueError("duplicate project IDs")
@@ -78,7 +150,7 @@ def load_artifacts(directory: Path, *, fixture_dir: bool = False) -> Artifacts:
             raise ValueError("duplicate overlap IDs")
     except (ValidationError, ValueError, TypeError) as exc:
         raise RuntimeError(f"Invalid GridLock artifacts in {directory}: {exc}") from exc
-    return Artifacts(projects=projects, overlaps=overlaps, meta=meta, basemap=basemap)
+    return Artifacts(projects=projects, overlaps=overlaps, meta=meta, basemap=basemap, search_entries=_search_entries(projects, places))
 
 
 def _require_list(value: object) -> list[object]:
@@ -117,10 +189,11 @@ def create_app(artifact_dir: Path | None = None, settings: Settings | None = Non
     config = settings or Settings.from_env()
     directory = Path(artifact_dir) if artifact_dir is not None else config.artifact_dir
     explicit_dir = artifact_dir is not None or directory != ROOT / "data" / "build"
+    fixture_dir = explicit_dir and (directory / "projects.json").exists() and not (directory / "projects.geojson").exists()
 
     @asynccontextmanager
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
-        app.state.artifacts = load_artifacts(directory, fixture_dir=explicit_dir and (directory / "projects.json").exists())
+        app.state.artifacts = load_artifacts(directory, fixture_dir=fixture_dir)
         yield
 
     app = FastAPI(lifespan=lifespan)
@@ -161,6 +234,10 @@ def create_app(artifact_dir: Path | None = None, settings: Settings | None = Non
     @app.get("/api/basemap", response_model=Basemap, responses={400: {"model": ErrorResponse}})
     def basemap(request: Request) -> Basemap:
         return request.app.state.artifacts.basemap
+
+    @app.get("/api/search", response_model=list[SearchResult], responses={422: {"model": ErrorResponse}})
+    def search(request: Request, q: str) -> list[SearchResult]:
+        return search_entries(request.app.state.artifacts.search_entries, q)
 
     @app.get("/api/projects", response_model=ProjectCollection, responses={422: {"model": ErrorResponse}})
     def projects(
