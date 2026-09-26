@@ -96,7 +96,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [x] **T2.3 Savings model** (DATA) — formula recorded before code in `data/T2.3.md`; merged `79869e7`, 13 focused lead rerun, main quick gate 186 suite + 17 shell + 18 audit passed
   - Acceptance: `data/manual/assumptions.json` (id, low/high, unit, rationale, source + date or "team assumption"); per overlap `savings.status` = range · timing_too_far (gap > 2 years) · no_cost · unknown_year; range never a single number; plan cost used when present, proxy flagged; rounding to the assumptions' precision.
   - Verify: `tests/pipeline/test_savings.py` — hand-computed cases for each status.
-- [ ] **T2.10 Named examples + demo pair** (DATA)
+- [x] **T2.10 Named examples + demo pair** (DATA) — `193696b` merged as `5c92423`; lead reran four focused checks, main quick gate 218 suite + 17 shell + 18 audits passed
   - Acceptance: table in `docs/METHODOLOGY.md` draft section: Jasper, Okatie, Bluffton, Urquhart, McIntosh, Thomson–Vogtle → the pair found, or "not in the loaded plans" with evidence (search terms, pages); the top Savannah and Augusta pairs listed with their exact wording; whether to hand-enter Thomson–Vogtle from the Georgia Power IRP (with its source) is listed as a founder question in `DELIVERY.md`.
   - Verify: `tests/pipeline/test_named_examples.py` asserts each row's claim against the artifacts.
 - [x] **T2.4 Details, CSV, source documents** (API) — `3a6dbb1` merged as `ae1fa7a`; lead reran 18 focused; main quick gate 204 suite + 17 shell + 18 audits passed
