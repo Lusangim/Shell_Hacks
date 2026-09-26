@@ -62,6 +62,7 @@ when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT;
 - 09:03 · API wt/api ff3e9f4 held · lane quick gate 254 suite + 17 shell + 18 audit passed, lead reran 19 focused area checks · T3.4a is ready but cannot merge before G2 tag; module-scoped test-server fix resolved the prior 8772 bind failures; WEB T2.5b still running
 - 09:12 · WEB T2.5b ea1e4c1 parked for repair · after sync lane quick gate 242 passed, 2 existing project-detail e2e failed as empty-hash restore reset a just-opened Projects view; exact failures and race sent to WEB; API T3.1 assigned on held wt/api branch while Phase 2 WEB work continues
 - 09:12 · API T3.1 inventory · 489 built overlaps contain 15 same_substation, 28 shared_endpoint, 429 proximity, 17 same_area_approximate and zero lines_cross; the brief's real-ID lines_cross coverage target is unattainable from this build, so API will declare the deviation and never fabricate a pair; G2 domain review to assess the zero
+- 09:22 · cd7dfa8 · main quick gate 245 suite + 17 shell + 18 audit passed; lead reran two focused browser checks · T2.5b merged with both project cards, source-backed pair evidence, savings, deep links and map highlight; deterministic Projects load-race test RED/GREEN; baseline raised to 245; WEB T2.6 next, API T3.1 building on held branch
 
 ## Environment facts
 - Working copy `C:\Users\lucia\dev\gridlock`; git data `C:\Users\lucia\dev\gridlock-git` (the `.git` in the
