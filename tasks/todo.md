@@ -117,7 +117,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [x] **T2.8a Search API** (API) — `6e1f176`, merged `44aefc2`; 12 focused lead rerun, integrated main quick gate 168 suite + 17 shell + 18 audits passed
   - Acceptance: `GET /api/search?q=` over `places.json` + project and substation names; prefix + word match; ≤ 10 typed results; q < 2 chars → 422.
   - Verify: `tests/api/test_search.py` ("sav" → Savannah first; "okat" → Okatie projects).
-- [ ] **T2.8b Search UI** (WEB-2)
+- [x] **T2.8b Search UI** (WEB-2) — `4869de9` correction merged as `321bd0e`; lead reran 10 search e2e; main quick gate 214 suite + 17 shell + 18 audits passed
   - Acceptance: `<input type="search" list>` + `<datalist>` (ARIA combobox only if an audit fails); Enter zooms and offers "Explore this area".
   - Verify: `tests/e2e/test_search.py` keyboard-only.
 - [ ] **T2.9 Export and print** (WEB-2)
