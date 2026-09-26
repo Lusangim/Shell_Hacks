@@ -1,6 +1,6 @@
 # GridLock delivery report
 
-**In progress — G3 feature freeze, 2026-09-26 17:16 EDT.** Main VERIFY passed on `efc5283` with 674 passed, zero failed and zero skipped. The product is ready for the founder's two frozen judging rounds. This report is a current handoff, not final delivery.
+**In progress — G3 feature freeze and both judging rounds complete, 2026-09-26 18:00 EDT.** Main VERIFY passed on `efc5283` with 674 passed, zero failed and zero skipped. Nine unique P2 corrections are assigned to WEB, WEB-2 and API; G4 and delivery remain pending. This report is a current handoff, not final delivery.
 
 ## What works now
 
@@ -24,8 +24,9 @@
 | T2.10–T2.11 | Six named examples and cautious source wording recorded; G2 domain judge checked top ten source records and five distances. All seven assigned G2 P2/P3 wording, race and gesture findings were repaired before G3. |
 | T3.1–T3.3b | Real-ID evaluation, deterministic grader/template, fake-client guarded generation/cache, brief routes and offline brief UI complete. Real Claude use is deferred to F6 only after founder access and a ceiling. |
 | T3.4a/b, T3.5 | Projected 1–80 km area API/UI, URL/history/race handling, counties, offline resilience, gestures and dark theme complete. |
-| G3 | Feature freeze: all decided features are demoable offline; full matrix and held-out evaluation green; G3 tag pending this report's commit. |
-| T4.1–T4.3, G4, D.1–D.3 | Not started. Founder amendment 5 caps judging at two rounds on frozen `g3`, then P0/P1 and small local P2 fixes, VERIFY, sanitizer, README and final delivery. T4.4 confirmation round skipped by founder. |
+| G3 | Feature freeze: all decided features are demoable offline; full matrix and held-out evaluation green; `g3` tag points to `8d83ad0`. |
+| T4.1–T4.2 | Complete: six fresh judges on frozen `g3`, two rounds as capped by the founder; 0 P0/P1, nine unique P2 and two P3 findings. Judgments and essential screenshots are committed under `judge-*/`. |
+| T4.3, G4, D.1–D.3 | Corrections in progress on WEB and WEB-2 branches; API branch prepared. Quick gates, merged VERIFY, G4 tag, sanitizer, README and final delivery remain. T4.4 confirmation skipped by founder. |
 | F1–F7, T5.0–T5.5, H0–H9 | Claude and founder work after Codex delivery; not started by this lead. Nothing was pushed, deployed, submitted, sent or purchased. |
 
 ## Verification and judgments
@@ -34,7 +35,23 @@ G3 VERIFY summary: `C:\Users\lucia\dev\gridlock-runs\verify\20260926-165341-069\
 
 G1a type review's two HIGH findings and G1 Python review's false GA-only cross-state bonus were corrected and confirmed. G1/G2 tags exist. G2 domain, test and silent-failure reports were filed on frozen copies; no G2 P0/P1 remained. Their assigned P2/P3 findings were reproduced and closed before G3, including rank-3 source wording, truthful empty/unknown states, print selection, response races, offline/Google readiness and real gestures. Scoped T1.6, T2.6, T2.9, T3.2, T3.3a and T3.4b security reviews have no open P0–P3 after their recorded corrections. The T1.7 copy review was ready with notes; its one P3 source-marker lint gap is closed by T1.4b.
 
-The two Codex judging rounds have not started. Every verified open finding from them will be listed here with severity, affected view/viewport and screenshot path when available. No confirmation round will run under founder amendment 5.
+Both Codex judging rounds ran against the same frozen `g3` commit. The domain judge independently matched all 489 ranks/savings results, five distances and the top-ten source pages (7/10). First-week user/design reached the cold task in 52.6 seconds/five clicks (7/10 each). Reliability/security ran 242 focused tests plus 36 independent probes with no verified security defect (7/10 and 8/10). Business/hackathon fit demonstrated the challenge path and 20 focused tests (7.5/10). Copy scanned 719 detail views and 3,394 bullet blocks (ready with notes, 7.5/10). Accessibility exercised six keyboard size/theme journeys (not ready, 7/10; screen-reader wording inferred from DOM, not heard). The six original judgments are filed under `judge-*/JUDGMENT.md`; no confirmation round will run under founder amendment 5.
+
+| Open finding after G3 judging | Severity · owner | View / viewport · essential screenshot |
+|---|---|---|
+| JDOMAIN-01 inferred utility shown as stated | P2 · WEB/WEB-2/API | Rank/pair/project/map/print/CSV, 1440 and 390 · [inferred utility](judge-domain-r1/inferred-utility-1440.png) |
+| JDOMAIN-02 stored cost discrepancies absent from project summary | P2 · WEB | Project/pair/selected print, 1440 and 390 · [desktop](judge-domain-r1/flagged-cost-1440.png), [phone](judge-domain-r1/flagged-cost-390.png) |
+| JUD-01 first-visit invitation intercepts zoom clicks | P2 · WEB-2 | Default, 1440/768/390 light and dark · [desktop](judge-user-design-r1/first-visit-1440-light.png), [phone](judge-user-design-r1/first-visit-390-light.png) |
+| JUD-02 fresh tour omits built area and brief steps | P2 · WEB-2 | Tour, all six viewport/theme combinations · [step 9](judge-user-design-r1/tour-desktop-9.png), [step 10](judge-user-design-r1/tour-desktop-10.png) |
+| JREL-01 collapsed phone search hides no-match/error status (also JA11Y-02) | P2 · WEB | Search, 390×844 · [empty](judge-reliability-r1/JREL-01-empty-390x844.png), [503](judge-reliability-r1/JREL-01-503-390x844.png) |
+| JBUS-01 CSV savings ranges omit estimate assumptions and caveat | P2 · API | CSV download (489 rows); sibling brief/print at 768/1440 · [brief](judge-business-r2/05-brief-768.png), [print](judge-business-r2/06-print-1440.png) |
+| JCOPY-01 filtered Projects falsely says no projects loaded | P2 · WEB | `?year_min=2199` Projects, 1440/390 · [desktop](judge-copy-r2/1440-empty-projects.png), [phone](judge-copy-r2/390-empty-projects.png) |
+| JCOPY-02 duplicate search choices show internal project IDs | P2 · WEB-2 | Search, 1440/390 · [desktop](judge-copy-r2/1440-duplicate-selected.png), [phone](judge-copy-r2/390-duplicate-selected.png); DOM values in [evidence](judge-copy-r2/focused-evidence.json) |
+| JA11Y-01 expanded phone sheet covers keyboard-focused timeline | P2 · WEB | Timeline with expanded pair/area sheet, 390 light/dark · [light](judge-a11y-r2/390-light-expanded-timeline.png), [dark](judge-a11y-r2/390-dark-expanded-timeline.png) |
+| JUD-03 selected map labels wrap into narrow columns | P3 · WEB | Selected pair map, 1440 light/dark · [selected map](judge-user-design-r1/top-pair-stable-light.png) |
+| JA11Y-03 successful brief retry loses keyboard focus | P3 · WEB | Brief error/retry, 1440 light · [focus lost](judge-a11y-r2/1440-light-brief-retry-focus-lost.png) |
+
+The nine P2s are assigned for correction. The two P3s remain open for Claude's post-delivery UI pass unless a local repair is safely included. Duplicated findings are counted once.
 
 ## Parked work and founder decisions
 
