@@ -324,3 +324,127 @@ def test_stale_layer_failure_preserves_newer_ready_selection(browser_page, live_
     expect(page.get_by_test_id("basemap-status")).to_have_text("Google Maps")
     assert page.evaluate("window.fakePluginLoads") == 1
     assert all(url.startswith(live_server) for url in requests)
+
+
+@pytest.mark.parametrize("mode", ["Google Maps", "Satellite", "Map"])
+@pytest.mark.parametrize("outcome", ["success", "failure"])
+def test_late_offline_initialization_preserves_selected_google_mode(browser_page, live_server, mode, outcome):
+    page = browser_page
+    errors, external = [], []
+    page.on("pageerror", lambda error: errors.append(str(error)))
+    page.on("request", lambda request: external.append(request.url) if not request.url.startswith(live_server) else None)
+    configure(page, available=True, google=True)
+    page.add_init_script("window.google = {maps:{Map:class {}}}")
+    page.route("**/web/vendor/googlemutant/Leaflet.GoogleMutant.js", lambda route: route.fulfill(
+        content_type="text/javascript", body="""
+        L.gridLayer.googleMutant = options => {
+          window.fakeGoogleType = options.type;
+          window.fakeGoogleLayer = L.gridLayer({maxZoom:17});
+          return window.fakeGoogleLayer;
+        };
+        """))
+    # Hold the header promise, independently of the selected map and plugin load.
+    page.route("**/web/vendor/protomaps-leaflet/protomaps-leaflet.js", lambda route: route.fulfill(
+        content_type="text/javascript", body="""
+        window.protomapsL = {
+          PmtilesSource: class { constructor() { this.p = {
+            getHeader: () => new Promise((resolve, reject) => {
+              window.releaseOffline = success => success ? resolve() : reject(new Error('Synthetic unavailable archive'));
+            }), getZxy: async () => ({})
+          }; } },
+          leafletLayer: options => {
+            window.fakeOfflineLayer = L.gridLayer(options);
+            return window.fakeOfflineLayer;
+          }
+        };
+        """))
+    loaded(page, live_server)
+    page.wait_for_function("() => typeof window.releaseOffline === 'function'")
+    group = page.get_by_role("group", name="Base map")
+    google_mode = "Google Maps" if mode == "Map" else mode
+    group.get_by_role("button", name=google_mode, exact=True).click()
+    expect(page.get_by_test_id("basemap-status")).to_have_text("Satellite map" if google_mode == "Satellite" else "Google Maps")
+    if mode == "Map":
+        group.get_by_role("button", name="Map", exact=True).click()
+    page.evaluate("async success => { window.releaseOffline(success); await new Promise(resolve => requestAnimationFrame(resolve)); }", outcome == "success")
+    expected_offline = "Offline street map" if outcome == "success" else "Outline map: offline street map unavailable."
+    expected_status = expected_offline if mode == "Map" else "Satellite map" if mode == "Satellite" else "Google Maps"
+    expect(page.get_by_test_id("basemap-status")).to_have_text(expected_status)
+    expect(group.get_by_role("button", name=mode, exact=True)).to_have_attribute("aria-pressed", "true")
+    assert map_value(page, "state.map.hasLayer(window.fakeGoogleLayer)") is (mode != "Map")
+    assert page.evaluate("window.fakeGoogleType") == ("hybrid" if mode == "Satellite" else "roadmap")
+    if outcome == "success" and mode != "Map":
+        assert page.evaluate("Number(window.fakeGoogleLayer.getContainer().style.zIndex) > Number(window.fakeOfflineLayer.getContainer().style.zIndex)")
+    group.get_by_role("button", name="Map", exact=True).click()
+    expect(page.get_by_test_id("basemap-status")).to_have_text(expected_offline)
+    assert map_value(page, "state.map.hasLayer(window.fakeGoogleLayer)") is False
+    if outcome == "success":
+        assert map_value(page, "state.map.hasLayer(window.fakeOfflineLayer)") is True
+    else:
+        expect(page.locator('path[data-testid="basemap-feature"]').first).to_be_visible()
+    assert not errors, errors
+    assert not external, external
+
+
+def wait_zoom(page, expected):
+    page.wait_for_function("async z => { const map = (await import('/web/js/state.js')).state.map; return map.getZoom() === z && !map._animatingZoom; }", arg=expected)
+
+
+def pinch(page, session, center, start_distance, end_distance):
+    x, y = center
+    def points(distance):
+        return [{"x": x - distance / 2, "y": y, "id": 0}, {"x": x + distance / 2, "y": y, "id": 1}]
+    session.send("Input.dispatchTouchEvent", {"type": "touchStart", "touchPoints": points(start_distance)})
+    for step in range(1, 7):
+        distance = start_distance + (end_distance - start_distance) * step / 6
+        session.send("Input.dispatchTouchEvent", {"type": "touchMove", "touchPoints": points(distance)})
+        page.evaluate("() => new Promise(resolve => requestAnimationFrame(resolve))")
+    session.send("Input.dispatchTouchEvent", {"type": "touchEnd", "touchPoints": []})
+
+
+@pytest.mark.parametrize("width,height,minimum", [(1440, 900, 6), (390, 844, 5.5)])
+def test_double_click_and_touch_pinch_zoom_obey_limits(live_server, width, height, minimum):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": width, "height": height}, has_touch=True, reduced_motion="reduce")
+        page.route("**/*", lambda route: route.continue_() if route.request.url.startswith(live_server) else route.abort())
+        configure(page)
+        loaded(page, live_server)
+        center = (1000, 350) if width == 1440 else (195, 240)
+        map_value(page, "state.map.setZoom(10, {animate:false}) && true")
+        page.mouse.dblclick(*center)
+        wait_zoom(page, 11)
+        page.keyboard.down("Shift")
+        page.mouse.dblclick(*center)
+        page.keyboard.up("Shift")
+        wait_zoom(page, 10)
+        map_value(page, "state.map.setZoom(17, {animate:false}) && true")
+        page.mouse.dblclick(*center)
+        wait_zoom(page, 17)
+        map_value(page, f"state.map.setZoom({minimum}, {{animate:false}}) && true")
+        page.keyboard.down("Shift")
+        page.mouse.dblclick(*center)
+        page.keyboard.up("Shift")
+        wait_zoom(page, minimum)
+        session = page.context.new_cdp_session(page)
+        map_value(page, "state.map.setZoom(10, {animate:false}) && true")
+        pinch(page, session, center, 60, 120)
+        wait_zoom(page, 11)
+        pinch(page, session, center, 120, 60)
+        wait_zoom(page, 10)
+        map_value(page, "state.map.setZoom(16.5, {animate:false}) && true")
+        pinch(page, session, center, 60, 180)
+        wait_zoom(page, 17)
+        map_value(page, f"state.map.setZoom({minimum + .5}, {{animate:false}}) && true")
+        pinch(page, session, center, 180, 45)
+        wait_zoom(page, minimum)
+        panel = page.locator("#panel-body")
+        box = panel.bounding_box()
+        panel_center = (box["x"] + box["width"] / 2, box["y"] + min(90, box["height"] / 2))
+        before = map_value(page, "[state.map.getZoom(),state.map.getCenter().lat,state.map.getCenter().lng]")
+        pinch(page, session, panel_center, 60, 120)
+        page.mouse.move(*panel_center)
+        page.mouse.wheel(0, 500)
+        page.wait_for_function("() => document.getElementById('panel-body').scrollTop > 0")
+        assert map_value(page, "[state.map.getZoom(),state.map.getCenter().lat,state.map.getCenter().lng]") == before
+        browser.close()

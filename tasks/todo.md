@@ -139,29 +139,29 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [ ] **T1.7 Readable detail text** (WEB; DATA/API for source-built structured text; founder amendment 3) — WEB detail portion `82430ba` merged as `9a6e0eb`, gate 362/19/18; WEB-2 print consumer patch remains before tick
   - Acceptance: each project, pair, savings, location, accuracy and brief block shows the answer first, at most three short bullets, and raw evidence behind a disclosure. No internal IDs, raw enum values, file paths or code-like strings appear on screen. Keep estimate, assumption, source/page and not-verified honesty labels. Any new structured field uses a recorded contract review; never parse prose in the browser.
   - Verify: e2e scan of every rendered detail view for `desc-p`, `sertp-p`, underscore-joined enum and `data/` path patterns; copy lint and change-reviewer read of every user-facing string.
-- [ ] **T1.8 Guided walkthrough** (WEB-2; founder amendment 3; after T2.9, parallel with WEB T1.7)
+- [x] **T1.8 Guided walkthrough** (WEB-2; founder amendment 3; after T2.9, parallel with WEB T1.7) — `5dec98e` merged as `249a181` after search keyboard-helper repair; 27 focused and 375/19/18 combined lane gate green
   - Acceptance: Take the tour and first-visit prompt; 8–12 short, skippable steps on the real demo path; one reviewable content file; missing targets skip safely; keyboard Back/Next/Esc, focus return and visible target ring; reduced motion and 1440/390 px support; no external library.
   - Verify: e2e keyboard walk of every step at 1440 and 390 px, focus return/Esc, missing-target skip and no-error case.
 
-- [ ] **T3.1 Eval set, grader, template** (API) — before any model code
+- [x] **T3.1 Eval set, grader, template** (API) — 30/30 selected and 489/489 full data templates graded; 519/19/18 synced API gate
   - Acceptance: 30 real overlaps (20 dev / 10 held-out; hard classes per `references/ai-brief.md` incl. an injection fixture); deterministic grader with number normalisation and allowed constants; `data/manual/contacts.json`; template brief 30/30.
   - Verify: `tests/eval/test_grader.py` catches seeded bad briefs (invented number, person, missing caveat, dash in the product's own wording).
-- [ ] **T3.2 Claude brief generator, offline** (API) — no key, no spend
+- [x] **T3.2 Claude brief generator, offline** (API) — fake client and guarded cache only; no real client or spend
   - Acceptance: per `references/ai-brief.md`: `claude-opus-5`, parse + Pydantic, `fallbacks:"default"`, adaptive, effort medium, `max_tokens` 16000 (a `max_tokens` stop → template); structured fields only; cache key SHA-256(input + prompt version + model), atomic write, corrupt = miss; saved only if graded pass; spend ceiling checked before every call; the batch script refuses to run without Claude access and a ceiling. Real calls happen only in F6.
   - Verify: `tests/api/test_briefs.py` with a fake client via dependency overrides (pass, refusal, `max_tokens`, error, ceiling reached).
-- [ ] **T3.3a Brief routes** (API)
+- [x] **T3.3a Brief routes** (API) — 44 area/route cases independently rerun; default GET template, guarded POST
   - Acceptance: `GET /api/briefs/{id}` → cached if `input_hash` matches, else template (stale counted in meta); `POST /api/briefs/{id}/generate` only with Claude access **and** header `X-GridLock: 1` **and** same-origin; one at a time; capped by `GRIDLOCK_MAX_ONDEMAND` (default 5) and the spend ceiling; 409 otherwise.
   - Verify: `tests/api/test_brief_routes.py` — twin paths (cached, stale, template, no access, refusal) carry the same required fields; cross-origin POST refused; cap enforced; concurrent POSTs → one generation; atomic cache.
 - [ ] **T3.3b Brief UI** (WEB)
   - Acceptance: card labelled "AI-drafted from public plan data. Check before use." or "Template"; sources; "Copy brief"; no Send.
   - Verify: `tests/e2e/test_brief.py` — cached, template, no access; switching overlap while a brief loads shows only the new one.
-- [ ] **T3.4a Area API** (API)
+- [x] **T3.4a Area API** (API) — projected local circle and typed summary, 519/19/18 branch gate
   - Acceptance: `GET /api/area?lat&lon&radius_km=40` (1–80; buffer in EPSG:5070; projects intersecting; overlaps with ≥ 1 project inside; counts).
   - Verify: `tests/api/test_area.py` — hand-computed case around McIntosh; bad input 422.
 - [ ] **T3.4b Area UI** (WEB-2)
   - Acceptance: map click or "Explore this area" draws the circle + summary panel; Esc clears; a second click while loading shows only the second result; area centre in the URL.
   - Verify: `tests/e2e/test_area.py` (click + keyboard path + race).
-- [ ] **T3.5 Resilience and dark theme** (WEB)
+- [x] **T3.5 Resilience and dark theme** (WEB) — `95fc5d4` merged as `eb28677`; local-only/full demo, counties from existing PMTiles, late offline/Google race, actual double-click/pinch and dark reload; 386/19/18 lane gate
   - Acceptance: counties in the basemap; dark theme remaps every token incl. the basemap (no flash); every surface's states per the contract; reduced motion; bottom sheet at 390 px.
   - Verify: `tests/e2e/test_offline.py` (non-local requests blocked → fully usable, 0 console errors); audits dark 1440/390.
 - [ ] **T1.4b Full audit gate** (LEAD) — by G3
