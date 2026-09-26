@@ -139,7 +139,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [ ] **T1.7 Readable detail text** (WEB; DATA/API for source-built structured text; founder amendment 3) — WEB detail portion `82430ba` merged as `9a6e0eb`, gate 362/19/18; WEB-2 print consumer patch remains before tick
   - Acceptance: each project, pair, savings, location, accuracy and brief block shows the answer first, at most three short bullets, and raw evidence behind a disclosure. No internal IDs, raw enum values, file paths or code-like strings appear on screen. Keep estimate, assumption, source/page and not-verified honesty labels. Any new structured field uses a recorded contract review; never parse prose in the browser.
   - Verify: e2e scan of every rendered detail view for `desc-p`, `sertp-p`, underscore-joined enum and `data/` path patterns; copy lint and change-reviewer read of every user-facing string.
-- [ ] **T1.8 Guided walkthrough** (WEB-2; founder amendment 3; after T2.9, parallel with WEB T1.7)
+- [x] **T1.8 Guided walkthrough** (WEB-2; founder amendment 3; after T2.9, parallel with WEB T1.7) — `5dec98e` merged as `249a181` after search keyboard-helper repair; 27 focused and 375/19/18 combined lane gate green
   - Acceptance: Take the tour and first-visit prompt; 8–12 short, skippable steps on the real demo path; one reviewable content file; missing targets skip safely; keyboard Back/Next/Esc, focus return and visible target ring; reduced motion and 1440/390 px support; no external library.
   - Verify: e2e keyboard walk of every step at 1440 and 390 px, focus return/Esc, missing-target skip and no-error case.
 
