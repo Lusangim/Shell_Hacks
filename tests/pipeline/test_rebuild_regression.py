@@ -10,18 +10,18 @@ from pipeline import build_all
 
 
 ROOT = Path(__file__).resolve().parents[2]
-OUTPUTS = ("projects.geojson", "placement_report.csv", "overlaps.json", "meta.json")
+OUTPUTS = ("projects.geojson", "placement_report.csv", "overlaps.json", "meta.json", "source_rows.json")
 TOP_TEN = [
-    ("DESC-41", "SERTP-239"),
-    ("SERTP-123", "SERTP-137"),
-    ("DESC-41", "SERTP-250"),
-    ("DESC-41", "SERTP-256"),
-    ("SERTP-125", "SERTP-137"),
-    ("SERTP-135", "SERTP-137"),
-    ("SERTP-166", "SERTP-194"),
-    ("SERTP-289", "SERTP-318"),
-    ("SERTP-289", "SERTP-317"),
-    ("SERTP-118", "SERTP-124"),
+    ("desc-p41", "sertp-p107-9bc088"),
+    ("sertp-p68-a0289a", "sertp-p72-81610d"),
+    ("desc-p41", "sertp-p111-fe1e3b"),
+    ("desc-p41", "sertp-p113-5484a4"),
+    ("sertp-p68-fbd1c0", "sertp-p72-81610d"),
+    ("sertp-p72-81610d", "sertp-p72-eda876"),
+    ("sertp-p82-5bdb2b", "sertp-p92-ade224"),
+    ("sertp-p124-e36f41", "sertp-p133-9ca229"),
+    ("sertp-p124-e36f41", "sertp-p133-a3bd5b"),
+    ("sertp-p66-a40650", "sertp-p68-577cfa"),
 ]
 
 
@@ -44,22 +44,23 @@ def test_offline_rebuild_preserves_counts_pairs_and_bytes(monkeypatch: pytest.Mo
 
     artifact = ROOT / "data" / "build"
     meta = json.loads((artifact / "meta.json").read_text(encoding="utf-8"))
+    ledger = json.loads((artifact / "source_rows.json").read_text(encoding="utf-8"))
     projects = json.loads((artifact / "projects.geojson").read_text(encoding="utf-8"))
     overlaps = json.loads((artifact / "overlaps.json").read_text(encoding="utf-8"))
 
-    assert meta["stages"]["source_rows"] == 481
-    assert meta["stages"]["placement_candidates"] == 380
-    assert meta["stages"]["kept"] == 230
-    assert meta["stages"]["placed"] == 181
-    assert meta["stages"]["overlaps"] == 477
-    assert meta["stages"]["cross_state"] == 44
-    assert meta["stages"]["source_rows"] == (
-        meta["stages"]["kept"] + sum(meta["dropped_by_reason"].values())
+    assert meta["stage_counts"]["source_rows"] == 481
+    assert meta["stage_counts"]["placement_candidates"] == 380
+    assert meta["stage_counts"]["kept"] == 230
+    assert meta["stage_counts"]["placed"] == 181
+    assert meta["stage_counts"]["overlaps"] == 477
+    assert meta["stage_counts"]["cross_state"] == 44
+    assert meta["stage_counts"]["source_rows"] == (
+        meta["stage_counts"]["kept"] + sum(ledger["dropped_by_reason"].values())
     )
-    assert len(meta["source_rows"]) == 481
+    assert len(ledger["rows"]) == 481
     assert all(
         (row["reason"] is None) if row["kept"] else bool(row["reason"])
-        for row in meta["source_rows"].values()
+        for row in ledger["rows"].values()
     )
     assert len(projects["features"]) == 230
     assert len(overlaps) == 477

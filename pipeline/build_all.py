@@ -14,6 +14,8 @@ import tempfile
 from collections import Counter
 from pathlib import Path
 
+from pipeline.ids import desc_id, sertp_ids
+
 
 RAW_INPUTS = (
     "desc_2026_2030_projects.csv",
@@ -23,7 +25,7 @@ RAW_INPUTS = (
     "us_states.geojson",
     "places_se.csv",
 )
-BUILD_OUTPUTS = ("projects.geojson", "placement_report.csv", "overlaps.json")
+BUILD_OUTPUTS = ("projects.geojson", "placement_report.csv", "overlaps.json", "source_rows.json")
 
 
 def reconcile_rows(source_rows: int, kept: int, dropped_by_reason: dict[str, int]) -> None:
@@ -54,10 +56,11 @@ def _row_dispositions(
     placement: list[dict[str, str]],
     feature_ids: set[str],
 ) -> dict[str, dict[str, str | bool | None]]:
-    expected = {f"DESC-{i:02d}" for i in range(1, len(desc) + 1)}
+    expected = {desc_id(i) for i in range(1, len(desc) + 1)}
+    sertp_row_ids = sertp_ids(sertp)
     expected.update(
-        f"SERTP-{i:03d}"
-        for i, row in enumerate(sertp, 1)
+        row_id
+        for row, row_id in zip(sertp, sertp_row_ids)
         if row["utility_area"] == "SOUTHERN"
     )
     by_id = {row["id"]: row for row in placement}
@@ -66,9 +69,9 @@ def _row_dispositions(
 
     rows: dict[str, dict[str, str | bool | None]] = {}
     for i in range(1, len(desc) + 1):
-        rows[f"DESC-{i:02d}"] = _placement_disposition(by_id[f"DESC-{i:02d}"])
-    for i, source in enumerate(sertp, 1):
-        row_id = f"SERTP-{i:03d}"
+        row_id = desc_id(i)
+        rows[row_id] = _placement_disposition(by_id[row_id])
+    for source, row_id in zip(sertp, sertp_row_ids):
         rows[row_id] = (
             _placement_disposition(by_id[row_id])
             if source["utility_area"] == "SOUTHERN"
@@ -137,31 +140,38 @@ def build(root: Path) -> dict[str, object]:
         pair_ids = {project_id for pair in overlaps for project_id in (pair["a"], pair["b"])}
         if not pair_ids.issubset(feature_ids):
             raise ValueError("overlap references a project outside the kept rows")
+        stage_counts = {
+            "source_rows": len(rows),
+            "placement_candidates": len(placement),
+            "kept": kept,
+            "placed": placed,
+            "unmapped": kept - placed,
+            "overlaps": len(overlaps),
+            "cross_state": sum(bool(pair["cross_state"]) for pair in overlaps),
+        }
+        stage_counts.update({f"dropped_{reason}": count for reason, count in dropped.items()})
         meta: dict[str, object] = {
             "build_time": None,
-            "input_sha256": _input_hash(raw, manual),
             "source_documents": [
-                {"file": "desc_scrtp_2026_2030.pdf", "date": None},
-                {"file": "sertp_2025_rtp.pdf", "date": "2025-11-26"},
+                {"doc": "SCRTP Planned Facilities 2026-2030 $2M & Above", "date": None,
+                 "url": "https://www.scrtp.com/assets/pdfs/home/2026-2030-2million-and-above-project-descriptions.pdf"},
+                {"doc": "SERTP 2025 Regional Transmission Plan (Nov 26 2025)", "date": "2025-11-26",
+                 "url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"},
             ],
-            "stages": {
-                "source_rows": len(rows),
-                "placement_candidates": len(placement),
-                "kept": kept,
-                "placed": placed,
-                "unmapped": kept - placed,
-                "overlaps": len(overlaps),
-                "cross_state": sum(bool(pair["cross_state"]) for pair in overlaps),
-            },
-            "dropped_by_reason": dict(sorted(dropped.items())),
-            "source_rows": rows,
+            "stage_counts": stage_counts,
             "counts_by_utility": dict(sorted(Counter(f["properties"]["utility"] for f in features).items())),
             "counts_by_accuracy": dict(sorted(Counter(f["properties"]["accuracy"] for f in features).items())),
             "counts_by_band": dict(sorted(Counter(pair["band"] for pair in overlaps).items())),
             "no_overlap_count": len(feature_ids - pair_ids),
             "unmapped_count": kept - placed,
+            "unmapped_reasons": {"not_located_by_current_inputs": kept - placed},
             "stale_brief_count": 0,
         }
+        (stage / "source_rows.json").write_text(
+            json.dumps({"input_sha256": _input_hash(raw, manual), "rows": rows,
+                        "dropped_by_reason": dict(sorted(dropped.items()))},
+                       ensure_ascii=False, sort_keys=True, indent=2) + "\n", encoding="utf-8"
+        )
         (stage / "meta.json").write_text(
             json.dumps(meta, ensure_ascii=False, sort_keys=True, indent=2) + "\n", encoding="utf-8"
         )
@@ -178,7 +188,7 @@ def main() -> None:
     if args.refresh:
         _run_script(Path(__file__).resolve().parent / "fetch_hifld.py", root / "data" / "raw")
     meta = build(root)
-    print(json.dumps(meta["stages"], sort_keys=True))
+    print(json.dumps(meta["stage_counts"], sort_keys=True))
 
 
 if __name__ == "__main__":
