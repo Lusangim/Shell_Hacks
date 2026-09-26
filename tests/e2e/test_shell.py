@@ -283,7 +283,31 @@ def test_svg_project_paths_use_the_ranked_list_for_accessibility(shell_server):
         expect(paths).to_have_count(12)
         expect(page.get_by_test_id("overlap-row")).to_have_count(11)
         assert page.evaluate("""() => Array.from(document.querySelectorAll('[data-testid="project-feature"]'))
-          .every(path => !path.hasAttribute('aria-label') && !path.hasAttribute('tabindex'))""")
+          .every(path => !path.hasAttribute('aria-label') && path.getAttribute('tabindex') === '-1')""")
+        browser.close()
+
+
+@pytest.mark.parametrize("width,height", [(1440, 900), (390, 844)])
+def test_tab_traversal_skips_map_paths_and_marks_map_focus(shell_server, width, height):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": width, "height": height})
+        page.goto(shell_server)
+        expect(page.get_by_test_id("project-feature")).to_have_count(12)
+        map_outline_unfocused = page.locator("#map").evaluate("element => getComputedStyle(element).outline")
+        focus_stops = []
+        for _ in range(24):
+            page.keyboard.press("Tab")
+            focus_stops.append(page.evaluate("""() => ({
+              tag: document.activeElement.tagName.toLowerCase(),
+              id: document.activeElement.id,
+              classes: document.activeElement.getAttribute('class') || '',
+              outline: getComputedStyle(document.activeElement).outline
+            })"""))
+        assert not any(stop["tag"] == "path" for stop in focus_stops), focus_stops
+        map_stops = [stop for stop in focus_stops if stop["id"] == "map"]
+        assert map_stops and map_stops[0]["outline"] != map_outline_unfocused, focus_stops
+        assert any("overlap-button" in stop["classes"] for stop in focus_stops), focus_stops
         browser.close()
 
 
