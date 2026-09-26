@@ -102,6 +102,7 @@ when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT;
 - 16:28 · 90f847e · baseline 593; held-out manifest and all 30 selected offline template grades 31/31 passed · T1.4b full lane gate is past halfway with no failures; all 24 scenes and strict scratch/repeat checks are already green. Main VERIFY and G3 tag wait for the completed lane gate and audit merge.
 - 16:39 · 2dc1f50 · T1.4b lane primary suite 674/674 passed and shell repeat 19/19 passed; separate 99-case audit rerun underway · Audit code review confirms the T1.7 copy-lint change strengthens source-marked authored text while preserving exact verbatim names. G3 VERIFY waits for the final audit repeat and merge.
 - 16:43 · d8049ef · T1.4b lane gate 674 suite + 19 shell + 99 audit passed; lead reran one full scene and exact-44 proof · Full audit merged with all 24 scene combinations green and exact 4.5/3/44 boundaries. Founder amendment 5 read: judging capped at 2 rounds; T4.4 skipped, both judge rounds use frozen G3, then P0/P1 and small local P2 fixes, VERIFY and delivery with every open finding listed.
+- 16:53 · 3542287 · Resumed after a model-capacity stop. The 16:44:27 G3 VERIFY folder has no summary; main remains at the 674-test baseline with no G3 tag. Restart G3 VERIFY on port 8790 before the two frozen judging rounds.
 
 ## Environment facts
 - Working copy `C:\Users\lucia\dev\gridlock`; git data `C:\Users\lucia\dev\gridlock-git` (the `.git` in the
