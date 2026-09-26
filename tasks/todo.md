@@ -105,7 +105,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [x] **T2.5a Project detail** (WEB) — `5708198` merged after the `wt/web-b` repair; 15 focused lead checks and main quick gate 234 suite + 17 shell + 18 audits passed
   - Acceptance: clicking a project (map or a Projects tab in the panel) shows it with source link (`#page=N`), accuracy, cost or "not stated", its overlaps (or "no overlap within 40 km"); meta line "N of M projects have no overlap within 40 km".
   - Verify: `tests/e2e/test_project_detail.py`.
-- [ ] **T2.5b Overlap detail** (WEB)
+- [x] **T2.5b Overlap detail** (WEB) — `cd7dfa8` merged after a deterministic Projects load-race repair; lead reran two focused browser checks and main quick gate passed 245 suite + 17 shell + 18 audits
   - Acceptance: both projects, distance + band + why they touch + `touch_detail` + what can be shared, timeline, accuracy chips ("possibly touching" when approximate), `pair_note`, source links, savings range or its reason with assumptions inline; map highlights the pair; deep link `#overlap=<id>`; unknown / stale / filtered-out ids handled with a message; late responses ignored (request token / AbortController).
   - Verify: `tests/e2e/test_overlap_detail.py` — list and map entry; deep links (valid, unknown, filtered); keyboard; 390 px; race test.
 - [ ] **T2.6 Filters** (WEB)

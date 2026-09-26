@@ -18,11 +18,12 @@ function sourceText(project) {
   return source?.doc && source?.page ? `${source.doc}, p. ${source.page}` : "Source page not stated";
 }
 
-function selectOverlap(overlap, button, byId) {
+function selectOverlap(overlap, button, byId, openDetail = true) {
   document.querySelectorAll(".overlap-button[aria-pressed]").forEach((item) => item.setAttribute("aria-pressed", "false"));
   button.setAttribute("aria-pressed", "true");
   state.selectedOverlapId = overlap.id;
   highlightPair(overlap);
+  document.dispatchEvent(new CustomEvent("gridlock:pair-highlighted", { detail: { overlapId: overlap.id } }));
   const [a, b] = overlapProjects(overlap, byId);
   const status = document.getElementById("status");
   status.dataset.src = "utility";
@@ -38,6 +39,7 @@ function selectOverlap(overlap, button, byId) {
     });
     if (bounds.isValid()) fitPairBounds(bounds);
   }
+  if (openDetail) document.dispatchEvent(new CustomEvent("gridlock:pair-open-request", { detail: { overlapId: overlap.id } }));
 }
 
 export function renderList(overlaps, projects) {
@@ -87,7 +89,8 @@ export function selectFirstOverlapForProject(projectId) {
     return;
   }
   const row = Array.from(document.querySelectorAll(".overlap-row")).find((item) => item.dataset.overlapId === overlap.id);
-  row?.querySelector("button")?.click();
+  const button = row?.querySelector("button");
+  if (button) selectOverlap(overlap, button, new Map(state.projects.map((feature) => [feature.properties.id, feature])), false);
 }
 
 export function renderUnknownLocations(projects) {
