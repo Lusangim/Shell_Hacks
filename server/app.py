@@ -21,6 +21,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.responses import Response
 
 from server.area import build_area
+from server.brief_routes import register_brief_routes, stale_brief_count
 from server.schemas import Area, Band, ErrorResponse, LineGeometry, Meta, MultiLineGeometry, Overlap, PointGeometry, ProjectCollection, ProjectFeature, Savings, SearchResult, Source
 from server.settings import ROOT, Settings
 
@@ -311,7 +312,12 @@ def create_app(artifact_dir: Path | None = None, settings: Settings | None = Non
 
     @app.get("/api/meta", response_model=Meta, responses={400: {"model": ErrorResponse}})
     def meta(request: Request) -> Meta:
-        return request.app.state.artifacts.meta
+        artifacts: Artifacts = request.app.state.artifacts
+        count = stale_brief_count(
+            config.brief_cache_dir, artifacts.overlaps, artifacts.projects,
+            request.app.state.brief_contacts,
+        )
+        return artifacts.meta.model_copy(update={"stale_brief_count": count})
 
     @app.get("/api/basemap", response_model=Basemap, responses={400: {"model": ErrorResponse}})
     def basemap(request: Request) -> Basemap:
@@ -425,5 +431,6 @@ def create_app(artifact_dir: Path | None = None, settings: Settings | None = Non
             raise HTTPException(status_code=404, detail="Web shell not available")
         return FileResponse(page, media_type="text/html")
 
+    register_brief_routes(app, config)
     app.mount("/web", StaticFiles(directory=ROOT / "web"), name="web")
     return app
