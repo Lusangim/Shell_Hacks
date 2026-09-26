@@ -1,0 +1,6902 @@
+[
+  {
+    "lat": 31.992576,
+    "lon": -83.306452,
+    "name": "Abbeville city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.061991,
+    "lon": -84.681121,
+    "name": "Acworth city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.370846,
+    "lon": -84.921192,
+    "name": "Adairsville city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.1248,
+    "lon": -83.425485,
+    "name": "Adel city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.529951,
+    "lon": -82.591509,
+    "name": "Adrian city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.18836,
+    "lon": -82.575566,
+    "name": "Ailey city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.147606,
+    "lon": -82.779772,
+    "name": "Alamo town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.383138,
+    "lon": -83.223706,
+    "name": "Alapaha town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.578117,
+    "lon": -84.176224,
+    "name": "Albany city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.050363,
+    "lon": -84.177608,
+    "name": "Aldora town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.779893,
+    "lon": -81.611312,
+    "name": "Allenhurst city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.584692,
+    "lon": -83.230159,
+    "name": "Allentown city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.543326,
+    "lon": -82.475577,
+    "name": "Alma city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.070866,
+    "lon": -84.27265,
+    "name": "Alpharetta city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.086595,
+    "lon": -82.480213,
+    "name": "Alston town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.464994,
+    "lon": -83.572586,
+    "name": "Alto town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.595145,
+    "lon": -83.014895,
+    "name": "Ambrose city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.074377,
+    "lon": -84.222829,
+    "name": "Americus city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.197435,
+    "lon": -84.145565,
+    "name": "Andersonville city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.682806,
+    "lon": -85.053626,
+    "name": "Antioch CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.570957,
+    "lon": -82.310155,
+    "name": "Appling CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.819358,
+    "lon": -83.719208,
+    "name": "Arabi town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.046278,
+    "lon": -85.056709,
+    "name": "Aragon city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.073545,
+    "lon": -83.528112,
+    "name": "Arcade city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.073214,
+    "lon": -82.648875,
+    "name": "Argyle town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.437527,
+    "lon": -84.729234,
+    "name": "Arlington city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.914955,
+    "lon": -83.218427,
+    "name": "Arnoldsville city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.709191,
+    "lon": -83.652424,
+    "name": "Ashburn city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.949597,
+    "lon": -83.370088,
+    "name": "Athens-Clarke County unified government (balance)",
+    "state": "GA"
+  },
+  {
+    "lat": 33.762909,
+    "lon": -84.422675,
+    "name": "Atlanta city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.74949,
+    "lon": -84.483886,
+    "name": "Attapulgus city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.015186,
+    "lon": -83.833741,
+    "name": "Auburn city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.365531,
+    "lon": -82.073422,
+    "name": "Augusta-Richmond County consolidated government (balance)",
+    "state": "GA"
+  },
+  {
+    "lat": 33.819766,
+    "lon": -84.643774,
+    "name": "Austell city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.497141,
+    "lon": -83.198203,
+    "name": "Avalon town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.193423,
+    "lon": -82.528732,
+    "name": "Avera city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.768731,
+    "lon": -84.264735,
+    "name": "Avondale Estates city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.279937,
+    "lon": -82.727148,
+    "name": "Axson CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.380379,
+    "lon": -84.159185,
+    "name": "Baconton city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.906213,
+    "lon": -84.572652,
+    "name": "Bainbridge city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.49779,
+    "lon": -83.542599,
+    "name": "Baldwin city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.341708,
+    "lon": -84.366871,
+    "name": "Ball Ground city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.048653,
+    "lon": -84.149284,
+    "name": "Barnesville city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.881217,
+    "lon": -82.472328,
+    "name": "Bartow town",
+    "state": "GA"
+  },
+  {
+    "lat": 30.893685,
+    "lon": -83.738838,
+    "name": "Barwick city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.764753,
+    "lon": -82.349254,
+    "name": "Baxley city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.155023,
+    "lon": -81.978229,
+    "name": "Bellville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.748855,
+    "lon": -84.259773,
+    "name": "Belvedere Park CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 30.932951,
+    "lon": -83.221938,
+    "name": "Bemiss CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.981438,
+    "lon": -84.185589,
+    "name": "Berkeley Lake city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.068078,
+    "lon": -83.623296,
+    "name": "Berlin city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.291044,
+    "lon": -85.187766,
+    "name": "Berry College CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.937948,
+    "lon": -83.709982,
+    "name": "Bethlehem town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.817668,
+    "lon": -83.801104,
+    "name": "Between town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.818727,
+    "lon": -83.438159,
+    "name": "Bishop town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.290828,
+    "lon": -82.252927,
+    "name": "Blackshear city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.877011,
+    "lon": -83.952005,
+    "name": "Blairsville city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.380937,
+    "lon": -84.927062,
+    "name": "Blakely city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.124998,
+    "lon": -81.308387,
+    "name": "Bloomingdale city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.866491,
+    "lon": -84.321858,
+    "name": "Blue Ridge city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.519817,
+    "lon": -84.869119,
+    "name": "Bluffton town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.303066,
+    "lon": -82.207357,
+    "name": "Blythe city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.947625,
+    "lon": -83.533749,
+    "name": "Bogart town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.938453,
+    "lon": -83.79959,
+    "name": "Bolingbroke CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.458867,
+    "lon": -84.337817,
+    "name": "Bonanza CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 30.791186,
+    "lon": -83.789369,
+    "name": "Boston city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.737696,
+    "lon": -83.5139,
+    "name": "Bostwick city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.537837,
+    "lon": -85.253976,
+    "name": "Bowdon city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.374712,
+    "lon": -83.083893,
+    "name": "Bowersville town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.205388,
+    "lon": -83.031139,
+    "name": "Bowman city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.54456,
+    "lon": -84.657518,
+    "name": "Box Springs CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.100329,
+    "lon": -84.684027,
+    "name": "Boykin CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.107616,
+    "lon": -83.812908,
+    "name": "Braselton town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.983545,
+    "lon": -84.9584,
+    "name": "Braswell town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.710765,
+    "lon": -85.151897,
+    "name": "Bremen city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.978442,
+    "lon": -84.737945,
+    "name": "Brinson town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.451696,
+    "lon": -82.214831,
+    "name": "Bristol CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.830545,
+    "lon": -84.364332,
+    "name": "Bronwood town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.863131,
+    "lon": -84.337476,
+    "name": "Brookhaven city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.389097,
+    "lon": -81.669965,
+    "name": "Brooklet city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.293339,
+    "lon": -84.451373,
+    "name": "Brooks town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.625133,
+    "lon": -82.887468,
+    "name": "Broxton city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.136149,
+    "lon": -81.466936,
+    "name": "Brunswick city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.80053,
+    "lon": -85.179809,
+    "name": "Buchanan city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.861845,
+    "lon": -81.260314,
+    "name": "Buckhead CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.568403,
+    "lon": -83.361235,
+    "name": "Buckhead town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.318481,
+    "lon": -84.517564,
+    "name": "Buena Vista city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.118562,
+    "lon": -83.98861,
+    "name": "Buford city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.557194,
+    "lon": -84.23733,
+    "name": "Butler city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.201633,
+    "lon": -83.907239,
+    "name": "Byromville town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.649497,
+    "lon": -83.747954,
+    "name": "Byron city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.340135,
+    "lon": -83.04064,
+    "name": "Cadwell town",
+    "state": "GA"
+  },
+  {
+    "lat": 30.879229,
+    "lon": -84.205505,
+    "name": "Cairo city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.499792,
+    "lon": -84.933058,
+    "name": "Calhoun city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.718312,
+    "lon": -84.357079,
+    "name": "Calvary CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.450759,
+    "lon": -82.649609,
+    "name": "Camak town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.234057,
+    "lon": -84.209563,
+    "name": "Camilla city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.726222,
+    "lon": -84.270852,
+    "name": "Candler-McAfee CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.341681,
+    "lon": -83.111768,
+    "name": "Canon city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.685397,
+    "lon": -82.173608,
+    "name": "Canoochee CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.247201,
+    "lon": -84.490723,
+    "name": "Canton city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.002952,
+    "lon": -83.814032,
+    "name": "Carl town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.040877,
+    "lon": -83.042506,
+    "name": "Carlton city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.376763,
+    "lon": -83.234483,
+    "name": "Carnesville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.581847,
+    "lon": -85.083333,
+    "name": "Carrollton city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.164579,
+    "lon": -84.801704,
+    "name": "Cartersville city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.665027,
+    "lon": -84.865165,
+    "name": "Cataula CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.108585,
+    "lon": -85.339711,
+    "name": "Cave Spring city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.046577,
+    "lon": -83.390945,
+    "name": "Cecil city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.187305,
+    "lon": -85.032441,
+    "name": "Cedar Springs CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.021749,
+    "lon": -85.247531,
+    "name": "Cedartown city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.636497,
+    "lon": -83.685724,
+    "name": "Centerville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.368898,
+    "lon": -85.103722,
+    "name": "Centralhatchee town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.881134,
+    "lon": -84.301654,
+    "name": "Chamblee city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.781091,
+    "lon": -84.782472,
+    "name": "Chatsworth city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.581071,
+    "lon": -84.745886,
+    "name": "Chattahoochee Hills city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.924114,
+    "lon": -85.343119,
+    "name": "Chattanooga Valley CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.111809,
+    "lon": -83.068014,
+    "name": "Chauncey city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.78509,
+    "lon": -84.381047,
+    "name": "Cherry Log CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.394447,
+    "lon": -83.155682,
+    "name": "Chester town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.877467,
+    "lon": -85.28835,
+    "name": "Chickamauga city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.609289,
+    "lon": -83.52747,
+    "name": "Clarkesville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.813489,
+    "lon": -84.24185,
+    "name": "Clarkston city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.162075,
+    "lon": -81.909659,
+    "name": "Claxton city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.87663,
+    "lon": -83.403256,
+    "name": "Clayton city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.480134,
+    "lon": -83.770401,
+    "name": "Clermont town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.59704,
+    "lon": -83.760707,
+    "name": "Cleveland city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.875669,
+    "lon": -84.431172,
+    "name": "Climax city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.681515,
+    "lon": -83.310948,
+    "name": "Clyattville CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.279221,
+    "lon": -82.138334,
+    "name": "Cobbtown city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.388057,
+    "lon": -83.350427,
+    "name": "Cochran city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.166264,
+    "lon": -82.721638,
+    "name": "Cogdell CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.955252,
+    "lon": -84.967153,
+    "name": "Cohutta city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.037244,
+    "lon": -83.213102,
+    "name": "Colbert city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.668596,
+    "lon": -84.892958,
+    "name": "Coleman CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.64145,
+    "lon": -84.463489,
+    "name": "College Park city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.179214,
+    "lon": -82.109874,
+    "name": "Collins city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.173215,
+    "lon": -84.732379,
+    "name": "Colquitt city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.510191,
+    "lon": -84.874946,
+    "name": "Columbus city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.062462,
+    "lon": -83.12732,
+    "name": "Comer city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.214298,
+    "lon": -83.475713,
+    "name": "Commerce city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.092129,
+    "lon": -84.438844,
+    "name": "Concord city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.642273,
+    "lon": -84.334334,
+    "name": "Conley CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.657471,
+    "lon": -83.983814,
+    "name": "Conyers city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.010769,
+    "lon": -83.866476,
+    "name": "Coolidge city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.95609,
+    "lon": -83.770077,
+    "name": "Cordele city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.516629,
+    "lon": -83.531473,
+    "name": "Cornelia city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.207037,
+    "lon": -81.4627,
+    "name": "Country Club Estates CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.605439,
+    "lon": -83.846634,
+    "name": "Covington city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.883227,
+    "lon": -83.15539,
+    "name": "Crawford city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.554641,
+    "lon": -82.896695,
+    "name": "Crawfordville city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.518659,
+    "lon": -81.370222,
+    "name": "Crescent CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.265688,
+    "lon": -83.27525,
+    "name": "Crooked Creek CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.864908,
+    "lon": -84.093999,
+    "name": "Culloden city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.206067,
+    "lon": -84.133848,
+    "name": "Cumming city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.347445,
+    "lon": -84.788021,
+    "name": "Cusseta-Chattahoochee County unified government",
+    "state": "GA"
+  },
+  {
+    "lat": 31.770686,
+    "lon": -84.793575,
+    "name": "Cuthbert city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.981967,
+    "lon": -83.90108,
+    "name": "Dacula city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.529909,
+    "lon": -83.979579,
+    "name": "Dahlonega city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.150957,
+    "lon": -81.835957,
+    "name": "Daisy city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.915618,
+    "lon": -84.841556,
+    "name": "Dallas city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.767898,
+    "lon": -84.972812,
+    "name": "Dalton city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.298515,
+    "lon": -84.717195,
+    "name": "Damascus city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.125601,
+    "lon": -83.21615,
+    "name": "Danielsville city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.606013,
+    "lon": -83.246057,
+    "name": "Danville town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.343489,
+    "lon": -81.424103,
+    "name": "Darien city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.742266,
+    "lon": -83.222524,
+    "name": "Dasher town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.981412,
+    "lon": -82.603571,
+    "name": "Davisboro city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.771864,
+    "lon": -84.443499,
+    "name": "Dawson city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.433651,
+    "lon": -84.124449,
+    "name": "Dawsonville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.415187,
+    "lon": -82.386483,
+    "name": "Dearing town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.771067,
+    "lon": -84.295784,
+    "name": "Decatur city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.246823,
+    "lon": -82.365728,
+    "name": "Deenwood CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.016694,
+    "lon": -82.972506,
+    "name": "Deepstep town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.563531,
+    "lon": -83.542311,
+    "name": "Demorest city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.72013,
+    "lon": -82.692237,
+    "name": "Denton city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.95479,
+    "lon": -84.063639,
+    "name": "De Soto city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.171505,
+    "lon": -82.942673,
+    "name": "Dewy Rose CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.433195,
+    "lon": -83.059134,
+    "name": "Dexter town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.971472,
+    "lon": -83.381157,
+    "name": "Dillard city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.788446,
+    "lon": -83.66808,
+    "name": "Dixie CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.346404,
+    "lon": -82.4603,
+    "name": "Dixie Union CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.201405,
+    "lon": -81.515652,
+    "name": "Dock Junction CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.322799,
+    "lon": -83.916532,
+    "name": "Doerun city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.039691,
+    "lon": -84.878424,
+    "name": "Donalsonville city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.229976,
+    "lon": -83.928924,
+    "name": "Dooling town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.908341,
+    "lon": -84.269876,
+    "name": "Doraville city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.506114,
+    "lon": -82.854335,
+    "name": "Douglas city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.73678,
+    "lon": -84.701074,
+    "name": "Douglasville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.78415,
+    "lon": -84.329213,
+    "name": "Druid Hills CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.535471,
+    "lon": -82.928807,
+    "name": "Dublin city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.53348,
+    "lon": -83.083619,
+    "name": "Dudley city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.001517,
+    "lon": -84.150464,
+    "name": "Duluth city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.941387,
+    "lon": -84.312701,
+    "name": "Dunwoody city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.989096,
+    "lon": -82.869085,
+    "name": "Du Pont town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.003578,
+    "lon": -81.032776,
+    "name": "Dutch Island CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.285577,
+    "lon": -83.000722,
+    "name": "Eagle Grove CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.546925,
+    "lon": -82.866967,
+    "name": "East Dublin city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.665238,
+    "lon": -84.490763,
+    "name": "East Ellijay city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.243443,
+    "lon": -84.232599,
+    "name": "East Griffin CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.197561,
+    "lon": -83.170658,
+    "name": "Eastman city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.345796,
+    "lon": -84.776725,
+    "name": "East Newnan CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.67112,
+    "lon": -84.473429,
+    "name": "East Point city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.325821,
+    "lon": -83.388862,
+    "name": "Eatonton city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.714008,
+    "lon": -82.897376,
+    "name": "Echols County consolidated government",
+    "state": "GA"
+  },
+  {
+    "lat": 33.153421,
+    "lon": -82.624989,
+    "name": "Edge Hill city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.560812,
+    "lon": -84.737402,
+    "name": "Edison city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.104921,
+    "lon": -82.87276,
+    "name": "Elberton city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.237662,
+    "lon": -84.309114,
+    "name": "Ellaville city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.176703,
+    "lon": -83.587067,
+    "name": "Ellenton town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.632913,
+    "lon": -84.788449,
+    "name": "Ellerslie CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.691438,
+    "lon": -84.48349,
+    "name": "Ellijay city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.131182,
+    "lon": -84.745362,
+    "name": "Emerson city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.337052,
+    "lon": -83.282965,
+    "name": "Empire CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.401295,
+    "lon": -83.319875,
+    "name": "Enigma town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.406937,
+    "lon": -85.256762,
+    "name": "Ephesus city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.951032,
+    "lon": -84.380788,
+    "name": "Epworth CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.828151,
+    "lon": -84.767837,
+    "name": "Eton city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.143586,
+    "lon": -84.932752,
+    "name": "Euharlee city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.533382,
+    "lon": -81.436058,
+    "name": "Eulonia CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.567644,
+    "lon": -82.140555,
+    "name": "Evans CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.39762,
+    "lon": -81.63704,
+    "name": "Everett CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.286032,
+    "lon": -84.274641,
+    "name": "Experiment CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 30.753699,
+    "lon": -84.637224,
+    "name": "Faceville CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.547798,
+    "lon": -84.587265,
+    "name": "Fairburn city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.644657,
+    "lon": -84.928426,
+    "name": "Fairfield Plantation CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.438632,
+    "lon": -84.699397,
+    "name": "Fairmount city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.919975,
+    "lon": -84.544443,
+    "name": "Fair Oaks CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.618204,
+    "lon": -84.862363,
+    "name": "Fairplay CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.929532,
+    "lon": -85.294037,
+    "name": "Fairview CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 30.686878,
+    "lon": -82.571448,
+    "name": "Fargo city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.449099,
+    "lon": -84.472824,
+    "name": "Fayetteville city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.713043,
+    "lon": -83.252214,
+    "name": "Fitzgerald city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.8494,
+    "lon": -81.561151,
+    "name": "Flemington city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.252406,
+    "lon": -83.902902,
+    "name": "Flovilla city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.171303,
+    "lon": -83.918746,
+    "name": "Flowery Branch city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.839068,
+    "lon": -82.007342,
+    "name": "Folkston city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.620543,
+    "lon": -84.358181,
+    "name": "Forest Park city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.039361,
+    "lon": -83.934443,
+    "name": "Forsyth city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.625945,
+    "lon": -85.058669,
+    "name": "Fort Gaines city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.931849,
+    "lon": -85.24601,
+    "name": "Fort Oglethorpe city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.881168,
+    "lon": -81.61317,
+    "name": "Fort Stewart CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.551114,
+    "lon": -83.879939,
+    "name": "Fort Valley city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.279834,
+    "lon": -85.098636,
+    "name": "Franklin city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.283361,
+    "lon": -83.146091,
+    "name": "Franklin Springs city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.195923,
+    "lon": -83.881135,
+    "name": "Funston city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.2901,
+    "lon": -83.829106,
+    "name": "Gainesville city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.087221,
+    "lon": -81.176614,
+    "name": "Garden City city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.541783,
+    "lon": -81.799535,
+    "name": "Gardi CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.649211,
+    "lon": -82.097291,
+    "name": "Garfield city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.095757,
+    "lon": -84.579365,
+    "name": "Gay town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.578235,
+    "lon": -84.553065,
+    "name": "Geneva town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.982716,
+    "lon": -81.230275,
+    "name": "Georgetown CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.862938,
+    "lon": -85.004798,
+    "name": "Georgetown-Quitman County unified government",
+    "state": "GA"
+  },
+  {
+    "lat": 33.231691,
+    "lon": -82.600978,
+    "name": "Gibson city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.309321,
+    "lon": -83.63093,
+    "name": "Gillsville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.033888,
+    "lon": -81.715514,
+    "name": "Girard town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.147692,
+    "lon": -85.214018,
+    "name": "Glenn CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.938798,
+    "lon": -81.932425,
+    "name": "Glennville city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.180301,
+    "lon": -82.670836,
+    "name": "Glenwood city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.445881,
+    "lon": -83.500625,
+    "name": "Godfrey CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.790066,
+    "lon": -83.617447,
+    "name": "Good Hope city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.886187,
+    "lon": -83.333588,
+    "name": "Gordon city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.084105,
+    "lon": -82.231332,
+    "name": "Gough CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.824917,
+    "lon": -82.497576,
+    "name": "Graham city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.237148,
+    "lon": -84.830098,
+    "name": "Grantville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.002021,
+    "lon": -83.540932,
+    "name": "Gray city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.890751,
+    "lon": -83.958148,
+    "name": "Grayson city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.563569,
+    "lon": -83.189093,
+    "name": "Greensboro city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.030929,
+    "lon": -84.716331,
+    "name": "Greenville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.707017,
+    "lon": -84.311976,
+    "name": "Gresham Park CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.243188,
+    "lon": -84.271861,
+    "name": "Griffin city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.449769,
+    "lon": -82.207966,
+    "name": "Grovetown city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.836728,
+    "lon": -81.683797,
+    "name": "Gumbranch city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.498866,
+    "lon": -83.093041,
+    "name": "Gumlog CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.33227,
+    "lon": -81.390385,
+    "name": "Guyton city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.15306,
+    "lon": -81.92992,
+    "name": "Hagan city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.992155,
+    "lon": -83.377258,
+    "name": "Hahira city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.764671,
+    "lon": -84.875261,
+    "name": "Hamilton city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.377704,
+    "lon": -84.298974,
+    "name": "Hampton city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.937302,
+    "lon": -84.340945,
+    "name": "Hannahs Mill CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.660865,
+    "lon": -84.409413,
+    "name": "Hapeville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.22935,
+    "lon": -84.56871,
+    "name": "Haralson town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.045609,
+    "lon": -83.248811,
+    "name": "Hardwick CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.435349,
+    "lon": -82.316065,
+    "name": "Harlem city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.82639,
+    "lon": -82.72594,
+    "name": "Harrison town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.349645,
+    "lon": -82.92802,
+    "name": "Hartwell city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.301182,
+    "lon": -83.478856,
+    "name": "Hawkinsville city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.864128,
+    "lon": -82.599276,
+    "name": "Hazlehurst city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.708395,
+    "lon": -83.727625,
+    "name": "Helen city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.00705,
+    "lon": -81.266602,
+    "name": "Henderson CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.2923,
+    "lon": -82.095732,
+    "name": "Hephzibah city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.339043,
+    "lon": -84.192162,
+    "name": "Heron Bay CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.946158,
+    "lon": -83.746335,
+    "name": "Hiawassee city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.145116,
+    "lon": -81.994931,
+    "name": "Hickox CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.216102,
+    "lon": -82.464793,
+    "name": "Higgston town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.108235,
+    "lon": -84.437141,
+    "name": "Hilltop CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.883339,
+    "lon": -81.661487,
+    "name": "Hiltonia town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.826702,
+    "lon": -81.615773,
+    "name": "Hinesville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.890794,
+    "lon": -84.750549,
+    "name": "Hiram city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.180473,
+    "lon": -82.130901,
+    "name": "Hoboken city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.166986,
+    "lon": -84.902788,
+    "name": "Hogansville city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.167234,
+    "lon": -84.484469,
+    "name": "Holly Springs city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.860145,
+    "lon": -82.020802,
+    "name": "Homeland city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.337961,
+    "lon": -83.494776,
+    "name": "Homer town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.038226,
+    "lon": -82.742081,
+    "name": "Homerville city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.328963,
+    "lon": -81.953982,
+    "name": "Hortense CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.085619,
+    "lon": -83.759869,
+    "name": "Hoschton city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.604098,
+    "lon": -84.379104,
+    "name": "Howard CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.017611,
+    "lon": -83.293647,
+    "name": "Hull city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.372878,
+    "lon": -84.189014,
+    "name": "Ideal city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.173667,
+    "lon": -83.293109,
+    "name": "Ila city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.960605,
+    "lon": -85.159012,
+    "name": "Indian Springs CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.013583,
+    "lon": -84.813313,
+    "name": "Iron City town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.483275,
+    "lon": -84.365512,
+    "name": "Irondale CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.810758,
+    "lon": -83.173696,
+    "name": "Irwinton city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.985906,
+    "lon": -81.052475,
+    "name": "Isle of Hope CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.909928,
+    "lon": -83.299847,
+    "name": "Ivey city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.292359,
+    "lon": -83.967846,
+    "name": "Jackson city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.813353,
+    "lon": -82.975805,
+    "name": "Jacksonville city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.090055,
+    "lon": -84.982261,
+    "name": "Jakin city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.466199,
+    "lon": -84.435863,
+    "name": "Jasper city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.136239,
+    "lon": -83.602157,
+    "name": "Jefferson city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.686289,
+    "lon": -83.342676,
+    "name": "Jeffersonville city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.06371,
+    "lon": -81.41873,
+    "name": "Jekyll Island CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.320579,
+    "lon": -84.037313,
+    "name": "Jenkinsburg city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.71689,
+    "lon": -83.804251,
+    "name": "Jersey city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.594574,
+    "lon": -81.895699,
+    "name": "Jesup city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.032739,
+    "lon": -84.203848,
+    "name": "Johns Creek city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.520799,
+    "lon": -84.354701,
+    "name": "Jonesboro city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.113712,
+    "lon": -83.808425,
+    "name": "Juliette CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.603622,
+    "lon": -84.458198,
+    "name": "Junction City town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.027202,
+    "lon": -84.61709,
+    "name": "Kennesaw city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.037859,
+    "lon": -84.582645,
+    "name": "Kennesaw State University CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.236189,
+    "lon": -82.229326,
+    "name": "Keysville city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.799297,
+    "lon": -81.563719,
+    "name": "Kings Bay Base CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 30.846097,
+    "lon": -81.790911,
+    "name": "Kingsland city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.231972,
+    "lon": -84.944493,
+    "name": "Kingston city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.691524,
+    "lon": -82.512435,
+    "name": "Kite city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.723259,
+    "lon": -83.995933,
+    "name": "Knoxville CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.708848,
+    "lon": -85.281494,
+    "name": "LaFayette city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.02698,
+    "lon": -85.038261,
+    "name": "LaGrange city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.606478,
+    "lon": -84.341204,
+    "name": "Lake City city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.040817,
+    "lon": -83.07473,
+    "name": "Lakeland city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.68556,
+    "lon": -83.187704,
+    "name": "Lake Park city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.977071,
+    "lon": -85.253632,
+    "name": "Lakeview CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.70498,
+    "lon": -84.037679,
+    "name": "Lakeview Estates CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.433911,
+    "lon": -83.107959,
+    "name": "Lavonia city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.952875,
+    "lon": -83.992231,
+    "name": "Lawrenceville city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.485084,
+    "lon": -84.512474,
+    "name": "Leary city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.732058,
+    "lon": -84.168546,
+    "name": "Leesburg city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.261003,
+    "lon": -83.466873,
+    "name": "Lenox town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.954796,
+    "lon": -84.087093,
+    "name": "Leslie city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.870069,
+    "lon": -83.110154,
+    "name": "Lexington city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.89064,
+    "lon": -84.136872,
+    "name": "Lilburn city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.146535,
+    "lon": -83.877464,
+    "name": "Lilly city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.867381,
+    "lon": -84.335599,
+    "name": "Lincoln Park CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.792714,
+    "lon": -82.478438,
+    "name": "Lincolnton city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.187692,
+    "lon": -85.180719,
+    "name": "Lindale CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.782487,
+    "lon": -84.648488,
+    "name": "Lithia Springs CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.712954,
+    "lon": -84.1062,
+    "name": "Lithonia city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.348125,
+    "lon": -84.102546,
+    "name": "Locust Grove city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.836502,
+    "lon": -83.896135,
+    "name": "Loganville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.172352,
+    "lon": -84.817331,
+    "name": "Lone Oak town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.966503,
+    "lon": -85.361889,
+    "name": "Lookout Mountain city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.992865,
+    "lon": -82.397188,
+    "name": "Louisville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.443681,
+    "lon": -84.318863,
+    "name": "Lovejoy city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.714008,
+    "lon": -81.740291,
+    "name": "Ludowici city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.398088,
+    "lon": -83.661905,
+    "name": "Lula city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.933052,
+    "lon": -82.683197,
+    "name": "Lumber City city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.048041,
+    "lon": -84.798145,
+    "name": "Lumpkin city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.209626,
+    "lon": -84.744302,
+    "name": "Luthersville city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.403432,
+    "lon": -85.404092,
+    "name": "Lyerly town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.204913,
+    "lon": -82.321218,
+    "name": "Lyons city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.812998,
+    "lon": -84.576946,
+    "name": "Mableton city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.981962,
+    "lon": -84.371188,
+    "name": "McCaysville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.442222,
+    "lon": -84.150963,
+    "name": "McDonough city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.846833,
+    "lon": -83.213274,
+    "name": "McIntyre town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.80899,
+    "lon": -83.69406,
+    "name": "Macon-Bibb County",
+    "state": "GA"
+  },
+  {
+    "lat": 32.063577,
+    "lon": -82.89689,
+    "name": "McRae-Helena city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.579038,
+    "lon": -83.475971,
+    "name": "Madison city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.161124,
+    "lon": -82.024038,
+    "name": "Manassas city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.859057,
+    "lon": -84.634374,
+    "name": "Manchester city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.103071,
+    "lon": -82.566706,
+    "name": "Manor CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.517437,
+    "lon": -83.734613,
+    "name": "Mansfield city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.953561,
+    "lon": -84.542463,
+    "name": "Marietta city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.458561,
+    "lon": -83.939762,
+    "name": "Marshallville city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.485769,
+    "lon": -83.197451,
+    "name": "Martin town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.520422,
+    "lon": -82.101179,
+    "name": "Martinez CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.21933,
+    "lon": -82.301659,
+    "name": "Matthews CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.754914,
+    "lon": -83.172638,
+    "name": "Maxeys town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.255126,
+    "lon": -83.553058,
+    "name": "Maysville town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.051449,
+    "lon": -84.310459,
+    "name": "Meansville city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.071788,
+    "lon": -84.092683,
+    "name": "Meigs city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.994749,
+    "lon": -81.970437,
+    "name": "Mendes CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.483491,
+    "lon": -85.477611,
+    "name": "Menlo city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.463256,
+    "lon": -82.252797,
+    "name": "Mershon CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.39451,
+    "lon": -82.062432,
+    "name": "Metter city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.821272,
+    "lon": -82.235266,
+    "name": "Midville city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.801003,
+    "lon": -81.416664,
+    "name": "Midway city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.019198,
+    "lon": -83.062279,
+    "name": "Milan city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.087945,
+    "lon": -83.240613,
+    "name": "Milledgeville city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.806892,
+    "lon": -81.942039,
+    "name": "Millen city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.265395,
+    "lon": -82.657199,
+    "name": "Millwood CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.116066,
+    "lon": -84.187681,
+    "name": "Milner city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.687946,
+    "lon": -83.990726,
+    "name": "Milstead CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.144325,
+    "lon": -84.314188,
+    "name": "Milton city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.914151,
+    "lon": -84.277608,
+    "name": "Mineral Bluff CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.221712,
+    "lon": -82.701246,
+    "name": "Mitchell town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.014084,
+    "lon": -84.507063,
+    "name": "Molena city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.797481,
+    "lon": -83.718728,
+    "name": "Monroe city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.297239,
+    "lon": -84.019058,
+    "name": "Montezuma city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.947857,
+    "lon": -81.09792,
+    "name": "Montgomery CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.295879,
+    "lon": -83.686584,
+    "name": "Monticello city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.55923,
+    "lon": -83.153151,
+    "name": "Montrose town",
+    "state": "GA"
+  },
+  {
+    "lat": 30.969613,
+    "lon": -83.194305,
+    "name": "Moody AFB CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.286361,
+    "lon": -84.769581,
+    "name": "Moreland town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.538097,
+    "lon": -84.603238,
+    "name": "Morgan city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.875049,
+    "lon": -84.244266,
+    "name": "Morganton city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.578297,
+    "lon": -84.335554,
+    "name": "Morrow city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.943977,
+    "lon": -83.499976,
+    "name": "Morven city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.17943,
+    "lon": -83.790786,
+    "name": "Moultrie city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.921479,
+    "lon": -83.381098,
+    "name": "Mountain City town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.083035,
+    "lon": -84.413635,
+    "name": "Mountain Park city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.846683,
+    "lon": -84.132156,
+    "name": "Mountain Park CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.523488,
+    "lon": -83.497167,
+    "name": "Mount Airy town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.185236,
+    "lon": -82.596585,
+    "name": "Mount Vernon city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.642561,
+    "lon": -85.180998,
+    "name": "Mount Zion city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.801867,
+    "lon": -84.032382,
+    "name": "Musella CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.206217,
+    "lon": -81.981216,
+    "name": "Nahunta city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.205697,
+    "lon": -83.246388,
+    "name": "Nashville city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.910085,
+    "lon": -83.074286,
+    "name": "Naylor CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.376518,
+    "lon": -84.369025,
+    "name": "Nelson city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.516081,
+    "lon": -83.695737,
+    "name": "Newborn town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.918034,
+    "lon": -85.481375,
+    "name": "New England CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.58916,
+    "lon": -81.505994,
+    "name": "Newington town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.375833,
+    "lon": -84.777324,
+    "name": "Newnan city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.316751,
+    "lon": -84.339469,
+    "name": "Newton city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.520425,
+    "lon": -82.638096,
+    "name": "Nicholls city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.116622,
+    "lon": -83.425056,
+    "name": "Nicholson city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.937394,
+    "lon": -84.205634,
+    "name": "Norcross city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.26902,
+    "lon": -83.684531,
+    "name": "Norman Park city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.50704,
+    "lon": -82.498626,
+    "name": "Norristown CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.807337,
+    "lon": -84.28889,
+    "name": "North Decatur CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.819492,
+    "lon": -84.326702,
+    "name": "North Druid Hills CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.828754,
+    "lon": -83.501647,
+    "name": "North High Shoals town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.462697,
+    "lon": -82.705957,
+    "name": "Norwood city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.491954,
+    "lon": -82.346687,
+    "name": "Nunez city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.364413,
+    "lon": -82.324015,
+    "name": "Oak Park town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.222133,
+    "lon": -83.884856,
+    "name": "Oakwood city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.975437,
+    "lon": -84.050639,
+    "name": "Ochlocknee town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.598633,
+    "lon": -83.249809,
+    "name": "Ocilla city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.853627,
+    "lon": -82.959356,
+    "name": "Oconee city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.67186,
+    "lon": -82.024183,
+    "name": "Odum city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.409941,
+    "lon": -82.114283,
+    "name": "Offerman city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.293176,
+    "lon": -84.062807,
+    "name": "Oglethorpe city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.181699,
+    "lon": -82.221992,
+    "name": "Ohoopee CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.523079,
+    "lon": -81.536264,
+    "name": "Oliver city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.338958,
+    "lon": -83.593724,
+    "name": "Omega city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.185158,
+    "lon": -84.212038,
+    "name": "Orchard Hill town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.628385,
+    "lon": -83.872326,
+    "name": "Oxford city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.536038,
+    "lon": -84.673791,
+    "name": "Palmetto city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.70832,
+    "lon": -84.274474,
+    "name": "Panthersville CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.894377,
+    "lon": -84.511745,
+    "name": "Parrott town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.384904,
+    "lon": -82.13543,
+    "name": "Patterson city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.95937,
+    "lon": -83.739334,
+    "name": "Pavo city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.391887,
+    "lon": -84.570656,
+    "name": "Peachtree City city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.96715,
+    "lon": -84.232328,
+    "name": "Peachtree Corners city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.29721,
+    "lon": -82.853957,
+    "name": "Pearson city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.126639,
+    "lon": -84.151459,
+    "name": "Pelham city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.144525,
+    "lon": -81.616915,
+    "name": "Pembroke city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.165937,
+    "lon": -83.678859,
+    "name": "Pendergrass town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.919257,
+    "lon": -81.944353,
+    "name": "Perkins CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.473708,
+    "lon": -83.727809,
+    "name": "Perry city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.43888,
+    "lon": -83.52032,
+    "name": "Phillipsburg CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.196212,
+    "lon": -83.759519,
+    "name": "Pinehurst city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.790707,
+    "lon": -84.205837,
+    "name": "Pine Lake city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.852005,
+    "lon": -84.851631,
+    "name": "Pine Mountain town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.10428,
+    "lon": -83.50887,
+    "name": "Pineview town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.615464,
+    "lon": -85.03881,
+    "name": "Piney Grove CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.946184,
+    "lon": -83.541757,
+    "name": "Pitts city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.03307,
+    "lon": -84.394526,
+    "name": "Plains city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.405265,
+    "lon": -85.031489,
+    "name": "Plainville city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.105635,
+    "lon": -81.256032,
+    "name": "Pooler city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.538196,
+    "lon": -81.928751,
+    "name": "Portal town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.573706,
+    "lon": -83.894787,
+    "name": "Porterdale city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.192015,
+    "lon": -81.205725,
+    "name": "Port Wentworth city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.514506,
+    "lon": -83.78982,
+    "name": "Poulan city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.86435,
+    "lon": -84.681216,
+    "name": "Powder Springs city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.390651,
+    "lon": -81.953437,
+    "name": "Pulaski town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.474745,
+    "lon": -84.105241,
+    "name": "Putney CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 30.784529,
+    "lon": -83.560546,
+    "name": "Quitman city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.499649,
+    "lon": -84.711809,
+    "name": "Ranger CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.457691,
+    "lon": -83.600862,
+    "name": "Raoul CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.072762,
+    "lon": -83.190091,
+    "name": "Ray City city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.791336,
+    "lon": -82.908545,
+    "name": "Rayle town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.807226,
+    "lon": -83.487577,
+    "name": "Rebecca town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.738689,
+    "lon": -84.167118,
+    "name": "Redan CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.440925,
+    "lon": -82.913683,
+    "name": "Reed Creek CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.36453,
+    "lon": -81.880493,
+    "name": "Register town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.087331,
+    "lon": -82.12479,
+    "name": "Reidsville city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.843788,
+    "lon": -83.308928,
+    "name": "Remerton city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.382887,
+    "lon": -82.991818,
+    "name": "Rentz city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.579365,
+    "lon": -84.943824,
+    "name": "Resaca town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.136389,
+    "lon": -83.974494,
+    "name": "Rest Haven town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.560478,
+    "lon": -84.094363,
+    "name": "Reynolds city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.989315,
+    "lon": -83.200435,
+    "name": "Rhine town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.724439,
+    "lon": -81.442341,
+    "name": "Riceboro city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.088762,
+    "lon": -84.662001,
+    "name": "Richland city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.900191,
+    "lon": -81.310077,
+    "name": "Richmond Hill city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.902739,
+    "lon": -82.664984,
+    "name": "Riddleville town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.29469,
+    "lon": -81.235348,
+    "name": "Rincon city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.913661,
+    "lon": -85.12151,
+    "name": "Ringgold city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.563869,
+    "lon": -84.410959,
+    "name": "Riverdale city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.719776,
+    "lon": -84.010381,
+    "name": "Roberta city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.610005,
+    "lon": -83.582946,
+    "name": "Robins AFB CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.948766,
+    "lon": -83.456882,
+    "name": "Rochelle city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.541928,
+    "lon": -82.417685,
+    "name": "Rockingham CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.008306,
+    "lon": -85.044978,
+    "name": "Rockmart city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.81467,
+    "lon": -85.238869,
+    "name": "Rock Spring CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.663507,
+    "lon": -81.835465,
+    "name": "Rocky Ford town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.266133,
+    "lon": -85.186052,
+    "name": "Rome city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.456639,
+    "lon": -85.130407,
+    "name": "Roopville town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.975773,
+    "lon": -85.289568,
+    "name": "Rossville city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.039453,
+    "lon": -84.350946,
+    "name": "Roswell city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.28663,
+    "lon": -83.110842,
+    "name": "Royston city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.979,
+    "lon": -83.69227,
+    "name": "Russell CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.625657,
+    "lon": -83.60969,
+    "name": "Rutledge city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.756672,
+    "lon": -81.578449,
+    "name": "St. Marys city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.180149,
+    "lon": -81.385377,
+    "name": "St. Simons CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.262925,
+    "lon": -84.020816,
+    "name": "Sale City city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.758587,
+    "lon": -84.193624,
+    "name": "Salem CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.981794,
+    "lon": -82.80513,
+    "name": "Sandersville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.931501,
+    "lon": -84.368886,
+    "name": "Sandy Springs city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.170653,
+    "lon": -82.329594,
+    "name": "Santa Claus city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.975073,
+    "lon": -81.76151,
+    "name": "Sardis city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.719916,
+    "lon": -84.347765,
+    "name": "Sasser town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.791866,
+    "lon": -82.559167,
+    "name": "Satilla CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.688809,
+    "lon": -83.683078,
+    "name": "Sautee-Nacoochee CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.018043,
+    "lon": -81.196492,
+    "name": "Savannah city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.047247,
+    "lon": -82.817615,
+    "name": "Scotland city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.795434,
+    "lon": -84.266012,
+    "name": "Scottdale CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.484153,
+    "lon": -82.016879,
+    "name": "Screven city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.307664,
+    "lon": -84.554759,
+    "name": "Senoia city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.960953,
+    "lon": -83.600641,
+    "name": "Seville CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.398475,
+    "lon": -83.589375,
+    "name": "Shady Dale town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.340318,
+    "lon": -85.084083,
+    "name": "Shannon CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.562681,
+    "lon": -82.795436,
+    "name": "Sharon city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.337111,
+    "lon": -84.650911,
+    "name": "Sharpsburg town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.757085,
+    "lon": -84.6159,
+    "name": "Shellman city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.81158,
+    "lon": -84.698708,
+    "name": "Shiloh city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.540913,
+    "lon": -83.084892,
+    "name": "Siloam town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.937772,
+    "lon": -81.046395,
+    "name": "Skidaway Island CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.984996,
+    "lon": -83.333994,
+    "name": "Sky Valley city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.987019,
+    "lon": -83.883024,
+    "name": "Smarr CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.901098,
+    "lon": -84.255174,
+    "name": "Smithville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.862559,
+    "lon": -84.51612,
+    "name": "Smyrna city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.860224,
+    "lon": -84.006295,
+    "name": "Snellville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.646139,
+    "lon": -83.712782,
+    "name": "Social Circle city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.378268,
+    "lon": -82.594019,
+    "name": "Soperton city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.63572,
+    "lon": -84.583417,
+    "name": "South Fulton city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.169023,
+    "lon": -83.441225,
+    "name": "Sparks town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.277912,
+    "lon": -82.969815,
+    "name": "Sparta city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.372159,
+    "lon": -81.315291,
+    "name": "Springfield city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.216889,
+    "lon": -82.467241,
+    "name": "Stapleton city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.437726,
+    "lon": -81.775637,
+    "name": "Statesboro city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.962774,
+    "lon": -83.603753,
+    "name": "Statham city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.262153,
+    "lon": -81.553083,
+    "name": "Sterling CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.441609,
+    "lon": -82.214484,
+    "name": "Stillmore city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.530019,
+    "lon": -84.234275,
+    "name": "Stockbridge city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.946423,
+    "lon": -83.003613,
+    "name": "Stockton CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.680667,
+    "lon": -84.14525,
+    "name": "Stonecrest city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.804187,
+    "lon": -84.17142,
+    "name": "Stone Mountain city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.085962,
+    "lon": -84.03397,
+    "name": "Sugar Hill city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.745239,
+    "lon": -82.276859,
+    "name": "Summertown city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.478728,
+    "lon": -85.349079,
+    "name": "Summerville city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.510337,
+    "lon": -83.736838,
+    "name": "Sumner town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.342436,
+    "lon": -84.29355,
+    "name": "Sunny Side CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.239489,
+    "lon": -82.341783,
+    "name": "Sunnyside CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.891774,
+    "lon": -84.409712,
+    "name": "Sunset Village CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.721916,
+    "lon": -82.197823,
+    "name": "Surrency town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.051119,
+    "lon": -84.06591,
+    "name": "Suwanee city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.585588,
+    "lon": -82.334784,
+    "name": "Swainsboro city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.671652,
+    "lon": -83.635525,
+    "name": "Sycamore city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.747226,
+    "lon": -81.640693,
+    "name": "Sylvania city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.529745,
+    "lon": -83.834571,
+    "name": "Sylvester city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.032985,
+    "lon": -80.976021,
+    "name": "Talahi Island CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.677248,
+    "lon": -84.54065,
+    "name": "Talbotton city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.529219,
+    "lon": -84.491954,
+    "name": "Talking Rock town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.736656,
+    "lon": -85.287358,
+    "name": "Tallapoosa city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.725845,
+    "lon": -83.387512,
+    "name": "Tallulah Falls town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.179368,
+    "lon": -83.717415,
+    "name": "Talmo town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.319004,
+    "lon": -82.559905,
+    "name": "Tarrytown town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.976365,
+    "lon": -83.551469,
+    "name": "Tate City CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.085129,
+    "lon": -84.985629,
+    "name": "Taylorsville town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.374996,
+    "lon": -84.437955,
+    "name": "Tazewell CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.733245,
+    "lon": -85.027295,
+    "name": "Temple city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.936618,
+    "lon": -82.812071,
+    "name": "Tennille city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.960715,
+    "lon": -84.239175,
+    "name": "The Rock CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.891673,
+    "lon": -84.326691,
+    "name": "Thomaston city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.839422,
+    "lon": -83.978781,
+    "name": "Thomasville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.46927,
+    "lon": -82.495116,
+    "name": "Thomson city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.035729,
+    "lon": -81.049204,
+    "name": "Thunderbolt town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.462099,
+    "lon": -83.520499,
+    "name": "Tifton city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.846066,
+    "lon": -83.432562,
+    "name": "Tiger town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.866962,
+    "lon": -82.742146,
+    "name": "Tignall town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.582081,
+    "lon": -83.327169,
+    "name": "Toccoa city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.822373,
+    "lon": -83.082637,
+    "name": "Toomsboro city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.874147,
+    "lon": -85.50965,
+    "name": "Trenton city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.548418,
+    "lon": -85.310769,
+    "name": "Trion town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.845169,
+    "lon": -84.202085,
+    "name": "Tucker city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.855413,
+    "lon": -85.036778,
+    "name": "Tunnel Hill city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.322977,
+    "lon": -84.638692,
+    "name": "Turin town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.582227,
+    "lon": -82.159379,
+    "name": "Twin City city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.010216,
+    "lon": -80.855904,
+    "name": "Tybee Island city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.476059,
+    "lon": -84.594522,
+    "name": "Tyrone town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.471881,
+    "lon": -83.650265,
+    "name": "Ty Ty city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.257284,
+    "lon": -83.735898,
+    "name": "Unadilla city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.593837,
+    "lon": -84.56263,
+    "name": "Union City city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.618816,
+    "lon": -83.075036,
+    "name": "Union Point city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.436548,
+    "lon": -83.509063,
+    "name": "Unionville CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.038084,
+    "lon": -82.507459,
+    "name": "Uvalda city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.850126,
+    "lon": -83.278833,
+    "name": "Valdosta city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.901575,
+    "lon": -84.965064,
+    "name": "Varnell city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.966172,
+    "lon": -81.120562,
+    "name": "Vernonburg town",
+    "state": "GA"
+  },
+  {
+    "lat": 32.212079,
+    "lon": -82.402187,
+    "name": "Vidalia city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.036123,
+    "lon": -82.244029,
+    "name": "Vidette city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.092747,
+    "lon": -83.786839,
+    "name": "Vienna city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.728365,
+    "lon": -84.916662,
+    "name": "Villa Rica city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.85916,
+    "lon": -84.467843,
+    "name": "Vinings CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.7026,
+    "lon": -85.189244,
+    "name": "Waco city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.86479,
+    "lon": -82.402802,
+    "name": "Wadley city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.316031,
+    "lon": -84.543557,
+    "name": "Waleska city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.74786,
+    "lon": -83.849962,
+    "name": "Walnut Grove city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.771984,
+    "lon": -81.620943,
+    "name": "Walthourville city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.247501,
+    "lon": -82.472031,
+    "name": "Waresboro CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.887196,
+    "lon": -84.678624,
+    "name": "Warm Springs city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.597096,
+    "lon": -83.653936,
+    "name": "Warner Robins city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.407657,
+    "lon": -82.665124,
+    "name": "Warrenton city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.094754,
+    "lon": -82.804922,
+    "name": "Warthen CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.82979,
+    "lon": -83.920625,
+    "name": "Warwick city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.735236,
+    "lon": -82.74227,
+    "name": "Washington city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.859666,
+    "lon": -83.404788,
+    "name": "Watkinsville city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.109805,
+    "lon": -81.72762,
+    "name": "Waverly CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.68289,
+    "lon": -84.728333,
+    "name": "Waverly Hall town",
+    "state": "GA"
+  },
+  {
+    "lat": 31.211006,
+    "lon": -82.357658,
+    "name": "Waycross city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.091279,
+    "lon": -82.01429,
+    "name": "Waynesboro city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.227222,
+    "lon": -81.783591,
+    "name": "Waynesville CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.046691,
+    "lon": -84.553828,
+    "name": "Webster County unified government",
+    "state": "GA"
+  },
+  {
+    "lat": 31.910941,
+    "lon": -83.751066,
+    "name": "Wenona CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.914816,
+    "lon": -85.418583,
+    "name": "West Brow CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 32.898518,
+    "lon": -85.141499,
+    "name": "West Point city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.883895,
+    "lon": -84.327368,
+    "name": "Whigham city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.282234,
+    "lon": -84.748028,
+    "name": "White city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.030312,
+    "lon": -81.012919,
+    "name": "Whitemarsh Island CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.480313,
+    "lon": -83.036343,
+    "name": "White Plains city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.492068,
+    "lon": -84.9143,
+    "name": "Whitesburg city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.966937,
+    "lon": -85.421501,
+    "name": "Wildwood CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 31.335094,
+    "lon": -83.044003,
+    "name": "Willacoochee city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.178274,
+    "lon": -84.357575,
+    "name": "Williamson city",
+    "state": "GA"
+  },
+  {
+    "lat": 31.999706,
+    "lon": -80.975229,
+    "name": "Wilmington Island CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 33.991568,
+    "lon": -83.723554,
+    "name": "Winder city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.966635,
+    "lon": -83.281558,
+    "name": "Winterville city",
+    "state": "GA"
+  },
+  {
+    "lat": 30.959855,
+    "lon": -81.718098,
+    "name": "Woodbine city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.985218,
+    "lon": -84.582015,
+    "name": "Woodbury city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.788217,
+    "lon": -84.561221,
+    "name": "Woodland city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.10314,
+    "lon": -84.512997,
+    "name": "Woodstock city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.665503,
+    "lon": -83.118094,
+    "name": "Woodville city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.362901,
+    "lon": -84.407036,
+    "name": "Woolsey town",
+    "state": "GA"
+  },
+  {
+    "lat": 33.207434,
+    "lon": -82.387583,
+    "name": "Wrens city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.726812,
+    "lon": -82.719072,
+    "name": "Wrightsville city",
+    "state": "GA"
+  },
+  {
+    "lat": 32.913002,
+    "lon": -84.141314,
+    "name": "Yatesville town",
+    "state": "GA"
+  },
+  {
+    "lat": 34.644182,
+    "lon": -83.743,
+    "name": "Yonah CDP",
+    "state": "GA"
+  },
+  {
+    "lat": 34.934606,
+    "lon": -83.847726,
+    "name": "Young Harris city",
+    "state": "GA"
+  },
+  {
+    "lat": 33.090996,
+    "lon": -84.339467,
+    "name": "Zebulon city",
+    "state": "GA"
+  },
+  {
+    "lat": 34.178544,
+    "lon": -82.377687,
+    "name": "Abbeville city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.506352,
+    "lon": -80.510697,
+    "name": "Abney Crossroads CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.721902,
+    "lon": -80.346592,
+    "name": "Adams Run CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.531594,
+    "lon": -81.725073,
+    "name": "Aiken city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.759106,
+    "lon": -80.224889,
+    "name": "Alcolu CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.008047,
+    "lon": -81.309164,
+    "name": "Allendale town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.521487,
+    "lon": -82.643517,
+    "name": "Anderson city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.44946,
+    "lon": -79.565984,
+    "name": "Andrews town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.296213,
+    "lon": -82.560347,
+    "name": "Antreville CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.961075,
+    "lon": -81.993118,
+    "name": "Arcadia CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.051617,
+    "lon": -80.963108,
+    "name": "Arcadia Lakes town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.846076,
+    "lon": -82.64062,
+    "name": "Arial CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.914961,
+    "lon": -81.938733,
+    "name": "Arkwright CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.965357,
+    "lon": -81.00115,
+    "name": "Arthurtown CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.123013,
+    "lon": -80.296802,
+    "name": "Ashwood CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.803553,
+    "lon": -78.717742,
+    "name": "Atlantic Beach town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.967885,
+    "lon": -79.654755,
+    "name": "Awendaw town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.00023,
+    "lon": -79.207117,
+    "name": "Aynor town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.300136,
+    "lon": -81.031222,
+    "name": "Bamberg town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.241633,
+    "lon": -81.366143,
+    "name": "Barnwell city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.913324,
+    "lon": -81.528058,
+    "name": "Batesburg-Leesville town",
+    "state": "SC"
+  },
+  {
+    "lat": 35.027211,
+    "lon": -80.977908,
+    "name": "Baxter Village CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.458085,
+    "lon": -80.722543,
+    "name": "Beaufort city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.428596,
+    "lon": -81.890318,
+    "name": "Beech Island CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.523778,
+    "lon": -82.492747,
+    "name": "Belton city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.539348,
+    "lon": -81.933646,
+    "name": "Belvedere CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.934614,
+    "lon": -81.875366,
+    "name": "Ben Avon CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.628218,
+    "lon": -79.685958,
+    "name": "Bennettsville city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.8785,
+    "lon": -82.466212,
+    "name": "Berea CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.414181,
+    "lon": -80.348747,
+    "name": "Bethune town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.22007,
+    "lon": -80.24737,
+    "name": "Bishopville city",
+    "state": "SC"
+  },
+  {
+    "lat": 35.122089,
+    "lon": -81.518119,
+    "name": "Blacksburg town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.347767,
+    "lon": -81.294912,
+    "name": "Blackville town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.509758,
+    "lon": -79.652486,
+    "name": "Blenheim town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.214449,
+    "lon": -80.929528,
+    "name": "Bluffton town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.209247,
+    "lon": -80.995293,
+    "name": "Blythewood town",
+    "state": "SC"
+  },
+  {
+    "lat": 35.04501,
+    "lon": -81.977929,
+    "name": "Boiling Springs CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.313636,
+    "lon": -79.953916,
+    "name": "Bonneau town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.322081,
+    "lon": -79.988621,
+    "name": "Bonneau Beach CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.348302,
+    "lon": -80.684293,
+    "name": "Bowman town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.115104,
+    "lon": -80.588034,
+    "name": "Boykin CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.03007,
+    "lon": -82.239339,
+    "name": "Bradley CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.251712,
+    "lon": -80.816078,
+    "name": "Branchville town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.790125,
+    "lon": -78.749029,
+    "name": "Briarcliffe Acres town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.520783,
+    "lon": -80.838367,
+    "name": "Brookdale CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.205285,
+    "lon": -80.316032,
+    "name": "Browntown CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.924256,
+    "lon": -81.188644,
+    "name": "Brunson town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.669028,
+    "lon": -79.116914,
+    "name": "Bucksport CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.724439,
+    "lon": -81.684357,
+    "name": "Buffalo CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.748046,
+    "lon": -80.628505,
+    "name": "Buford CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.521073,
+    "lon": -81.864655,
+    "name": "Burnettown town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.424802,
+    "lon": -80.740576,
+    "name": "Burton CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 35.107109,
+    "lon": -82.618378,
+    "name": "Caesars Head CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.093013,
+    "lon": -82.596463,
+    "name": "Calhoun Falls town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.25893,
+    "lon": -80.609202,
+    "name": "Camden city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.557954,
+    "lon": -80.715034,
+    "name": "Cameron town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.90878,
+    "lon": -81.863582,
+    "name": "Camp Croft CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 35.125755,
+    "lon": -82.149364,
+    "name": "Campobello town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.892713,
+    "lon": -80.441951,
+    "name": "Cane Savannah CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.967152,
+    "lon": -80.923847,
+    "name": "Capitol View CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.592041,
+    "lon": -81.464513,
+    "name": "Carlisle town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.76636,
+    "lon": -78.913478,
+    "name": "Carolina Forest CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.619649,
+    "lon": -79.889498,
+    "name": "Cash CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.839622,
+    "lon": -80.899874,
+    "name": "Catawba CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.766646,
+    "lon": -82.77876,
+    "name": "Cateechee CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.950498,
+    "lon": -81.039806,
+    "name": "Cayce city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.025731,
+    "lon": -79.35239,
+    "name": "Centenary CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.528278,
+    "lon": -82.716733,
+    "name": "Centerville CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.723405,
+    "lon": -82.774706,
+    "name": "Central town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.909598,
+    "lon": -81.752757,
+    "name": "Central Pacolet town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.16525,
+    "lon": -81.339342,
+    "name": "Chapin town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.828017,
+    "lon": -79.972896,
+    "name": "Charleston city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.697894,
+    "lon": -79.913969,
+    "name": "Cheraw town",
+    "state": "SC"
+  },
+  {
+    "lat": 35.063872,
+    "lon": -81.544499,
+    "name": "Cherokee Falls CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.949511,
+    "lon": -80.45932,
+    "name": "Cherryvale CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 35.146247,
+    "lon": -81.862978,
+    "name": "Chesnee city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.705023,
+    "lon": -81.21322,
+    "name": "Chester city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.732992,
+    "lon": -80.078036,
+    "name": "Chesterfield town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.535481,
+    "lon": -83.076455,
+    "name": "Chickasaw Point CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.862508,
+    "lon": -82.425849,
+    "name": "City View CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.658175,
+    "lon": -82.165995,
+    "name": "Clarks Hill CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.502756,
+    "lon": -81.911132,
+    "name": "Clearwater CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.683564,
+    "lon": -82.810575,
+    "name": "Clemson city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.6756,
+    "lon": -82.835245,
+    "name": "Clemson University CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.986051,
+    "lon": -81.820395,
+    "name": "Clifton CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.473887,
+    "lon": -81.860899,
+    "name": "Clinton city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.579046,
+    "lon": -79.546059,
+    "name": "Clio town",
+    "state": "SC"
+  },
+  {
+    "lat": 35.11162,
+    "lon": -81.220254,
+    "name": "Clover town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.290015,
+    "lon": -82.20874,
+    "name": "Cokesbury CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.040519,
+    "lon": -80.906099,
+    "name": "Columbia city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.763806,
+    "lon": -82.351637,
+    "name": "Conestee CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.995653,
+    "lon": -81.843053,
+    "name": "Converse CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.834533,
+    "lon": -79.049173,
+    "name": "Conway city",
+    "state": "SC"
+  },
+  {
+    "lat": 32.586144,
+    "lon": -80.935398,
+    "name": "Coosawhatchie CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.377744,
+    "lon": -81.007941,
+    "name": "Cope town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.434489,
+    "lon": -80.921034,
+    "name": "Cordova town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.25181,
+    "lon": -82.105247,
+    "name": "Coronaca CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.936197,
+    "lon": -80.480316,
+    "name": "Cottageville town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.977052,
+    "lon": -79.750574,
+    "name": "Coward town",
+    "state": "SC"
+  },
+  {
+    "lat": 35.018617,
+    "lon": -81.804121,
+    "name": "Cowpens town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.644241,
+    "lon": -81.858033,
+    "name": "Cross Anchor CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.30451,
+    "lon": -81.983576,
+    "name": "Cross Hill town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.934272,
+    "lon": -82.560513,
+    "name": "Dacusville CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.555428,
+    "lon": -80.701559,
+    "name": "Dale CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.020267,
+    "lon": -80.432897,
+    "name": "Dalzell CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.090306,
+    "lon": -79.769477,
+    "name": "Danwood CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.301383,
+    "lon": -79.867174,
+    "name": "Darlington city",
+    "state": "SC"
+  },
+  {
+    "lat": 32.110537,
+    "lon": -80.85708,
+    "name": "Daufuskie Island CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.886173,
+    "lon": -79.371772,
+    "name": "Daviston CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.370552,
+    "lon": -79.175762,
+    "name": "DeBordieu Colony CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.313705,
+    "lon": -81.133786,
+    "name": "Denmark city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.07554,
+    "lon": -80.955161,
+    "name": "Dentsville CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.424406,
+    "lon": -79.367561,
+    "name": "Dillon city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.374499,
+    "lon": -82.343202,
+    "name": "Donalds town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.403788,
+    "lon": -79.908488,
+    "name": "Dovesville CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.976171,
+    "lon": -81.902606,
+    "name": "Drayton CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.334773,
+    "lon": -82.39033,
+    "name": "Due West town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.535224,
+    "lon": -79.352291,
+    "name": "Dunbar CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.932426,
+    "lon": -82.143688,
+    "name": "Duncan town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.819282,
+    "lon": -82.423048,
+    "name": "Dunean CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.819805,
+    "lon": -82.582161,
+    "name": "Easley city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.268678,
+    "lon": -80.568123,
+    "name": "East Camden CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 35.085377,
+    "lon": -81.624294,
+    "name": "East Gaffney CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.87789,
+    "lon": -80.694926,
+    "name": "Eastover town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.926946,
+    "lon": -80.2929,
+    "name": "East Sumter CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.785282,
+    "lon": -81.9286,
+    "name": "Edgefield town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.477913,
+    "lon": -80.899303,
+    "name": "Edisto CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.498719,
+    "lon": -80.313487,
+    "name": "Edisto Beach town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.863713,
+    "lon": -81.191848,
+    "name": "Edmund CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.098512,
+    "lon": -81.013822,
+    "name": "Ehrhardt town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.170209,
+    "lon": -80.793111,
+    "name": "Elgin town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.665791,
+    "lon": -80.720931,
+    "name": "Elgin CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.380745,
+    "lon": -81.380525,
+    "name": "Elko town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.110902,
+    "lon": -80.171028,
+    "name": "Elliott CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.529985,
+    "lon": -80.570804,
+    "name": "Elloree town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.660485,
+    "lon": -81.96252,
+    "name": "Enoree CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.750498,
+    "lon": -81.238772,
+    "name": "Estill town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.718001,
+    "lon": -81.19295,
+    "name": "Eureka Mill CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.39776,
+    "lon": -80.342811,
+    "name": "Eutawville town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.959377,
+    "lon": -81.236234,
+    "name": "Fairfax town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.94714,
+    "lon": -82.018175,
+    "name": "Fairforest CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.50809,
+    "lon": -82.986838,
+    "name": "Fair Play CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.76216,
+    "lon": -81.359474,
+    "name": "Fairview Crossroads CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 35.135077,
+    "lon": -82.000409,
+    "name": "Fingerville CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.098853,
+    "lon": -78.985808,
+    "name": "Finklea CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.809889,
+    "lon": -82.22291,
+    "name": "Five Forks CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.178923,
+    "lon": -79.792217,
+    "name": "Florence city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.321089,
+    "lon": -79.337031,
+    "name": "Floydale CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.669283,
+    "lon": -79.960577,
+    "name": "Folly Beach city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.03312,
+    "lon": -80.97316,
+    "name": "Forest Acres city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.724229,
+    "lon": -78.967771,
+    "name": "Forestbrook CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.636788,
+    "lon": -80.060676,
+    "name": "Foreston CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.700226,
+    "lon": -80.899137,
+    "name": "Fort Lawn town",
+    "state": "SC"
+  },
+  {
+    "lat": 35.005997,
+    "lon": -80.94,
+    "name": "Fort Mill town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.69665,
+    "lon": -82.202129,
+    "name": "Fountain Inn city",
+    "state": "SC"
+  },
+  {
+    "lat": 32.322052,
+    "lon": -80.48686,
+    "name": "Fripp Island CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.681247,
+    "lon": -81.187705,
+    "name": "Furman town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.847191,
+    "lon": -80.765601,
+    "name": "Gadsden CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 35.073558,
+    "lon": -81.661532,
+    "name": "Gaffney city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.787114,
+    "lon": -82.401343,
+    "name": "Gantt CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.591671,
+    "lon": -79.006572,
+    "name": "Garden City CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.817968,
+    "lon": -81.099749,
+    "name": "Gaston town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.70222,
+    "lon": -81.239229,
+    "name": "Gayle Mill CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.372432,
+    "lon": -79.280793,
+    "name": "Georgetown city",
+    "state": "SC"
+  },
+  {
+    "lat": 32.860035,
+    "lon": -81.238507,
+    "name": "Gifford town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.924111,
+    "lon": -81.391042,
+    "name": "Gilbert town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.611588,
+    "lon": -81.000179,
+    "name": "Gillisonville CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.945078,
+    "lon": -81.836373,
+    "name": "Glendale CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.811956,
+    "lon": -81.850457,
+    "name": "Glenn Springs CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.526845,
+    "lon": -81.813055,
+    "name": "Gloverville CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.71873,
+    "lon": -82.429632,
+    "name": "Golden Grove CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.994906,
+    "lon": -80.009245,
+    "name": "Goose Creek city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.22277,
+    "lon": -81.174834,
+    "name": "Govan town",
+    "state": "SC"
+  },
+  {
+    "lat": 35.077525,
+    "lon": -82.134597,
+    "name": "Gramling CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.564682,
+    "lon": -81.809231,
+    "name": "Graniteville CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.608315,
+    "lon": -82.115123,
+    "name": "Gray Court town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.572131,
+    "lon": -80.905304,
+    "name": "Great Falls town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.580223,
+    "lon": -79.990022,
+    "name": "Greeleyville town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.128781,
+    "lon": -78.972048,
+    "name": "Green Sea CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.836902,
+    "lon": -82.362997,
+    "name": "Greenville city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.195397,
+    "lon": -82.153665,
+    "name": "Greenwood city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.933286,
+    "lon": -82.230803,
+    "name": "Greer city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.10918,
+    "lon": -80.591958,
+    "name": "Grover CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.474494,
+    "lon": -79.325403,
+    "name": "Hamer CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.867558,
+    "lon": -81.109405,
+    "name": "Hampton town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.93096,
+    "lon": -80.00217,
+    "name": "Hanahan city",
+    "state": "SC"
+  },
+  {
+    "lat": 32.408292,
+    "lon": -80.43821,
+    "name": "Harbor Island CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.295308,
+    "lon": -81.040983,
+    "name": "Hardeeville city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.213065,
+    "lon": -80.447784,
+    "name": "Harleyville town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.366003,
+    "lon": -80.083261,
+    "name": "Hartsville city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.593268,
+    "lon": -80.675047,
+    "name": "Heath Springs town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.280665,
+    "lon": -81.64449,
+    "name": "Helena CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.753319,
+    "lon": -79.446261,
+    "name": "Hemingway town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.977302,
+    "lon": -81.419414,
+    "name": "Hickory Grove town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.280538,
+    "lon": -81.244711,
+    "name": "Hilda town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.975486,
+    "lon": -81.958501,
+    "name": "Hilltop CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.190307,
+    "lon": -80.738434,
+    "name": "Hilton Head Island town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.288774,
+    "lon": -82.249952,
+    "name": "Hodges town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.32444,
+    "lon": -80.413062,
+    "name": "Holly Hill town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.751251,
+    "lon": -80.201928,
+    "name": "Hollywood town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.464155,
+    "lon": -82.65876,
+    "name": "Homeland Park CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.890078,
+    "lon": -79.050523,
+    "name": "Homewood CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.447619,
+    "lon": -82.394957,
+    "name": "Honea Path town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.900217,
+    "lon": -80.856751,
+    "name": "Hopkins CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 35.014439,
+    "lon": -81.02812,
+    "name": "India Hook CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 35.045786,
+    "lon": -82.088485,
+    "name": "Inman city",
+    "state": "SC"
+  },
+  {
+    "lat": 35.040907,
+    "lon": -82.102412,
+    "name": "Inman Mills CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.1026,
+    "lon": -81.195897,
+    "name": "Irmo town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.693897,
+    "lon": -80.822318,
+    "name": "Irwin CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.909262,
+    "lon": -80.935949,
+    "name": "Islandton CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.803944,
+    "lon": -79.752353,
+    "name": "Isle of Palms city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.308147,
+    "lon": -82.663437,
+    "name": "Iva town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.328575,
+    "lon": -81.792015,
+    "name": "Jackson town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.771756,
+    "lon": -80.476939,
+    "name": "Jacksonboro CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.736122,
+    "lon": -79.937184,
+    "name": "James Island town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.285876,
+    "lon": -79.694592,
+    "name": "Jamestown town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.65122,
+    "lon": -80.38411,
+    "name": "Jefferson town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.311089,
+    "lon": -81.28667,
+    "name": "Jenkinsville town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.415926,
+    "lon": -81.800222,
+    "name": "Joanna CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.81424,
+    "lon": -79.444288,
+    "name": "Johnsonville city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.833383,
+    "lon": -81.804823,
+    "name": "Johnston town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.833949,
+    "lon": -81.68241,
+    "name": "Jonesville town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.833122,
+    "lon": -82.427568,
+    "name": "Judson CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.820929,
+    "lon": -82.912341,
+    "name": "Keowee Key CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.543329,
+    "lon": -80.587171,
+    "name": "Kershaw town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.109079,
+    "lon": -79.155697,
+    "name": "Ketchuptown CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.616442,
+    "lon": -80.060594,
+    "name": "Kiawah Island town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.66723,
+    "lon": -79.828661,
+    "name": "Kingstree town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.124717,
+    "lon": -81.34254,
+    "name": "Kline town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.009482,
+    "lon": -80.107993,
+    "name": "Ladson CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.616281,
+    "lon": -82.770697,
+    "name": "La France CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.867725,
+    "lon": -79.753885,
+    "name": "Lake City city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.120742,
+    "lon": -81.265439,
+    "name": "Lake Murray of Richland CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.289933,
+    "lon": -82.585746,
+    "name": "Lake Secession CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.340784,
+    "lon": -79.166426,
+    "name": "Lake View town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.834108,
+    "lon": -80.348877,
+    "name": "Lakewood CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 35.098536,
+    "lon": -81.072203,
+    "name": "Lake Wylie CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.169469,
+    "lon": -80.065071,
+    "name": "Lamar town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.723916,
+    "lon": -80.785701,
+    "name": "Lancaster city",
+    "state": "SC"
+  },
+  {
+    "lat": 35.175093,
+    "lon": -82.185727,
+    "name": "Landrum city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.525094,
+    "lon": -79.87968,
+    "name": "Lane town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.515188,
+    "lon": -81.835037,
+    "name": "Langley CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.33894,
+    "lon": -79.433564,
+    "name": "Latta town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.459869,
+    "lon": -80.786541,
+    "name": "Laurel Bay CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.502686,
+    "lon": -82.021413,
+    "name": "Laurens city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.883849,
+    "lon": -80.9486,
+    "name": "Lesslie CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.992877,
+    "lon": -81.221797,
+    "name": "Lexington town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.791324,
+    "lon": -82.696327,
+    "name": "Liberty city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.007909,
+    "lon": -80.155495,
+    "name": "Lincolnville town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.474389,
+    "lon": -79.11464,
+    "name": "Litchfield Beach CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.196904,
+    "lon": -81.412374,
+    "name": "Little Mountain town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.880648,
+    "lon": -78.640489,
+    "name": "Little River CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.469125,
+    "lon": -79.389854,
+    "name": "Little Rock CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.056045,
+    "lon": -78.939732,
+    "name": "Live Oak CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.553119,
+    "lon": -81.119545,
+    "name": "Livingston town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.55116,
+    "lon": -80.73537,
+    "name": "Lobeco CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.796112,
+    "lon": -81.467008,
+    "name": "Lockhart town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.06781,
+    "lon": -80.953698,
+    "name": "Lodge town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.784198,
+    "lon": -83.256383,
+    "name": "Longcreek CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.057476,
+    "lon": -78.88842,
+    "name": "Loris city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.209909,
+    "lon": -82.647625,
+    "name": "Lowndesville town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.804009,
+    "lon": -81.237222,
+    "name": "Lowrys town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.211948,
+    "lon": -80.697601,
+    "name": "Lugoff CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.814208,
+    "lon": -81.240265,
+    "name": "Luray town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.286519,
+    "lon": -80.118514,
+    "name": "Lydia CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.974992,
+    "lon": -82.124068,
+    "name": "Lyman town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.060005,
+    "lon": -80.076974,
+    "name": "Lynchburg town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.467024,
+    "lon": -80.257128,
+    "name": "McBee town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.087013,
+    "lon": -79.467062,
+    "name": "McClellanville town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.666518,
+    "lon": -79.544169,
+    "name": "McColl town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.876957,
+    "lon": -81.231605,
+    "name": "McConnells town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.91284,
+    "lon": -82.287591,
+    "name": "McCormick town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.693323,
+    "lon": -80.216761,
+    "name": "Manning city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.159769,
+    "lon": -80.297418,
+    "name": "Manville CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.178658,
+    "lon": -79.395659,
+    "name": "Marion city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.781025,
+    "lon": -82.304234,
+    "name": "Mauldin city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.984912,
+    "lon": -80.204443,
+    "name": "Mayesville town",
+    "state": "SC"
+  },
+  {
+    "lat": 35.085704,
+    "lon": -81.853452,
+    "name": "Mayo CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.689659,
+    "lon": -80.257585,
+    "name": "Meggett town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.721454,
+    "lon": -82.217422,
+    "name": "Modoc CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.71613,
+    "lon": -81.584716,
+    "name": "Monarch Mill CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.199763,
+    "lon": -79.986603,
+    "name": "Moncks Corner town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.849987,
+    "lon": -81.609932,
+    "name": "Monetta town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.018453,
+    "lon": -82.504446,
+    "name": "Mount Carmel CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.769746,
+    "lon": -80.226387,
+    "name": "Mount Croghan town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.808382,
+    "lon": -79.865038,
+    "name": "Mount Pleasant town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.373026,
+    "lon": -81.977361,
+    "name": "Mountville CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.958874,
+    "lon": -80.329078,
+    "name": "Mulberry CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.204338,
+    "lon": -79.254984,
+    "name": "Mullins city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.60107,
+    "lon": -81.945963,
+    "name": "Murphys Estates CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.55725,
+    "lon": -79.057165,
+    "name": "Murrells Inlet CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.71039,
+    "lon": -78.886024,
+    "name": "Myrtle Beach city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.536437,
+    "lon": -81.123614,
+    "name": "Neeses town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.27988,
+    "lon": -81.600333,
+    "name": "Newberry city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.41961,
+    "lon": -81.682414,
+    "name": "New Ellenton town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.996324,
+    "lon": -81.08072,
+    "name": "Newport CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.724825,
+    "lon": -82.914632,
+    "name": "Newry CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.401277,
+    "lon": -79.356771,
+    "name": "Newtown CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.23518,
+    "lon": -79.149116,
+    "name": "Nichols town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.169465,
+    "lon": -82.022956,
+    "name": "Ninety Six town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.766116,
+    "lon": -82.752535,
+    "name": "Norris town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.616366,
+    "lon": -81.102969,
+    "name": "North town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.523303,
+    "lon": -81.956566,
+    "name": "North Augusta city",
+    "state": "SC"
+  },
+  {
+    "lat": 32.917881,
+    "lon": -80.065,
+    "name": "North Charleston city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.402582,
+    "lon": -80.072269,
+    "name": "North Hartsville CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.570621,
+    "lon": -82.684299,
+    "name": "Northlake CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.82196,
+    "lon": -78.702982,
+    "name": "North Myrtle Beach city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.542156,
+    "lon": -80.41411,
+    "name": "North Santee CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.449755,
+    "lon": -81.126672,
+    "name": "Norway town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.982989,
+    "lon": -81.151355,
+    "name": "Oak Grove CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.989366,
+    "lon": -80.495936,
+    "name": "Oakland CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.936183,
+    "lon": -79.931789,
+    "name": "Olanta town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.179864,
+    "lon": -81.185344,
+    "name": "Olar town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.973879,
+    "lon": -81.036122,
+    "name": "Olympia CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.493596,
+    "lon": -80.86688,
+    "name": "Orangeburg city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.005598,
+    "lon": -80.286146,
+    "name": "Oswego CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.905374,
+    "lon": -81.763712,
+    "name": "Pacolet town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.770117,
+    "lon": -80.385705,
+    "name": "Pageland town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.995021,
+    "lon": -79.570615,
+    "name": "Pamplico town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.849961,
+    "lon": -82.452971,
+    "name": "Parker CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.786592,
+    "lon": -82.217367,
+    "name": "Parksville town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.575277,
+    "lon": -80.044548,
+    "name": "Patrick town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.834255,
+    "lon": -81.866313,
+    "name": "Pauline CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.428093,
+    "lon": -79.124988,
+    "name": "Pawleys Island town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.739027,
+    "lon": -80.358565,
+    "name": "Paxville town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.236325,
+    "lon": -81.32884,
+    "name": "Peak town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.784861,
+    "lon": -81.259679,
+    "name": "Pelion town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.642859,
+    "lon": -82.460473,
+    "name": "Pelzer town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.642244,
+    "lon": -82.779112,
+    "name": "Pendleton town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.628319,
+    "lon": -81.308105,
+    "name": "Perry town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.885741,
+    "lon": -82.710202,
+    "name": "Pickens city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.705617,
+    "lon": -82.466746,
+    "name": "Piedmont CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.099194,
+    "lon": -79.959598,
+    "name": "Pimlico CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.395668,
+    "lon": -80.16842,
+    "name": "Pine Ridge CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.902307,
+    "lon": -81.092591,
+    "name": "Pine Ridge town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.739585,
+    "lon": -80.462016,
+    "name": "Pinewood town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.228617,
+    "lon": -80.038603,
+    "name": "Pinopolis CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.848952,
+    "lon": -82.263838,
+    "name": "Plum Branch town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.268739,
+    "lon": -81.417824,
+    "name": "Pomaria town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.355371,
+    "lon": -80.700252,
+    "name": "Port Royal town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.780022,
+    "lon": -82.497593,
+    "name": "Powdersville CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.491276,
+    "lon": -82.29587,
+    "name": "Princeton CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.816845,
+    "lon": -80.391428,
+    "name": "Privateer CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.127703,
+    "lon": -82.230707,
+    "name": "Promised Land CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.213372,
+    "lon": -81.528386,
+    "name": "Prosperity town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.228039,
+    "lon": -79.73594,
+    "name": "Quinby town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.094238,
+    "lon": -79.321393,
+    "name": "Rains CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.776278,
+    "lon": -80.231948,
+    "name": "Ravenel town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.929544,
+    "lon": -81.233902,
+    "name": "Red Bank CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.777957,
+    "lon": -79.015118,
+    "name": "Red Hill CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.197302,
+    "lon": -80.641685,
+    "name": "Reevesville town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.865805,
+    "lon": -82.11064,
+    "name": "Reidville town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.103737,
+    "lon": -80.530522,
+    "name": "Rembert CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.716622,
+    "lon": -81.019577,
+    "name": "Richburg town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.468844,
+    "lon": -80.921125,
+    "name": "Ridgeland town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.845284,
+    "lon": -81.661212,
+    "name": "Ridge Spring town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.090036,
+    "lon": -80.307238,
+    "name": "Ridgeville town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.306542,
+    "lon": -80.960082,
+    "name": "Ridgeway town",
+    "state": "SC"
+  },
+  {
+    "lat": 35.014156,
+    "lon": -80.988885,
+    "name": "Riverview CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.938216,
+    "lon": -81.019177,
+    "name": "Rock Hill city",
+    "state": "SC"
+  },
+  {
+    "lat": 32.602843,
+    "lon": -80.191385,
+    "name": "Rockville town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.878987,
+    "lon": -81.964442,
+    "name": "Roebuck CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.372239,
+    "lon": -80.836165,
+    "name": "Rowesville town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.74816,
+    "lon": -80.179137,
+    "name": "Ruby town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.397023,
+    "lon": -79.963739,
+    "name": "Russellville CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.051098,
+    "lon": -81.105613,
+    "name": "St. Andrews CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.080601,
+    "lon": -80.224938,
+    "name": "St. Charles CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.186073,
+    "lon": -80.579459,
+    "name": "St. George town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.66464,
+    "lon": -80.778753,
+    "name": "St. Matthews town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.402629,
+    "lon": -79.925194,
+    "name": "St. Stephen town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.887923,
+    "lon": -82.975224,
+    "name": "Salem town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.566896,
+    "lon": -81.303661,
+    "name": "Salley town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.001172,
+    "lon": -81.771638,
+    "name": "Saluda town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.602519,
+    "lon": -82.750927,
+    "name": "Sandy Springs CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.032732,
+    "lon": -80.125292,
+    "name": "Sangaree CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.890783,
+    "lon": -82.422996,
+    "name": "Sans Souci CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.484582,
+    "lon": -80.48998,
+    "name": "Santee town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.961107,
+    "lon": -81.96928,
+    "name": "Saxon CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.680498,
+    "lon": -81.243273,
+    "name": "Scotia town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.917295,
+    "lon": -79.74411,
+    "name": "Scranton town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.534779,
+    "lon": -80.756237,
+    "name": "Seabrook CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.575013,
+    "lon": -80.182045,
+    "name": "Seabrook Island town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.282594,
+    "lon": -79.472295,
+    "name": "Sellers town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.681059,
+    "lon": -82.965604,
+    "name": "Seneca city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.046248,
+    "lon": -81.14086,
+    "name": "Seven Oaks CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.952023,
+    "lon": -81.343523,
+    "name": "Sharon town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.595532,
+    "lon": -80.79945,
+    "name": "Sheldon CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.37564,
+    "lon": -80.753767,
+    "name": "Shell Point CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.948159,
+    "lon": -80.018913,
+    "name": "Shiloh CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.217712,
+    "lon": -81.714608,
+    "name": "Silverstreet town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.728538,
+    "lon": -82.256377,
+    "name": "Simpsonville city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.80933,
+    "lon": -82.811643,
+    "name": "Six Mile town",
+    "state": "SC"
+  },
+  {
+    "lat": 35.037489,
+    "lon": -82.49094,
+    "name": "Slater-Marietta CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.089453,
+    "lon": -80.81421,
+    "name": "Smoaks town",
+    "state": "SC"
+  },
+  {
+    "lat": 35.042007,
+    "lon": -81.40942,
+    "name": "Smyrna town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.244301,
+    "lon": -81.475028,
+    "name": "Snelling town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.687395,
+    "lon": -79.00886,
+    "name": "Socastee CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.509815,
+    "lon": -79.853535,
+    "name": "Society Hill town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.90948,
+    "lon": -81.13754,
+    "name": "South Congaree town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.982149,
+    "lon": -81.990922,
+    "name": "Southern Shops CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.885327,
+    "lon": -80.33765,
+    "name": "South Sumter CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.559549,
+    "lon": -83.048967,
+    "name": "South Union CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.945627,
+    "lon": -81.925944,
+    "name": "Spartanburg city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.690418,
+    "lon": -80.776328,
+    "name": "Springdale CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.960007,
+    "lon": -81.112059,
+    "name": "Springdale town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.496737,
+    "lon": -81.279493,
+    "name": "Springfield town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.37789,
+    "lon": -82.695327,
+    "name": "Starr town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.930246,
+    "lon": -82.089109,
+    "name": "Startex CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.974866,
+    "lon": -80.52594,
+    "name": "Stateburg CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.73219,
+    "lon": -79.513122,
+    "name": "Stuckey town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.770949,
+    "lon": -79.831136,
+    "name": "Sullivan's Island town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.601475,
+    "lon": -80.352648,
+    "name": "Summerton town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.005836,
+    "lon": -80.179306,
+    "name": "Summerville town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.924636,
+    "lon": -81.422583,
+    "name": "Summit town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.940848,
+    "lon": -80.395543,
+    "name": "Sumter city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.609651,
+    "lon": -78.97754,
+    "name": "Surfside Beach town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.740016,
+    "lon": -81.104523,
+    "name": "Swansea town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.034662,
+    "lon": -81.22389,
+    "name": "Sycamore town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.879824,
+    "lon": -83.014034,
+    "name": "Tamassee CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.64382,
+    "lon": -79.58671,
+    "name": "Tatum town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.914312,
+    "lon": -82.313906,
+    "name": "Taylors CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 35.039343,
+    "lon": -81.01061,
+    "name": "Tega Cay city",
+    "state": "SC"
+  },
+  {
+    "lat": 35.13951,
+    "lon": -82.436034,
+    "name": "The Cliffs Valley CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 35.065051,
+    "lon": -82.369918,
+    "name": "Tigerville CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.133127,
+    "lon": -79.940961,
+    "name": "Timmonsville town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.770941,
+    "lon": -80.55022,
+    "name": "Tradesville CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.960031,
+    "lon": -82.445009,
+    "name": "Travelers Rest city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.740557,
+    "lon": -81.840937,
+    "name": "Trenton town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.991876,
+    "lon": -82.297895,
+    "name": "Troy town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.889544,
+    "lon": -80.01615,
+    "name": "Turbeville town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.102155,
+    "lon": -81.208962,
+    "name": "Ulmer town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.723821,
+    "lon": -81.624852,
+    "name": "Union city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.801557,
+    "lon": -80.691777,
+    "name": "Unity CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.676038,
+    "lon": -82.922094,
+    "name": "Utica CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 35.00657,
+    "lon": -81.968913,
+    "name": "Valley Falls CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.436403,
+    "lon": -80.420202,
+    "name": "Vance town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.855638,
+    "lon": -80.829313,
+    "name": "Van Wyck town",
+    "state": "SC"
+  },
+  {
+    "lat": 32.852032,
+    "lon": -81.080228,
+    "name": "Varnville town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.882735,
+    "lon": -82.331715,
+    "name": "Wade Hampton CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.651301,
+    "lon": -81.3626,
+    "name": "Wagener town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.769502,
+    "lon": -83.05545,
+    "name": "Walhalla city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.723114,
+    "lon": -79.840278,
+    "name": "Wallace CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.901334,
+    "lon": -80.676234,
+    "name": "Walterboro city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.857297,
+    "lon": -81.731334,
+    "name": "Ward town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.624718,
+    "lon": -82.384822,
+    "name": "Ware Place CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.387806,
+    "lon": -82.24327,
+    "name": "Ware Shoals town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.547049,
+    "lon": -81.801689,
+    "name": "Warrenville CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.356196,
+    "lon": -82.057218,
+    "name": "Waterloo town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.516239,
+    "lon": -81.985531,
+    "name": "Watts Mills CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.880853,
+    "lon": -80.515874,
+    "name": "Wedgefield CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.814308,
+    "lon": -82.471763,
+    "name": "Welcome CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.957955,
+    "lon": -82.095301,
+    "name": "Wellford city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.99013,
+    "lon": -81.099354,
+    "name": "West Columbia city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.666556,
+    "lon": -83.090658,
+    "name": "Westminster city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.644851,
+    "lon": -82.474836,
+    "name": "West Pelzer town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.756041,
+    "lon": -83.044142,
+    "name": "West Union town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.891062,
+    "lon": -81.236249,
+    "name": "White Knoll CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.504067,
+    "lon": -81.614162,
+    "name": "Whitmire town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.983624,
+    "lon": -81.92237,
+    "name": "Whitney CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.491877,
+    "lon": -80.828535,
+    "name": "Wilkinson Heights CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.034143,
+    "lon": -80.842844,
+    "name": "Williams town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.619088,
+    "lon": -82.480391,
+    "name": "Williamston town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.965101,
+    "lon": -82.450293,
+    "name": "Willington CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.401663,
+    "lon": -81.421899,
+    "name": "Williston town",
+    "state": "SC"
+  },
+  {
+    "lat": 33.480937,
+    "lon": -81.513652,
+    "name": "Windsor town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.368598,
+    "lon": -81.091378,
+    "name": "Winnsboro town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.355757,
+    "lon": -81.069739,
+    "name": "Winnsboro Mills CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.146577,
+    "lon": -80.191409,
+    "name": "Wisacky CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 34.059194,
+    "lon": -80.930611,
+    "name": "Woodfield CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 33.668703,
+    "lon": -81.111955,
+    "name": "Woodford town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.745097,
+    "lon": -82.037454,
+    "name": "Woodruff city",
+    "state": "SC"
+  },
+  {
+    "lat": 33.565715,
+    "lon": -80.215296,
+    "name": "Wyboo CDP",
+    "state": "SC"
+  },
+  {
+    "lat": 32.678312,
+    "lon": -80.847883,
+    "name": "Yemassee town",
+    "state": "SC"
+  },
+  {
+    "lat": 34.998347,
+    "lon": -81.233066,
+    "name": "York city",
+    "state": "SC"
+  },
+  {
+    "lat": 34.258838,
+    "lon": -79.311711,
+    "name": "Zion CDP",
+    "state": "SC"
+  }
+]
