@@ -1,0 +1,15 @@
+# API — T3.4a offline area explorer route (sub-agent of Codex lead; gpt-6-sol, reasoning high)
+
+This Phase 3 task may build while the G2 gate is pending, but it **must not merge before `g2` is tagged**. Read in your worktree: repo `AGENTS.md`; `.agents/skills/gridlock-build/SKILL.md` §0/§2; `SPEC.md` Contracts, Overlap rules, Code style and Boundaries; `references/definition-of-done.md`; `reviews/2026-09-26-gridlock-build/house-patterns.md`; T3.4a in `tasks/todo.md`; `references/review-checklists.md` §A/B/C/E. Read with `Get-Content -Encoding UTF8`; edit repo text with apply_patch.
+
+## Task and verification
+
+Add typed `GET /api/area?lat&lon&radius_km=40` with radius 1–80 km. Buffer the point in EPSG:5070, transform source geometry with always-XY axes, and include projects whose mapped geometry intersects the circle. Return overlaps with **at least one included project**; retain their real pair fields and rank, and compute `counts_by_utility`/`counts_by_band` from the actual returned arrays, satisfying the frozen `Area` contract. Unknown-location projects cannot be assigned to a circle. Avoid a plausible 0 km or swapped-axis result. The route is entirely local and returns typed 422 for invalid latitude/longitude/radius; there is no external geocoder. Do not modify `server/schemas.py` or `contracts/`.
+
+Write `tests/api/test_area.py` first and run RED. Include a hand-computed McIntosh center case tied to actual built IDs, radius edges 1/80 and just outside, a line that intersects the circle even when neither endpoint is inside, a missing-geometry project, overlap inclusion when only one side is inside, exact counts, invalid/NaN/infinite coordinates and radius, and a source-axis reversal trap. Validate every response with frozen `Area`; compare repeated calls for stable order. Then implement, run focused API tests and lane `scripts/quick-gate.ps1`; never weaken, skip or delete a check. If the contract cannot represent an honest area result, stop and report instead of changing it.
+
+## Ownership and environment
+
+Worktree `C:\Users\lucia\dev\gridlock-wt\api`, branch `wt/api`, synced by the lead. **Run every command there, never in `C:\Users\lucia\dev\gridlock`.** Own `server/` except `server/schemas.py`, `tests/api/test_area.py`, and `reviews/2026-09-26-gridlock-build/api/T3.4a.md`. DATA artifacts/pipeline, WEB files, LEAD tests and frozen contracts are read-only. Port 8772: begin each test/server command `$env:GRIDLOCK_TEST_PORT='8772';`; Python only `& $env:GRIDLOCK_PY`; `GRIDLOCK_AI=off`; no network, install or secrets. Every command starts a new shell. Stage by path; never `git add -A`, `git stash`, `git clean` or `git reset --hard`; never print environment variables. No merge, push, deploy, submit or sending.
+
+Stop/report if a fix adds errors, the same error survives three tries, a contract/architecture/other-lane change is needed, or a dependency is missing. One commit `API: T3.4a serve mapped area summary`. Report acceptance/check/RED/GREEN per line, suite totals, deviations, For API patches, open questions and one dated lesson. Report only what ran.
