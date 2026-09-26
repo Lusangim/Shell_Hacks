@@ -81,6 +81,7 @@ when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT;
 - 12:24 · 66d5a2e · WEB final 343/19/18 lane gate passed; lead reran two P2 cases; fresh independent confirmation closed T16-WEB-SEC-01 with seven focused and local cancellation probes, zero remaining P0–P3 · T1.6 WEB merged with API and WEB-2 search flight; final main quick gate running, G2 VERIFY and reviewers next
 - 12:34 · 509cfd5 · merged main quick gate 343/19/18 passed; one connected search→pair→detail→PDF→CSV demo-path test passed, four 1440/390 light/dark screenshots saved; baseline raised to 344 · final exact-code main quick gate over 60% with no reported failures, then G2 VERIFY/frozen reviewers
 - 12:36 · b9ac602 · exact-code main quick gate 344 suite + 19 shell + 18 audit passed; T1.6 ticked with declared phone zoom 5.5 overview deviation, connected demo path and four G2 screenshots checked · no builder active; next VERIFY.cmd on main, then three frozen G2 reviewers
+- 12:44 · b23bd60 · G2 VERIFY summary `20260926-123703-505`: exit 0, 344 passed/0 failed/0 skipped against baseline 344; exact main gate 344/19/18 · DELIVERY rewritten with current task state and founder decisions, G2 frozen domain/test/silent reviewers next
 
 ## Environment facts
 - Working copy `C:\Users\lucia\dev\gridlock`; git data `C:\Users\lucia\dev\gridlock-git` (the `.git` in the

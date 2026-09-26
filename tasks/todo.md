@@ -130,7 +130,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
   - Acceptance: a transmission-planning read of the top 10 pairs, their wording, bands, years, costs and sources against the PDFs; Georgia-only pairs' note; findings to the owning lanes before G3.
 
 ### Checkpoint G2 — core demo path
-- [x] Demo path e2e green · [ ] merged verify green · [ ] gate round (no new builder until VERIFY has run; reviewers on a frozen copy while builders resume): T2.11 + `gridlock-test-analyzer` + `gridlock-silent-failure` as sub-agents — findings closed or assigned · [x] screenshots for the founder · [ ] `DELIVERY.md` rewritten · [ ] blocked tasks parked and listed
+- [x] Demo path e2e green · [x] merged verify green (344/344, 0 failed/skipped) · [ ] gate round (no new builder until VERIFY has run; reviewers on a frozen copy while builders resume): T2.11 + `gridlock-test-analyzer` + `gridlock-silent-failure` as sub-agents — findings closed or assigned · [x] screenshots for the founder · [x] `DELIVERY.md` rewritten pre-review · [ ] blocked tasks parked and listed
 
 ---
 
