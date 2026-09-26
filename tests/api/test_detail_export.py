@@ -66,6 +66,30 @@ def test_real_detail_includes_both_projects_savings_and_citations(real_client: T
     assert detail.sources[1] == detail.project_b.properties.source
 
 
+@pytest.mark.parametrize("pair_id,source_page", [
+    ("desc-p41__sertp-p107-9bc088", 107),
+    ("desc-p41__sertp-p111-fe1e3b", 111),
+])
+def test_mcintosh_evidence_survives_detail_and_csv(
+    real_client: TestClient, pair_id: str, source_page: int,
+) -> None:
+    pairs = json.loads((BUILD / "overlaps.json").read_text(encoding="utf-8"))
+    artifact = next(pair for pair in pairs if pair["id"] == pair_id)
+    response = real_client.get(f"/api/overlaps/{pair_id}")
+    assert response.status_code == 200
+    detail = response.json()
+    assert detail["overlap"] == artifact
+    assert "Verify work locations" in artifact["can_share"]
+    assert "Deerfield Switching Station, location not stated" in artifact["touch_detail"]
+    if source_page == 111:
+        assert "6.7-mile Goshen (Savannah)–Georgia Pacific (Rincon)" in artifact["touch_detail"]
+        assert "does not establish work at McIntosh" in artifact["touch_detail"]
+    row = next(row for row in csv_rows(real_client) if row["Overlap ID"] == pair_id)
+    assert row["Why they touch"] == artifact["touch_detail"]
+    assert row["Touch reason"] == artifact["touch_reason"] == "shared_endpoint"
+    assert (row["Source page A"], row["Source page B"]) == ("41", str(source_page))
+
+
 def test_synthetic_detail_and_unknown_id(artifacts: Path) -> None:
     with TestClient(create_app(artifact_dir=artifacts), base_url="http://localhost") as client:
         response = client.get("/api/overlaps/desc-p1__sertp-p1-abcdef")

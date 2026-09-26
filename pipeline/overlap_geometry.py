@@ -92,6 +92,8 @@ def classify_touch(a: dict, b: dict, geometry_a, geometry_b, distance_m: float) 
             return (
                 "shared_endpoint",
                 "Both plans name McIntosh as an endpoint of a 115 kV line. "
+                "The SERTP rebuild covers the 6.7-mile Goshen (Savannah)–Georgia Pacific (Rincon) section; "
+                "the mapped full Goshen–McIntosh line endpoint does not establish work at McIntosh. "
                 "The DESC series reactor work is at new Deerfield Switching Station, location not stated "
                 f"({_source(a)}; {_source(b)}).",
             )
@@ -123,7 +125,7 @@ def can_share(band: str, reason: str) -> str:
     if band == "touching":
         return {
             "same_substation": "Coordinate substation work and outage timing; shared equipment unverified.",
-            "shared_endpoint": "Coordinate work at the named endpoint; shared assets unverified.",
+            "shared_endpoint": "Verify work locations before reviewing possible coordination; shared assets unverified.",
             "lines_cross": "Review the mapped crossing and outage timing; shared assets unverified.",
             "same_area_approximate": "Review the mapped area together; physical contact unverified.",
             "proximity": "Review mapped proximity; shared assets unverified.",
