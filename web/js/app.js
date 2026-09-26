@@ -7,6 +7,7 @@ import { setupSearch } from "./search.js";
 import { setupFilters } from "./filters.js";
 import { setupTimeline } from "./timeline.js";
 import { setupExport } from "./export.js";
+import { setupTour } from "./tour.js";
 import { state } from "./state.js";
 
 const status = document.getElementById("status");
@@ -173,6 +174,7 @@ initializeMap();
 const searchControl = setupSearch();
 setupTheme();
 setupSheet();
+setupTour();
 document.addEventListener("gridlock:project-click", (event) => {
   overlapView.close();
   selectFirstOverlapForProject(event.detail.projectId);
