@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/web/vendor/leaflet/leaflet.css">
   <link rel="stylesheet" href="/web/css/tokens.css">
   <link rel="stylesheet" href="/web/css/app.css">
+  <link rel="stylesheet" href="/web/css/area.css">
   <link rel="stylesheet" href="/web/css/tour.css">
   <link rel="stylesheet" href="/web/css/detail.css">
   <link rel="stylesheet" href="/web/css/print.css">
@@ -112,6 +113,22 @@
           <p id="search-selection" class="search-selection" data-testid="search-selection" hidden></p>
           <button id="explore-area" class="explore-button" type="button" hidden>Explore this area</button>
           <p id="area-selection" class="area-selection" data-testid="area-selection" role="status" hidden></p>
+          <section id="area-panel" class="area-panel" aria-labelledby="area-heading" hidden>
+            <div class="area-heading"><h2 id="area-heading">Selected area</h2><button id="area-clear" type="button">Clear area</button></div>
+            <label for="area-radius">Area radius</label>
+            <div class="area-radius"><input id="area-radius" type="range" min="1" max="80" step="1" value="40"><output id="area-radius-output" for="area-radius">40 km</output></div>
+            <p id="area-center-label"></p>
+            <p id="area-state" role="status" aria-live="polite"></p>
+            <button id="area-retry" type="button" hidden>Retry area</button>
+            <p id="area-caveat">Screening covers mapped projects in the loaded plans, including approximate locations. Projects with unknown locations cannot be screened.</p>
+            <p>Area totals use all loaded plans, independently of list filters and the selected year.</p>
+            <div id="area-results" hidden>
+              <h3>Projects by utility</h3><dl id="area-utilities"></dl>
+              <h3>Overlaps by distance band</h3><dl id="area-bands"></dl>
+              <details><summary>Projects in area</summary><ul id="area-projects"></ul></details>
+              <details><summary>Overlaps with a project in area</summary><ol id="area-overlaps"></ol></details>
+            </div>
+          </section>
         </section>
         <section id="overlap-detail" class="overlap-detail" data-testid="overlap-detail" aria-labelledby="overlap-detail-heading" hidden>
           <button id="overlap-back" class="back-button" type="button">Back to ranked overlaps</button>

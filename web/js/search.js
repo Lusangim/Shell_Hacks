@@ -8,7 +8,7 @@ function validResult(item) {
     && Number.isFinite(item.lon) && Math.abs(item.lon) <= 180;
 }
 
-export function setupSearch() {
+export function setupSearch(filterControl) {
   const form = document.getElementById("search-form");
   const input = document.getElementById("search-input");
   const options = document.getElementById("search-options");
@@ -19,7 +19,7 @@ export function setupSearch() {
   const area = createAreaController(state.map, (message) => {
     delete status.dataset.src;
     status.textContent = message;
-  });
+  }, filterControl.setArea);
   const choices = new Map();
   let sequence = 0;
   let controller = null;
@@ -142,7 +142,7 @@ export function setupSearch() {
   });
 
   exploreButton.addEventListener("click", () => {
-    if (selected) area.explore(selected);
+    if (selected) area.explore(selected, { entry: exploreButton });
   });
 
   return { refreshTheme: area.refreshTheme };
