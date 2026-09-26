@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/web/vendor/leaflet/leaflet.css">
   <link rel="stylesheet" href="/web/css/tokens.css">
   <link rel="stylesheet" href="/web/css/app.css">
+  <link rel="stylesheet" href="/web/css/print.css">
   <script defer src="/web/vendor/leaflet/leaflet.js"></script>
   <script defer type="module" src="/web/js/app.js"></script>
 </head>
@@ -42,7 +43,14 @@
       </header>
       <div id="panel-body" class="panel-body">
         <details class="legend">
-          <summary>Legend</summary>
+          <summary>Legend and reports</summary>
+          <section class="report-controls" aria-label="Export and print">
+            <div class="report-buttons">
+              <button id="export-csv" type="button" disabled>Export CSV</button>
+              <button id="print-report-button" type="button" disabled>Print report</button>
+            </div>
+            <p id="export-status" role="status">Export and print are available after the current results load.</p>
+          </section>
           <div class="legend-grid">
             <span class="sample sample-desc"></span><span>Dominion Energy SC</span>
             <span class="sample sample-gp"></span><span>Georgia Power</span>
@@ -140,6 +148,7 @@
       <p id="timeline-status" role="status">Loading in-service years.</p>
     </section>
   </main>
+  <article id="print-report" aria-label="Coordination report"></article>
   <noscript><p class="noscript">GridLock needs JavaScript to show the interactive map and ranked opportunities.</p></noscript>
 </body>
 </html>
