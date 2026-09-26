@@ -161,7 +161,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [ ] **T3.4b Area UI** (WEB-2)
   - Acceptance: map click or "Explore this area" draws the circle + summary panel; Esc clears; a second click while loading shows only the second result; area centre in the URL.
   - Verify: `tests/e2e/test_area.py` (click + keyboard path + race).
-- [ ] **T3.5 Resilience and dark theme** (WEB)
+- [x] **T3.5 Resilience and dark theme** (WEB) — `95fc5d4` merged as `eb28677`; local-only/full demo, counties from existing PMTiles, late offline/Google race, actual double-click/pinch and dark reload; 386/19/18 lane gate
   - Acceptance: counties in the basemap; dark theme remaps every token incl. the basemap (no flash); every surface's states per the contract; reduced motion; bottom sheet at 390 px.
   - Verify: `tests/e2e/test_offline.py` (non-local requests blocked → fully usable, 0 console errors); audits dark 1440/390.
 - [ ] **T1.4b Full audit gate** (LEAD) — by G3
