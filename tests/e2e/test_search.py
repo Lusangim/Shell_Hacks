@@ -16,6 +16,57 @@ def focus_search_by_keyboard(page):
     raise AssertionError("Search was not reachable by Tab")
 
 
+def wait_for_search_center(page, result):
+    page.evaluate("""async () => {
+      const { state } = await import('/web/js/state.js');
+      window.searchMap = state.map;
+    }""")
+    page.wait_for_function("""([lat, lon]) => {
+      const center = window.searchMap.getCenter();
+      return center.lat === lat && center.lng === lon && window.searchMap.getZoom() === 11;
+    }""", arg=[result["lat"], result["lon"]])
+
+
+@pytest.mark.parametrize("width,height,theme", [(1440, 900, "light"), (390, 844, "dark")])
+@pytest.mark.parametrize("reduced_motion", ["no-preference", "reduce"])
+def test_keyboard_search_flies_to_source_coordinates_and_respects_reduced_motion(
+    live_server, width, height, theme, reduced_motion
+):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": width, "height": height}, reduced_motion=reduced_motion)
+        page.add_init_script(f"localStorage.setItem('gridlock-theme', '{theme}')")
+        page.goto(live_server)
+        expected = page.request.get(f"{live_server}/api/search?q=Savannah").json()[0]
+        assert expected["label"] == "Savannah city"
+        page.evaluate("""async () => {
+          const { state } = await import('/web/js/state.js');
+          const flyTo = state.map.flyTo;
+          window.searchFlights = [];
+          state.map.flyTo = function (center, zoom, options) {
+            window.searchFlights.push({ center, zoom, animate: options.animate });
+            return flyTo.call(this, center, zoom, options);
+          };
+        }""")
+        focus_search_by_keyboard(page)
+        page.keyboard.type("Savannah")
+        expect(page.locator("#search-options option")).not_to_have_count(0)
+        page.keyboard.press("Enter")
+        expect(page.get_by_test_id("search-selection")).to_contain_text(expected["label"])
+        assert page.evaluate("window.searchFlights") == [{
+            "center": [expected["lat"], expected["lon"]],
+            "zoom": 11,
+            "animate": reduced_motion != "reduce",
+        }]
+        wait_for_search_center(page, expected)
+        assert page.evaluate("""async () => {
+          const { state } = await import('/web/js/state.js');
+          const center = state.map.getCenter();
+          return [center.lat, center.lng, state.map.getZoom()];
+        }""") == [expected["lat"], expected["lon"], 11]
+        browser.close()
+
+
 @pytest.mark.parametrize("width,height,theme", [(1440, 900, "light"), (390, 844, "dark")])
 def test_savannah_keyboard_search_centers_map_and_explores_40_km(live_server, width, height, theme):
     with sync_playwright() as playwright:
@@ -34,6 +85,7 @@ def test_savannah_keyboard_search_centers_map_and_explores_40_km(live_server, wi
         expect(page.locator("#search-options option")).not_to_have_count(0)
         page.keyboard.press("Enter")
         expect(page.get_by_test_id("search-selection")).to_contain_text("Savannah city")
+        wait_for_search_center(page, expected)
         assert page.evaluate("""async () => {
           const { state } = await import('/web/js/state.js');
           const center = state.map.getCenter();
@@ -65,6 +117,7 @@ def test_okatie_project_can_be_chosen_by_keyboard_with_source_coordinate(live_se
         page.keyboard.type(expected["label"])
         page.keyboard.press("Enter")
         expect(page.get_by_test_id("search-selection")).to_contain_text(expected["label"])
+        wait_for_search_center(page, expected)
         assert page.evaluate("""async () => {
           const { state } = await import('/web/js/state.js');
           const center = state.map.getCenter();
@@ -179,6 +232,8 @@ def test_two_bluffton_places_can_each_be_selected_by_keyboard(live_server):
             search.fill(value)
             search.press("Enter")
             expect(page.get_by_test_id("search-selection").locator('[data-src="label"]')).to_have_text("Bluffton town")
+            wait_for_search_center(page, next(item for item in expected
+                                   if (item["ref"] or f'{item["lat"]}, {item["lon"]}') in value))
             centers.add(tuple(page.evaluate("""async () => {
               const { state } = await import('/web/js/state.js');
               const center = state.map.getCenter();
