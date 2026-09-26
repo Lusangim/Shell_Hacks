@@ -1,0 +1,11 @@
+{
+  "note": "Organization labels only. No named person, address, phone, or unverified contact URL is asserted.",
+  "contacts": [
+    {"label": "Dominion Energy SC", "organization": "Dominion Energy SC", "planning_function": null, "public_url": null, "evidence_project_id": "desc-p1"},
+    {"label": "Georgia Power", "organization": "Georgia Power", "planning_function": null, "public_url": null, "evidence_project_id": "sertp-p93-b67656"},
+    {"label": "Georgia Transmission Corp.", "organization": "Georgia Transmission Corp.", "planning_function": null, "public_url": null, "evidence_project_id": "sertp-p67-0e62d9"},
+    {"label": "MEAG Power", "organization": "MEAG Power", "planning_function": null, "public_url": null, "evidence_project_id": "sertp-p72-81610d"},
+    {"label": "Dalton Utilities", "organization": "Dalton Utilities", "planning_function": null, "public_url": null, "evidence_project_id": "sertp-p63-28eb2b"},
+    {"label": "Georgia ITS (joint)", "organization": "Georgia ITS (joint)", "planning_function": null, "public_url": null, "evidence_project_id": "sertp-p82-5bdb2b"}
+  ]
+}
