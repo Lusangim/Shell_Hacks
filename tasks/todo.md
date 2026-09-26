@@ -126,11 +126,11 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 - [x] **T2.9 Export and print** (WEB-2) — `3057075` merged as `d6980c0`; lead reran three CSV parity cases; integrated lane gate 278 suite + 19 shell + 18 audit passed; scoped security review P0–P3 zero
   - Acceptance: "Export CSV" downloads the server CSV for current filters; "Print report": ranked table, selected overlap, assumptions, sources, attribution; Letter without cut-off columns.
   - Verify: `tests/e2e/test_export.py` — CSV rows == visible list == API list; print view has the CSV's required fields; `media=print` screenshot.
-- [ ] **T2.11 Domain spot-check** (JUDGE, Codex sub-agent with `gridlock-judge.md`, domain lens) — at G2
+- [x] **T2.11 Domain spot-check** (JUDGE, Codex sub-agent with `gridlock-judge.md`, domain lens) — G2 judgment `b9ff84a`: top-ten source fields and five distances checked; two P2 wording repairs assigned before G3
   - Acceptance: a transmission-planning read of the top 10 pairs, their wording, bands, years, costs and sources against the PDFs; Georgia-only pairs' note; findings to the owning lanes before G3.
 
 ### Checkpoint G2 — core demo path
-- [x] Demo path e2e green · [x] merged verify green (344/344, 0 failed/skipped) · [ ] gate round (no new builder until VERIFY has run; reviewers on a frozen copy while builders resume): T2.11 + `gridlock-test-analyzer` + `gridlock-silent-failure` as sub-agents — findings closed or assigned · [x] screenshots for the founder · [x] `DELIVERY.md` rewritten pre-review · [ ] blocked tasks parked and listed
+- [x] Demo path e2e green · [x] merged verify green (344/344, 0 failed/skipped) · [x] gate round: T2.11 + `gridlock-test-analyzer` + `gridlock-silent-failure` on frozen `d355f75`; zero P0/P1, assigned all P2/P3 before G3 · [x] screenshots for the founder · [x] `DELIVERY.md` rewritten at gate · [x] blocked tasks and founder decisions listed
 
 ---
 
