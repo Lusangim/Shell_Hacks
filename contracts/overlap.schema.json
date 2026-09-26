@@ -1,0 +1,260 @@
+{
+  "$defs": {
+    "Accuracy": {
+      "enum": [
+        "exact",
+        "approximate",
+        "unknown"
+      ],
+      "title": "Accuracy",
+      "type": "string"
+    },
+    "Band": {
+      "enum": [
+        "touching",
+        "lt_1_6km",
+        "lt_8km",
+        "lt_40km"
+      ],
+      "title": "Band",
+      "type": "string"
+    },
+    "Savings": {
+      "additionalProperties": false,
+      "properties": {
+        "assumption_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Assumption Ids",
+          "type": "array"
+        },
+        "basis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Basis"
+        },
+        "high_usd": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "High Usd"
+        },
+        "low_usd": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Low Usd"
+        },
+        "status": {
+          "enum": [
+            "range",
+            "timing_too_far",
+            "no_cost",
+            "unknown_year"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "low_usd",
+        "high_usd",
+        "basis",
+        "assumption_ids"
+      ],
+      "title": "Savings",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "a": {
+      "title": "A",
+      "type": "string"
+    },
+    "a_name": {
+      "title": "A Name",
+      "type": "string"
+    },
+    "a_utility": {
+      "title": "A Utility",
+      "type": "string"
+    },
+    "a_year": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "A Year"
+    },
+    "accuracy_pair": {
+      "$ref": "#/$defs/Accuracy"
+    },
+    "b": {
+      "title": "B",
+      "type": "string"
+    },
+    "b_name": {
+      "title": "B Name",
+      "type": "string"
+    },
+    "b_utility": {
+      "title": "B Utility",
+      "type": "string"
+    },
+    "b_year": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "B Year"
+    },
+    "band": {
+      "$ref": "#/$defs/Band"
+    },
+    "band_label": {
+      "title": "Band Label",
+      "type": "string"
+    },
+    "brief_status": {
+      "enum": [
+        "cached",
+        "stale",
+        "template",
+        "none"
+      ],
+      "title": "Brief Status",
+      "type": "string"
+    },
+    "can_share": {
+      "title": "Can Share",
+      "type": "string"
+    },
+    "cross_state": {
+      "title": "Cross State",
+      "type": "boolean"
+    },
+    "distance_km": {
+      "exclusiveMaximum": 40,
+      "minimum": 0,
+      "title": "Distance Km",
+      "type": "number"
+    },
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "pair_note": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Pair Note"
+    },
+    "rank": {
+      "exclusiveMinimum": 0,
+      "title": "Rank",
+      "type": "integer"
+    },
+    "savings": {
+      "$ref": "#/$defs/Savings"
+    },
+    "score": {
+      "minimum": 0,
+      "title": "Score",
+      "type": "number"
+    },
+    "timeline": {
+      "title": "Timeline",
+      "type": "string"
+    },
+    "touch_detail": {
+      "title": "Touch Detail",
+      "type": "string"
+    },
+    "touch_reason": {
+      "enum": [
+        "same_substation",
+        "shared_endpoint",
+        "lines_cross",
+        "proximity",
+        "same_area_approximate"
+      ],
+      "title": "Touch Reason",
+      "type": "string"
+    },
+    "year_gap": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Year Gap"
+    }
+  },
+  "required": [
+    "id",
+    "a",
+    "b",
+    "a_utility",
+    "b_utility",
+    "a_name",
+    "b_name",
+    "distance_km",
+    "band",
+    "band_label",
+    "touch_reason",
+    "touch_detail",
+    "can_share",
+    "a_year",
+    "b_year",
+    "year_gap",
+    "timeline",
+    "cross_state",
+    "pair_note",
+    "accuracy_pair",
+    "score",
+    "rank",
+    "savings",
+    "brief_status"
+  ],
+  "title": "Overlap",
+  "type": "object"
+}

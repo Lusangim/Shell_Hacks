@@ -1,0 +1,32 @@
+{
+  "overlap_id": "desc-p1__sertp-p1-abcdef",
+  "what": "Synthetic test brief",
+  "where": "Synthetic area",
+  "when": "2028",
+  "what_to_share": [
+    "Synthetic test item"
+  ],
+  "savings_range": {
+    "status": "range",
+    "low_usd": 100,
+    "high_usd": 200,
+    "basis": "Synthetic test assumption"
+  },
+  "who_to_contact": [
+    "Utility planning functions"
+  ],
+  "caveats": [
+    "Synthetic test fixture"
+  ],
+  "sources": [
+    {
+      "doc": "Synthetic test fixture",
+      "page": 1,
+      "url": "https://example.invalid/fixture.pdf"
+    }
+  ],
+  "generated_by": "template",
+  "prompt_version": "test-v1",
+  "generated_at": null,
+  "input_hash": "synthetic"
+}

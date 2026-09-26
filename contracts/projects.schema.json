@@ -1,0 +1,435 @@
+{
+  "$defs": {
+    "Accuracy": {
+      "enum": [
+        "exact",
+        "approximate",
+        "unknown"
+      ],
+      "title": "Accuracy",
+      "type": "string"
+    },
+    "LineGeometry": {
+      "additionalProperties": false,
+      "properties": {
+        "coordinates": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "maximum": 180,
+                "minimum": -180,
+                "type": "number"
+              },
+              {
+                "maximum": 90,
+                "minimum": -90,
+                "type": "number"
+              }
+            ],
+            "type": "array"
+          },
+          "minItems": 2,
+          "title": "Coordinates",
+          "type": "array"
+        },
+        "type": {
+          "const": "LineString",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ],
+      "title": "LineGeometry",
+      "type": "object"
+    },
+    "MultiLineGeometry": {
+      "additionalProperties": false,
+      "properties": {
+        "coordinates": {
+          "items": {
+            "items": {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "maximum": 180,
+                  "minimum": -180,
+                  "type": "number"
+                },
+                {
+                  "maximum": 90,
+                  "minimum": -90,
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "minItems": 1,
+          "title": "Coordinates",
+          "type": "array"
+        },
+        "type": {
+          "const": "MultiLineString",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ],
+      "title": "MultiLineGeometry",
+      "type": "object"
+    },
+    "PointGeometry": {
+      "additionalProperties": false,
+      "properties": {
+        "coordinates": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "maximum": 180,
+              "minimum": -180,
+              "type": "number"
+            },
+            {
+              "maximum": 90,
+              "minimum": -90,
+              "type": "number"
+            }
+          ],
+          "title": "Coordinates",
+          "type": "array"
+        },
+        "type": {
+          "const": "Point",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ],
+      "title": "PointGeometry",
+      "type": "object"
+    },
+    "ProjectFeature": {
+      "additionalProperties": false,
+      "properties": {
+        "geometry": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PointGeometry"
+            },
+            {
+              "$ref": "#/$defs/LineGeometry"
+            },
+            {
+              "$ref": "#/$defs/MultiLineGeometry"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Geometry"
+        },
+        "properties": {
+          "$ref": "#/$defs/ProjectProperties"
+        },
+        "type": {
+          "const": "Feature",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "geometry",
+        "properties"
+      ],
+      "title": "ProjectFeature",
+      "type": "object"
+    },
+    "ProjectProperties": {
+      "additionalProperties": false,
+      "properties": {
+        "accuracy": {
+          "$ref": "#/$defs/Accuracy"
+        },
+        "cost_basis": {
+          "enum": [
+            "plan",
+            "proxy",
+            "none"
+          ],
+          "title": "Cost Basis",
+          "type": "string"
+        },
+        "cost_flags": {
+          "items": {
+            "enum": [
+              "printed_total_differs_from_sum",
+              "below_list_threshold"
+            ],
+            "type": "string"
+          },
+          "title": "Cost Flags",
+          "type": "array"
+        },
+        "cost_usd": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cost Usd"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Description"
+        },
+        "endpoints": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Endpoints",
+          "type": "array"
+        },
+        "id": {
+          "pattern": "^(desc-p[1-9][0-9]*|sertp-p[1-9][0-9]*-[0-9a-f]{6}(?:-[2-9][0-9]*)?)$",
+          "title": "Id",
+          "type": "string"
+        },
+        "in_service": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "In Service"
+        },
+        "location_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Location Source"
+        },
+        "miles": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Miles"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "need": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Need"
+        },
+        "project_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Project Id"
+        },
+        "project_type": {
+          "enum": [
+            "new_line",
+            "rebuild_line",
+            "reconductor",
+            "new_substation",
+            "substation_upgrade",
+            "equipment",
+            "other"
+          ],
+          "title": "Project Type",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "state": {
+          "anyOf": [
+            {
+              "enum": [
+                "GA",
+                "SC"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "State"
+        },
+        "status": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Status"
+        },
+        "utility": {
+          "minLength": 1,
+          "title": "Utility",
+          "type": "string"
+        },
+        "utility_basis": {
+          "enum": [
+            "stated",
+            "inferred_from_location"
+          ],
+          "title": "Utility Basis",
+          "type": "string"
+        },
+        "voltage_kv": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Voltage Kv",
+          "type": "array"
+        },
+        "year": {
+          "anyOf": [
+            {
+              "maximum": 2200,
+              "minimum": 1900,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Year"
+        }
+      },
+      "required": [
+        "id",
+        "project_id",
+        "utility",
+        "utility_basis",
+        "name",
+        "description",
+        "need",
+        "status",
+        "in_service",
+        "year",
+        "cost_usd",
+        "cost_basis",
+        "cost_flags",
+        "project_type",
+        "miles",
+        "endpoints",
+        "state",
+        "accuracy",
+        "location_source",
+        "source"
+      ],
+      "title": "ProjectProperties",
+      "type": "object"
+    },
+    "Source": {
+      "additionalProperties": false,
+      "properties": {
+        "doc": {
+          "minLength": 1,
+          "title": "Doc",
+          "type": "string"
+        },
+        "page": {
+          "exclusiveMinimum": 0,
+          "title": "Page",
+          "type": "integer"
+        },
+        "url": {
+          "minLength": 1,
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "doc",
+        "page",
+        "url"
+      ],
+      "title": "Source",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "features": {
+      "items": {
+        "$ref": "#/$defs/ProjectFeature"
+      },
+      "title": "Features",
+      "type": "array"
+    },
+    "type": {
+      "const": "FeatureCollection",
+      "title": "Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "features"
+  ],
+  "title": "ProjectCollection",
+  "type": "object"
+}
