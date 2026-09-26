@@ -16,12 +16,12 @@ TOP_TEN = [
     ("sertp-p68-a0289a", "sertp-p72-81610d"),
     ("desc-p41", "sertp-p111-fe1e3b"),
     ("desc-p41", "sertp-p113-5484a4"),
+    ("sertp-p124-e36f41", "sertp-p133-9ca229"),
+    ("sertp-p124-e36f41", "sertp-p133-a3bd5b"),
     ("sertp-p68-fbd1c0", "sertp-p72-81610d"),
     ("sertp-p72-81610d", "sertp-p72-eda876"),
     ("sertp-p82-5bdb2b", "sertp-p92-ade224"),
-    ("sertp-p124-e36f41", "sertp-p133-9ca229"),
-    ("sertp-p124-e36f41", "sertp-p133-a3bd5b"),
-    ("sertp-p66-a40650", "sertp-p68-577cfa"),
+    ("sertp-p114-46d04f", "sertp-p124-e36f41"),
 ]
 
 
@@ -52,7 +52,7 @@ def test_offline_rebuild_preserves_counts_pairs_and_bytes(monkeypatch: pytest.Mo
     assert meta["stage_counts"]["placement_candidates"] == 380
     assert meta["stage_counts"]["kept"] == 230
     assert meta["stage_counts"]["placed"] == 181
-    assert meta["stage_counts"]["overlaps"] == 477
+    assert meta["stage_counts"]["overlaps"] == 489
     assert meta["stage_counts"]["cross_state"] == 44
     assert meta["stage_counts"]["source_rows"] == (
         meta["stage_counts"]["kept"] + sum(ledger["dropped_by_reason"].values())
@@ -63,7 +63,7 @@ def test_offline_rebuild_preserves_counts_pairs_and_bytes(monkeypatch: pytest.Mo
         for row in ledger["rows"].values()
     )
     assert len(projects["features"]) == 230
-    assert len(overlaps) == 477
+    assert len(overlaps) == 489
     assert [(pair["a"], pair["b"]) for pair in overlaps[:10]] == TOP_TEN
 
 
