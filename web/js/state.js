@@ -3,6 +3,7 @@ export const state = {
   projectLayers: null,
   casingLayers: null,
   basemapLayers: null,
+  cityMarkers: [],
   projects: [],
   overlaps: [],
   selectedOverlapId: null,
