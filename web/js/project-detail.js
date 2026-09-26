@@ -82,7 +82,7 @@ export function setupProjectDetail() {
       const item = document.createElement("li");
       item.className = "project-row";
       item.dataset.testid = "project-row";
-      item.dataset.projectId = props.id;
+      item.dataset.projectRef = props.id;
       item.dataset.searchText = `${props.name} ${props.utility}`.toLocaleLowerCase();
       const button = document.createElement("button");
       button.type = "button";

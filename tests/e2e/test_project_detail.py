@@ -16,10 +16,10 @@ def open_project_from_panel(page, project_id: str, name: str):
     page.keyboard.press("Enter")
     assert page.evaluate("document.activeElement.id") == "project-filter"
     page.keyboard.type(name)
-    button = page.locator(f'[data-testid="project-row"][data-project-id="{project_id}"] button')
+    button = page.locator(f'[data-testid="project-row"][data-project-ref="{project_id}"] button')
     expect(button).to_be_visible()
     page.keyboard.press("Tab")
-    assert page.evaluate("document.activeElement === document.querySelector('[data-project-id=\"%s\"] button')" % project_id)
+    assert page.evaluate("document.activeElement === document.querySelector('[data-project-ref=\"%s\"] button')" % project_id)
     page.keyboard.press("Enter")
     expect(page.get_by_test_id("project-detail")).to_be_visible()
 
@@ -44,7 +44,7 @@ def test_project_panel_keyboard_shows_plan_cost_local_page_and_no_overlap(live_s
         assert page.request.get(f"{live_server}/api/sources/desc-scrtp-2026-2030").status == 200
         expect(page.locator("#no-overlap")).to_contain_text("projects have no overlap within 40 km")
         page.get_by_role("button", name="Back to projects").click()
-        expect(page.locator('[data-testid="project-row"][data-project-id="desc-p1"]')).to_be_visible()
+        expect(page.locator('[data-testid="project-row"][data-project-ref="desc-p1"]')).to_be_visible()
         browser.close()
 
 
@@ -95,7 +95,12 @@ def test_unstated_sertp_cost_uses_local_source_link(live_server):
         browser.close()
 
 
-@pytest.mark.parametrize("width,height,theme", [(1440, 900, "light"), (390, 844, "dark")])
+@pytest.mark.parametrize("width,height,theme", [
+    (1440, 900, "light"), (1440, 900, "dark"),
+    (768, 844, "light"), (768, 844, "dark"),
+    (390, 844, "light"), (390, 844, "dark"),
+    (320, 844, "light"), (320, 844, "dark"),
+])
 def test_detail_is_readable_on_desktop_and_phone_with_visible_focus(live_server, width, height, theme):
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
@@ -158,4 +163,39 @@ def test_project_list_empty_and_failed_load_are_distinct(live_server):
         page.reload()
         page.get_by_role("button", name="Projects", exact=True).click()
         expect(page.get_by_test_id("projects-state")).to_contain_text("Could not load public plan data")
+        browser.close()
+
+
+@pytest.mark.parametrize("theme", ["light", "dark"])
+def test_production_phone_keeps_two_rows_map_and_projects_target(live_server, theme):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": 390, "height": 844})
+        page.add_init_script(f"localStorage.setItem('gridlock-theme', '{theme}')")
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        page.on("console", lambda message: errors.append(message.text) if message.type == "error" else None)
+        page.goto(live_server)
+        expect(page.get_by_test_id("overlap-row").nth(1)).to_be_visible()
+        layout = page.evaluate("""() => {
+          const rows = Array.from(document.querySelectorAll('[data-testid="overlap-row"]'));
+          const body = document.querySelector('.panel-body').getBoundingClientRect();
+          const target = document.querySelector('#projects-toggle').getBoundingClientRect();
+          const zoom = document.querySelector('.leaflet-control-zoom-in').getBoundingClientRect();
+          return {
+            rowTop: rows[0].getBoundingClientRect().top,
+            rowBottom: rows[1].getBoundingClientRect().bottom,
+            panelBottom: body.bottom,
+            targetWidth: target.width, targetHeight: target.height,
+            mapControlVisible: zoom.width >= 24 && zoom.height >= 24 && zoom.bottom < innerHeight
+              && zoom.right <= innerWidth && zoom.bottom <= document.querySelector('.panel').getBoundingClientRect().top,
+            overflow: document.documentElement.scrollWidth - innerWidth,
+          };
+        }""")
+        assert layout["rowTop"] >= 0 and layout["rowBottom"] <= layout["panelBottom"], layout
+        assert layout["rowBottom"] <= 844, layout
+        assert layout["targetWidth"] >= 44 and layout["targetHeight"] >= 44, layout
+        assert layout["mapControlVisible"], layout
+        assert layout["overflow"] <= 1, layout
+        assert errors == []
         browser.close()
