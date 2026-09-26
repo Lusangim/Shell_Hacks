@@ -1,4 +1,5 @@
 import { state } from "./state.js";
+import { initializeBasemap, isolateMapControls } from "./basemap.js";
 
 const utilityTokens = new Map([
   ["Dominion Energy SC", "--dominion"],
@@ -62,11 +63,11 @@ function styleForProject(feature) {
 function styleForCasing(feature) {
   const properties = projectProperties(feature);
   return {
-    color: token("--canvas"),
+    color: token("--map-casing"),
     weight: voltageWeight(properties) + 2,
     dashArray: properties.accuracy === "approximate" ? "8 5" : null,
     opacity: 1,
-    fillColor: token("--canvas"),
+    fillColor: token("--map-casing"),
     fillOpacity: 1,
   };
 }
@@ -130,12 +131,45 @@ function updateCityLabels() {
 }
 
 export function initializeMap() {
-  const map = L.map("map", { zoomControl: false, preferCanvas: false, renderer: L.svg(), scrollWheelZoom: false });
+  const map = L.map("map", { zoomControl: false, preferCanvas: false, renderer: L.svg(),
+    scrollWheelZoom: true, minZoom: 6, maxZoom: 17, zoomSnap: 0.25 });
   L.control.zoom({ position: "topright" }).addTo(map);
-  map.setView([32.75, -81.55], 8);
+  map.createPane("outlinePane").style.zIndex = 210;
+  map.setView([32.75, -81.55], 6);
   state.map = map;
+  state.basemapControl = initializeBasemap(map);
   map.on("moveend", updateCityLabels);
   return map;
+}
+
+function labelAndFitStates(basemap) {
+  const states = (basemap.features || []).filter((feature) => ["state", "state_outline"].includes(feature.properties?.kind));
+  if (state.stateLabels) state.stateLabels.clearLayers();
+  state.stateLabels = L.layerGroup().addTo(state.map);
+  for (const feature of states) {
+    const label = document.createElement("span");
+    label.textContent = feature.properties.name;
+    label.dataset.src = "name";
+    label.dataset.testid = "state-label";
+    const bounds = L.geoJSON(feature).getBounds();
+    L.marker(bounds.getCenter(), { interactive: false, keyboard: false,
+      icon: L.divIcon({ html: label, className: "state-label", iconSize: [130, 24], iconAnchor: [65, 12] }),
+    }).addTo(state.stateLabels);
+  }
+  if (!state.initialMapFitted && states.length) {
+    const mobile = matchMedia("(max-width: 700px)").matches;
+    const timeline = document.querySelector(".timeline").getBoundingClientRect();
+    const bottom = mobile ? innerHeight - timeline.top + 12 : 140;
+    const bounds = L.geoJSON({ type: "FeatureCollection", features: states }).getBounds();
+    const options = { animate: false, paddingTopLeft: mobile ? [16, 16] : [456, 24],
+      paddingBottomRight: [24, bottom] };
+    // Small screens may need a slightly wider overview to keep both states above the sheet.
+    if (mobile) state.map.setMinZoom(0);
+    const available = state.map.getBoundsZoom(bounds, false, L.point(options.paddingTopLeft).add(options.paddingBottomRight));
+    if (mobile) state.map.setMinZoom(Math.min(6, available));
+    state.map.fitBounds(bounds, options);
+    state.initialMapFitted = true;
+  }
 }
 
 export function renderMap(projects, basemap) {
@@ -145,6 +179,7 @@ export function renderMap(projects, basemap) {
   if (state.projectLayers) state.projectLayers.clearLayers();
   state.cityMarkers = [];
   state.basemapLayers = L.geoJSON(basemap, {
+    pane: "outlinePane",
     style: styleForBasemap,
     interactive: false,
     pointToLayer: cityMarker,
@@ -159,6 +194,7 @@ export function renderMap(projects, basemap) {
       });
     },
   }).addTo(map);
+  labelAndFitStates(basemap);
   updateCityLabels();
   state.casingLayers = L.geoJSON(projects, {
     renderer: L.svg(),
@@ -195,12 +231,15 @@ export function renderMap(projects, basemap) {
       });
     },
   }).addTo(map);
+  isolateMapControls();
 }
 
 export function fitPairBounds(bounds) {
   const mobile = matchMedia("(max-width: 700px)").matches;
-  state.map.fitBounds(bounds.pad(0.2), {
-    animate: !matchMedia("(prefers-reduced-motion: reduce)").matches,
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  state.map[reduced ? "fitBounds" : "flyToBounds"](bounds.pad(0.2), {
+    animate: !reduced,
+    duration: 0.6,
     maxZoom: 11,
     paddingTopLeft: mobile ? [16, 16] : [440, 20],
     paddingBottomRight: mobile ? [16, Math.min(window.innerHeight * 0.6 + 16, 530)] : [20, 20],
@@ -216,11 +255,18 @@ export function highlightPair(overlap) {
     layer.setStyle({ ...style, weight: style.weight + (selected ? 2 : 0) });
     const element = layer.getElement();
     if (element) element.dataset.selected = String(selected);
-    if (selected) layer.bringToFront();
+    if (selected) { layer.bringToFront(); layer.openTooltip(); }
+    else layer.closeTooltip();
+  });
+  state.casingLayers?.eachLayer((layer) => {
+    const selected = selectedIds.has(layer.feature?.properties?.id);
+    const style = styleForCasing(layer.feature);
+    layer.setStyle({ ...style, weight: style.weight + (selected ? 2 : 0) });
   });
 }
 
 export function refreshMapTheme() {
+  state.basemapControl?.refreshTheme();
   if (state.basemapLayers) state.basemapLayers.setStyle(styleForBasemap);
   if (state.casingLayers) state.casingLayers.setStyle(styleForCasing);
   refreshProjectStyles();
