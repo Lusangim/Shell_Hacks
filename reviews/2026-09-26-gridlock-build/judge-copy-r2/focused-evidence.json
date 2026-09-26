@@ -1,0 +1,52 @@
+{
+  "values": [
+    "WANSLEY 500 KV, OVERSTRESSED BREAKER REPLACEMENTS (project: sertp-p133-9ca229)",
+    "WANSLEY 500 KV, OVERSTRESSED BREAKER REPLACEMENTS (project: sertp-p133-a3bd5b)"
+  ],
+  "1440_input": "WANSLEY 500 KV, OVERSTRESSED BREAKER REPLACEMENTS (project: sertp-p133-9ca229)",
+  "1440_tour": [
+    "Public plans, shared possibilities",
+    "Read the map",
+    "How pairs are ranked",
+    "Find Savannah",
+    "Open the top pair",
+    "Check the source",
+    "Estimates and uncertainty",
+    "Compare years",
+    "Narrow the results",
+    "Read a coordination brief",
+    "Keep a copy"
+  ],
+  "390_input": "WANSLEY 500 KV, OVERSTRESSED BREAKER REPLACEMENTS (project: sertp-p133-9ca229)",
+  "390_tour": [
+    "Public plans, shared possibilities",
+    "Read the map",
+    "How pairs are ranked",
+    "Find Savannah",
+    "Open the top pair",
+    "Check the source",
+    "Estimates and uncertainty",
+    "Compare years",
+    "Narrow the results",
+    "Read a coordination brief",
+    "Keep a copy"
+  ],
+  "source_trace": {
+    "pdf_page": 41,
+    "source_cost_present": true,
+    "source_project_id_present": true,
+    "source_deerfield_present": true,
+    "api_cost": 5376418,
+    "api_saving": {
+      "status": "range",
+      "low_usd": 54000,
+      "high_usd": 161000,
+      "basis": "Estimated coordination saving on printed plan cost; partner cost not stated for desc-p41 ($5,376,418); team-assumed 1%-3% of this known scope only; shared savings unverified.",
+      "assumption_ids": [
+        "coordination_fraction_v1"
+      ]
+    }
+  },
+  "verbatim_name_and_description": true,
+  "source_link": "/api/sources/desc-scrtp-2026-2030#page=41"
+}

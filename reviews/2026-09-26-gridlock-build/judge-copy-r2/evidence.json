@@ -1,0 +1,224 @@
+{
+  "duplicates": {
+    "GTC: MCDONOUGH – SOUTH GRIFFIN 115 KV TRANSMISSION LINE, REBUILD": 2,
+    "WANSLEY 500 KV, OVERSTRESSED BREAKER REPLACEMENTS": 2
+  },
+  "counts": [
+    230,
+    489
+  ],
+  "default": "Public transmission plans / GA + SC\n\nGridLock\nTake the tour\nProjects\n\nCoordination opportunities\n\nSCRTP Planned Facilities 2026-2030 $2M & Above · SERTP 2025 Regional Transmission Plan (Nov 26 2025) / 2025-11-26\n\n97 of 230 projects are not in computed pairs; 49 locations unknown\n\n489 ranked opportunities loaded.",
+  "duplicate_options": {
+    "GTC: MCDONOUGH – SOUTH GRIFFIN 115 KV TRANSMISSION LINE, REBUILD": [
+      {
+        "value": "GTC: MCDONOUGH – SOUTH GRIFFIN 115 KV TRANSMISSION LINE, REBUILD (project: sertp-p103-f47086)",
+        "label": "GTC: MCDONOUGH – SOUTH GRIFFIN 115 KV TRANSMISSION LINE, REBUILD (project: sertp-p103-f47086)"
+      },
+      {
+        "value": "GTC: MCDONOUGH – SOUTH GRIFFIN 115 KV TRANSMISSION LINE, REBUILD (project: sertp-p123-f7ecfd)",
+        "label": "GTC: MCDONOUGH – SOUTH GRIFFIN 115 KV TRANSMISSION LINE, REBUILD (project: sertp-p123-f7ecfd)"
+      }
+    ],
+    "WANSLEY 500 KV, OVERSTRESSED BREAKER REPLACEMENTS": [
+      {
+        "value": "WANSLEY 500 KV, OVERSTRESSED BREAKER REPLACEMENTS (project: sertp-p133-9ca229)",
+        "label": "WANSLEY 500 KV, OVERSTRESSED BREAKER REPLACEMENTS (project: sertp-p133-9ca229)"
+      },
+      {
+        "value": "WANSLEY 500 KV, OVERSTRESSED BREAKER REPLACEMENTS (project: sertp-p133-a3bd5b)",
+        "label": "WANSLEY 500 KV, OVERSTRESSED BREAKER REPLACEMENTS (project: sertp-p133-a3bd5b)"
+      }
+    ]
+  },
+  "trace": {
+    "overlap": {
+      "id": "desc-p41__sertp-p107-9bc088",
+      "a": "desc-p41",
+      "b": "sertp-p107-9bc088",
+      "a_utility": "Dominion Energy SC",
+      "b_utility": "Georgia Power",
+      "a_name": "Okatie – McIntosh 115kV Tie: Add Series Reactor",
+      "b_name": "MCINTOSH 230 KV, BREAKER CONTROL RELAY UPGRADES",
+      "distance_km": 0.0,
+      "band": "touching",
+      "band_label": "Touching / crossing",
+      "touch_reason": "shared_endpoint",
+      "touch_detail": "The Okatie–McIntosh 115 kV tie line names McIntosh as an endpoint. The DESC series reactor work is at new Deerfield Switching Station, location not stated; the SERTP relay work is at the McIntosh 230 kV bus (SCRTP Planned Facilities 2026-2030 $2M & Above, p. 41; SERTP 2025 Regional Transmission Plan (Nov 26 2025), p. 107).",
+      "can_share": "Verify work locations before reviewing possible coordination; shared assets unverified.",
+      "a_year": 2028,
+      "b_year": 2028,
+      "year_gap": 0,
+      "timeline": "same year",
+      "cross_state": true,
+      "pair_note": null,
+      "accuracy_pair": "approximate",
+      "score": 4.8,
+      "rank": 1,
+      "savings": {
+        "status": "range",
+        "low_usd": 54000,
+        "high_usd": 161000,
+        "basis": "Estimated coordination saving on printed plan cost; partner cost not stated for desc-p41 ($5,376,418); team-assumed 1%-3% of this known scope only; shared savings unverified.",
+        "assumption_ids": [
+          "coordination_fraction_v1"
+        ]
+      },
+      "brief_status": "none"
+    },
+    "project_a": {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -81.030859,
+            32.335008
+          ],
+          [
+            -81.1751124,
+            32.3521162
+          ]
+        ]
+      },
+      "properties": {
+        "id": "desc-p41",
+        "project_id": "6888",
+        "utility": "Dominion Energy SC",
+        "utility_basis": "stated",
+        "name": "Okatie – McIntosh 115kV Tie: Add Series Reactor",
+        "description": "Construct Deerfield Switching Station and Install a 9% series reactor on the Okatie – McIntosh 115kV Tie Line.",
+        "need": "This project is needed to improve system performance and to meet NERC TPL and internal DESC Planning Criteria for reliability.",
+        "status": "Planned",
+        "in_service": "12/31/2028",
+        "year": 2028,
+        "cost_usd": 5376418,
+        "cost_basis": "plan",
+        "cost_flags": [],
+        "voltage_kv": [
+          115.0
+        ],
+        "project_type": "equipment",
+        "miles": null,
+        "endpoints": [
+          "Okatie",
+          "McIntosh"
+        ],
+        "state": "SC",
+        "accuracy": "approximate",
+        "location_source": "Straight line between Hand-placed from HIFLD Electric Power Transmission Lines, TAP170160 (data/raw/hifld_lines_ga_sc.geojson); SCRTP Planned Facilities 2026-2030, pp. 11-12: INFERRED - junction on the Jasper-Yemassee 230 kV line (HIFLD TAP170160); DESC plans to fold that line into Okatie. Verify on Dominion's Jasper-Okatie route map. / OpenStreetMap",
+        "source": {
+          "doc": "SCRTP Planned Facilities 2026-2030 $2M & Above",
+          "page": 41,
+          "url": "https://www.scrtp.com/assets/pdfs/home/2026-2030-2million-and-above-project-descriptions.pdf"
+        }
+      }
+    },
+    "project_b": {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81.1751124,
+          32.3521162
+        ]
+      },
+      "properties": {
+        "id": "sertp-p107-9bc088",
+        "project_id": null,
+        "utility": "Georgia Power",
+        "utility_basis": "inferred_from_location",
+        "name": "MCINTOSH 230 KV, BREAKER CONTROL RELAY UPGRADES",
+        "description": "Replace existing twenty230 kV breaker control relays with twenty high speed breaker control relays at the McIntosh 230 kV breaker and a half bus.",
+        "need": "Protection analysis identified the project modifications are required due to the interconnection of the proposed generating facility.",
+        "status": null,
+        "in_service": "2028",
+        "year": 2028,
+        "cost_usd": null,
+        "cost_basis": "none",
+        "cost_flags": [],
+        "voltage_kv": [
+          230.0
+        ],
+        "project_type": "equipment",
+        "miles": null,
+        "endpoints": [
+          "MCINTOSH"
+        ],
+        "state": "GA",
+        "accuracy": "exact",
+        "location_source": "OpenStreetMap (McIntosh Substation)",
+        "source": {
+          "doc": "SERTP 2025 Regional Transmission Plan (Nov 26 2025)",
+          "page": 107,
+          "url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+        }
+      }
+    },
+    "savings": {
+      "status": "range",
+      "low_usd": 54000,
+      "high_usd": 161000,
+      "basis": "Estimated coordination saving on printed plan cost; partner cost not stated for desc-p41 ($5,376,418); team-assumed 1%-3% of this known scope only; shared savings unverified.",
+      "assumption_ids": [
+        "coordination_fraction_v1"
+      ]
+    },
+    "sources": [
+      {
+        "doc": "SCRTP Planned Facilities 2026-2030 $2M & Above",
+        "page": 41,
+        "url": "https://www.scrtp.com/assets/pdfs/home/2026-2030-2million-and-above-project-descriptions.pdf"
+      },
+      {
+        "doc": "SERTP 2025 Regional Transmission Plan (Nov 26 2025)",
+        "page": 107,
+        "url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+      }
+    ]
+  },
+  "1440_pair_text": "Why these projects appear together\n\n0.0 km · Touching / crossing\n\nShared named endpoint\nApproximate locations: possibly touching.\nTiming: same year. Sharing is not verified.\nPair evidence\nOkatie – McIntosh 115kV Tie: Add Series Reactor\n\nDominion Energy SC\n\nSCRTP Planned Facilities 2026-2030 $2M & Above, p. 41\nIn service: 12/31/2028\nPlan cost: $5,376,418\nSource text\n\nLocation: approximate\n\nShown as a mapped line.\nConstruction limits are not verified.\nLocation sources\nMCINTOSH 230 KV, BREAKER CONTROL RELAY UPGRADES\n\nGeorgia Power\n\nSERTP 2025 Regional Transmission Plan (Nov 26 2025), p. 107\nIn service: 2028\nPlan cost: not stated\nSource text\n\nLocation: exact\n\nShown as a mapped point.\nConstruction limits are not verified.\nLocation sources\nScreening savings\n\nPossible saving (estimate): $54,000 to $161,000\n\nBased on the stated plan costs shown above; unstated partner costs are excluded.\nTeam screening assumption, 2026-09-26: 1% to 3% of reference cost.\nNot verified: the plans do not show shared work.\nHow we estimated this",
+  "1440_empty_projects": "No projects in the loaded plans.",
+  "1440_area": "17 projects in area; 40 overlaps with at least one project in area.",
+  "1440_tour": [
+    "Step 1 of 11\n\nPublic plans, shared possibilities\n\nCompare public transmission plans across Georgia and South Carolina. GridLock screens projects from different utilities within 40 km for possible coordination around similar timeframes.\n\nBack\nNext\nSkip tour",
+    "Step 2 of 11\n\nRead the map\n\nColours identify utilities across both states; solid lines mark exact locations and dashed lines mark approximate locations. Unknown locations stay in the list.\n\nBack\nNext\nSkip tour",
+    "Step 3 of 11\n\nHow pairs are ranked\n\nThe score combines distance band, timing, accuracy and a cross-state factor; savings are not in the score. Bands are touching, under 1.6 km, under 8 km and under 40 km.\n\nBack\nNext\nSkip tour",
+    "Step 4 of 11\n\nFind Savannah\n\nSearch Savannah to find a place, then choose a result to move the map. You can also search project names; the tour keeps your current search.\n\nBack\nNext\nSkip tour",
+    "Step 5 of 8\n\nCompare years\n\nMove the in-service year slider to compare project timing, or choose All years. A missing year stays unknown.\n\nBack\nNext\nSkip tour",
+    "Step 6 of 8\n\nNarrow the results\n\nFilters narrow utilities and distance bands; More filters includes voltage, project type and years. Both projects must pass your project filters.\n\nBack\nNext\nSkip tour",
+    "Step 7 of 7\n\nKeep a copy\n\nExport CSV saves the current filtered results; Print report prepares a readable copy with sources. Estimates remain for discussion only.\n\nBack\nFinish tour\nSkip tour"
+  ],
+  "768_pair_text": "Why these projects appear together\n\n0.0 km · Touching / crossing\n\nShared named endpoint\nApproximate locations: possibly touching.\nTiming: same year. Sharing is not verified.\nPair evidence\nOkatie – McIntosh 115kV Tie: Add Series Reactor\n\nDominion Energy SC\n\nSCRTP Planned Facilities 2026-2030 $2M & Above, p. 41\nIn service: 12/31/2028\nPlan cost: $5,376,418\nSource text\n\nLocation: approximate\n\nShown as a mapped line.\nConstruction limits are not verified.\nLocation sources\nMCINTOSH 230 KV, BREAKER CONTROL RELAY UPGRADES\n\nGeorgia Power\n\nSERTP 2025 Regional Transmission Plan (Nov 26 2025), p. 107\nIn service: 2028\nPlan cost: not stated\nSource text\n\nLocation: exact\n\nShown as a mapped point.\nConstruction limits are not verified.\nLocation sources\nScreening savings\n\nPossible saving (estimate): $54,000 to $161,000\n\nBased on the stated plan costs shown above; unstated partner costs are excluded.\nTeam screening assumption, 2026-09-26: 1% to 3% of reference cost.\nNot verified: the plans do not show shared work.\nHow we estimated this",
+  "768_empty_projects": "No projects in the loaded plans.",
+  "768_area": "17 projects in area; 40 overlaps with at least one project in area.",
+  "768_tour": [
+    "Step 1 of 11\n\nPublic plans, shared possibilities\n\nCompare public transmission plans across Georgia and South Carolina. GridLock screens projects from different utilities within 40 km for possible coordination around similar timeframes.\n\nBack\nNext\nSkip tour",
+    "Step 2 of 11\n\nRead the map\n\nColours identify utilities across both states; solid lines mark exact locations and dashed lines mark approximate locations. Unknown locations stay in the list.\n\nBack\nNext\nSkip tour",
+    "Step 3 of 11\n\nHow pairs are ranked\n\nThe score combines distance band, timing, accuracy and a cross-state factor; savings are not in the score. Bands are touching, under 1.6 km, under 8 km and under 40 km.\n\nBack\nNext\nSkip tour",
+    "Step 4 of 11\n\nFind Savannah\n\nSearch Savannah to find a place, then choose a result to move the map. You can also search project names; the tour keeps your current search.\n\nBack\nNext\nSkip tour",
+    "Step 5 of 8\n\nCompare years\n\nMove the in-service year slider to compare project timing, or choose All years. A missing year stays unknown.\n\nBack\nNext\nSkip tour",
+    "Step 6 of 8\n\nNarrow the results\n\nFilters narrow utilities and distance bands; More filters includes voltage, project type and years. Both projects must pass your project filters.\n\nBack\nNext\nSkip tour",
+    "Step 7 of 7\n\nKeep a copy\n\nExport CSV saves the current filtered results; Print report prepares a readable copy with sources. Estimates remain for discussion only.\n\nBack\nFinish tour\nSkip tour"
+  ],
+  "390_pair_text": "Why these projects appear together\n\n0.0 km · Touching / crossing\n\nShared named endpoint\nApproximate locations: possibly touching.\nTiming: same year. Sharing is not verified.\nPair evidence\nOkatie – McIntosh 115kV Tie: Add Series Reactor\n\nDominion Energy SC\n\nSCRTP Planned Facilities 2026-2030 $2M & Above, p. 41\nIn service: 12/31/2028\nPlan cost: $5,376,418\nSource text\n\nLocation: approximate\n\nShown as a mapped line.\nConstruction limits are not verified.\nLocation sources\nMCINTOSH 230 KV, BREAKER CONTROL RELAY UPGRADES\n\nGeorgia Power\n\nSERTP 2025 Regional Transmission Plan (Nov 26 2025), p. 107\nIn service: 2028\nPlan cost: not stated\nSource text\n\nLocation: exact\n\nShown as a mapped point.\nConstruction limits are not verified.\nLocation sources\nScreening savings\n\nPossible saving (estimate): $54,000 to $161,000\n\nBased on the stated plan costs shown above; unstated partner costs are excluded.\nTeam screening assumption, 2026-09-26: 1% to 3% of reference cost.\nNot verified: the plans do not show shared work.\nHow we estimated this",
+  "390_empty_projects": "No projects in the loaded plans.",
+  "390_area": "17 projects in area; 40 overlaps with at least one project in area.",
+  "390_tour": [
+    "Step 1 of 11\n\nPublic plans, shared possibilities\n\nCompare public transmission plans across Georgia and South Carolina. GridLock screens projects from different utilities within 40 km for possible coordination around similar timeframes.\n\nBack\nNext\nSkip tour",
+    "Step 2 of 11\n\nRead the map\n\nColours identify utilities across both states; solid lines mark exact locations and dashed lines mark approximate locations. Unknown locations stay in the list.\n\nBack\nNext\nSkip tour",
+    "Step 3 of 11\n\nHow pairs are ranked\n\nThe score combines distance band, timing, accuracy and a cross-state factor; savings are not in the score. Bands are touching, under 1.6 km, under 8 km and under 40 km.\n\nBack\nNext\nSkip tour",
+    "Step 4 of 11\n\nFind Savannah\n\nSearch Savannah to find a place, then choose a result to move the map. You can also search project names; the tour keeps your current search.\n\nBack\nNext\nSkip tour",
+    "Step 5 of 8\n\nCompare years\n\nMove the in-service year slider to compare project timing, or choose All years. A missing year stays unknown.\n\nBack\nNext\nSkip tour",
+    "Step 6 of 8\n\nNarrow the results\n\nFilters narrow utilities and distance bands; More filters includes voltage, project type and years. Both projects must pass your project filters.\n\nBack\nNext\nSkip tour",
+    "Step 7 of 7\n\nKeep a copy\n\nExport CSV saves the current filtered results; Print report prepares a readable copy with sources. Estimates remain for discussion only.\n\nBack\nFinish tour\nSkip tour"
+  ],
+  "print_rows": 489,
+  "brief_error": "Could not load this brief. Retry for the selected pair or check the local server.",
+  "area_error": "Could not load this area. Check the local server, adjust the radius or select another centre, then retry.",
+  "scan": {
+    "projects": 230,
+    "pairs": 489,
+    "blocks": 3394,
+    "bad": []
+  }
+}
