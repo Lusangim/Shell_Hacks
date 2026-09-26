@@ -169,7 +169,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
   - Verify: each check proven against a broken scratch page.
 
 ### Checkpoint G3 — feature freeze
-- [ ] All features demoable, or hidden per the ladder and listed · [ ] full matrix green · [ ] held-out eval 10/10 (template) · [ ] tracker checkpoint · [ ] tag `g3`
+- [x] All features demoable offline; optional external providers visibly fall back · [x] full matrix 37/37 green · [x] held-out eval 10/10 (template; 31/31 manifest and selected checks) · [x] tracker checkpoint and VERIFY 674/674 · [x] tag `g3`
 
 ---
 

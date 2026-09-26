@@ -1,71 +1,60 @@
 # GridLock delivery report
 
-**In progress — G2 passed on 2026-09-26.** The G2 VERIFY passed at 12:42 EDT; all three frozen-copy judgments are filed, with no P0/P1 and assigned P2/P3 findings. This is a current handoff, not the final delivery.
+**In progress — G3 feature freeze, 2026-09-26 17:16 EDT.** Main VERIFY passed on `efc5283` with 674 passed, zero failed and zero skipped. The product is ready for the founder's two frozen judging rounds. This report is a current handoff, not final delivery.
 
 ## What works now
 
-- The local app shows a modern offline street map of Georgia and South Carolina, 489 ranked public-plan overlaps, search, filters, project/pair detail, a source-year timeline, source PDFs, CSV export and a Letter print report. A missing PMTiles archive falls back visibly to state outlines.
-- The API serves the fixed read-only PMTiles archive with validated HTTP Range. Optional Google roadmap/satellite is available only with an explicitly configured browser key and online state; every build test and server run kept Google off and never opened the real key.
-- Source processing keeps 230 of 481 input rows, places 181 projects, records 128 unplaced explanations, and builds 489 cross-utility overlaps, 43 across source states. Kept projects cite public PDF pages; unknown and inferred locations remain labelled.
-- `SETUP.cmd -Offline` was exercised against the existing environment. To run locally: `START.cmd -Port 8770 -NoBrowser`; to verify: set `GRIDLOCK_GOOGLE=off` and run `VERIFY.cmd` on port 8790. The lead stops its test servers and browsers after each run.
-- No Claude API, real Google request, network download, push, deployment, payment, message or submission occurred.
+- The local app shows a modern offline map of Georgia and South Carolina, 489 ranked public-plan overlaps, source-backed project and pair details, search, filters, timeline, area explorer, CSV, Letter print and a guided tour. All 24 audit scene combinations passed at 1440/390 px in light/dark themes.
+- The data pipeline keeps 230 of 481 input rows, places 181 projects, explains 128 unplaced rows, and records 43 cross-state overlaps. Unknown and inferred locations stay labelled; costs and savings retain their basis and caveats.
+- Briefs are graded offline templates by default. The 30-case real-ID evaluation has 20 development and 10 held-out cases; all 30 selected templates and all 489 built-overlap templates passed the grader. No real Claude call or spend occurred.
+- The local PMTiles map is optional on a fresh clone: when its separate archive is absent, the app visibly falls back to state outlines. Optional Google map controls require a configured browser key and an online browser; every build test and server run kept Google off and never opened the real key.
+- To run: `SETUP.cmd -Offline` with the prepared local environment, then `START.cmd -Port 8770 -NoBrowser`; to verify, set `GRIDLOCK_GOOGLE=off` and run `VERIFY.cmd` with a free `GRIDLOCK_TEST_PORT`. README still describes the old preview and is due for correction at D.2.
 
-## Task state
+## Task state and evidence
 
-| Task | State and evidence |
+| Tasks | State |
 |---|---|
-| T0.0–T0.8; T1.0 | Setup complete per `tasks/todo.md`; T0.7 was skipped by founder direction. |
-| T0.2, T0.3a, T0.3b, T0.4 | Done: source pipeline, frozen contracts/fixtures, 230 citations and offline harness; G1a and G1 VERIFY passed. |
-| T1.1, T1.2, T1.3, T1.5 | Done: parsed project fields, local API, keyboard map/list shell and source-backed places/outlines. |
-| T1.4a | Done: 18 quick audits, broken-page proofs and repeated green runs; `lead/T1.4a.md`. |
-| T1.6 | Done on main: API `5c0101d`, WEB `ccd0702`, WEB-2 search flight `18e2544`; source-backed two-state map and lazy optional Google. Main quick gate 344/19/18. API and browser security reviews finished with no open finding after the T16-WEB-SEC-01 repair. Desktop zoom 6–17; phone initial/minimum 5.5 is the declared fit needed to show both complete states above two ranked rows. Live Google compatibility is untested. |
-| T1.7, T1.8 | Phase 3 in progress: readable-detail WEB brief and tour WEB-2 brief are committed; T1.8 builder is running on `wt/web-2-tour`. Direction and acceptance are in `design/DIRECTION-v2.md` and `tasks/todo.md`. |
-| T2.1, T2.2, T2.3, T2.4 | Done: 489 geodesic pairs and 43 true cross-state pairs; 55 border provenance repairs, 49 unknowns retained; 201 labelled savings ranges, 214 timing-too-far, 74 no-cost; typed detail, safe BOM CSV and two whitelisted local source PDFs. |
-| T2.5a, T2.5b, T2.6, T2.7 | Done: project and overlap detail, pair map highlighting/deep links, validated filters/URL state, source-year slider and play/pause. Existing browser hydration races were repaired in test-only commits `d5e2366` and `a507d8b` without removing assertions. |
-| T2.8a, T2.8b | Done: typed local place/project/station search and keyboard duplicate-choice UI. |
-| T2.9 | Done: server-byte CSV download for current filters and Letter print report, `3057075` merged as `d6980c0`; lead reran three CSV cases, synced lane gate 278/19/18, scoped security P0–P3 zero. |
-| T2.10 | Done: named-example table and cautious Savannah/Augusta demo wording in `docs/METHODOLOGY.md`; source-page no-hit evidence kept for unlisted projects. |
-| T2.11 / G2 reviewers | Done on frozen `d355f75`: domain top-ten spot-check plus five exact distance recomputations, behavioral test analysis and silent-failure sweep. Reports are `judge-domain-g2-r1`, `judge-tests-g2-r1` and `judge-silent-g2-r1` under this review directory. No P0/P1; findings assigned below. |
-| T3.1, T3.2, T3.3a, T3.4a | Built on held `wt/api`, not merged before G2 tag. T3.1 real-ID eval/template and T3.2 fake-client generator passed a 359/18/18 lane gate; two T3.2 P2 malformed-input findings were confirmed closed. T3.3a guarded brief routes passed 107 focused and a separate security review with zero findings; its first full gate exposed WEB test timing races, repaired on main, and its synced full gate remains due after G2. T3.4a area API passed 254/17/18 on its earlier branch state. No real client/spend path is enabled. |
-| T3.3b, T3.4b, T3.5, T1.4b | Not started: brief UI, area UI, resilience/counties/dark-theme completion and full audit matrix. |
-| T4.1–T4.4, G3/G4, D.1–D.3 | Not started. The founder capped post-G3 judging at four rounds; the final delivery requires sanitizer, README, green VERIFY and tag `delivered`. |
+| T0.0–T0.8, T1.0 | Setup and design complete per `tasks/todo.md`; T0.7 skipped by founder direction. |
+| T0.2, T0.3a/b, T0.4 | Source pipeline, frozen contracts, PDF citation checks and offline harness complete; G1a and G1 tagged. |
+| T1.1–T1.3, T1.5 | Parsed source fields, local API, keyboard map/list shell and source-backed places/outlines complete. |
+| T1.4a, T1.4b | Quick audits and full gate complete. T1.4b `4eeb008`: 37/37 real matrix, 50/50 scratch proofs, three 3/3 repeats, 674 suite + 19 shell + 99 audits; exact 4.5:1, 3:1 and 44 px boundaries. The T1.7 copy-lint P3 is closed. |
+| T1.6–T1.8 | Modern offline map with optional Google mode, readable detail/print/brief text and guided walkthrough complete. The phone overview's minimum zoom is 5.5 to show both states above the two-row sheet, a declared T1.6 deviation. Live Google compatibility remains a founder-run check. |
+| T2.1–T2.4 | 489 geodesic overlaps, 43 true cross-state pairs, 55 border provenance repairs, 49 unknown project locations, 201 labelled savings ranges, typed detail, safe CSV and two whitelisted local source PDFs complete. |
+| T2.5a/b, T2.6–T2.9 | Project/pair detail, filters, timeline, typed local search, CSV export and readable Letter print complete; browser race, URL and keyboard checks included in VERIFY. |
+| T2.10–T2.11 | Six named examples and cautious source wording recorded; G2 domain judge checked top ten source records and five distances. All seven assigned G2 P2/P3 wording, race and gesture findings were repaired before G3. |
+| T3.1–T3.3b | Real-ID evaluation, deterministic grader/template, fake-client guarded generation/cache, brief routes and offline brief UI complete. Real Claude use is deferred to F6 only after founder access and a ceiling. |
+| T3.4a/b, T3.5 | Projected 1–80 km area API/UI, URL/history/race handling, counties, offline resilience, gestures and dark theme complete. |
+| G3 | Feature freeze: all decided features are demoable offline; full matrix and held-out evaluation green; G3 tag pending this report's commit. |
+| T4.1–T4.3, G4, D.1–D.3 | Not started. Founder amendment 5 caps judging at two rounds on frozen `g3`, then P0/P1 and small local P2 fixes, VERIFY, sanitizer, README and final delivery. T4.4 confirmation round skipped by founder. |
+| F1–F7, T5.0–T5.5, H0–H9 | Claude and founder work after Codex delivery; not started by this lead. Nothing was pushed, deployed, submitted, sent or purchased. |
 
-## Verification and judgment
+## Verification and judgments
 
-G2 VERIFY summary: `C:\Users\lucia\dev\gridlock-runs\verify\20260926-123703-505\summary.json` — exit **0**, **344 passed**, **0 failed**, **0 skipped**, baseline **344**, commit `cfc300e`. Only gate/task/report documentation changed between that tested product and the G2 review freeze. Four pytest warnings concern `record_property` with JUnit xunit2; assertions passed. The final main quick gate on the same product and new connected demo-path test passed **344 suite + 19 shell + 18 audits**. The demo check walks search → pair → detail → both local source PDFs → server CSV. Four current 1440/390 light/dark screenshots are in `g2/`.
+G3 VERIFY summary: `C:\Users\lucia\dev\gridlock-runs\verify\20260926-165341-069\summary.json` — **exit 0, 674 passed, 0 failed, 0 skipped, baseline 674**, tested commit `efc5283`. The earlier 16:44 VERIFY folder is empty because a model-capacity stop interrupted that process; the complete 16:53 run supersedes it. Pytest reported 32 `record_property`/xunit2 warnings; assertions passed. The full audit lane gate on the same product passed **674 suite + 19 shell + 99 audits**. The lead independently reran a complete default scene and exact 44 px scratch proof. The manifest and selected-template evaluation passed **31/31**, covering all ten held-out cases.
 
-G1a type review found two HIGH, both corrected and confirmed; two MEDIUM remain (nested Pydantic mutability and exported JSON Schema cross-field expressiveness). G1 Python review's false GA/GA cross-state bonus was corrected and confirmed; JS review was ready. The known pipeline publication MEDIUM remains: seven artifacts are replaced sequentially, so a late failure could leave mixed output. G1 is tagged `g1`.
+G1a type review's two HIGH findings and G1 Python review's false GA-only cross-state bonus were corrected and confirmed. G1/G2 tags exist. G2 domain, test and silent-failure reports were filed on frozen copies; no G2 P0/P1 remained. Their assigned P2/P3 findings were reproduced and closed before G3, including rank-3 source wording, truthful empty/unknown states, print selection, response races, offline/Google readiness and real gestures. Scoped T1.6, T2.6, T2.9, T3.2, T3.3a and T3.4b security reviews have no open P0–P3 after their recorded corrections. The T1.7 copy review was ready with notes; its one P3 source-marker lint gap is closed by T1.4b.
 
-T2.6 scoped security review had no findings. T2.9 scoped security review had P0–P3 zero. T1.6 API security review had P0–P3 zero. T1.6 browser review round 1 found one P2 delayed Google→Satellite selection race; WEB reproduced and fixed it, added stale-layer/cancellation checks, and fresh round 2 found P0–P3 zero with `material improvement still available: no`. Held T3.2 and T3.3a security confirmations have no open finding.
-
-G2 domain verdict: two P2 wording findings, no P0/P1. Its top-ten source names, descriptions, dates, costs and links matched the cited PDFs; five independent distances matched stored values. G2 test verdict: ready with notes, two P2 test/race gaps and one P3 gesture-coverage gap, no P0/P1. G2 silent-failure verdict: two P2 false selection/wording paths, no P0/P1; all pipeline counts reconciled. Each judge concluded material improvement is still available, so the assigned repairs remain open for G3:
-
-| Finding | Owner and acceptance before G3 |
-|---|---|
-| JDOMAIN-01 | WEB T1.7: approximate non-touching pair wording must not imply contact; check all bands. |
-| JDOMAIN-02 | DATA wording repair: rank-3 evidence names the SERTP Goshen–Georgia Pacific work section and distinguishes it from the mapped full-line endpoint; ranks 1/3 invite verification rather than assert work at McIntosh. Rebuild artifacts and keep methodology/API/CSV/print aligned. |
-| Silent P2-1 | WEB T1.7: filter-limited results, unknown geometry, and the 48 placed unpaired / 49 unlocated aggregate must make different truthful claims, including map-click status. |
-| Silent P2-2 | WEB T1.7 owns canonical detail selection; WEB-2 owns print consumer/checks after T1.8. Deep link and Back/Forward must print the visible pair, including one outside filters. |
-| G2-TEST-01 | WEB T1.7: replace fixed 100 ms detail race wait with completion barriers for delayed headers and JSON; prove RED on scratch guard removals, GREEN three times. |
-| G2-TEST-02 | WEB T3.5: reproduce delayed offline initialization versus Google selection with fake key/layer, repair stale status only if reproduced, and check Map return. |
-| G2-TEST-03 | WEB T3.5: direct double-click and pinch gesture tests at desktop/phone zoom limits and panel isolation. |
+The two Codex judging rounds have not started. Every verified open finding from them will be listed here with severity, affected view/viewport and screenshot path when available. No confirmation round will run under founder amendment 5.
 
 ## Parked work and founder decisions
 
-No decided feature was cut. Phase 3 API commits remain on held `wt/api` until the G2 tag; their UI is not on the current demo path. Historical `wt/web` and `wt/web-2` failed attempts remain parked; the corrected implementations are on main. A missing external PMTiles archive shows an outline fallback. Optional Google controls stay hidden without a configured key or browser online state. This runtime exposes four total agent slots, including the lead, despite the founder's requested ceiling of eight.
+No decided feature was cut or hidden from the offline demo. Historical failed branches are superseded by merged repairs. The optional Google switch remains hidden without a configured key or online state; a missing external PMTiles archive produces a visible outline fallback. The runtime exposes four total agent slots, including the lead, despite the founder's requested ceiling of eight.
 
-- **SERTP/CEII (Q2):** the publicly posted SERTP overview has page headers marked `(CEII)` while the spec both acknowledges use of that overview and says to use nothing marked CEII. The unattended safe state is the already loaded, cited public overview, with no new transcription from marked passages; founder/Sperry must decide acceptability before public release.
-- **People and external services:** team roster/roles/Discord tags and licence are unknown; no person or contact was invented. Claude access and a spend ceiling are not approved, so briefs remain offline templates. A real Google browser key, provider restrictions, CSP host completeness and live roadmap/satellite loading were not tested; founder-run online acceptance is needed before presenting that optional mode.
-- **Source checks:** Okatie remains inferred until the founder verifies it on a route map. The loaded plans contain no Thomson–Vogtle project by name; adding one requires a verified source and founder decision. The founder may decide whether phone zoom 5.5 is acceptable for the two-state first view.
+- **SERTP/CEII (Q2):** the publicly posted SERTP overview has page headers marked `(CEII)` while the spec both acknowledges that overview and says to use nothing marked CEII. The unattended default is the already loaded, cited public overview with no new transcription from marked passages. Founder/Sperry must decide acceptability before public release.
+- **People and external services:** team roster, roles, Discord tags and licence are unknown; no person or contact was invented. Claude access and a spend ceiling are not approved, so briefs remain offline templates. A real Google browser key, provider restrictions, CSP host completeness and live roadmap/satellite loading were not tested.
+- **Source checks:** Okatie remains inferred until the founder checks a route map. The loaded plans contain no Thomson–Vogtle project by name; adding one requires a verified source. Phone overview zoom 5.5 is a founder acceptance decision.
+- **Known nonblocking review notes:** G1a nested Pydantic mutability and exported schema cross-field limits remain documented. Pipeline publication replaces seven artifacts sequentially, so a late failure could leave mixed output; no mismatch was observed in this build.
 
-No Claude-owned file was edited. Proposed profile correction after delivery: `PROJECT-PROFILE.md` describes VERIFY as a private-worktree/browser-matrix run with a Markdown summary, while the actual `scripts/verify.ps1` runs compileall and pytest on the selected repo and writes JSON; quick-gate separately runs shell and audits. The SPEC/Q2 source-classification tension also needs a founder decision, not a silent spec edit.
+No Claude-owned file was edited. Proposed changes for Claude after delivery: correct `PROJECT-PROFILE.md`'s description of VERIFY (the actual script writes JSON from compileall and pytest; quick-gate separately repeats shell and audits), and resolve the SPEC/Q2 source-classification tension with the founder. Do not infer consent from this report.
 
 ## Lessons and resume
 
-2026-09-26 — Source-backed state geometry must drive first-view tests; a tiny synthetic rectangle hid a real overview requirement.
+2026-09-26 — Source-backed state geometry must drive the first-view check; a small synthetic rectangle hid a real two-state requirement.
 
-2026-09-26 — Shared lazy map initialization and per-click selection freshness need separate state; an obsolete request may not cancel the newest choice.
+2026-09-26 — Request freshness, URL authority and print selection need separate checks for delayed responses and history changes.
 
-2026-09-26 — Server-byte exports and current-filter revisions prevent browser reconstruction or stale print reports.
+2026-09-26 — Contrast-safe borders, chips and line width preserve timeline emphasis without fading source-backed text or map lines.
 
-The lead session ID is the `thread_id` in the newest `C:\Users\lucia\dev\gridlock-runs\codex\*-lead.jsonl`. To resume: `codex exec resume <session id>`, then read `MISSION.md`, `TRACKER.md`, `tasks/todo.md` and `git status`. G2 reviewers have finished; WEB-2 T1.8 is building in its separate lane. This report will be rewritten at every later gate.
+2026-09-26 — A strict audit needs equality and just-below scratch proofs; a 0.01 allowance weakened measured thresholds.
+
+The lead session ID is the `thread_id` in the newest `C:\Users\lucia\dev\gridlock-runs\codex\*-lead.jsonl`. On a capacity interruption, resume that session, then read `MISSION.md`, `TRACKER.md`, `tasks/todo.md`, git status/tags and the newest VERIFY summary. At this G3 checkpoint no sub-agent is running; all builder test servers and browsers are stopped. The lead continues until the local `delivered` tag exists.
