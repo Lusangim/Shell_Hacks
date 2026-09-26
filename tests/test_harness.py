@@ -12,12 +12,18 @@ import pytest
 
 from tests.harness import require_free_loopback_port, required_test_port
 from tests import harness
+from tests.conftest import live_server
 
 
 def test_port_is_required(monkeypatch):
     monkeypatch.delenv("GRIDLOCK_TEST_PORT", raising=False)
     with pytest.raises(RuntimeError, match="GRIDLOCK_TEST_PORT"):
         required_test_port()
+
+
+def test_e2e_server_reused_within_module_and_released_before_shell_module():
+    """Avoid per-case binds without occupying the shell module's lane port."""
+    assert live_server._fixture_function_marker.scope == "module"
 
 
 def test_busy_port_fails_before_server_launch():

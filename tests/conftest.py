@@ -27,7 +27,7 @@ def pytest_configure(config):
     config.option.basetemp = str(base)
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def live_server():
     port = required_test_port()
     require_free_loopback_port(port)
