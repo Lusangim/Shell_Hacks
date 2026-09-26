@@ -58,7 +58,7 @@ export function initializeBasemap(map) {
     if (model.offline) map.removeLayer(model.offline);
     model.offline = null;
     map.getContainer().classList.remove("vector-basemap");
-    ui.status.textContent = message;
+    if (!model.wantsGoogle) ui.status.textContent = message;
   }
 
   function offlineSelection(message) {
@@ -77,7 +77,7 @@ export function initializeBasemap(map) {
     if (model.offline) map.removeLayer(model.offline);
     model.offline = protomapsL.leafletLayer({
       url: model.archive, flavor, maxDataZoom: 13, maxZoom: 17, noWrap: true,
-      attribution: "", pane: "tilePane",
+      attribution: "", pane: "tilePane", zIndex: 0,
     }).addTo(map);
     map.getContainer().classList.add("vector-basemap");
   }
@@ -98,7 +98,7 @@ export function initializeBasemap(map) {
         },
       };
       refreshTheme();
-      ui.status.textContent = "Offline street map";
+      if (!model.wantsGoogle) ui.status.textContent = "Offline street map";
     } catch (_error) { fallback(); }
   }
 
