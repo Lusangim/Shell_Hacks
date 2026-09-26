@@ -139,7 +139,7 @@ export function setupOverlapDetail(projectView) {
     controller = new AbortController();
     try {
       const response = await fetch(`/api/overlaps/${encodeURIComponent(overlapId)}`, { signal: controller.signal });
-      if (ownRequest !== requestNumber) return;
+      if (ownRequest !== requestNumber || detail.hidden) return;
       if (response.status === 404) {
         heading.textContent = "Stale overlap link";
         stateMessage.textContent = "This overlap link is stale. Choose a pair from the current ranked overlaps.";
@@ -147,7 +147,7 @@ export function setupOverlapDetail(projectView) {
       }
       if (!response.ok) throw new Error("Overlap detail request failed");
       const payload = await response.json();
-      if (ownRequest !== requestNumber) return;
+      if (ownRequest !== requestNumber || detail.hidden) return;
       if (payload.overlap?.id !== overlapId) throw new Error("Mismatched overlap detail");
       renderOverlapDetail(payload, content, heading);
       visiblePair = payload.overlap;
@@ -157,7 +157,7 @@ export function setupOverlapDetail(projectView) {
         ? "Public plan screening detail. A coordination opportunity is unverified."
         : "This pair is outside the current filters; its public-plan detail is shown below.";
     } catch (error) {
-      if (ownRequest !== requestNumber || error.name === "AbortError") return;
+      if (ownRequest !== requestNumber || detail.hidden || error.name === "AbortError") return;
       heading.textContent = "Overlap detail unavailable";
       stateMessage.textContent = "Could not load this overlap detail. Check the local server and try again.";
     }

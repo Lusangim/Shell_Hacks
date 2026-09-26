@@ -182,17 +182,37 @@ def test_hostile_evidence_safe_links_and_view_change_clear(browser_page, live_se
     expect(page.locator("#brief-content")).to_be_empty()
 
 
-def test_leaving_during_pair_fetch_cannot_open_a_brief(browser_page, live_server):
+@pytest.mark.parametrize("phase", ["headers", "json"])
+def test_leaving_during_pair_fetch_cannot_render_or_select_a_hidden_pair(browser_page, live_server, phase):
     page = browser_page
     payload = page.request.get(f"{live_server}/api/overlaps/{PAIR}").json()
-    held = []
-    page.route(f"**/api/overlaps/{PAIR}", lambda route: held.append(route))
+    page.add_init_script("const oldPairPayload = " + json.dumps(payload) + "; const phase = " + json.dumps(phase) + ";" + """
+      const original = window.fetch;
+      window.fetch = (url, options) => {
+        if (String(url).includes('/api/overlaps/desc-p41__sertp-p107-9bc088')) {
+          const hold = value => new Promise(resolve => { window.releasePair = () => {
+            resolve(value); setTimeout(() => { window.pairSettled = true; }, 0);
+          }; });
+          const response = {ok:true, status:200,
+            json: () => phase === 'json' ? hold(oldPairPayload) : Promise.resolve(oldPairPayload)};
+          return phase === 'headers' ? hold(response) : Promise.resolve(response);
+        }
+        return original(url, options);
+      };
+    """)
     page.goto(f"{live_server}/#overlap={PAIR}")
+    page.wait_for_function("() => typeof window.releasePair === 'function'")
     expect(page.locator("#overlap-state")).to_contain_text("Loading overlap")
     page.locator("#projects-toggle").click()
     expect(page.locator("#overlap-detail")).to_be_hidden()
-    assert held
-    held[0].fulfill(json=payload)
-    expect(page.locator("#overlap-content")).to_contain_text("McIntosh")
+    page.evaluate("window.releasePair()")
+    page.wait_for_function("() => window.pairSettled === true")
+    observed = page.evaluate("""async () => ({
+      selected: (await import('/web/js/state.js')).state.selectedOverlapId,
+      highlighted: document.querySelectorAll('[data-testid="project-feature"][data-selected="true"]').length,
+      content: document.querySelector('#overlap-content').textContent,
+      mapEntryHidden: document.querySelector('#map-pair-open').hidden
+    })""")
+    assert observed == {"selected": None, "highlighted": 0, "content": "", "mapEntryHidden": True}
     expect(page.locator("#brief-panel")).to_be_hidden()
     expect(page.locator("#brief-content")).to_be_empty()
