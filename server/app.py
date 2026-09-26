@@ -20,7 +20,8 @@ from pydantic import BaseModel, ConfigDict, Field, JsonValue, TypeAdapter, Valid
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.responses import Response
 
-from server.schemas import Band, ErrorResponse, LineGeometry, Meta, MultiLineGeometry, Overlap, PointGeometry, ProjectCollection, ProjectFeature, Savings, SearchResult, Source
+from server.area import build_area
+from server.schemas import Area, Band, ErrorResponse, LineGeometry, Meta, MultiLineGeometry, Overlap, PointGeometry, ProjectCollection, ProjectFeature, Savings, SearchResult, Source
 from server.settings import ROOT, Settings
 
 
@@ -319,6 +320,16 @@ def create_app(artifact_dir: Path | None = None, settings: Settings | None = Non
     @app.get("/api/search", response_model=list[SearchResult], responses={422: {"model": ErrorResponse}})
     def search(request: Request, q: str) -> list[SearchResult]:
         return search_entries(request.app.state.artifacts.search_entries, q)
+
+    @app.get("/api/area", response_model=Area, responses={422: {"model": ErrorResponse}})
+    def area(
+        request: Request,
+        lat: Annotated[float, Query(ge=-90, le=90, allow_inf_nan=False)],
+        lon: Annotated[float, Query(ge=-180, le=180, allow_inf_nan=False)],
+        radius_km: Annotated[float, Query(ge=1, le=80, allow_inf_nan=False)] = 40.0,
+    ) -> Area:
+        artifacts: Artifacts = request.app.state.artifacts
+        return build_area(artifacts.projects, artifacts.overlaps, lat=lat, lon=lon, radius_km=radius_km)
 
     @app.get("/api/projects", response_model=ProjectCollection, responses={422: {"model": ErrorResponse}})
     def projects(
