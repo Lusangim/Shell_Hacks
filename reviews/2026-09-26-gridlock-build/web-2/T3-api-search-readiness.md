@@ -1,6 +1,6 @@
 # WEB-2 T3: preserve search flight during hydration
 
-Date: 2026-09-26. Builder base: `5d793e4`. Test port: 8797.
+Date: 2026-09-26. Builder base: `5d793e4`. Implementation commit: `05b1efa`. Test port: 8797.
 
 ## Task and files
 
@@ -34,12 +34,20 @@ Tour RED is supplied by the lead's assignment, not a run by this builder: the he
 
 ## Lane gate
 
-Pending lead sync to current main before the full lane gate. Focused suite currently has 20 cases: 14 existing and six new. `git diff --check` passed.
+The lead merged current main into the clean lane at `bee3d18`, with no conflicts. On that synced source, `scripts/quick-gate.ps1` exited 0:
+
+- Python compile check passed.
+- Main suite: `357 passed in 346.11s (0:05:46)`; baseline 351 plus six new cases, no failures or skips.
+- Shell smoke: `19 passed in 22.53s`.
+- Audits: `18 passed in 40.63s`.
+- Final output: `QUICK GATE PASS`.
+
+The gate's existing script used base port 8797 and derived isolated smoke/audit ports 11797 and 14797. The focused suite has 20 cases: 14 existing and six new. `git diff --check` passed. The test fixtures closed their servers and browser contexts. No manually started service remains.
 
 ## Review, deviations, and open work
 
 The change follows the existing state flag and source-coordinate validation. It changes no API contract, shared map/app code, DOM rendering, motion preference handling, or source fields. Review checklists A/D/E/F/J/K applied to the owned diff; no fixed sleeps, weakened checks, or new dependencies.
 
-Declared deviations: combined-tour verification is coordinated by the lead because tour files are outside this branch's ownership. No other-lane patch is needed. Open work: record full lane gate after main sync and lead's combined-tour result. No product decision is unresolved.
+Declared deviations: combined-tour verification is coordinated by the lead because tour files are outside this branch's ownership. After the implementation commit, the lead performed the main sync and authorized this report-only follow-up commit to retain the final gate evidence. No other-lane patch is needed. Open integration work: the lead's combined-tour result. No product decision is unresolved.
 
 2026-09-26 lesson: Explicit user navigation must claim initialization state before a pending shell continuation can apply its default viewport.
