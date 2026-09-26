@@ -9,6 +9,83 @@ from playwright.sync_api import expect, sync_playwright
 
 @pytest.mark.parametrize("width,height", [(1440, 900), (390, 844)])
 @pytest.mark.parametrize("theme", ["light", "dark"])
+def test_first_visit_invitation_keeps_projects_reachable(live_server, width, height, theme):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": width, "height": height}, color_scheme=theme)
+        page.add_init_script("""window.tourInitialCls = 0;
+          new PerformanceObserver(list => {
+            for (const entry of list.getEntries()) {
+              if (!entry.hadRecentInput) window.tourInitialCls += entry.value;
+            }
+          }).observe({type: 'layout-shift', buffered: true});
+        """)
+        page.goto(live_server)
+        expect(page.locator(".overlap-button").first).to_be_visible()
+        invitation = page.get_by_role("button", name="New here? Take the tour", exact=True)
+        expect(invitation).to_be_visible()
+        page.wait_for_timeout(1000)
+        initial_cls = page.evaluate("window.tourInitialCls")
+        print({"width": width, "theme": theme, "initial_cls": initial_cls})
+        assert initial_cls < 0.1
+        if width == 390:
+            first_view = page.evaluate("""() => {
+              const rows = document.querySelectorAll('[data-testid="overlap-row"]');
+              const panel = document.querySelector('.panel').getBoundingClientRect();
+              const zoom = document.querySelector('.leaflet-control-zoom-in').getBoundingClientRect();
+              return {secondRowBottom: rows[1].getBoundingClientRect().bottom,
+                panelBottom: document.querySelector('.panel-body').getBoundingClientRect().bottom,
+                zoomBottom: zoom.bottom, panelTop: panel.top};
+            }""")
+            print({"theme": theme, "first_view": first_view})
+            assert first_view["secondRowBottom"] <= first_view["panelBottom"]
+            assert first_view["zoomBottom"] <= first_view["panelTop"]
+            page.locator("#sheet-toggle").click()
+            expect(page.locator("#sheet-toggle")).to_have_attribute("aria-expanded", "true")
+        projects = page.locator("#projects-toggle")
+        # Trial click waits for the sheet transition, then checks the real pointer target.
+        try:
+            projects.click(trial=True, timeout=3000)
+        except Exception:
+            print({"theme": theme, "projects": projects.bounding_box(),
+                   "invitation": page.locator("#tour-invitation-box").bounding_box()})
+            raise
+        button_box = projects.bounding_box()
+        prompt_box = page.locator("#tour-invitation-box").bounding_box()
+        print({"width": width, "theme": theme, "projects": button_box, "invitation": prompt_box})
+        assert (button_box["x"] + button_box["width"] <= prompt_box["x"]
+                or prompt_box["x"] + prompt_box["width"] <= button_box["x"]
+                or button_box["y"] + button_box["height"] <= prompt_box["y"]
+                or prompt_box["y"] + prompt_box["height"] <= button_box["y"])
+        projects.click()
+        expect(page.locator("#project-filter")).to_be_focused()
+        records = page.request.get(f"{live_server}/api/projects").json()["features"]
+        longest = max((item["properties"] for item in records), key=lambda item: len(item["name"]))
+        page.locator("#project-filter").fill(longest["name"])
+        page.locator(f'[data-project-ref="{longest["id"]}"] button').click()
+        detail = page.get_by_test_id("project-detail")
+        expect(detail.locator("#project-detail-heading")).to_have_text(longest["name"])
+        expect(detail.get_by_role("link", name=f'{longest["source"]["doc"]}, p. {longest["source"]["page"]}')).to_be_visible()
+        expect(invitation).to_be_visible()
+        assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
+        page.get_by_role("button", name="Dismiss tour invitation").click()
+        launch = page.get_by_role("button", name="Take the tour", exact=True)
+        expect(invitation).not_to_be_visible()
+        expect(launch).to_be_focused()
+        launch.press("Enter")
+        card = page.get_by_role("dialog", name="GridLock tour")
+        expect(card).to_be_focused()
+        page.keyboard.press("Escape")
+        expect(card).not_to_be_visible()
+        expect(launch).to_be_focused()
+        page.reload()
+        expect(invitation).not_to_be_visible()
+        expect(launch).to_be_visible()
+        browser.close()
+
+
+@pytest.mark.parametrize("width,height", [(1440, 900), (390, 844)])
+@pytest.mark.parametrize("theme", ["light", "dark"])
 def test_keyboard_tour_walk_and_focus_return(live_server, width, height, theme):
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
