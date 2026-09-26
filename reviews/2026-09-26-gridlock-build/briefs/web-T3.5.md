@@ -1,0 +1,18 @@
+# WEB — T3.5 offline resilience, counties and dark map
+
+Work only in `C:\Users\lucia\dev\gridlock-wt\web-resilience`, branch `wt/web-resilience`, after lead assignment. Every command there, never in main. Port 8779: each test/server command begins `$env:GRIDLOCK_TEST_PORT='8779'; $env:GRIDLOCK_AI='off'; $env:GRIDLOCK_GOOGLE='off';`. Python only `& $env:GRIDLOCK_PY`. Read repo AGENTS.md, gridlock-build SKILL §0/§2, SPEC Contracts/Code style, house patterns, definition of done, review checklists A/D/E/F/J/K, UI contract, DIRECTION-v2 and T3.5 in todo; read G2 test judgment G2-TEST-02/03. Text with `Get-Content -Encoding UTF8`, edits with apply_patch. No network/install, real Google key/client call, environment/secret printing, push/deploy/submit/send.
+
+## Task and checks
+
+Write failing checks first for:
+
+1. Offline resilience: block all non-local requests in Chromium; map, filters, detail, source links, search, area affordance and export remain usable with zero page errors. If the external archive is absent, a visible outline fallback preserves the demo path. Preserve tests' Google-off mode.
+2. G2-TEST-02: with fake Google config/layer and a delayed local Protomaps script/header, select Google Maps or Satellite, let the newer layer become ready, then release the old offline initialization as success or failure. The selected mode, pressed button, status and layer must remain correct. Switching back to Map must show loaded offline tiles or the honest outline fallback. Test Map cancellation too. Prove RED on the existing stale-status path and GREEN three times; change `web/js/basemap.js` only if runtime reproduction confirms it.
+3. G2-TEST-03: directly exercise double-click and touch pinch zoom, including desktop minimum 6, approved phone overview minimum 5.5, maximum 17, and panel-scroll isolation. Use condition-based movement waits; no arbitrary sleep. Do not replace gesture checks with option inspection.
+4. Dark theme and county context: inspect the actual local PMTiles style and current source-backed outline for county boundaries. Test county boundary visibility at a useful zoom in both themes; if the current basemap already provides them, record the evidence and avoid another layer. If missing, propose the smallest offline source-backed implementation using the existing read-only Census zip `C:\Users\lucia\dev\gridlock\gridlock-data\cb_2024_us_county_500k.kml.zip`; ask lead before adding a DATA/API file or generated contract. Test every changed token/control's contrast and a reload with stored dark choice for no light flash. Inspect 1440/390 screenshots. Bottom sheet and reduced-motion states must remain usable.
+
+Run focused RED/GREEN, repeat new race and gesture cases three times, then full quick gate after syncing current main. Never weaken, skip or delete an existing check. Exact local source data only; unknowns remain unknown.
+
+## Ownership and limits
+
+Own `web/js/basemap.js`, `web/js/map.js`, `web/css/tokens.css`, map-related rules in `web/css/app.css`, `tests/e2e/test_modern_map.py`, new `tests/e2e/test_offline.py`, focused theme/contrast tests if needed, and report `reviews/2026-09-26-gridlock-build/web/T3.5.md`. Other files, shared `web/index.html`/`web/js/app.js` (tour/readable-detail work), search.js, API/DATA and contracts are read-only. Coordinate any hook or county artifact with lead before editing. Stop/report on added regression, same error three tries, missing dependency, or ownership/architecture change. Stage exact paths; no add-A/stash/clean/reset-hard. One commit `WEB: T3.5 finish offline map resilience`; no main merge. Report RED/GREEN, suite totals, screenshots, deviations, other-lane patches, open questions and dated lesson.
