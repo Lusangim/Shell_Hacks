@@ -130,6 +130,15 @@
         <footer class="disclaimer">Independent student project; not affiliated with Dominion Energy, Georgia Power, Southern Company, GTC, MEAG or Sperry Tech. Estimates are for discussion only.</footer>
       </div>
     </aside>
+    <section id="timeline" class="timeline" aria-label="In-service timeline">
+      <div class="timeline-heading"><label for="timeline-year">In-service year</label><output id="timeline-output" for="timeline-year">All years</output></div>
+      <div class="timeline-controls">
+        <button id="timeline-all" type="button" aria-pressed="true">All years</button>
+        <input id="timeline-year" type="range" min="2026" max="2026" value="2026" step="1" aria-valuetext="All years" disabled>
+        <button id="timeline-play" type="button" disabled>Play years</button>
+      </div>
+      <p id="timeline-status" role="status">Loading in-service years.</p>
+    </section>
   </main>
   <noscript><p class="noscript">GridLock needs JavaScript to show the interactive map and ranked opportunities.</p></noscript>
 </body>
