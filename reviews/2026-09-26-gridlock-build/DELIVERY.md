@@ -1,6 +1,6 @@
 # GridLock delivery report
 
-**In progress — G4 judged corrections passed, 2026-09-26 20:39 EDT.** Main VERIFY passed on `39eecd9` with 716 passed, zero failed and zero skipped against baseline 716; tag `g4` exists. All nine unique P2 findings from the founder-capped two judging rounds have corrections merged and tested. Two P3 UI notes remain for Claude's final review. README startup validation is complete; sanitizer and final delivery remain.
+**Delivered locally — tag `delivered`, 2026-09-26.** G4 VERIFY passed on `39eecd9` with 716 passed, zero failed and zero skipped against baseline 716. All nine unique P2 findings from the founder-capped two judging rounds have corrections merged and tested. Two P3 UI notes remain for Claude's final review. The release sanitizer passed for local delivery; public publication remains blocked on Q11 path/PDF work and founder decisions. Nothing was pushed, deployed, submitted or sent.
 
 ## What works now
 
@@ -27,14 +27,18 @@
 | G3 | Feature freeze: all decided features are demoable offline; full matrix and held-out evaluation green; `g3` tag points to `8d83ad0`. |
 | T4.1–T4.2 | Complete: six fresh judges on frozen `g3`, two rounds as capped by the founder; 0 P0/P1, nine unique P2 and two P3 findings. Judgments and essential screenshots are committed under `judge-*/`. |
 | T4.3, G4 | Complete. WEB `8f70b2b`, WEB-2 `fa008a2` and API `ed82d4d` merged after RED/GREEN checks and lane gates; API's final synced gate passed 716 suite + 19 shell + 99 audits, lead reran 33 focused cases, task-local security review found zero P0–P3. Main VERIFY 716/716, tag `g4` on `39eecd9`. T4.4 confirmation skipped by founder. |
-| D.1 | Sanitizer on the delivery candidate is pending; no files have been pushed or published. |
+| D.1 | Local-delivery PASS on frozen candidate `479b0c1`: zero CRITICAL secrets or prohibited files across 434 tracked files and 324 ancestor commits. Two MEDIUM public-release findings: 128 concrete user-path lines across 98 files, and a tracked route-map PDF marked for removal before any push. Exact delivered commit is scanned before the tag; the tag annotation records its result. |
 | D.2 | Complete: README reflects the delivered app and 716-test baseline; offline setup passed, START served `/` and 489 overlaps with HTTP 200 on 8770 and stopped cleanly, and G4 VERIFY passed. |
-| D.3 | Final delivery report, exact-commit sanitizer and `delivered` tag remain. |
+| D.3 | Complete locally: README and this report committed, exact-commit sanitizer checked before the `delivered` tag, all started servers and browsers stopped, no sub-agent running. No publication authorization inferred. |
 | F1–F7, T5.0–T5.5, H0–H9 | Claude and founder work after Codex delivery; not started by this lead. Nothing was pushed, deployed, submitted, sent or purchased. |
 
 ## Verification and judgments
 
 G4 VERIFY summary: `C:\Users\lucia\dev\gridlock-runs\verify\20260926-201457-009\summary.json` — **exit 0, 716 passed, 0 failed, 0 skipped, baseline 716**, tested main commit `39eecd9`. Pytest reported 32 `record_property`/xunit2 warnings; assertions passed. The synced API lane quick gate passed **716 suite + 19 shell + 99 audits**. The lead independently reran 33 focused API cases after its branch commit. G3 VERIFY remains at `C:\Users\lucia\dev\gridlock-runs\verify\20260926-165341-069\summary.json` (674/674); the empty 16:44 G3 folder was superseded by that completed run. The manifest and selected-template evaluation passed **31/31**, covering all ten held-out cases.
+
+The delivery setup check passed offline. `START.cmd -NoBrowser -Port 8770` returned HTTP 200 for `/` and `/api/overlaps`, with 489 overlap records; the process was stopped and port 8770 freed. All 20 linked judge screenshot/evidence files in this report exist. No product or test code changed after the verified `g4` commit; subsequent commits contain only README, tracker, task and review documents.
+
+The fresh D.1 sanitizer scanned candidate `479b0c1` read-only: **PASS for local delivery, 0 CRITICAL**, no credential signatures or prohibited filenames among 434 tracked files and 324 ancestor commits; metadata from 50 PDFs/PNGs had no credential, email or user-path signature. It reported two MEDIUM public-release findings: pattern `WINDOWS_USER_PATH` in 128 concrete lines across 98 tracked files, and pattern `Q11_ROUTE_MAP_REMOVAL` at `data/raw/reference/dominion_jor_route_options_aerial_map.pdf`. History pattern counts were 0 for token/private-key/credential-URL classes; generic API-key assignment examples matched once, email candidates three commits, and Windows user paths 84 commits. The final exact-commit scan result is recorded in the annotated `delivered` tag. These Q11 items and third-party PDF redistribution need founder/Claude resolution before any push.
 
 G1a type review's two HIGH findings and G1 Python review's false GA-only cross-state bonus were corrected and confirmed. G1/G2 tags exist. G2 domain, test and silent-failure reports were filed on frozen copies; no G2 P0/P1 remained. Their assigned P2/P3 findings were reproduced and closed before G3, including rank-3 source wording, truthful empty/unknown states, print selection, response races, offline/Google readiness and real gestures. Scoped T1.6, T2.6, T2.9, T3.2, T3.3a and T3.4b security reviews have no open P0–P3 after their recorded corrections. The T1.7 copy review was ready with notes; its one P3 source-marker lint gap is closed by T1.4b.
 
@@ -61,11 +65,12 @@ All nine P2s are fixed in T4.3, with task reports and RED/GREEN evidence under `
 No decided feature was cut or hidden from the offline demo. Historical failed branches are superseded by merged repairs. The optional Google switch remains hidden without a configured key or online state; a missing external PMTiles archive produces a visible outline fallback. The runtime exposes four total agent slots, including the lead, despite the founder's requested ceiling of eight.
 
 - **SERTP/CEII (Q2):** the publicly posted SERTP overview has page headers marked `(CEII)` while the spec both acknowledges that overview and says to use nothing marked CEII. The unattended default is the already loaded, cited public overview with no new transcription from marked passages. Founder/Sperry must decide acceptability before public release.
+- **Public release (Q11):** the unattended default is local delivery only. Before a push, scrub the tracked machine paths reported by the sanitizer and remove the tracked route-map reference PDF. The founder decides whether `.claude/`, `reviews/`, third-party PDFs and their redistribution terms can ship; Q2 may require further source removal or history treatment. The sanitizer's local PASS is not publication clearance.
 - **People and external services:** team roster, roles, Discord tags and licence are unknown; no person or contact was invented. Claude access and a spend ceiling are not approved, so briefs remain offline templates. A real Google browser key, provider restrictions, CSP host completeness and live roadmap/satellite loading were not tested.
 - **Source checks:** Okatie remains inferred until the founder checks a route map. The loaded plans contain no Thomson–Vogtle project by name; adding one requires a verified source. Phone overview zoom 5.5 is a founder acceptance decision.
 - **Known nonblocking review notes:** G1a nested Pydantic mutability and exported schema cross-field limits remain documented. Pipeline publication replaces seven artifacts sequentially, so a late failure could leave mixed output; no mismatch was observed in this build.
 
-No Claude-owned file was edited. Proposed changes for Claude after delivery: correct `PROJECT-PROFILE.md`'s description of VERIFY (the actual script writes JSON from compileall and pytest; quick-gate separately repeats shell and audits), and resolve the SPEC/Q2 source-classification tension with the founder. Do not infer consent from this report.
+No Claude-owned file was edited. Proposed changes for Claude after delivery: correct `PROJECT-PROFILE.md`'s description of VERIFY (the actual script writes JSON from compileall and pytest; quick-gate separately repeats shell and audits), resolve the SPEC/Q2 source-classification tension with the founder, and complete Q11 public-release sanitization. Do not infer consent from this report.
 
 ## Lessons and resume
 
@@ -81,4 +86,6 @@ No Claude-owned file was edited. Proposed changes for Claude after delivery: cor
 
 2026-09-26 — CSV recipients need the dated assumption, basis and caveat next to the amount, even when the browser explains them.
 
-The lead session ID is the `thread_id` in the newest `C:\Users\lucia\dev\gridlock-runs\codex\*-lead.jsonl`. On a capacity interruption, resume that session, then read `MISSION.md`, `TRACKER.md`, `tasks/todo.md`, git status/tags and the newest VERIFY summary. At this G4 checkpoint no sub-agent is running; builder and VERIFY test servers and browsers are stopped. The lead continues through D.1–D.3 until the local `delivered` tag exists.
+2026-09-26 — A local sanitizer PASS does not clear a public push when machine paths and source redistribution still need Q11 decisions.
+
+The lead session ID is the `thread_id` in the newest `C:\Users\lucia\dev\gridlock-runs\codex\*-lead.jsonl`. If an interruption occurs before the `delivered` tag is visible, resume that session and read `MISSION.md`, `TRACKER.md`, `tasks/todo.md`, git status/tags and the newest VERIFY summary. At local delivery, no sub-agent is running and every builder, reviewer, START and VERIFY server/browser started during this run is stopped. Claude begins F1 from the `delivered` tag and must resolve the listed Q2/Q11 questions before public release.

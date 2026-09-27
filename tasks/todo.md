@@ -187,11 +187,11 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 
 ## Phase D — Delivery (LEAD) · when G4 passes (no time limit)
 
-- [ ] **D.1 Sanitizer on the delivery commit** (JUDGE sub-agent, `gridlock-sanitizer`)
+- [x] **D.1 Sanitizer on the delivery commit** (fresh read-only sub-agent, `gridlock-sanitizer`) — local-delivery PASS on frozen candidate `479b0c1`: 0 CRITICAL, 0 credential signatures or prohibited filenames across 434 tracked files and 324 ancestor commits. Two MEDIUM public-release blockers remain under Q11: concrete local user paths and a route-map PDF to remove before any push. The exact final commit is scanned again before the `delivered` tag.
   - Acceptance: no builder running; VERIFY on main green (a red line re-run quietly three times; a repeat is a defect to fix, not to skip); the sanitizer reports PASS or its findings are fixed (locations and pattern names only, never secret content).
 - [x] **D.2 README true for the delivered state** (LEAD) — rewritten for the current app and 716-test baseline; `SETUP.cmd -Offline` passed, `START.cmd -NoBrowser -Port 8770` served `/` and 489 `/api/overlaps` records with HTTP 200, then port 8770 was confirmed free. G4 `VERIFY.cmd` passed 716/716.
   - Acceptance: `README.md` says what works now, what is hidden or not built, and how to run `SETUP.cmd`, `START.cmd` and `VERIFY.cmd`; nothing claimed that the delivered commit does not do.
-- [ ] **D.3 Deliver** (LEAD)
+- [x] **D.3 Deliver** (LEAD) — final README/report commit and local `delivered` tag after exact-commit sanitizer PASS; G4 VERIFY 716/716, no builder or listener left running. Public push and Devpost submission remain for the founder/Claude after Q11/Q2 decisions.
   - Acceptance: final `reviews/2026-09-26-gridlock-build/DELIVERY.md` (rewritten at every gate since G1a): each task done / partly done / not started, with evidence · VERIFY summary path and totals · each judge's verdict and the open findings · parked tasks and hidden features · founder questions · lessons (one dated line each) · session ids and how to resume; README and DELIVERY.md committed; tag `delivered` on that commit; every server and browser started during the run stopped; no sub-agent running. The lead then ends its turn.
 
 ---
