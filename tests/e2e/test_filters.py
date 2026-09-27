@@ -96,7 +96,7 @@ def test_filter_url_reload_back_forward_and_selection_outside_filters(live_serve
         expect(page.get_by_test_id("overlap-row").first).to_be_visible()
         open_filters(page)
         page.locator("#filter-band").select_option("touching")
-        expect(page.locator("#overlap-count")).not_to_have_text("489 pairs")
+        expect(page.locator("#overlap-count")).not_to_have_text("465 pairs")
         params = parse_qs(urlsplit(page.url).query)
         assert params["band"] == ["touching"]
         assert params["year"] == ["2028"] and params["area"] == ["32.1,-81.2"]

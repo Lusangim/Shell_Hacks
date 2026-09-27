@@ -28,7 +28,7 @@
     {"id": "sertp-p123-09973f__sertp-p133-a3bd5b", "split": "held_out", "labels": ["lt_8km", "exact", "no_cost"]},
     {"id": "sertp-p154-b77d35__sertp-p72-81610d", "split": "held_out", "labels": ["touching", "exact", "timing_too_far"]},
     {"id": "sertp-p68-fbd1c0__sertp-p72-eda876", "split": "held_out", "labels": ["same_substation"]},
-    {"id": "sertp-p112-4e2ef8__sertp-p83-7714c0", "split": "held_out", "labels": ["shared_endpoint"]},
+    {"id": "sertp-p112-4e2ef8__sertp-p83-7714c0", "split": "held_out", "labels": ["same_substation"]},
     {"id": "sertp-p112-a1e222__sertp-p125-3f7c7f", "split": "held_out", "labels": ["same_area_approximate"]},
     {"id": "desc-p41__sertp-p157-fb6ec2", "split": "held_out", "labels": ["cross_state", "goshen_sav", "timing_too_far"]},
     {"id": "sertp-p123-09973f__sertp-p77-2a6eda", "split": "held_out", "labels": ["lt_8km", "exact", "timing_too_far"]}

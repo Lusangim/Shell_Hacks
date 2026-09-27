@@ -85,9 +85,9 @@ def test_manual_fix_missing_provenance_is_rejected(tmp_path: Path, missing: str)
 def test_full_border_geometry_set_has_named_source_and_cautious_accuracy() -> None:
     region = [feature for feature in _features()
               if any(_in_border(point) for point in _geometry_points(feature["geometry"]))]
-    assert len(region) == 55
+    assert len(region) == 52
     assert sum(feature["properties"]["accuracy"] == "exact" for feature in region) == 9
-    assert sum(feature["properties"]["accuracy"] == "approximate" for feature in region) == 46
+    assert sum(feature["properties"]["accuracy"] == "approximate" for feature in region) == 43
     for feature in region:
         props = feature["properties"]
         source = props["location_source"]

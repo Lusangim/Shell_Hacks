@@ -287,6 +287,11 @@
           ],
           "title": "Status"
         },
+        "town_only": {
+          "default": false,
+          "title": "Town Only",
+          "type": "boolean"
+        },
         "utility": {
           "minLength": 1,
           "title": "Utility",

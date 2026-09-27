@@ -42,7 +42,7 @@ def test_filtered_unknown_and_placed_project_absence_are_distinct(live_server):
         expect(page.locator("#status")).to_have_text("No related overlaps are shown by the current filters.")
         page.locator("#filters-toggle").click()
         page.locator("#filter-clear").click()
-        expect(page.locator("#overlap-count")).to_have_text("489 pairs")
+        expect(page.locator("#overlap-count")).to_have_text("465 pairs")
         page.evaluate("document.dispatchEvent(new CustomEvent('gridlock:project-click', {detail:{projectId:'desc-p41'}}))")
         expect(page.locator("#project-overlaps li")).to_have_count(14)
         page.evaluate("document.dispatchEvent(new CustomEvent('gridlock:project-click', {detail:{projectId:'desc-p3'}}))")
@@ -50,7 +50,7 @@ def test_filtered_unknown_and_placed_project_absence_are_distinct(live_server):
         expect(page.locator("#status")).to_have_text("Location unknown; proximity cannot be assessed.")
         page.evaluate("document.dispatchEvent(new CustomEvent('gridlock:project-click', {detail:{projectId:'desc-p1'}}))")
         expect(page.locator("#project-overlaps")).to_have_text("This placed project has no overlap within 40 km in the loaded plans.")
-        expect(page.locator("#no-overlap")).to_have_text("97 of 230 projects are not in computed pairs; 49 locations unknown")
+        expect(page.locator("#no-overlap")).to_have_text("96 of 230 projects are not in computed pairs; 49 locations unknown")
         browser.close()
 
 

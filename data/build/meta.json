@@ -6,10 +6,10 @@
     "unknown": 49
   },
   "counts_by_band": {
-    "lt_1_6km": 3,
-    "lt_40km": 405,
-    "lt_8km": 19,
-    "touching": 62
+    "lt_1_6km": 5,
+    "lt_40km": 402,
+    "lt_8km": 12,
+    "touching": 46
   },
   "counts_by_utility": {
     "Dalton Utilities": 3,
@@ -19,7 +19,7 @@
     "Georgia Transmission Corp.": 66,
     "MEAG Power": 13
   },
-  "no_overlap_count": 97,
+  "no_overlap_count": 96,
   "source_documents": [
     {
       "date": null,
@@ -42,7 +42,7 @@
     "dropped_unmapped": 79,
     "kept": 230,
     "kept_unmapped": 49,
-    "overlaps": 489,
+    "overlaps": 465,
     "placed": 181,
     "placement_candidates": 380,
     "places": 1150,

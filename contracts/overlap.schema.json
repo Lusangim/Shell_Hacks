@@ -218,6 +218,11 @@
       "title": "Touch Reason",
       "type": "string"
     },
+    "town_capped": {
+      "default": false,
+      "title": "Town Capped",
+      "type": "boolean"
+    },
     "year_gap": {
       "anyOf": [
         {

@@ -18,6 +18,7 @@ from pathlib import Path
 from shapely.geometry import shape, Point, LineString, mapping
 from ids import desc_id, sertp_ids
 from fields import miles, parse_cost, parse_in_service_year, project_type, voltage_kv
+from hifld_routes import HifldNetwork
 from manual_locations import load_manual_locations
 
 
@@ -128,6 +129,9 @@ for r in csv.DictReader(open("places_se.csv", encoding="utf-8")):
         towns[k].append(dict(lat=float(r["lat"]), lon=float(r["lon"]), src="Census town centre", label=r["name"] + ", " + r["state"],
                              operator="", town=True))
 
+# HIFLD lines as a network, to follow existing lines between two matched substations (hifld_routes.py)
+network = HifldNetwork(hifld)
+
 try:   # hand-placed fixes win
     for r in load_manual_locations(Path("manual_locations.csv")):
         for k in keys(r["name"]):
@@ -226,6 +230,7 @@ for p in projects:
     region = REGIONS[p["home"]]
     cands = [lookup(n, region) for n in names]
     geom, accuracy, loc_src, ambiguous = None, "unknown", "", False
+    used, state_geom = [], None   # candidates the location rests on; the shape that decides the state
 
     if len(names) >= 2 and all(cands):
         # choose the combination of candidates that keeps the chain shortest
@@ -252,25 +257,62 @@ for p in projects:
             if hit and len(names) == 2:
                 geom, accuracy, loc_src = hit[0]["geometry"], "exact", "HIFLD line route"
             else:
-                geom = mapping(LineString([(c["lon"], c["lat"]) for c in chosen]))
+                # A town centre is not where a line ends: never draw to one when a real substation is known.
+                real = [c for c in chosen if not c.get("town")]
+                town_names = [n for n, c in zip(names, chosen) if c.get("town")]
                 accuracy = "approximate"
-                loc_src = "Straight line between " + " / ".join(sorted({c["src"] for c in chosen}))
+                # The state (and so which rows are kept) still comes from the whole matched chain, as
+                # before: trimming or routing changes what is drawn, never which projects are in scope.
+                state_geom = LineString([(c["lon"], c["lat"]) for c in chosen])
+                if len(real) == len(chosen):
+                    points = [(c["lon"], c["lat"]) for c in chosen]
+                    # Route only between substations matched in public data; a hand-placed end (Okatie,
+                    # inferred) keeps its straight line and its visible "INFERRED" note.
+                    route = None if any(c.get("manual") for c in chosen) else network.route(points, p["voltage_kv"])
+                    used = chosen
+                    if route is not None:
+                        geom = mapping(route)
+                        loc_src = (f"Follows existing HIFLD transmission lines between {' and '.join(names)} "
+                                   "(network route; the plan gives no route)")
+                    else:
+                        geom = mapping(state_geom)
+                        loc_src = "Straight line between " + " / ".join(sorted({c["src"] for c in chosen}))
+                elif len(real) >= 2:
+                    geom, used = mapping(LineString([(c["lon"], c["lat"]) for c in real])), real
+                    loc_src = ("Straight line between " + " / ".join(sorted({c["src"] for c in real}))
+                               + f" (Census town centre match for {', '.join(town_names)} not used)")
+                elif len(real) == 1:
+                    c = real[0]
+                    n = next(name for name, cand in zip(names, chosen) if cand is c)
+                    geom, used = mapping(Point(c["lon"], c["lat"])), real
+                    loc_src = (f'{c["src"]} ({c["label"]}) - only \'{n}\' located; '
+                               f"Census town centre match for {', '.join(town_names)} not used")
+                else:
+                    geom, used = mapping(LineString([(c["lon"], c["lat"]) for c in chosen])), chosen
+                    loc_src = ("Only the towns matched; the substation locations are not known "
+                               "(straight line between Census town centres)")
     if geom is None:
         found = [(n, c) for n, c in zip(names, cands) if c]
         if found:
             n, c = found[0]
             c, ambiguous = pick(c)
-            geom = mapping(Point(c["lon"], c["lat"]))
+            geom, used = mapping(Point(c["lon"], c["lat"])), [c]
             single_site = len(names) == 1
             accuracy = "exact" if single_site and not ambiguous and not c.get("town") and not c.get("inferred") else "approximate"
-            loc_src = f'{c["src"]} ({c["label"]})' + ("" if single_site else f" - only '{n}' located")
+            if c.get("town"):
+                loc_src = (f"Only the town matched; the substation location is not known "
+                           f"({c['label']}, Census town centre)")
+            else:
+                loc_src = f'{c["src"]} ({c["label"]})'
+            loc_src += "" if single_site else f" - only '{n}' located"
         else:
             loc_src = ("Unknown: no named endpoint match in committed OpenStreetMap substations, "
                        "HIFLD transmission lines, or Census places within the project's allowed region.")
+    town_only = bool(used) and all(c.get("town") for c in used)
 
     state = ""
     if geom:
-        g = shape(geom)
+        g = state_geom if state_geom is not None else shape(geom)
         state = state_of(g.centroid.y, g.centroid.x)
     georgia_only_orgs = ("Georgia Transmission Corp.", "MEAG Power", "Dalton Utilities", "Georgia ITS (joint)")
     keep = (p["utility"] == "Dominion Energy SC" or state == "GA"
@@ -286,7 +328,7 @@ for p in projects:
         p["utility"] = "Georgia Power"
         p["utility_basis"] = "inferred_from_location"
     props = dict(p, accuracy=accuracy, location_source=loc_src or None,
-                 state=state if state in ("GA", "SC") else None, endpoints=names)
+                 state=state if state in ("GA", "SC") else None, endpoints=names, town_only=town_only)
     props.pop("home")
     features.append(dict(type="Feature", geometry=geom, properties=props))
 

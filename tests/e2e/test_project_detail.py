@@ -42,7 +42,7 @@ def test_project_panel_keyboard_shows_plan_cost_local_page_and_no_overlap(live_s
         source = detail.get_by_role("link", name=f"{props['source']['doc']}, p. 1")
         expect(source).to_have_attribute("href", "/api/sources/desc-scrtp-2026-2030#page=1")
         assert page.request.get(f"{live_server}/api/sources/desc-scrtp-2026-2030").status == 200
-        expect(page.locator("#no-overlap")).to_have_text("97 of 230 projects are not in computed pairs; 49 locations unknown")
+        expect(page.locator("#no-overlap")).to_have_text("96 of 230 projects are not in computed pairs; 49 locations unknown")
         page.get_by_role("button", name="Back to projects").click()
         expect(page.locator('[data-testid="project-row"][data-project-ref="desc-p1"]')).to_be_visible()
         browser.close()
