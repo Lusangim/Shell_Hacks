@@ -1,0 +1,29 @@
+.storm-lab { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--rule); }
+.storm-lab h3 { margin: 0 0 8px; font-size: 16px; }
+.storm-lab h4 { margin: 12px 0 4px; font-size: 14px; }
+.storm-lab button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--rule-strong); border-radius: var(--radius-control); background: var(--panel); color: var(--ink); font: inherit; cursor: pointer; }
+.storm-lab button:focus-visible, .storm-lab input:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.storm-lab button:disabled { opacity: 0.65; cursor: wait; }
+#storm-estimate { width: 100%; font-weight: 600; }
+#storm-status { min-height: 1.4em; }
+.storm-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 12px 0; border-top: 1px solid var(--rule); }
+.storm-controls label { flex-basis: 100%; margin: 0; }
+.storm-controls input { flex: 1; min-width: 120px; min-height: 44px; accent-color: var(--ink); }
+.storm-controls output { min-width: 150px; font-variant-numeric: tabular-nums; }
+.storm-key { padding: 4px 0 12px; border-bottom: 1px solid var(--rule); }
+.storm-key ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 12px; list-style: none; padding: 0; margin: 4px 0; }
+.storm-key li { display: flex; align-items: center; gap: 8px; margin: 0; }
+.storm-sample { display: inline-block; flex: none; width: 28px; border-top: 2px dashed var(--storm-minor); }
+.storm-none { border-top: 2px dotted var(--storm-none); }
+.storm-moderate { border-top: 3px solid var(--storm-moderate); }
+.storm-severe { border-top: 4px dashed var(--storm-severe); }
+.storm-failed { border-top: 5px solid var(--storm-failed); }
+.storm-card { padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.storm-card h3 { margin: 0 0 8px; }
+.storm-card ol, .storm-card ul { margin: 4px 0 0; }
+.storm-card li { margin: 8px 0; }
+.storm-card li p { margin: 2px 0; }
+.storm-card small { display: block; overflow-wrap: anywhere; color: var(--pencil); }
+.storm-action { font-weight: 700; }
+.storm-review { padding: 8px 12px; border: 2px solid var(--error); border-radius: var(--radius-control); font-weight: 700; }
+#storm-cost strong, #storm-coverage, #storm-assets { font-variant-numeric: tabular-nums; }

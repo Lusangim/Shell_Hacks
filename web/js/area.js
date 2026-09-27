@@ -1,4 +1,5 @@
 import { state } from "./state.js";
+import { createStormController } from "./storm.js";
 
 const BAND_LABELS = { touching: "Touching / crossing", lt_1_6km: "Under 1.6 km", lt_8km: "Under 8 km", lt_40km: "Under 40 km" };
 
@@ -60,6 +61,7 @@ export function createAreaController(map, announce, setAreaURL) {
   let requestNumber = 0;
   let controller = null;
   let areaMode = false;
+  const storm = createStormController(map, () => selected);
   // On phones the year slider sits under the top-right controls, so the button uses the free top-left corner.
   const phoneLayout = matchMedia("(max-width: 700px)");
   const areaControl = L.control({ position: phoneLayout.matches ? "topleft" : "topright" });
@@ -100,6 +102,7 @@ export function createAreaController(map, announce, setAreaURL) {
     const hadArea = selected !== null;
     ++requestNumber;
     controller?.abort();
+    storm.clear();
     selected = null;
     removeLayers();
     output.hidden = panel.hidden = true;
@@ -162,6 +165,7 @@ export function createAreaController(map, announce, setAreaURL) {
   }
 
   function explore(result, { entry: origin = document.getElementById("map"), radius = 40, write = true } = {}) {
+    storm.clear();
     selected = { lat: result.lat, lon: result.lon, label: result.label, radius };
     entry = origin;
     draw();
@@ -222,6 +226,7 @@ export function createAreaController(map, announce, setAreaURL) {
   function refreshTheme() {
     circle?.setStyle({ color: token("--ink"), fillColor: token("--map-state") });
     marker?.setStyle({ color: token("--ink"), fillColor: token("--panel") });
+    storm.refreshTheme();
   }
 
   return { clear, explore, refreshTheme };

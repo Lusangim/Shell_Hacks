@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/web/css/app.css">
     <link rel="stylesheet" href="/web/css/area.css">
     <link rel="stylesheet" href="/web/css/area-mode.css">
+    <link rel="stylesheet" href="/web/css/storm.css">
     <link rel="stylesheet" href="/web/css/tour.css">
     <link rel="stylesheet" href="/web/css/detail.css">
     <link rel="stylesheet" href="/web/css/brief.css">
@@ -162,6 +163,46 @@
                 <details><summary>Projects in area</summary><ul id="area-projects"></ul></details>
                 <details><summary>Overlaps with a project in area</summary><ol id="area-overlaps"></ol></details>
               </div>
+              <section id="storm-lab" class="storm-lab" aria-labelledby="storm-heading">
+                <h3 id="storm-heading">Storm scenario (hypothetical)</h3>
+                <p>Hypothetical storm GL-1: not a forecast, not observed damage.</p>
+                <button id="storm-estimate" type="button">Estimate storm cost for this area</button>
+                <p id="storm-status" role="status" aria-live="polite"></p>
+                <div id="storm-results" hidden>
+                  <div class="storm-controls" role="group" aria-label="Storm track controls">
+                    <button id="storm-play" type="button">Play storm</button>
+                    <button id="storm-reset" type="button">Reset storm</button>
+                    <label for="storm-frame">Storm frame</label>
+                    <input id="storm-frame" type="range" min="0" max="12" step="1" value="0">
+                    <output id="storm-frame-label" for="storm-frame"></output>
+                  </div>
+                  <div class="storm-key" role="group" aria-label="Storm damage key">
+                    <p>Illustrative damage class on map</p>
+                    <ul>
+                      <li><span class="storm-sample storm-none"></span>No damage, thin dotted</li>
+                      <li><span class="storm-sample storm-minor"></span>Minor, thin dashed</li>
+                      <li><span class="storm-sample storm-moderate"></span>Moderate, medium solid</li>
+                      <li><span class="storm-sample storm-severe"></span>Severe, thick dashed</li>
+                      <li><span class="storm-sample storm-failed"></span>Failed, thick solid</li>
+                    </ul>
+                  </div>
+                  <section class="storm-card" aria-labelledby="storm-cost-heading">
+                    <h3 id="storm-cost-heading">Cost estimate</h3>
+                    <p id="storm-cost"></p>
+                    <p id="storm-coverage"></p>
+                    <h4>Top assumptions</h4>
+                    <ol id="storm-assumptions"></ol>
+                  </section>
+                  <section class="storm-card" aria-labelledby="storm-decision-heading">
+                    <h3 id="storm-decision-heading">Recommendation</h3>
+                    <div id="storm-decision"></div>
+                  </section>
+                  <section class="storm-card" aria-labelledby="storm-assets-heading">
+                    <h3 id="storm-assets-heading">Most exposed assets</h3>
+                    <ol id="storm-assets"></ol>
+                  </section>
+                </div>
+              </section>
             </section>
           </section>
           <section id="opportunities" class="opportunities" aria-labelledby="opportunities-heading" tabindex="-1">
