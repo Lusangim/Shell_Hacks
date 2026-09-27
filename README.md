@@ -8,6 +8,7 @@ Built for ShellHacks 2026, Sperry Tech GridLock Challenge. It compares Dominion 
 
 **Every feature in screenshots: [docs/DEMO.md](docs/DEMO.md)** · **Behind the page (pipeline, contracts, API,
 security, tests): [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** · **The exact rules: [docs/METHODOLOGY.md](docs/METHODOLOGY.md)**
+· **Live demo script and Q&A: [docs/PITCH.md](docs/PITCH.md)**
 
 ## At a glance
 
