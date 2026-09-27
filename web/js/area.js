@@ -59,6 +59,33 @@ export function createAreaController(map, announce, setAreaURL) {
   let entry = document.getElementById("search-input");
   let requestNumber = 0;
   let controller = null;
+  let areaMode = false;
+  const areaControl = L.control({ position: "topright" });
+  areaControl.onAdd = () => {
+    const container = L.DomUtil.create("div", "leaflet-control-area");
+    const button = L.DomUtil.create("button", "", container);
+    button.id = "area-mode-toggle";
+    button.type = "button";
+    button.textContent = "Explore an area";
+    button.title = "Choose the centre of a 40 km area on the map";
+    button.setAttribute("aria-pressed", "false");
+    L.DomEvent.disableClickPropagation(container);
+    L.DomEvent.disableScrollPropagation(container);
+    return container;
+  };
+  areaControl.addTo(map);
+  const areaModeButton = document.getElementById("area-mode-toggle");
+
+  function setAreaMode(active, announceChange = true) {
+    areaMode = active;
+    areaModeButton.setAttribute("aria-pressed", String(active));
+    map.getContainer().classList.toggle("area-mode-active", active);
+    if (announceChange) announce(active
+      ? "Click the map to choose the centre of a 40 km area. Esc cancels."
+      : "Area selection cancelled.");
+  }
+
+  areaModeButton.addEventListener("click", () => setAreaMode(!areaMode));
 
   function removeLayers() {
     if (circle) map.removeLayer(circle);
@@ -166,7 +193,8 @@ export function createAreaController(map, announce, setAreaURL) {
   }
 
   map.on("click", (event) => {
-    if (event.originalEvent?.target.closest(".leaflet-interactive")) return;
+    if (!areaMode || event.originalEvent?.target.closest(".leaflet-interactive")) return;
+    setAreaMode(false, false);
     explore({ lat: event.latlng.lat, lon: event.latlng.lng });
   });
   radiusInput.addEventListener("input", () => {
@@ -175,6 +203,11 @@ export function createAreaController(map, announce, setAreaURL) {
   retry.addEventListener("click", () => { if (selected) void load(); });
   document.getElementById("area-clear").addEventListener("click", () => clear({ focus: true }));
   document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && areaMode) {
+      event.preventDefault();
+      setAreaMode(false);
+      return;
+    }
     if (event.key === "Escape" && selected && !event.target.closest(".tour-card")) {
       event.preventDefault();
       clear({ focus: true });
