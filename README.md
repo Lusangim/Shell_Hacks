@@ -4,6 +4,22 @@ GridLock is a local screening tool for public transmission plans in Georgia and 
 
 Built for ShellHacks 2026, Sperry Tech GridLock Challenge. It compares Dominion Energy South Carolina's public plan with the Georgia Power, Georgia Transmission and MEAG projects in the SERTP 2025 regional plan.
 
+![GridLock: transmission projects in Georgia and South Carolina on the map, with 465 ranked coordination opportunities](docs/screenshots/01-overview.png)
+
+**Every feature in screenshots: [docs/DEMO.md](docs/DEMO.md)** · **Behind the page (pipeline, contracts, API,
+security, tests): [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** · **The exact rules: [docs/METHODOLOGY.md](docs/METHODOLOGY.md)**
+
+## At a glance
+
+| | |
+| --- | --- |
+| ![Pair #1 open: why the two projects appear together](docs/screenshots/04-top-pair.png) | ![Score 5.8 shown factor by factor](docs/screenshots/07-score.png) |
+| **Open a pair** to see why the two projects appear together, with the plan page behind every fact. | **Every rank can be checked by hand:** the score, factor by factor, with distance counting most. |
+| ![Possible saving by job type and distance](docs/screenshots/06-savings.png) | ![A 40 km area around Savannah](docs/screenshots/11-explore-area.png) |
+| **Possible savings** from what the two kinds of work could share at their distance, labelled as an estimate. | **Explore an area** of 1 to 80 km around any place, with its projects and pairs. |
+| ![A rebuild drawn along existing transmission lines](docs/screenshots/12-route-along-existing-lines.png) | ![Pair #1 on a phone](docs/screenshots/17-phone-pair.png) |
+| **Routes along existing lines** when a plan names only a line's two ends. | **Phone layout**, dark theme and full keyboard use. |
+
 ## Quick start (Windows, macOS, Linux)
 
 1. `git clone https://github.com/Lusangim/Shell_Hacks.git` (needs Python 3.12 and Git)
@@ -22,10 +38,23 @@ troubleshooting): **[RUNNING.md](RUNNING.md)**. How distances, bands and the ran
 - Interactive offline map, project and pair details, 465 ranked opportunities, search, filters, timeline and 1–80 km area explorer.
 - Every pair shows why it ranks where it does: its score, factor by factor (distance band × timing × location × state line × savings, with distance leading).
 - Source-linked evidence, accuracy and uncertainty labels, 119 possible-saving ranges from the team's unit costs by job type and distance, CSV export and a Letter print report.
+- Locations from public map data: a line's real route when one HIFLD line joins its two ends, a route along the existing network when several do, and a "town only" flag when only a town centre matched.
 - A guided tour and a coordination brief for a selected pair. The default brief is an offline, graded **Template**; the app does not send a message or contact anyone.
 - Light and dark themes, keyboard operation, phone layout and an outline-map fallback when the optional offline map archive is absent.
 
 The committed build contains 230 projects from the loaded public plans, 181 mapped project geometries, and 43 pairs whose projects are in different states. Unknown locations remain unknown. The app does not require a Google key, a Claude account or network access for its default experience.
+
+## How it works
+
+- **Pipeline** (Python, offline, about 4 seconds): two plan PDFs → 481 rows → 230 projects in Georgia and South
+  Carolina → 181 placed on the map from public substation and line data → 465 pairs within 40 km → savings and
+  ranks. Every file is checked against Pydantic data contracts, and rebuilds are byte-identical.
+- **Server** (FastAPI, loopback only): read-only JSON routes for projects, pairs, search, areas, briefs, CSV and
+  the source PDFs; a Content Security Policy; short JSON errors; a guarded, switched-off AI brief route.
+- **Web app** (Leaflet, no build step): the map, ranked list, pair and project details, brief, export, print and
+  tour, in light and dark, on desktop and phone.
+
+The details, with a diagram and a sample API response, are in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 The richer offline street map is an external PMTiles archive, `gasc-z13.pmtiles` (221 MB, not in git). SETUP downloads it once to `~/dev/gridlock-assets/`; `GRIDLOCK_BASEMAP_PMTILES` selects another copy. Without it, GridLock visibly uses its committed state-outline basemap and the list, details and exports still work. A Google Maps key of your own and an online browser can enable optional roadmap/satellite layers (see RUNNING.md).
 
