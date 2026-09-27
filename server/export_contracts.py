@@ -8,6 +8,7 @@ from server.schemas import (
     Area, Brief, ErrorResponse, Meta, Overlap, ProjectCollection,
     ProjectFeature, SearchResult,
 )
+from server.storm.schemas import StormEstimate
 
 
 MODELS = {
@@ -19,6 +20,7 @@ MODELS = {
     "meta": Meta,
     "search-result": SearchResult,
     "error": ErrorResponse,
+    "storm-estimate": StormEstimate,
 }
 
 

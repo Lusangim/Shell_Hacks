@@ -53,7 +53,7 @@ def test_edge_project_fixtures_validate(name):
 
 
 def test_schemas_exported_for_every_model():
-    expected = {"project", "projects", "overlap", "brief", "area", "meta", "search-result", "error"}
+    expected = {"project", "projects", "overlap", "brief", "area", "meta", "search-result", "error", "storm-estimate"}
     for name in expected:
         schema = json.loads((CONTRACTS / f"{name}.schema.json").read_text(encoding="utf-8"))
         assert schema["$schema"] == "https://json-schema.org/draft/2020-12/schema"

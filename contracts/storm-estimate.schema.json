@@ -1,0 +1,528 @@
+{
+  "$defs": {
+    "Damage": {
+      "additionalProperties": false,
+      "properties": {
+        "failed": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Failed",
+          "type": "number"
+        },
+        "minor": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Minor",
+          "type": "number"
+        },
+        "moderate": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Moderate",
+          "type": "number"
+        },
+        "severe": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Severe",
+          "type": "number"
+        }
+      },
+      "required": [
+        "minor",
+        "moderate",
+        "severe",
+        "failed"
+      ],
+      "title": "Damage",
+      "type": "object"
+    },
+    "DecisionReason": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text",
+        "evidence"
+      ],
+      "title": "DecisionReason",
+      "type": "object"
+    },
+    "Frame": {
+      "additionalProperties": false,
+      "properties": {
+        "dp_hpa": {
+          "exclusiveMinimum": 0,
+          "title": "Dp Hpa",
+          "type": "number"
+        },
+        "index": {
+          "minimum": 0,
+          "title": "Index",
+          "type": "integer"
+        },
+        "lat": {
+          "title": "Lat",
+          "type": "number"
+        },
+        "lon": {
+          "title": "Lon",
+          "type": "number"
+        },
+        "rmax_km": {
+          "exclusiveMinimum": 0,
+          "title": "Rmax Km",
+          "type": "number"
+        },
+        "t_hours": {
+          "title": "T Hours",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "index",
+        "t_hours",
+        "lat",
+        "lon",
+        "dp_hpa",
+        "rmax_km"
+      ],
+      "title": "Frame",
+      "type": "object"
+    },
+    "LineGeometry": {
+      "additionalProperties": false,
+      "properties": {
+        "coordinates": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Coordinates",
+          "type": "array"
+        },
+        "type": {
+          "const": "LineString",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ],
+      "title": "LineGeometry",
+      "type": "object"
+    },
+    "PointGeometry": {
+      "additionalProperties": false,
+      "properties": {
+        "coordinates": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Coordinates",
+          "type": "array"
+        },
+        "type": {
+          "const": "Point",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ],
+      "title": "PointGeometry",
+      "type": "object"
+    },
+    "ScenarioInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "frames": {
+          "items": {
+            "$ref": "#/$defs/Frame"
+          },
+          "title": "Frames",
+          "type": "array"
+        },
+        "id": {
+          "const": "gl1",
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "mode": {
+          "const": "hypothetical",
+          "title": "Mode",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "mode",
+        "version",
+        "label",
+        "frames"
+      ],
+      "title": "ScenarioInfo",
+      "type": "object"
+    },
+    "StormArea": {
+      "additionalProperties": false,
+      "properties": {
+        "lat": {
+          "title": "Lat",
+          "type": "number"
+        },
+        "lon": {
+          "title": "Lon",
+          "type": "number"
+        },
+        "radius_km": {
+          "maximum": 80,
+          "minimum": 1,
+          "title": "Radius Km",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lat",
+        "lon",
+        "radius_km"
+      ],
+      "title": "StormArea",
+      "type": "object"
+    },
+    "StormAsset": {
+      "additionalProperties": false,
+      "properties": {
+        "accuracy": {
+          "enum": [
+            "exact",
+            "approximate"
+          ],
+          "title": "Accuracy",
+          "type": "string"
+        },
+        "class": {
+          "enum": [
+            "line_wood",
+            "line_steel",
+            "substation"
+          ],
+          "title": "Class",
+          "type": "string"
+        },
+        "damage": {
+          "$ref": "#/$defs/Damage"
+        },
+        "evidence": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "expected_usd": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Usd"
+        },
+        "geometry": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PointGeometry"
+            },
+            {
+              "$ref": "#/$defs/LineGeometry"
+            }
+          ],
+          "title": "Geometry"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "peak_frame": {
+          "maximum": 12,
+          "minimum": 0,
+          "title": "Peak Frame",
+          "type": "integer"
+        },
+        "peak_wind_mph": {
+          "minimum": 0,
+          "title": "Peak Wind Mph",
+          "type": "number"
+        },
+        "peak_wind_ms": {
+          "minimum": 0,
+          "title": "Peak Wind Ms",
+          "type": "number"
+        },
+        "replacement_usd": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Replacement Usd"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "class",
+        "name",
+        "accuracy",
+        "source",
+        "geometry",
+        "peak_wind_ms",
+        "peak_wind_mph",
+        "peak_frame",
+        "damage",
+        "evidence"
+      ],
+      "title": "StormAsset",
+      "type": "object"
+    },
+    "StormDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "human_review",
+            "coordinate_project_timing",
+            "inspect_asset",
+            "preposition_crews",
+            "verify_source"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "provider": {
+          "const": "system-rule-v1",
+          "title": "Provider",
+          "type": "string"
+        },
+        "reasons": {
+          "items": {
+            "$ref": "#/$defs/DecisionReason"
+          },
+          "minItems": 1,
+          "title": "Reasons",
+          "type": "array"
+        },
+        "review_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Review Reason"
+        },
+        "review_required": {
+          "title": "Review Required",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "action",
+        "provider",
+        "confidence",
+        "reasons",
+        "review_required",
+        "review_reason"
+      ],
+      "title": "StormDecision",
+      "type": "object"
+    },
+    "StormSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "assets_exact": {
+          "minimum": 0,
+          "title": "Assets Exact",
+          "type": "integer"
+        },
+        "assets_total": {
+          "minimum": 0,
+          "title": "Assets Total",
+          "type": "integer"
+        },
+        "assets_with_cost": {
+          "minimum": 0,
+          "title": "Assets With Cost",
+          "type": "integer"
+        },
+        "coverage_share": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Coverage Share",
+          "type": "number"
+        },
+        "draws": {
+          "exclusiveMinimum": 0,
+          "title": "Draws",
+          "type": "integer"
+        },
+        "mean_usd": {
+          "minimum": 0,
+          "title": "Mean Usd",
+          "type": "integer"
+        },
+        "method_version": {
+          "const": "storm-v1",
+          "title": "Method Version",
+          "type": "string"
+        },
+        "p10_usd": {
+          "minimum": 0,
+          "title": "P10 Usd",
+          "type": "integer"
+        },
+        "p50_usd": {
+          "minimum": 0,
+          "title": "P50 Usd",
+          "type": "integer"
+        },
+        "p90_usd": {
+          "minimum": 0,
+          "title": "P90 Usd",
+          "type": "integer"
+        },
+        "seed": {
+          "title": "Seed",
+          "type": "integer"
+        },
+        "top_assumptions": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "title": "Top Assumptions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "assets_total",
+        "assets_exact",
+        "assets_with_cost",
+        "coverage_share",
+        "p10_usd",
+        "p50_usd",
+        "p90_usd",
+        "mean_usd",
+        "draws",
+        "seed",
+        "method_version",
+        "top_assumptions"
+      ],
+      "title": "StormSummary",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "area": {
+      "$ref": "#/$defs/StormArea"
+    },
+    "assets": {
+      "items": {
+        "$ref": "#/$defs/StormAsset"
+      },
+      "maxItems": 200,
+      "title": "Assets",
+      "type": "array"
+    },
+    "decision": {
+      "$ref": "#/$defs/StormDecision"
+    },
+    "scenario": {
+      "$ref": "#/$defs/ScenarioInfo"
+    },
+    "summary": {
+      "$ref": "#/$defs/StormSummary"
+    }
+  },
+  "required": [
+    "scenario",
+    "area",
+    "assets",
+    "summary",
+    "decision"
+  ],
+  "title": "StormEstimate",
+  "type": "object"
+}

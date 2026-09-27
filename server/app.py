@@ -27,6 +27,9 @@ from server.brief_routes import register_brief_routes, stale_brief_count
 from server.map_assets import GOOGLE_CSP, OFFLINE_CSP, MapConfig, archive_response, map_error, offline_available, same_origin
 from server.schemas import Area, Band, ErrorResponse, LineGeometry, Meta, MultiLineGeometry, Overlap, PointGeometry, ProjectCollection, ProjectFeature, Savings, SearchResult, Source
 from server.settings import ROOT, Settings
+from server.storm.data import load_storm_data
+from server.storm.schemas import ScenarioChoice, StormEstimate
+from server.storm.service import estimate as estimate_storm
 
 
 SOURCE_PDFS = MappingProxyType({
@@ -328,6 +331,7 @@ def create_app(artifact_dir: Path | None = None, settings: Settings | None = Non
     @asynccontextmanager
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         app.state.artifacts = load_artifacts(directory, fixture_dir=fixture_dir)
+        app.state.storm_data = load_storm_data()
         yield
 
     app = FastAPI(lifespan=lifespan)
@@ -406,6 +410,22 @@ def create_app(artifact_dir: Path | None = None, settings: Settings | None = Non
     ) -> Area:
         artifacts: Artifacts = request.app.state.artifacts
         return build_area(artifacts.projects, artifacts.overlaps, lat=lat, lon=lon, radius_km=radius_km)
+
+    @app.get("/api/storm/scenarios", response_model=list[ScenarioChoice])
+    def storm_scenarios(request: Request) -> list[ScenarioChoice]:
+        source = request.app.state.storm_data.scenario
+        return [ScenarioChoice(**{key: source[key] for key in ("id", "name", "mode", "version", "label")})]
+
+    @app.get("/api/storm/estimate", response_model=StormEstimate, responses={422: {"model": ErrorResponse}})
+    def storm_estimate(
+        request: Request,
+        scenario: Annotated[str, Query(pattern="^gl1$")],
+        lat: Annotated[float, Query(ge=-90, le=90, allow_inf_nan=False)],
+        lon: Annotated[float, Query(ge=-180, le=180, allow_inf_nan=False)],
+        radius_km: Annotated[float, Query(ge=1, le=80, allow_inf_nan=False)] = 40.0,
+    ) -> StormEstimate:
+        return estimate_storm(request.app.state.storm_data, request.app.state.artifacts.projects,
+                              lat=lat, lon=lon, radius_km=radius_km)
 
     @app.get("/api/projects", response_model=ProjectCollection, responses={422: {"model": ErrorResponse}})
     def projects(
