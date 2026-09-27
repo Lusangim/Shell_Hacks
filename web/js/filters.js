@@ -18,6 +18,23 @@ function validArea(value) {
   return Number.isFinite(lat) && Number.isFinite(lon) && lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180;
 }
 
+const BAND_WORDS = { touching: "touching / crossing", lt_1_6km: "under 1.6 km", lt_8km: "under 8 km", lt_40km: "under 40 km" };
+const TYPE_WORDS = { new_line: "new line", rebuild_line: "rebuild line", reconductor: "reconductor", new_substation: "new substation",
+  substation_upgrade: "substation upgrade", equipment: "equipment", other: "other project type" };
+
+// Plain words for the active filters, for empty states; never raw values.
+function describeFilters(filters) {
+  const parts = [];
+  if (filters.utility.length) parts.push(filters.utility.join(", "));
+  if (filters.band) parts.push(BAND_WORDS[filters.band] ?? "one distance band");
+  if (filters.voltage_kv) parts.push(`${filters.voltage_kv} kV`);
+  if (filters.year_min) parts.push(`in service from ${filters.year_min}`);
+  if (filters.year_max) parts.push(`in service through ${filters.year_max}`);
+  if (filters.project_type) parts.push(TYPE_WORDS[filters.project_type] ?? "one project type");
+  if (filters.cross_state) parts.push(filters.cross_state === "true" ? "cross-state only" : "within one state");
+  return parts.join("; ");
+}
+
 function filterQuery(filters) {
   const params = new URLSearchParams();
   for (const utility of filters.utility) params.append("utility", utility);
@@ -223,5 +240,5 @@ export function setupFilters(onChange) {
   }
 
   return { hydrate, clear, hasActive: () => filterQuery(current).toString() !== "", query: () => filterQuery(current),
-    year: () => reserved.year, setYear, setArea };
+    describe: () => describeFilters(current), year: () => reserved.year, setYear, setArea };
 }

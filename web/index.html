@@ -23,20 +23,25 @@
     <section class="map-region" role="region" aria-label="Interactive project map">
       <div id="map" class="map" data-testid="map"></div>
       <button id="map-pair-open" class="map-pair-open" type="button" hidden>Open highlighted pair</button>
-      <p class="map-note">Public plan locations. Solid lines are exact; dashed lines are approximate.</p>
+      <div class="map-key" role="group" aria-label="Map key" data-testid="map-key">
+        <p class="map-key-title">Map key</p>
+        <ul class="key-list">
+          <li><svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line x1="3" y1="8" x2="25" y2="8"/><circle cx="37" cy="8" r="5"/></svg><span>Exact location</span></li>
+          <li><svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line class="key-dashed" x1="3" y1="8" x2="25" y2="8"/><circle class="key-ring" cx="37" cy="8" r="5"/></svg><span>Approximate location</span></li>
+          <li><svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line class="key-dotted" x1="3" y1="8" x2="25" y2="8"/><circle class="key-ring-dashed" cx="37" cy="8" r="5"/></svg><span>Town-level location</span></li>
+        </ul>
+        <p class="key-note">Lines are routes; dots and rings are single sites. Colour shows the utility.</p>
+      </div>
     </section>
     <aside class="panel" data-testid="bottom-sheet" aria-label="Coordination opportunities">
       <header class="title-block">
         <div class="title-line">
-          <div>
-            <p class="eyebrow">Public transmission plans / GA + SC</p>
-            <h1>GridLock</h1>
-          </div>
+          <h1>GridLock</h1>
           <div class="title-actions">
             <button id="tour-launch" type="button"></button>
             <button id="projects-toggle" class="view-button" type="button" aria-pressed="false" aria-controls="projects-panel">Projects</button>
             <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to dark theme" title="Switch theme">
-              <img id="theme-icon" src="/web/icons/moon.svg" alt="" width="20" height="20">
+              <span id="theme-icon" class="icon" data-icon="moon" aria-hidden="true"></span>
             </button>
           </div>
         </div>
@@ -45,38 +50,70 @@
           <button id="tour-dismiss" type="button" hidden></button>
         </div>
         <p class="subhead">Coordination opportunities</p>
-        <p id="editions" class="edition-line" data-src="source_documents">Loading plan editions</p>
+        <div class="edition-block">
+          <p class="edition-label">Georgia and South Carolina public transmission plans</p>
+          <p id="editions" class="edition-line" data-src="source_documents">Loading plan editions</p>
+        </div>
         <p id="no-overlap" class="tally" data-src="no_overlap_count">Loading project counts</p>
         <p id="status" class="status-line" role="status" aria-live="polite">Loading public plans.</p>
         <button id="sheet-toggle" class="sheet-toggle" type="button" aria-expanded="false" aria-controls="panel-body">Expand opportunities</button>
       </header>
       <div id="panel-body" class="panel-body">
         <details class="legend">
-          <summary>Legend and reports</summary>
+          <summary>Map key and reports</summary>
+          <div class="legend-section">
+            <p class="legend-heading">Location</p>
+            <div class="legend-grid">
+              <svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line x1="3" y1="8" x2="25" y2="8"/><circle cx="37" cy="8" r="5"/></svg><span>Exact location</span>
+              <svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line class="key-dashed" x1="3" y1="8" x2="25" y2="8"/><circle class="key-ring" cx="37" cy="8" r="5"/></svg><span>Approximate location</span>
+              <svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line class="key-dotted" x1="3" y1="8" x2="25" y2="8"/><circle class="key-ring-dashed" cx="37" cy="8" r="5"/></svg><span>Town-level location: only a town centre matched</span>
+            </div>
+            <p>Lines are routes; dots and rings are single sites. Unknown locations are listed, not drawn.</p>
+          </div>
+          <div class="legend-section">
+            <p class="legend-heading">Utilities</p>
+            <div class="legend-grid">
+              <span class="sample sample-desc"></span><span>Dominion Energy SC</span>
+              <span class="sample sample-gp"></span><span>Georgia Power</span>
+              <span class="sample sample-meag"></span><span>MEAG Power</span>
+              <span class="sample sample-gtc"></span><span>Georgia Transmission Corp.</span>
+              <span class="sample sample-minor"></span><span>Dalton Utilities / Georgia ITS (joint)</span>
+            </div>
+            <p>“(inferred)” means the plan names only Southern Company; the utility is inferred from the project location.</p>
+          </div>
+          <div class="legend-section">
+            <p class="legend-heading">Line width follows voltage</p>
+            <div class="legend-grid">
+              <span class="voltage-sample voltage-6"></span><span>500 kV and up</span>
+              <span class="voltage-sample voltage-4"></span><span>230 kV</span>
+              <span class="voltage-sample voltage-3"></span><span>115 kV</span>
+              <span class="voltage-sample voltage-2"></span><span>Lower or not stated</span>
+            </div>
+          </div>
+          <div class="legend-section">
+            <p class="legend-heading">Distance bands</p>
+            <div class="legend-grid">
+              <svg class="band-glyph" viewBox="0 0 14 12" aria-hidden="true" focusable="false"><rect class="on" x="0.5" y="8.5" width="2" height="3"/><rect class="on" x="4.2" y="6" width="2" height="5.5"/><rect class="on" x="7.9" y="3.5" width="2" height="8"/><rect class="on" x="11.5" y="0.5" width="2" height="11"/></svg><span>Touching / crossing</span>
+              <svg class="band-glyph" viewBox="0 0 14 12" aria-hidden="true" focusable="false"><rect class="on" x="0.5" y="8.5" width="2" height="3"/><rect class="on" x="4.2" y="6" width="2" height="5.5"/><rect class="on" x="7.9" y="3.5" width="2" height="8"/><rect x="11.5" y="0.5" width="2" height="11"/></svg><span>Under 1.6 km</span>
+              <svg class="band-glyph" viewBox="0 0 14 12" aria-hidden="true" focusable="false"><rect class="on" x="0.5" y="8.5" width="2" height="3"/><rect class="on" x="4.2" y="6" width="2" height="5.5"/><rect x="7.9" y="3.5" width="2" height="8"/><rect x="11.5" y="0.5" width="2" height="11"/></svg><span>Under 8 km</span>
+              <svg class="band-glyph" viewBox="0 0 14 12" aria-hidden="true" focusable="false"><rect class="on" x="0.5" y="8.5" width="2" height="3"/><rect x="4.2" y="6" width="2" height="5.5"/><rect x="7.9" y="3.5" width="2" height="8"/><rect x="11.5" y="0.5" width="2" height="11"/></svg><span>Under 40 km</span>
+            </div>
+          </div>
           <section class="report-controls" aria-label="Export and print">
+            <p class="legend-heading">Reports</p>
             <div class="report-buttons">
               <button id="export-csv" type="button" disabled>Export CSV</button>
               <button id="print-report-button" type="button" disabled>Print report</button>
             </div>
             <p id="export-status" role="status">Export and print are available after the current results load.</p>
           </section>
-          <div class="legend-grid">
-            <span class="sample sample-desc"></span><span>Dominion Energy SC</span>
-            <span class="sample sample-gp"></span><span>Georgia Power</span>
-            <span class="sample sample-meag"></span><span>MEAG Power</span>
-            <span class="sample sample-gtc"></span><span>Georgia Transmission Corp.</span>
-            <span class="sample sample-minor"></span><span>Dalton Utilities / Georgia ITS (joint)</span>
-          </div>
-          <p>Line width follows voltage: 500 kV and up / 230 kV / 115 kV / lower or not stated.</p>
-          <p>Solid: exact location. Dashed: approximate location. Unknown: listed only.</p>
-          <p>Distance bands: ● Touching / ▦ Under 1.6 km / ▥ Under 8 km / ▧ Under 40 km.</p>
         </details>
         <section class="search-region" aria-label="Find a place or project">
           <div class="search-controls">
             <button id="filters-toggle" class="filters-toggle" type="button" aria-expanded="false" aria-controls="filter-panel" disabled>Filters</button>
             <form id="search-form" role="search">
               <label for="search-input">Search a city or project</label>
-              <input id="search-input" type="search" list="search-options" autocomplete="off" minlength="2">
+              <span class="search-field"><input id="search-input" type="search" list="search-options" autocomplete="off" minlength="2" placeholder="Search a city or project"></span>
               <datalist id="search-options"></datalist>
             </form>
           </div>
@@ -138,14 +175,14 @@
           <div id="overlap-content"></div>
         </section>
         <section id="brief-panel" class="brief-panel" aria-labelledby="brief-heading" hidden>
-          <h2 id="brief-heading">Coordination brief</h2>
+          <h2 id="brief-heading" tabindex="-1">Coordination brief</h2>
           <p id="brief-origin" class="brief-origin"></p>
-          <div id="brief-content"></div>
-          <p id="brief-state" class="brief-state" role="status"></p>
           <div class="brief-actions">
             <button id="brief-copy" type="button" disabled>Copy brief</button>
             <button id="brief-retry" type="button" hidden>Retry brief</button>
           </div>
+          <p id="brief-state" class="brief-state" role="status"></p>
+          <div id="brief-content"></div>
         </section>
         <section id="opportunities" class="opportunities" aria-labelledby="opportunities-heading" tabindex="-1">
           <div class="section-head"><h2 id="opportunities-heading">Ranked overlaps</h2><span id="overlap-count" class="count" data-src="count"></span></div>
