@@ -151,7 +151,11 @@ def test_full_contract_scene(live_server, state, width, height, theme, record_pr
             # Expand disclosures through native controls so legend, raw evidence,
             # filters and their targets are measured as reachable parts of each scene.
             close_more(page)
-            expected = page.locator('#overlap-content [data-src]').all_text_contents() if state == "detail" else []
+            # The print report carries the pair's key facts verbatim (names, utilities, citations,
+            # why they appear together, location confidence, the labelled estimate), not every evidence field.
+            key_facts = ",".join(f'#overlap-content [data-src="{field}"]' for field in (
+                "name", "utility", "source", "touch_reason", "touch_detail", "accuracy_pair", "town_capped", "savings_status"))
+            expected = page.locator(key_facts).all_text_contents() if state == "detail" else []
             detail_expanded = {}
             brief_expanded = {}
             if state == "detail":

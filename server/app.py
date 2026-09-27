@@ -9,6 +9,7 @@ import re
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
 from datetime import date
+from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 from types import MappingProxyType
 from typing import Annotated, AsyncIterator, Awaitable, Callable, Literal, TypeVar
@@ -21,7 +22,6 @@ from pydantic import BaseModel, ConfigDict, Field, JsonValue, TypeAdapter, Valid
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.responses import Response
 
-from pipeline.savings import UNIT_COSTS_ID, UNIT_COSTS_LABEL
 from server.area import build_area
 from server.brief_routes import register_brief_routes, stale_brief_count
 from server.map_assets import GOOGLE_CSP, OFFLINE_CSP, MapConfig, archive_response, map_error, offline_available, same_origin
@@ -36,26 +36,14 @@ SOURCE_PDFS = MappingProxyType({
     "desc-scrtp-2026-2030": ROOT / "data" / "raw" / "desc_scrtp_2026_2030.pdf",
     "sertp-2025-rtp": ROOT / "data" / "raw" / "sertp_2025_rtp.pdf",
 })
-# What a planner reads first comes first; the evidence and reference columns follow. Codes appear as words.
+# Only the key facts, one ranked pair per row, as plain numbers Excel can sort. The browser fills the two
+# tracker columns by matching the pair ID, so that ID stays the final column.
 CSV_COLUMNS = (
-    "Rank", "Score", "Project A", "Utility A", "In-service year A", "Project B", "Utility B",
-    "In-service year B", "Year gap", "Years to coordinate", "Distance km", "Band", "Touch reason",
-    "Why they touch", "Accuracy A", "Accuracy B", "Savings low USD", "Savings high USD", "Savings status",
-    "Savings basis", "Source A", "Source page A", "Source B", "Source page B", "Coordination status", "Notes",
-    "Overlap ID", "Savings assumptions", "Savings caveat",
+    "Rank", "Score", "Utility A", "Project A", "In service A", "Utility B", "Project B", "In service B",
+    "Distance (km)", "Proximity", "Years to coordinate", "Crosses state line",
+    "Possible saving low (USD)", "Possible saving high (USD)", "Location accuracy", "Sources",
+    "Coordination status", "Notes", "Overlap ID",
 )
-CSV_TOUCH_REASONS = MappingProxyType({
-    "same_substation": "Same named substation", "shared_endpoint": "Shared named endpoint",
-    "lines_cross": "Mapped lines cross", "proximity": "Nearby mapped locations",
-    "same_area_approximate": "Same approximate area",
-})
-CSV_SAVINGS_STATUS = MappingProxyType({
-    "range": "Screening estimate",
-    "timing_too_far": "No estimate: in-service years more than 2 apart",
-    "no_cost": "No estimate: no size, or nothing both jobs need at this distance",
-    "unknown_year": "No estimate: an in-service year is not stated",
-})
-CSV_CAVEAT = "Shared work and savings are not verified; confirm scope, costs, and schedules with the utilities."
 
 
 class Health(BaseModel):
@@ -263,11 +251,6 @@ def _csv_text(value: str) -> str:
     return f"'{value}" if value and value[0] in "=+-@\t\r\n" else value
 
 
-def _csv_assumption_labels() -> dict[str, str]:
-    """Present the savings basis and its provenance without exposing assumption IDs."""
-    return {UNIT_COSTS_ID: UNIT_COSTS_LABEL}
-
-
 def _csv_utility(project: ProjectFeature) -> str:
     props = project.properties
     suffix = " (inferred)" if props.utility_basis == "inferred_from_location" else ""
@@ -276,7 +259,21 @@ def _csv_utility(project: ProjectFeature) -> str:
 
 def _csv_accuracy(project: ProjectFeature) -> str:
     props = project.properties
-    return props.accuracy.value + (" (town only)" if props.town_only else "")
+    return props.accuracy.value.capitalize() + (" (town only)" if props.town_only else "")
+
+
+def _csv_citation(project: ProjectFeature) -> str:
+    source = project.properties.source
+    return f"{source.doc}, p. {source.page}"
+
+
+def _csv_km(value: float) -> str:
+    """One decimal, rounded half up like the page's toFixed(1), so the file and the page agree."""
+    return str(Decimal(value).quantize(Decimal("0.1"), rounding=ROUND_HALF_UP))
+
+
+def _csv_known(value: int | None) -> int | str:
+    return "unknown" if value is None else value
 
 
 def years_to_coordinate(pair: Overlap, this_year: int) -> int | None:
@@ -286,25 +283,20 @@ def years_to_coordinate(pair: Overlap, this_year: int) -> int | None:
     return max(0, min(pair.a_year, pair.b_year) - this_year)
 
 
-def _csv_row(
-    pair: Overlap, projects: dict[str, ProjectFeature], assumption_labels: dict[str, str], this_year: int,
-) -> tuple[str | int | float | None, ...]:
-    a = projects[pair.a].properties
-    b = projects[pair.b].properties
+def _csv_row(pair: Overlap, projects: dict[str, ProjectFeature], this_year: int) -> tuple[str | int | float, ...]:
+    a, b = projects[pair.a], projects[pair.b]
     savings = pair.savings
-    assumptions = " ".join(
-        assumption_labels.get(assumption_id, "Assumption details unavailable; verify before using this estimate.")
-        for assumption_id in savings.assumption_ids
-    )
+    # A pair without an estimate leaves both cells blank, never 0.
+    estimate = savings.status == "range" and savings.low_usd is not None and savings.high_usd is not None
     return (
-        pair.rank, pair.score, _csv_text(a.name), _csv_utility(projects[pair.a]), a.year,
-        _csv_text(b.name), _csv_utility(projects[pair.b]), b.year, pair.year_gap,
-        years_to_coordinate(pair, this_year), pair.distance_km, _csv_text(pair.band_label),
-        CSV_TOUCH_REASONS[pair.touch_reason], _csv_text(pair.touch_detail),
-        _csv_accuracy(projects[pair.a]), _csv_accuracy(projects[pair.b]), savings.low_usd, savings.high_usd,
-        CSV_SAVINGS_STATUS[savings.status], _csv_text(savings.basis),
-        _csv_text(a.source.doc), a.source.page, _csv_text(b.source.doc), b.source.page, "", "",
-        _csv_text(pair.id), _csv_text(assumptions), CSV_CAVEAT,
+        pair.rank, pair.score,
+        _csv_utility(a), _csv_text(a.properties.name), _csv_known(a.properties.year),
+        _csv_utility(b), _csv_text(b.properties.name), _csv_known(b.properties.year),
+        _csv_km(pair.distance_km), _csv_text(pair.band_label),
+        _csv_known(years_to_coordinate(pair, this_year)), "Yes" if pair.cross_state else "No",
+        round(savings.low_usd) if estimate else "", round(savings.high_usd) if estimate else "",
+        f"{_csv_accuracy(a)} / {_csv_accuracy(b)}", _csv_text(f"{_csv_citation(a)}; {_csv_citation(b)}"),
+        "", "", _csv_text(pair.id),
     )
 
 
@@ -313,10 +305,10 @@ def export_csv(pairs: list[Overlap], projects: ProjectCollection) -> bytes:
     writer = csv.writer(output, lineterminator="\r\n")
     writer.writerow(CSV_COLUMNS)
     by_id = {project.properties.id: project for project in projects.features}
-    assumption_labels = _csv_assumption_labels()
     this_year = date.today().year
     for pair in pairs:
-        writer.writerow(_csv_row(pair, by_id, assumption_labels, this_year))
+        writer.writerow(_csv_row(pair, by_id, this_year))
+    # The byte-order mark lets Excel read UTF-8, so dashes and names show as written.
     return ("\ufeff" + output.getvalue()).encode("utf-8")
 
 
