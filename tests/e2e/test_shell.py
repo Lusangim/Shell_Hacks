@@ -237,7 +237,6 @@ def test_shell_renders_all_placed_projects_and_ranked_rows_without_console_error
         assert len(api_overlaps) >= 10
         expect(page.get_by_text("Location unknown (1)")).to_be_visible()
         expect(page.locator("#editions")).to_contain_text("2025-01-01")
-        expect(page.get_by_test_id("overlap-row").first.locator('[data-src="source"]')).to_have_count(2)
         assert errors == []
         assert external_requests == []
         if width == 390:
@@ -249,6 +248,13 @@ def test_shell_renders_all_placed_projects_and_ranked_rows_without_console_error
               panelTop: document.querySelector('.panel').getBoundingClientRect().top
             })""")
             assert sheet_layout["rowBottom"] <= sheet_layout["viewportBottom"], sheet_layout
+        # Rows no longer carry citations; each project of the first pair still cites its plan page in its detail.
+        expect(page.get_by_test_id("overlap-row").first.locator('[data-src="source"]')).to_have_count(0)
+        for project_id in (api_overlaps[0]["a"], api_overlaps[0]["b"]):
+            source = next(feature for feature in api_projects["features"] if feature["properties"]["id"] == project_id)["properties"]["source"]
+            page.evaluate("id => document.dispatchEvent(new CustomEvent('gridlock:project-click', {detail: {projectId: id}}))", project_id)
+            expect(page.locator('#project-fields [data-src="source"]')).to_have_text(f'{source["doc"]}, p. {source["page"]}')
+        assert errors == []
         browser.close()
 
 
@@ -262,7 +268,11 @@ def test_malicious_project_name_is_text_in_list_and_map_tooltip(shell_server):
         page.get_by_test_id("project-feature").first.hover()
         tooltip = page.locator(".leaflet-tooltip")
         expect(tooltip).to_contain_text(MALICIOUS_NAME)
-        expect(tooltip).to_contain_text("Synthetic test plan, p. 1")
+        # Map labels carry no citation; the project's detail keeps it next to the same hostile name, as text.
+        expect(tooltip).not_to_contain_text("Synthetic test plan")
+        page.get_by_test_id("project-feature").first.click()
+        expect(page.locator("#project-detail-heading")).to_have_text(MALICIOUS_NAME)
+        expect(page.locator('#project-fields [data-src="source"]')).to_have_text("Synthetic test plan, p. 1")
         assert page.locator("img[src='x']").count() == 0
         assert page.evaluate("window.injected === undefined")
         browser.close()

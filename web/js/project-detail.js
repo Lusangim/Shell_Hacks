@@ -124,6 +124,7 @@ export function setupProjectDetail() {
   const projectsPanel = document.getElementById("projects-panel");
   const detail = document.getElementById("project-detail");
   const overlapDetail = document.getElementById("overlap-detail");
+  const detailBar = document.getElementById("detail-bar");
   const unknown = document.getElementById("unknown-locations");
   const filter = document.getElementById("project-filter");
   const list = document.getElementById("project-list");
@@ -141,6 +142,10 @@ export function setupProjectDetail() {
   function showView(next) {
     view = next;
     opportunities.hidden = next !== "overlaps" && next !== "overlap-detail";
+    // With a pair open, step 2 keeps just the chosen row (see app.css) and step 3 follows it;
+    // Back brings the whole ranked list back.
+    opportunities.classList.toggle("pair-open", next === "overlap-detail");
+    detailBar.hidden = next !== "overlap-detail";
     projectsPanel.hidden = next !== "projects";
     detail.hidden = next !== "detail";
     overlapDetail.hidden = next !== "overlap-detail";

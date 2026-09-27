@@ -210,6 +210,19 @@ function setupSheet() {
   searchInput.addEventListener("input", () => {
     document.getElementById("search-state").dataset.active = String(searchInput.value.trim().length > 0);
   });
+  // The map key is long: on a phone, opening it in the peek also opens the sheet.
+  const legend = document.querySelector(".legend");
+  legend.addEventListener("toggle", () => {
+    if (legend.open && matchMedia("(max-width: 700px)").matches && !sheet.classList.contains("expanded")) setExpanded(true);
+  });
+}
+
+// Report feedback stays a quiet live region until someone uses CSV or Print, then shows.
+function setupReportStatus() {
+  const message = document.getElementById("export-status");
+  for (const id of ["export-csv", "print-report-button"]) {
+    document.getElementById(id).addEventListener("click", () => { message.dataset.shown = "true"; });
+  }
 }
 
 initializeMap();
@@ -217,6 +230,7 @@ const searchControl = setupSearch(filterControl);
 delete document.documentElement.dataset.areaLayout;
 setupTheme();
 setupSheet();
+setupReportStatus();
 setupTour();
 document.addEventListener("gridlock:project-click", (event) => {
   overlapView.close();

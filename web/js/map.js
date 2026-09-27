@@ -62,6 +62,9 @@ function pointRadius(feature) {
   return locationLook(projectProperties(feature)) === "exact" ? base : base + 1;
 }
 
+// A short label: the project name (two lines at most, full text kept) and its utility.
+// Hovering adds one accuracy line; the pair's persistent labels hide it (see openLabel).
+// Citations live in the pair and project details, never on the map.
 function tooltipFor(feature) {
   const properties = projectProperties(feature);
   const wrapper = document.createElement("div");
@@ -69,6 +72,7 @@ function tooltipFor(feature) {
   title.className = "tooltip-name";
   title.dataset.src = "name";
   title.textContent = properties.name ?? "Name not stated";
+  title.title = title.textContent;
   const utility = document.createElement("span");
   utility.className = "tooltip-meta";
   const utilityName = document.createElement("span");
@@ -77,16 +81,10 @@ function tooltipFor(feature) {
   utility.append(swatchFor(properties), utilityName);
   const accuracy = document.createElement("span");
   const town = properties.town_only === true;
-  accuracy.className = town ? "tooltip-meta tooltip-town" : "tooltip-meta";
+  accuracy.className = town ? "tooltip-meta tooltip-accuracy tooltip-town" : "tooltip-meta tooltip-accuracy";
   accuracy.dataset.src = town ? "town_only" : "accuracy";
   accuracy.textContent = accuracyText(properties);
-  const source = document.createElement("span");
-  source.className = "tooltip-meta";
-  source.dataset.src = "source";
-  source.textContent = properties.source?.doc && properties.source?.page
-    ? `${properties.source.doc}, p. ${properties.source.page}`
-    : "Source page not stated";
-  wrapper.append(title, utility, accuracy, source);
+  wrapper.append(title, utility, accuracy);
   return wrapper;
 }
 
@@ -353,7 +351,9 @@ function openLabel(layer, direction, anchor) {
   tooltip.options.direction = direction;
   tooltip.options.offset = L.point(LABEL_OFFSETS[direction]);
   layer.openTooltip(anchor);
-  return tooltip.getElement()?.getBoundingClientRect() ?? null;
+  const element = tooltip.getElement();
+  element?.classList.add("pair-label");
+  return element?.getBoundingClientRect() ?? null;
 }
 
 // Open the pair's labels on opposite sides, then keep the best side: clear of the other label,
@@ -414,6 +414,7 @@ function resetLabel(layer) {
   if (tooltip) {
     tooltip.options.direction = "top";
     tooltip.options.offset = L.point(0, 0);
+    tooltip.getElement()?.classList.remove("pair-label");
   }
 }
 

@@ -1,8 +1,4 @@
-.report-controls { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--rule); }
-.legend:not([open]) .report-controls { display: none; }
-.report-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
-.report-buttons button:disabled { cursor: wait; }
-#export-status { margin: 8px 0 0; color: var(--pencil); font-size: 12px; }
+/* The CSV and Print controls live with the panel status (app.css); only the report is styled here. */
 #print-report { display: none; }
 
 @page { size: Letter portrait; margin: 0.5in; }

@@ -1,5 +1,7 @@
 """UI pass: location looks, town-level wording, capped pairs, map key, labels, framing and attribution."""
 
+from datetime import date
+
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
@@ -81,7 +83,8 @@ def test_town_level_wording_in_tooltip_row_and_project_detail(live_server):
         assert "Town-level location" in tooltip and town["properties"]["name"] in tooltip
         pair = next(p for p in pairs if town_id in (p["a"], p["b"]))
         row = page.locator(f'[data-testid="overlap-row"][data-overlap-id="{pair["id"]}"]')
-        expect(row.locator('[data-src="town_only"]')).to_have_text("Town-level location")
+        # The compact row keeps a short marker; the tooltip above and the project detail below say it in full.
+        expect(row.locator('[data-src="town_only"]')).to_have_text("Town-level")
         page.locator("#projects-toggle").click()
         page.locator(f'[data-project-ref="{town_id}"] button').click()
         bullet = page.locator('#project-fields [data-src="town_only"]')
@@ -340,4 +343,172 @@ def test_rows_search_and_tour_use_drawn_icons_and_plain_words(live_server):
             assert (box["x"] + box["width"] <= zoom["x"] or box["y"] >= zoom["y"] + zoom["height"]
                     or box["y"] + box["height"] <= zoom["y"]), (box, zoom)
             card.get_by_role("button", name="Next", exact=True).click()
+        browser.close()
+
+
+def coordinate_text(a_year, b_year):
+    """The years-to-coordinate wording, from today's year so the test does not age."""
+    if not isinstance(a_year, int) or not isinstance(b_year, int):
+        return None
+    years = max(0, min(a_year, b_year) - date.today().year)
+    return "Coordinate now" if years == 0 else "1 year to coordinate" if years == 1 else f"{years} years to coordinate"
+
+
+def js_number(value):
+    return str(int(value)) if float(value).is_integer() else str(value)
+
+
+def test_ranked_rows_are_short_and_keep_whole_names_in_reach(live_server):
+    with sync_playwright() as playwright:
+        browser, page = open_page(playwright, live_server)
+        page.get_by_test_id("overlap-row").first.wait_for()
+        projects, pairs = records(page, live_server)
+        rows = page.evaluate("""() => [...document.querySelectorAll('[data-testid="overlap-row"]')].slice(0, 12).map(row => ({
+          id: row.dataset.overlapId, height: row.getBoundingClientRect().height, text: row.querySelector('button').textContent,
+          names: [...row.querySelectorAll('[data-src="name"]')].map(n => ({text: n.textContent, title: n.title, height: n.getBoundingClientRect().height})),
+          sources: row.querySelectorAll('[data-src="source"]').length, marker: row.querySelector('.row-accuracy')?.textContent}))""")
+        by_id = {pair["id"]: pair for pair in pairs}
+        for row in rows:
+            pair = by_id[row["id"]]
+            assert row["sources"] == 0, row  # citations live in the pair and project details
+            if not pair.get("town_capped"):
+                assert row["height"] <= 110, row  # four short lines at most (a capped pair adds its note)
+            assert [name["text"] for name in row["names"]] == [projects[pair[key]]["properties"]["name"] for key in ("a", "b")]
+            for name in row["names"]:
+                assert name["title"] == name["text"] and name["height"] < 24, name  # one line; the whole name is its title
+                assert name["text"] in row["text"], name  # and part of the row button's name
+            assert row["marker"] in {"Exact", "Approx.", "Town-level"}, row
+        browser.close()
+
+
+def test_years_to_coordinate_tag_in_rows_and_pair_summary(live_server):
+    with sync_playwright() as playwright:
+        browser, page = open_page(playwright, live_server)
+        page.get_by_test_id("overlap-row").first.wait_for()
+        _, pairs = records(page, live_server)
+        first = pairs[0]
+        expected = coordinate_text(first["a_year"], first["b_year"])
+        assert expected, first
+        row = page.locator(f'[data-testid="overlap-row"][data-overlap-id="{first["id"]}"]')
+        expect(row.locator(".coordinate-tag")).to_have_text(expected)
+        tags = page.evaluate("""() => [...document.querySelectorAll('[data-testid="overlap-row"]')].map(row =>
+          [row.dataset.overlapId, row.querySelector('.coordinate-tag')?.textContent ?? null])""")
+        by_id = {pair["id"]: pair for pair in pairs}
+        mismatched = [(pair_id, tag) for pair_id, tag in tags
+                      if tag != coordinate_text(by_id[pair_id]["a_year"], by_id[pair_id]["b_year"])]
+        assert mismatched == []
+        edges = page.evaluate("""async () => {
+          const {coordinateText} = await import('/web/js/look.js');
+          const now = new Date(2026, 5, 1);
+          return [coordinateText(2026, 2030, now), coordinateText(2027, 2031, now), coordinateText(2031, 2029, now),
+                  coordinateText(2020, 2024, now), coordinateText(2028, null, now)];
+        }""")
+        assert edges == ["Coordinate now", "1 year to coordinate", "3 years to coordinate", "Coordinate now", None]
+        row.locator("button").click()
+        expect(page.get_by_test_id("pair-summary").locator(".coordinate-chip")).to_have_text(expected)
+        browser.close()
+
+
+@pytest.mark.parametrize("width,height", [(1440, 900), (390, 844)])
+def test_panel_reads_as_three_steps_with_reports_in_reach(live_server, width, height):
+    with sync_playwright() as playwright:
+        browser, page = open_page(playwright, live_server, width, height)
+        page.get_by_test_id("overlap-row").first.wait_for()
+        _, pairs = records(page, live_server)
+        if width == 390:
+            page.locator("#sheet-toggle").click()
+        expect(page.get_by_role("heading", name="Find a place or project", exact=True)).to_be_visible()
+        expect(page.get_by_role("heading", name="Choose a pair", exact=True)).to_be_visible()
+        expect(page.locator("#opportunities .step-hint")).to_contain_text("A pair is two planned projects")
+        expect(page.locator(".legend > summary")).to_have_text("Map key")
+        about = page.locator("#about-data")
+        expect(about.locator("summary")).to_contain_text("About the data")
+        expect(about.locator("#editions")).to_be_hidden()
+        about.locator("summary").click()
+        expect(about.locator("#editions")).to_be_visible()
+        expect(about.locator("#no-overlap")).to_be_visible()
+        for name in ("Export CSV", "Print report"):
+            expect(page.get_by_role("button", name=name, exact=True)).to_be_visible()
+        page.get_by_test_id("overlap-row").first.locator("button").click()
+        expect(page.locator("#overlap-content .overlap-project")).to_have_count(2)
+        # Step 2 keeps just the chosen row, pressed; step 3's bar follows it.
+        chosen = page.locator('[data-testid="overlap-row"]:visible')
+        expect(chosen).to_have_count(1)
+        expect(chosen).to_have_attribute("data-overlap-id", pairs[0]["id"])
+        expect(chosen.get_by_role("button")).to_have_attribute("aria-pressed", "true")
+        bar = page.locator("#detail-bar")
+        expect(bar.locator(".step-number")).to_have_text("3")
+        expect(bar.locator("#overlap-detail-heading")).to_have_text(f'Overlap #{pairs[0]["rank"]}')
+        for name in ("Export CSV", "Print report"):
+            expect(page.get_by_role("button", name=name, exact=True)).to_be_visible()  # still in reach with a pair open
+        page.get_by_role("button", name="Back to ranked overlaps").click()
+        expect(page.get_by_test_id("overlap-row").nth(1)).to_be_visible()
+        expect(bar).to_be_hidden()
+        browser.close()
+
+
+@pytest.mark.parametrize("width,height", [(1440, 900), (390, 844)])
+def test_pair_summary_and_section_nav_under_a_sticky_bar(live_server, width, height):
+    with sync_playwright() as playwright:
+        browser, page = open_page(playwright, live_server, width, height)
+        page.get_by_test_id("overlap-row").first.wait_for()
+        projects, pairs = records(page, live_server)
+        pair = pairs[0]
+        page.goto(f"{live_server}/#overlap={pair['id']}")
+        expect(page.locator("#overlap-content .overlap-project")).to_have_count(2)
+        summary = page.get_by_test_id("pair-summary")
+        expect(summary.locator('[data-src="summary_name"]')).to_have_text([projects[pair[key]]["properties"]["name"] for key in ("a", "b")])
+        expect(summary.locator('[data-src="summary_band"]')).to_have_text(pair["band_label"])
+        expect(summary.locator('[data-src="summary_distance"]')).to_have_text(f'{pair["distance_km"]:.1f} km')
+        expect(summary.locator('[data-src="summary_years"]')).to_have_text(f'{pair["a_year"]} / {pair["b_year"]}')
+        expect(summary.locator('[data-src="summary_score"]')).to_have_text(f'Score {js_number(pair["score"])}')
+        expect(summary.locator('[data-src="summary_savings"]')).to_contain_text("estimate")
+        nav = page.get_by_role("navigation", name="Pair sections")
+        sections = ["Why", "Projects", "Savings"] + (["Rank"] if page.locator("#overlap-content .score-detail").count() else []) + ["Brief"]
+        expect(nav.get_by_role("button")).to_have_text(sections)
+        for section, target in [("savings", "#pair-savings"), ("projects", "#pair-projects"), ("brief", "#brief-heading"), ("why", "#pair-why")]:
+            nav.locator(f'button[data-section="{section}"]').click()
+            expect(page.locator(target)).to_be_focused()
+            layout = page.evaluate("""target => {
+              const bar = document.querySelector('#detail-bar').getBoundingClientRect();
+              const body = document.querySelector('.panel-body').getBoundingClientRect();
+              const heading = document.querySelector(target).getBoundingClientRect();
+              return {barTop: bar.top, barBottom: bar.bottom, bodyTop: body.top, bodyBottom: body.bottom, top: heading.top};
+            }""", target)
+            # The bar stays at the top of the panel and the section starts just below it.
+            assert abs(layout["barTop"] - layout["bodyTop"]) <= 1 and layout["barBottom"] - 1 <= layout["top"] < layout["bodyBottom"], (section, layout)
+        expect(page.get_by_role("button", name="Back to ranked overlaps")).to_be_visible()
+        browser.close()
+
+
+def test_map_labels_carry_the_name_and_utility_only(live_server):
+    with sync_playwright() as playwright:
+        browser, page = open_page(playwright, live_server)
+        page.get_by_test_id("overlap-row").first.locator("button").click()
+        expect(page.locator(".leaflet-tooltip.pair-label")).to_have_count(2)
+        labels = page.evaluate("""() => [...document.querySelectorAll('.leaflet-tooltip.pair-label')].map(tip => {
+          const name = tip.querySelector('.tooltip-name'), line = parseFloat(getComputedStyle(name).lineHeight);
+          return {name: name.textContent, title: name.title, lines: Math.round(name.getBoundingClientRect().height / line),
+                  utility: tip.querySelector('[data-src="utility"]').textContent,
+                  accuracyShown: getComputedStyle(tip.querySelector('.tooltip-accuracy')).display !== 'none',
+                  sources: tip.querySelectorAll('[data-src="source"]').length};
+        })""")
+        for label in labels:
+            assert label["title"] == label["name"] and 1 <= label["lines"] <= 2, label
+            assert label["utility"] and not label["accuracyShown"] and label["sources"] == 0, label
+        # A hover label adds one accuracy line, still without a citation.
+        page.get_by_role("button", name="Back to ranked overlaps").click()
+        hover = page.evaluate("""async () => {
+          const {state} = await import('/web/js/state.js');
+          let found = null;
+          state.projectLayers.eachLayer(layer => {
+            if (found || layer.feature.properties.id === state.overlaps[0].a || layer.feature.properties.id === state.overlaps[0].b) return;
+            layer.openTooltip();
+            const tip = layer.getTooltip().getElement();
+            found = {accuracy: getComputedStyle(tip.querySelector('.tooltip-accuracy')).display !== 'none',
+                     sources: tip.querySelectorAll('[data-src="source"]').length};
+          });
+          return found;
+        }""")
+        assert hover == {"accuracy": True, "sources": 0}, hover
         browser.close()

@@ -60,17 +60,27 @@
           <button id="tour-dismiss" type="button" hidden></button>
         </div>
         <p class="subhead">Coordination opportunities</p>
-        <div class="edition-block">
-          <p class="edition-label">Georgia and South Carolina public transmission plans</p>
-          <p id="editions" class="edition-line" data-src="source_documents">Loading plan editions</p>
+        <details id="about-data" class="about-data">
+          <summary><span class="about-title">About the data</span> <span class="about-line">Georgia and South Carolina plans</span></summary>
+          <div class="edition-block">
+            <p class="edition-label">Georgia and South Carolina public transmission plans</p>
+            <p id="editions" class="edition-line" data-src="source_documents">Loading plan editions</p>
+          </div>
+          <p id="no-overlap" class="tally" data-src="no_overlap_count">Loading project counts</p>
+        </details>
+        <div class="status-row">
+          <p id="status" class="status-line" role="status" aria-live="polite">Loading public plans.</p>
+          <div class="report-controls" role="group" aria-label="Export and print">
+            <button id="export-csv" type="button" aria-label="Export CSV" title="Export CSV" disabled><span class="report-label">CSV</span></button>
+            <button id="print-report-button" type="button" aria-label="Print report" title="Print report" disabled><span class="report-label">Print</span></button>
+          </div>
         </div>
-        <p id="no-overlap" class="tally" data-src="no_overlap_count">Loading project counts</p>
-        <p id="status" class="status-line" role="status" aria-live="polite">Loading public plans.</p>
+        <p id="export-status" class="export-status" role="status">Export and print are available after the current results load.</p>
         <button id="sheet-toggle" class="sheet-toggle" type="button" aria-expanded="false" aria-controls="panel-body">Expand opportunities</button>
       </header>
       <div id="panel-body" class="panel-body">
         <details class="legend">
-          <summary>Map key and reports</summary>
+          <summary>Map key</summary>
           <div class="legend-section">
             <p class="legend-heading">Location</p>
             <div class="legend-grid">
@@ -109,16 +119,13 @@
               <svg class="band-glyph" viewBox="0 0 14 12" aria-hidden="true" focusable="false"><rect class="on" x="0.5" y="8.5" width="2" height="3"/><rect x="4.2" y="6" width="2" height="5.5"/><rect x="7.9" y="3.5" width="2" height="8"/><rect x="11.5" y="0.5" width="2" height="11"/></svg><span>Under 40 km</span>
             </div>
           </div>
-          <section class="report-controls" aria-label="Export and print">
-            <p class="legend-heading">Reports</p>
-            <div class="report-buttons">
-              <button id="export-csv" type="button" disabled>Export CSV</button>
-              <button id="print-report-button" type="button" disabled>Print report</button>
-            </div>
-            <p id="export-status" role="status">Export and print are available after the current results load.</p>
-          </section>
         </details>
-        <section class="search-region" aria-label="Find a place or project">
+        <section class="search-region" aria-labelledby="find-heading">
+          <div class="step-head">
+            <span class="step-number" aria-hidden="true">1</span>
+            <h2 id="find-heading">Find a place or project</h2>
+            <p class="step-hint">Search a city or project, or narrow the list with Filters.</p>
+          </div>
           <div class="search-controls">
             <button id="filters-toggle" class="filters-toggle" type="button" aria-expanded="false" aria-controls="filter-panel" disabled>Filters</button>
             <form id="search-form" role="search">
@@ -160,6 +167,7 @@
           <p id="search-state" class="search-state" data-testid="search-state" role="status">Enter at least 2 characters to search local plans.</p>
           <p id="search-selection" class="search-selection" data-testid="search-selection" hidden></p>
           <button id="explore-area" class="explore-button" type="button" hidden>Explore this area</button>
+          <div id="start-here-slot" class="insight-slot"></div>
           <p id="area-selection" class="area-selection" data-testid="area-selection" role="status" hidden></p>
           <section id="area-panel" class="area-panel" aria-labelledby="area-heading" hidden>
             <div class="area-heading"><h2 id="area-heading">Selected area</h2><button id="area-clear" type="button">Clear area</button></div>
@@ -183,10 +191,41 @@
             <div id="start-here-places" class="start-here-places"></div>
           </section>
         </section>
+        <section id="opportunities" class="opportunities" aria-labelledby="opportunities-heading" tabindex="-1">
+          <div class="step-head section-head">
+            <span class="step-number" aria-hidden="true">2</span>
+            <h2 id="opportunities-heading">Choose a pair</h2>
+            <span id="overlap-count" class="count" data-src="count"></span>
+            <p class="step-hint">A pair is two planned projects near each other, ranked by distance, timing, location accuracy and cross-state.</p>
+          </div>
+          <div id="list-insight-slot" class="insight-slot">
+            <div id="impact-card" class="impact-card" hidden>
+              <p id="impact-line" data-src="overlaps"></p>
+              <details><summary>About this estimate</summary><p>Each pair is estimated on its own. Pairs that share a project overlap, so this is a screening figure, not a budget.</p></details>
+            </div>
+          </div>
+          <div id="list-state" class="list-state" data-testid="loading-state" role="status">Loading ranked opportunities</div>
+          <ol id="overlap-list" class="overlap-list"></ol>
+        </section>
+        <!-- Step 3 bar: stays at the top of the panel while the pair detail and its brief scroll. -->
+        <div id="detail-bar" class="detail-bar" hidden>
+          <div class="detail-bar-title">
+            <button id="overlap-back" class="back-button" type="button" aria-label="Back to ranked overlaps">Back</button>
+            <span class="step-number" aria-hidden="true">3</span>
+            <h2 id="overlap-detail-heading">Overlap detail</h2>
+          </div>
+          <nav id="detail-nav" class="detail-nav" aria-label="Pair sections" hidden>
+            <button type="button" data-section="why">Why</button>
+            <button type="button" data-section="projects">Projects</button>
+            <button type="button" data-section="savings">Savings</button>
+            <button type="button" data-section="rank" hidden>Rank</button>
+            <button type="button" data-section="brief">Brief</button>
+          </nav>
+        </div>
         <section id="overlap-detail" class="overlap-detail" data-testid="overlap-detail" aria-labelledby="overlap-detail-heading" hidden>
-          <button id="overlap-back" class="back-button" type="button">Back to ranked overlaps</button>
-          <h2 id="overlap-detail-heading">Overlap detail</h2>
+          <p class="step-hint detail-hint">Understand the pair: why it is listed, the two plan entries, the savings estimate and a draft brief.</p>
           <p id="overlap-state" class="overlap-state" data-testid="overlap-state" role="status"></p>
+          <div id="pair-summary" class="pair-summary" data-testid="pair-summary" hidden></div>
           <div id="overlap-content"></div>
           <section id="pair-tracker" aria-labelledby="tracker-heading" hidden>
             <h3 id="tracker-heading">Your coordination status</h3>
@@ -210,15 +249,6 @@
           </div>
           <p id="brief-state" class="brief-state" role="status"></p>
           <div id="brief-content"></div>
-        </section>
-        <section id="opportunities" class="opportunities" aria-labelledby="opportunities-heading" tabindex="-1">
-          <div class="section-head"><h2 id="opportunities-heading">Ranked overlaps</h2><span id="overlap-count" class="count" data-src="count"></span></div>
-          <div id="impact-card" class="impact-card" hidden>
-            <p id="impact-line" data-src="overlaps"></p>
-            <details><summary>About this estimate</summary><p>Each pair is estimated on its own. Pairs that share a project overlap, so this is a screening figure, not a budget.</p></details>
-          </div>
-          <div id="list-state" class="list-state" data-testid="loading-state" role="status">Loading ranked opportunities</div>
-          <ol id="overlap-list" class="overlap-list"></ol>
         </section>
         <section id="projects-panel" class="projects-panel" aria-labelledby="projects-heading" hidden>
           <h2 id="projects-heading">Projects</h2>
