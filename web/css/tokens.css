@@ -75,3 +75,6 @@
   --storm-severe: #b071a9;
   --storm-failed: #f4a39c;
 }
+
+/* Print: black on white whatever the screen theme. */
+:root { --print-ink: #000; --print-paper: #fff; --print-muted: #4a4a4a; --print-rule: #bdbdbd; --print-rule-light: #c4c4c4; }

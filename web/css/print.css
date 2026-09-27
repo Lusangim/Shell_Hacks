@@ -5,10 +5,10 @@
 
 @media print {
   :root, :root[data-theme] { color-scheme: light; }
-  html, body { width: auto; height: auto; min-height: 0; margin: 0; overflow: visible; background: #fff; color: #000; }
+  html, body { width: auto; height: auto; min-height: 0; margin: 0; overflow: visible; background: var(--print-paper); color: var(--print-ink); }
   body > :not(#print-report) { display: none !important; }
   #print-report {
-    display: block; width: auto; max-width: 7.3in; margin: 0 auto; color: #000; background: #fff;
+    display: block; width: auto; max-width: 7.3in; margin: 0 auto; color: var(--print-ink); background: var(--print-paper);
     font: 10pt/1.45 "Segoe UI", "Helvetica Neue", Arial, system-ui, sans-serif;
     font-variant-numeric: tabular-nums; overflow-wrap: anywhere;
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
@@ -17,10 +17,10 @@
   #print-report p, #print-report dl, #print-report dd, #print-report ul { margin: 0; }
   #print-report a { text-decoration: none; }
   #print-report .print-muted, #print-report .print-cite, #print-report .print-label,
-  #print-report .print-meta dt, #print-report .print-figure-label, #print-report .print-figure-note { color: #4a4a4a; }
+  #print-report .print-meta dt, #print-report .print-figure-label, #print-report .print-figure-note { color: var(--print-muted); }
 
   /* Header */
-  #print-header { padding-bottom: 10pt; border-bottom: 1.5pt solid #000; }
+  #print-header { padding-bottom: 10pt; border-bottom: 1.5pt solid var(--print-ink); }
   #print-report h1 { margin: 0 0 8pt; font-size: 20pt; line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; }
   #print-report .print-meta {
     display: grid; grid-template-columns: max-content 1fr; gap: 2pt 12pt; font-size: 9pt; overflow-wrap: break-word;
@@ -36,29 +36,29 @@
   /* Key figures */
   #print-report .print-figures {
     display: grid; grid-template-columns: 1fr 1fr 1fr 2fr;
-    border-top: 0.75pt solid #000; border-bottom: 0.75pt solid #000; break-inside: avoid;
+    border-top: 0.75pt solid var(--print-ink); border-bottom: 0.75pt solid var(--print-ink); break-inside: avoid;
   }
   #print-report .print-figure { padding: 7pt 10pt 8pt 0; }
-  #print-report .print-figure + .print-figure { padding-left: 10pt; border-left: 0.5pt solid #bdbdbd; }
+  #print-report .print-figure + .print-figure { padding-left: 10pt; border-left: 0.5pt solid var(--print-rule); }
   #print-report .print-figure-value { font-size: 16pt; line-height: 1.2; font-weight: 700; }
   #print-report .print-figure-label { font-size: 8.5pt; }
   #print-report .print-figure-note { font-size: 8pt; font-style: italic; }
 
   /* Selected pair */
   #print-selected { break-inside: avoid; page-break-inside: avoid; }
-  #print-report .print-card { padding: 10pt 12pt; border: 0.75pt solid #000; }
+  #print-report .print-card { padding: 10pt 12pt; border: 0.75pt solid var(--print-ink); }
   #print-report .print-card-title { margin: 0 0 6pt; font-size: 12pt; font-weight: 700; }
   #print-report .print-card-title .print-muted { font-weight: 400; }
   #print-report .print-flag { margin: 0 0 6pt; font-weight: 600; }
   #print-report .print-projects {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 14pt; padding-bottom: 8pt; border-bottom: 0.5pt solid #bdbdbd;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14pt; padding-bottom: 8pt; border-bottom: 0.5pt solid var(--print-rule);
   }
   #print-report .print-label { font-size: 7.5pt; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
   #print-report .print-utility { font-weight: 600; }
   #print-report .print-cite { font-size: 8pt; }
   #print-report .print-facts { display: grid; grid-template-columns: 1.35in 1fr; gap: 4pt 12pt; margin-top: 8pt; }
   #print-report .print-facts dt { font-weight: 600; }
-  #print-report .coordination-status { min-height: 14pt; border-bottom: 0.5pt solid #000; white-space: pre-line; }
+  #print-report .coordination-status { min-height: 14pt; border-bottom: 0.5pt solid var(--print-ink); white-space: pre-line; }
 
   /* Ranked pairs: one row per pair, never split; the header repeats on every page. */
   #print-report .print-table {
@@ -66,10 +66,10 @@
   }
   #print-report thead { display: table-header-group; }
   #print-report th {
-    padding: 4pt 5pt; border-bottom: 1pt solid #000; font-size: 7.5pt; font-weight: 700; letter-spacing: 0.04em;
+    padding: 4pt 5pt; border-bottom: 1pt solid var(--print-ink); font-size: 7.5pt; font-weight: 700; letter-spacing: 0.04em;
     text-align: left; text-transform: uppercase; vertical-align: bottom;
   }
-  #print-report td { padding: 4pt 5pt; border-bottom: 0.5pt solid #c4c4c4; text-align: left; vertical-align: top; }
+  #print-report td { padding: 4pt 5pt; border-bottom: 0.5pt solid var(--print-rule-light); text-align: left; vertical-align: top; }
   #print-report tr { break-inside: avoid; page-break-inside: avoid; }
   #print-report .print-num { text-align: right; }
   #print-report td.print-pair { padding: 2pt 0; }
@@ -85,5 +85,5 @@
   #print-sources { font-size: 8.5pt; break-inside: avoid; page-break-inside: avoid; }
   #print-sources ul { padding-left: 12pt; }
   #print-sources li + li { margin-top: 2pt; }
-  #print-report .print-disclaimer { margin-top: 8pt; padding-top: 6pt; border-top: 0.75pt solid #000; font-weight: 600; }
+  #print-report .print-disclaimer { margin-top: 8pt; padding-top: 6pt; border-top: 0.75pt solid var(--print-ink); font-weight: 600; }
 }

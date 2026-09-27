@@ -204,6 +204,6 @@
 /* Export and print outcome: a short toast under the top bar (the status line itself is for screen readers). */
 .report-toast { position: fixed; z-index: 1500; top: calc(var(--bar-height, 64px) + 12px); right: 24px; max-width: min(380px, calc(100vw - 32px)); padding: 10px 14px; border-radius: var(--radius-card); background: var(--ink); color: var(--panel); font-size: 13px; line-height: 1.4; box-shadow: var(--card-shadow); opacity: 0; transform: translateY(-4px); transition: opacity 160ms var(--ease-out), transform 160ms var(--ease-out); pointer-events: none; }
 .report-toast.shown { opacity: 1; transform: none; }
-.report-toast-error { background: #8c342c; color: #fff; }
+.report-toast-error { border-left: 4px solid var(--storm-failed); }
 @media (prefers-reduced-motion: reduce) { .report-toast { transition: none; transform: none; } }
 @media print { .report-toast { display: none !important; } }
