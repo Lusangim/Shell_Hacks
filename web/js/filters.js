@@ -124,7 +124,10 @@ export function setupFilters(onChange) {
     }
     for (const [key, element] of Object.entries(fields)) element.value = current[key];
     const count = current.utility.length + FILTER_KEYS.slice(1).filter((key) => current[key]).length;
-    toggle.textContent = count ? `Filters (${count})` : "Filters";
+    const label = document.createElement("span");
+    label.className = "visually-hidden";
+    label.textContent = count ? `Filters (${count})` : "Filters";
+    toggle.replaceChildren(label);
   }
 
   function fromControls() {

@@ -5,6 +5,8 @@ from urllib.parse import urlsplit
 
 from playwright.sync_api import expect, sync_playwright
 
+from tests.e2e.ui_helpers import open_more
+
 
 def test_search_pair_detail_sources_and_export_stay_connected(live_server):
     with sync_playwright() as playwright:
@@ -40,8 +42,10 @@ def test_search_pair_detail_sources_and_export_stay_connected(live_server):
             assert response.status == 200
             assert response.headers["content-type"].startswith("application/pdf")
 
+        open_more(page)
         page.locator(".legend summary").click()
         with page.expect_download() as received:
+            open_more(page)
             page.get_by_role("button", name="Export CSV", exact=True).click()
         download = received.value
         assert download.suggested_filename == "gridlock-overlaps.csv"

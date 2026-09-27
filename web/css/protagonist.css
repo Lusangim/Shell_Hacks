@@ -1,0 +1,69 @@
+/* Map-first shell. The DOM follows the keyboard route: app bar, list, map, detail. */
+.workspace { --list-width: 380px; --detail-width: 420px; --bar-height: 64px; }
+.app-bar { position: absolute; inset: 0 0 auto; height: var(--bar-height); z-index: 1300; display: flex; align-items: center; gap: 12px; padding: 10px 24px; border-bottom: 1px solid var(--rule); background: var(--panel); }
+.app-bar h1 { width: calc(var(--list-width) - 36px); flex: none; }
+.app-search { width: min(640px, 100%); margin-right: auto; min-width: 0; }
+.app-search label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.app-search input { width: 100%; height: 44px; padding: 8px 12px 8px 40px; background: var(--canvas); border: 1px solid var(--rule-strong); border-radius: var(--radius-control); }
+.app-search input::placeholder { color: var(--pencil); }
+.app-bar > button { flex: none; width: 44px; min-width: 44px; height: 44px; padding: 0; border: 0; background: var(--panel); color: var(--ink); border-radius: var(--radius-control); }
+#more-toggle { font-size: 28px; }
+.app-bar > .filters-toggle { gap: 0; }
+.app-bar > .filters-toggle::before { width: 22px; height: 22px; }
+.app-bar .filter-panel, .more-menu { position: absolute; top: calc(var(--bar-height) + 8px); right: 24px; width: 340px; max-width: calc(100vw - 24px); max-height: calc(100dvh - 88px); overflow-y: auto; margin: 0; padding: 16px; background: var(--panel); border: 1px solid var(--rule); border-radius: var(--radius-card); box-shadow: var(--card-shadow); }
+.more-menu > button, .more-menu .report-controls button { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 44px; padding: 8px 12px; border: 0; border-radius: var(--radius-control); background: var(--panel); color: var(--ink); font-size: 14px; text-align: left; }
+.more-menu .report-controls { display: block; }
+.more-menu .report-label { position: static; width: auto; height: auto; clip-path: none; }
+.more-menu .legend, .more-menu .about-data { padding: 0 12px; border: 0; margin: 0; }
+.more-menu summary { min-height: 44px; }
+.more-menu .about-line { display: none; }
+.more-menu #theme-toggle .icon { width: 18px; height: 18px; }
+.panel { inset: var(--bar-height) auto 0 0; width: var(--list-width); border-radius: 0; box-shadow: none; border-right: 1px solid var(--rule); }
+.title-block { padding: 0; border: 0; }
+.title-block #status[data-src="name"] { position: static !important; width: auto; height: auto; margin: 8px 20px; overflow: visible; clip-path: none; white-space: normal; overflow-wrap: anywhere; }
+.title-block .tour-entry { padding: 4px 16px; }
+.panel .tour-entry { position: fixed; z-index: 1200; top: 80px; right: auto; left: calc(var(--list-width) + 16px); }
+.search-region { display: flow-root; padding: 0 20px; border: 0; }
+.search-region:has(#area-panel:not([hidden])) { min-height: 100%; }
+#area-state { min-height: 3em; }
+#timeline-status { min-height: 3em; }
+.search-region:empty { display: none; }
+.search-region .step-head { display: none; }
+.opportunities { padding: 20px 16px; }
+.section-head { grid-template-columns: minmax(0, 1fr) auto; margin: 0 4px 16px; }
+.section-head h2 { font-size: 24px; }
+.section-head .step-number, .section-head .step-hint { display: none; }
+.section-head .count { font-size: 14px; color: var(--pencil); }
+.opportunities.pair-open .overlap-row:not(:has(.overlap-button[aria-pressed="true"])) { display: list-item; }
+.map-region { inset: var(--bar-height) 0 0 var(--list-width); }
+.workspace:has(.detail-pane:not([hidden])) .map-region { right: var(--detail-width); }
+.detail-pane { position: absolute; z-index: 1150; inset: var(--bar-height) 0 0 auto; width: var(--detail-width); overflow-y: auto; background: var(--panel); border-left: 1px solid var(--rule); scrollbar-width: thin; }
+.detail-bar { border-top: 0; }
+.detail-pane a { color: var(--ink); }
+.timeline { left: 16px; bottom: 16px; width: min(480px, calc(100% - 32px)); }
+.map-key { bottom: 154px; }
+@media (min-width: 701px) and (max-width: 1099px) {
+  .workspace { --list-width: 320px; --detail-width: min(420px, calc(100vw - 320px)); }
+  .app-bar h1 { width: auto; margin-right: 24px; }
+  .workspace:has(.detail-pane:not([hidden])) .map-region { right: 0; }
+  .detail-pane { box-shadow: var(--card-shadow); }
+  .panel .tour-entry { top: auto; bottom: 150px; }
+}
+@media (max-width: 700px) {
+  .workspace { --bar-height: 64px; }
+  .app-bar { padding: 10px 12px; gap: 4px; }
+  .app-bar h1 { width: auto; font-size: 18px; margin-right: 4px; }
+  .app-search input { font-size: 16px; padding-left: 32px; }
+  .search-field::before { left: 8px; }
+  .app-bar .filter-panel, .more-menu { right: 12px; }
+  .panel { inset: auto 0 0; width: 100%; height: 48dvh; border-radius: var(--radius-card) var(--radius-card) 0 0; }
+  .panel.expanded, :root[data-area-layout] .panel { height: calc(100dvh - var(--bar-height)); }
+  .map-region, .workspace:has(.detail-pane:not([hidden])) .map-region { inset: var(--bar-height) 0 0; }
+  .detail-pane { inset: var(--bar-height) 0 0; width: 100%; }
+  .timeline { bottom: calc(48dvh + 12px); left: 12px; width: calc(100% - 24px); }
+  .leaflet-bottom.leaflet-right, .leaflet-bottom.leaflet-left { bottom: 48dvh; }
+  .panel .tour-entry, .panel.expanded .tour-entry { position: fixed; top: 136px; bottom: auto; left: 12px; right: auto; margin: 0; padding: 6px; max-width: calc(100vw - 196px); }
+  .panel .tour-entry #tour-invitation { min-width: 0; white-space: normal; }
+  .section-head h2, :root:not([data-area-layout]) .panel:not(.expanded) .section-head h2 { font-size: 22px; }
+  .opportunities { padding: 12px 16px; }
+}

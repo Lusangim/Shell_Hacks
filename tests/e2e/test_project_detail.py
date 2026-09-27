@@ -5,10 +5,14 @@ from __future__ import annotations
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
+from tests.e2e.ui_helpers import open_more
+
 
 def open_project_from_panel(page, project_id: str, name: str):
     for _ in range(12):
         page.keyboard.press("Tab")
+        if page.evaluate("document.activeElement.id") == "more-toggle":
+            page.keyboard.press("Enter")
         if page.evaluate("document.activeElement.id") == "projects-toggle":
             break
     else:
@@ -156,11 +160,13 @@ def test_project_list_empty_and_failed_load_are_distinct(live_server):
         page.route("**/api/projects", lambda route: route.fulfill(status=200, content_type="application/json", body='{"type":"FeatureCollection","features":[]}'))
         page.route("**/api/overlaps", lambda route: route.fulfill(status=200, content_type="application/json", body="[]"))
         page.goto(live_server)
+        open_more(page)
         page.get_by_role("button", name="Projects", exact=True).click()
         expect(page.get_by_test_id("projects-state")).to_contain_text("No projects in the loaded plans")
         page.unroute("**/api/projects")
         page.route("**/api/projects", lambda route: route.fulfill(status=503, content_type="application/json", body='{"error":{"code":"unavailable","message":"Unavailable"}}'))
         page.reload()
+        open_more(page)
         page.get_by_role("button", name="Projects", exact=True).click()
         expect(page.get_by_test_id("projects-state")).to_contain_text("Could not load public plan data")
         browser.close()
@@ -177,6 +183,7 @@ def test_production_phone_keeps_two_rows_map_and_projects_target(live_server, th
         page.on("console", lambda message: errors.append(message.text) if message.type == "error" else None)
         page.goto(live_server)
         expect(page.get_by_test_id("overlap-row").nth(1)).to_be_visible()
+        open_more(page)
         layout = page.evaluate("""() => {
           const rows = Array.from(document.querySelectorAll('[data-testid="overlap-row"]'));
           const body = document.querySelector('.panel-body').getBoundingClientRect();

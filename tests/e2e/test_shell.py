@@ -15,6 +15,8 @@ from urllib.request import urlopen
 
 import pytest
 from playwright.sync_api import expect, sync_playwright
+
+from tests.e2e.ui_helpers import open_more
 from tests.harness import auxiliary_test_port, require_free_loopback_port
 
 
@@ -416,6 +418,7 @@ def test_dark_theme_is_set_before_styles_and_recolors_map(shell_server):
           return document.querySelector('[data-testid="project-feature"]').getAttribute('stroke')
             === css.getPropertyValue('--dominion').trim();
         }""")
+        open_more(page)
         page.get_by_role("button", name="Switch to light theme").click()
         expect(page.locator("html")).to_have_attribute("data-theme", "light")
         assert page.evaluate("""() => {
@@ -436,6 +439,7 @@ def test_theme_toggle_works_when_storage_is_disabled(shell_server):
         page.on("pageerror", lambda error: errors.append(str(error)))
         page.goto(shell_server)
         expect(page.get_by_test_id("overlap-row")).to_have_count(11)
+        open_more(page)
         page.get_by_role("button", name="Switch to dark theme").click()
         expect(page.locator("html")).to_have_attribute("data-theme", "dark")
         expect(page.get_by_role("status").first).to_contain_text("Theme preference will reset on reload")

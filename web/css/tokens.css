@@ -13,7 +13,9 @@
   --minor: #74655b;
   --highlight: #f2e64d;
   --highlight-ink: #23282e;
-  --selected: #fbf6cf;
+  --selected: #e5f1ff;
+  --primary: #1465cd;
+  --primary-ink: #ffffff;
   --map-halo: #f2e24a;
   --error: #8c342c;
   --focus: #23282e;
@@ -45,7 +47,9 @@
   --minor: #a6998f;
   --highlight: #5a5210;
   --highlight-ink: #f7f3cf;
-  --selected: #2b2915;
+  --selected: #243b56;
+  --primary: #8dbdff;
+  --primary-ink: #152235;
   --map-halo: #d8c43a;
   --error: #f4a39c;
   --focus: #e8ecef;

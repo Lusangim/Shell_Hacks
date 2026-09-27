@@ -8,6 +8,8 @@ import re
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
+from tests.e2e.ui_helpers import close_more, open_more
+
 from tests.harness import required_test_port
 
 from tests.e2e.audits.checks import (
@@ -122,13 +124,28 @@ def test_full_contract_scene(live_server, state, width, height, theme, record_pr
             issues["reduced"] = surface_issues(page)["reduced"]
             # Expand disclosures through native controls so legend, raw evidence,
             # filters and their targets are measured as reachable parts of each scene.
+            close_more(page)
+            expected = page.locator('#overlap-content [data-src]').all_text_contents() if state == "detail" else []
+            detail_expanded = {}
+            if state == "detail":
+                for summary in page.locator(".detail-pane details > summary").all():
+                    if summary.is_visible() and summary.locator("..").get_attribute("open") is None:
+                        summary.click()
+                detail_expanded = surface_issues(page)
+                page.locator("#overlap-back").click()
             open_phone_sheet(page)
-            for summary in page.locator("main details:not([open]) > summary").all():
-                if summary.is_visible():
+            for summary in page.locator("main details > summary").all():
+                if summary.is_visible() and summary.locator("..").get_attribute("open") is None:
                     summary.click()
             expanded = surface_issues(page)
+            open_more(page)
+            for summary in page.locator("#more-menu details > summary").all():
+                if summary.is_visible() and summary.locator("..").get_attribute("open") is None:
+                    summary.click()
+            menu_expanded = surface_issues(page)
             for category in ("contrast", "graphics", "targets", "fonts", "structure", "names"):
-                issues[category] = sorted(set(issues[category] + expanded[category]))
+                issues[category] = sorted(set(issues[category] + detail_expanded.get(category, []) + expanded[category] + menu_expanded[category]))
+            close_more(page)
             # The active control's ring must contrast with its actual surrounding surface.
             page.keyboard.press("Tab")
             issues["graphics"] += sorted(set(surface_issues(page, focus_only="all")["graphics"]))
@@ -142,7 +159,7 @@ def test_full_contract_scene(live_server, state, width, height, theme, record_pr
             # Browser reports the intentionally fulfilled 503 resource separately from app errors.
             issues["errors"] = errors + [item for item in console if not (state=="error" and "503" in item and "Failed to load resource" in item)]
             issues["external"] = external_request_urls(urls, live_server)
-            expected = page.locator('#overlap-content [data-src]').all_text_contents() if state=="detail" else []
+            open_more(page)
             page.locator("#print-report-button").click()
             wait_for_print(page)
             page.emulate_media(media="print")
@@ -191,6 +208,7 @@ def test_longest_real_and_hostile_names_are_reachable(live_server, width, height
             projects=page.request.get(live_server+"/api/projects").json()["features"]
             longest=max(projects,key=lambda item:len(item["properties"]["name"]))
             open_phone_sheet(page)
+            open_more(page)
             page.locator("#projects-toggle").click()
             page.locator("#project-filter").fill(longest["properties"]["name"])
             page.get_by_test_id("project-row").filter(has_text=longest["properties"]["name"]).first.locator("button").click()

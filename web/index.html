@@ -1,213 +1,243 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="color-scheme" content="light dark">
-  <title>GridLock | Coordination opportunities</title>
-  <script src="/web/js/theme-init.js"></script>
-  <link rel="stylesheet" href="/web/vendor/leaflet/leaflet.css">
-  <link rel="stylesheet" href="/web/css/tokens.css">
-  <link rel="stylesheet" href="/web/css/app.css">
-  <link rel="stylesheet" href="/web/css/area.css">
-  <link rel="stylesheet" href="/web/css/area-mode.css">
-  <link rel="stylesheet" href="/web/css/tour.css">
-  <link rel="stylesheet" href="/web/css/detail.css">
-  <link rel="stylesheet" href="/web/css/brief.css">
-  <link rel="stylesheet" href="/web/css/insights.css">
-  <link rel="stylesheet" href="/web/css/tracker.css">
-  <link rel="stylesheet" href="/web/css/print.css">
-  <script defer src="/web/vendor/leaflet/leaflet.js"></script>
-  <script defer type="module" src="/web/js/app.js"></script>
-</head>
-<body>
-  <a class="skip-link" href="#opportunities">Skip to opportunities</a>
-  <main class="workspace">
-    <section class="map-region" role="region" aria-label="Interactive project map">
-      <div id="map" class="map" data-testid="map"></div>
-      <button id="map-pair-open" class="map-pair-open" type="button" hidden>Open highlighted pair</button>
-      <div class="map-key" role="group" aria-label="Map key" data-testid="map-key">
-        <p class="map-key-title">Map key</p>
-        <ul class="key-list">
-          <li><svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line x1="3" y1="8" x2="25" y2="8"/><circle cx="37" cy="8" r="5"/></svg><span>Exact location</span></li>
-          <li><svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line class="key-dashed" x1="3" y1="8" x2="25" y2="8"/><circle class="key-ring" cx="37" cy="8" r="5"/></svg><span>Approximate location</span></li>
-          <li><svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line class="key-dotted" x1="3" y1="8" x2="25" y2="8"/><circle class="key-ring-dashed" cx="37" cy="8" r="5"/></svg><span>Town-level location</span></li>
-        </ul>
-        <ul class="key-list key-utilities">
-          <li><span class="sample sample-desc"></span><span>Dominion Energy SC</span></li>
-          <li><span class="sample sample-gp"></span><span>Georgia Power</span></li>
-          <li><span class="sample sample-meag"></span><span>MEAG Power</span></li>
-          <li><span class="sample sample-gtc"></span><span>Georgia Transmission Corp.</span></li>
-          <li><span class="sample sample-minor"></span><span>Dalton Utilities / Georgia ITS (joint)</span></li>
-        </ul>
-        <p class="key-note">Lines are routes; dots and rings are single sites.</p>
-      </div>
-    </section>
-    <aside class="panel" data-testid="bottom-sheet" aria-label="Coordination opportunities">
-      <header class="title-block">
-        <div class="title-line">
-          <h1>GridLock</h1>
-          <div class="title-actions">
-            <button id="tour-launch" type="button"></button>
-            <button id="projects-toggle" class="view-button" type="button" aria-pressed="false" aria-controls="projects-panel">Projects</button>
-            <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to dark theme" title="Switch theme">
-              <span id="theme-icon" class="icon" data-icon="moon" aria-hidden="true"></span>
-            </button>
-          </div>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <title>GridLock | Coordination opportunities</title>
+    <script src="/web/js/theme-init.js"></script>
+    <link rel="stylesheet" href="/web/vendor/leaflet/leaflet.css">
+    <link rel="stylesheet" href="/web/css/tokens.css">
+    <link rel="stylesheet" href="/web/css/app.css">
+    <link rel="stylesheet" href="/web/css/area.css">
+    <link rel="stylesheet" href="/web/css/area-mode.css">
+    <link rel="stylesheet" href="/web/css/tour.css">
+    <link rel="stylesheet" href="/web/css/detail.css">
+    <link rel="stylesheet" href="/web/css/brief.css">
+    <link rel="stylesheet" href="/web/css/insights.css">
+    <link rel="stylesheet" href="/web/css/tracker.css">
+    <link rel="stylesheet" href="/web/css/protagonist.css">
+    <link rel="stylesheet" href="/web/css/print.css">
+    <script defer src="/web/vendor/leaflet/leaflet.js"></script>
+    <script defer type="module" src="/web/js/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#opportunities">Skip to opportunities</a>
+    <main class="workspace">
+      <header class="app-bar">
+        <h1>GridLock</h1>
+        <div class="app-search">
+          <form id="search-form" role="search">
+            <label id="find-heading" for="search-input">Search a city or project</label>
+            <span class="search-field"><input id="search-input" type="search" list="search-options" autocomplete="off" minlength="2" placeholder="Search a city or project"></span>
+            <datalist id="search-options"></datalist>
+          </form>
         </div>
-        <div id="tour-invitation-box" class="tour-entry" hidden>
-          <button id="tour-invitation" type="button"></button>
-          <button id="tour-dismiss" type="button" hidden></button>
+        <button id="filters-toggle" class="filters-toggle" type="button" aria-label="Filters" aria-expanded="false" aria-controls="filter-panel" disabled><span class="visually-hidden">Filters</span></button>
+        <button id="more-toggle" class="icon-button" type="button" aria-label="More" aria-expanded="false" aria-controls="more-menu"><span aria-hidden="true">⋮</span></button>
+        <div id="filter-panel" class="filter-panel" hidden>
+          <fieldset id="filter-utilities" class="filter-utilities"><legend>Utilities</legend><div id="filter-utility-options"></div></fieldset>
+          <label for="filter-band">Distance band</label>
+          <select id="filter-band" name="band">
+            <option value="">All bands</option>
+            <option value="touching">Touching / crossing</option>
+            <option value="lt_1_6km">Under 1.6 km</option>
+            <option value="lt_8km">Under 8 km</option>
+            <option value="lt_40km">Under 40 km</option>
+          </select>
+          <details id="more-filters"><summary>More filters</summary>
+            <div class="more-filter-fields">
+              <label for="filter-voltage">Voltage</label><select id="filter-voltage" name="voltage_kv"><option value="">All voltages</option></select>
+              <div class="year-filter-grid">
+                <div><label for="filter-year-min">In service from</label><input id="filter-year-min" name="year_min" type="number" min="1900" max="2200" step="1" inputmode="numeric"></div>
+                <div><label for="filter-year-max">Through</label><input id="filter-year-max" name="year_max" type="number" min="1900" max="2200" step="1" inputmode="numeric"></div>
+              </div>
+              <label for="filter-type">Project type</label><select id="filter-type" name="project_type">
+                <option value="">All types</option><option value="new_line">New line</option><option value="rebuild_line">Rebuild line</option>
+                <option value="reconductor">Reconductor</option><option value="new_substation">New substation</option>
+                <option value="substation_upgrade">Substation upgrade</option><option value="equipment">Equipment</option><option value="other">Other</option>
+              </select>
+              <label for="filter-cross-state">Cross-state</label><select id="filter-cross-state" name="cross_state">
+                <option value="">All pairs</option><option value="true">Cross-state only</option><option value="false">Within one state</option>
+              </select>
+            </div>
+          </details>
+          <button id="filter-clear" class="filter-clear" type="button">Clear all filters</button>
         </div>
-        <p class="subhead">Coordination opportunities</p>
-        <details id="about-data" class="about-data">
-          <summary><span class="about-title">About the data</span> <span class="about-line">Georgia and South Carolina plans</span></summary>
-          <div class="edition-block">
-            <p class="edition-label">Georgia and South Carolina public transmission plans</p>
-            <p id="editions" class="edition-line" data-src="source_documents">Loading plan editions</p>
-          </div>
-          <p id="no-overlap" class="tally" data-src="no_overlap_count">Loading project counts</p>
-        </details>
-        <div class="status-row">
-          <p id="status" class="status-line" role="status" aria-live="polite">Loading public plans.</p>
+
+        <div id="more-menu" class="more-menu" hidden>
+          <button id="tour-launch" type="button"></button>
+          <button id="projects-toggle" class="view-button" type="button" aria-pressed="false" aria-controls="projects-panel">Projects</button>
+          <details class="legend">
+            <summary>Map key</summary>
+            <div class="legend-section">
+              <p class="legend-heading">Location</p>
+              <div class="legend-grid">
+                <svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line x1="3" y1="8" x2="25" y2="8"/><circle cx="37" cy="8" r="5"/></svg><span>Exact location</span>
+                <svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line class="key-dashed" x1="3" y1="8" x2="25" y2="8"/><circle class="key-ring" cx="37" cy="8" r="5"/></svg><span>Approximate location</span>
+                <svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line class="key-dotted" x1="3" y1="8" x2="25" y2="8"/><circle class="key-ring-dashed" cx="37" cy="8" r="5"/></svg><span>Town-level location: only a town centre matched</span>
+              </div>
+              <p>Lines are routes; dots and rings are single sites. Unknown locations are listed, not drawn.</p>
+            </div>
+            <div class="legend-section">
+              <p class="legend-heading">Utilities</p>
+              <div class="legend-grid">
+                <span class="sample sample-desc"></span><span>Dominion Energy SC</span>
+                <span class="sample sample-gp"></span><span>Georgia Power</span>
+                <span class="sample sample-meag"></span><span>MEAG Power</span>
+                <span class="sample sample-gtc"></span><span>Georgia Transmission Corp.</span>
+                <span class="sample sample-minor"></span><span>Dalton Utilities / Georgia ITS (joint)</span>
+              </div>
+              <p>“(inferred)” means the plan names only Southern Company; the utility is inferred from the project location.</p>
+            </div>
+            <div class="legend-section">
+              <p class="legend-heading">Line width follows voltage</p>
+              <div class="legend-grid">
+                <span class="voltage-sample voltage-6"></span><span>500 kV and up</span>
+                <span class="voltage-sample voltage-4"></span><span>230 kV</span>
+                <span class="voltage-sample voltage-3"></span><span>115 kV</span>
+                <span class="voltage-sample voltage-2"></span><span>Lower or not stated</span>
+              </div>
+            </div>
+            <div class="legend-section">
+              <p class="legend-heading">Distance bands</p>
+              <div class="legend-grid">
+                <svg class="band-glyph" viewBox="0 0 14 12" aria-hidden="true" focusable="false"><rect class="on" x="0.5" y="8.5" width="2" height="3"/><rect class="on" x="4.2" y="6" width="2" height="5.5"/><rect class="on" x="7.9" y="3.5" width="2" height="8"/><rect class="on" x="11.5" y="0.5" width="2" height="11"/></svg><span>Touching / crossing</span>
+                <svg class="band-glyph" viewBox="0 0 14 12" aria-hidden="true" focusable="false"><rect class="on" x="0.5" y="8.5" width="2" height="3"/><rect class="on" x="4.2" y="6" width="2" height="5.5"/><rect class="on" x="7.9" y="3.5" width="2" height="8"/><rect x="11.5" y="0.5" width="2" height="11"/></svg><span>Under 1.6 km</span>
+                <svg class="band-glyph" viewBox="0 0 14 12" aria-hidden="true" focusable="false"><rect class="on" x="0.5" y="8.5" width="2" height="3"/><rect class="on" x="4.2" y="6" width="2" height="5.5"/><rect x="7.9" y="3.5" width="2" height="8"/><rect x="11.5" y="0.5" width="2" height="11"/></svg><span>Under 8 km</span>
+                <svg class="band-glyph" viewBox="0 0 14 12" aria-hidden="true" focusable="false"><rect class="on" x="0.5" y="8.5" width="2" height="3"/><rect x="4.2" y="6" width="2" height="5.5"/><rect x="7.9" y="3.5" width="2" height="8"/><rect x="11.5" y="0.5" width="2" height="11"/></svg><span>Under 40 km</span>
+              </div>
+            </div>
+          </details>
+
+          <details id="about-data" class="about-data">
+            <summary><span class="about-title">About the data</span> <span class="about-line">Georgia and South Carolina plans</span></summary>
+            <div class="edition-block">
+              <p class="edition-label">Georgia and South Carolina public transmission plans</p>
+              <p id="editions" class="edition-line" data-src="source_documents">Loading plan editions</p>
+            </div>
+            <p id="no-overlap" class="tally" data-src="no_overlap_count">Loading project counts</p>
+          </details>
+
           <div class="report-controls" role="group" aria-label="Export and print">
             <button id="export-csv" type="button" aria-label="Export CSV" title="Export CSV" disabled><span class="report-label">CSV</span></button>
             <button id="print-report-button" type="button" aria-label="Print report" title="Print report" disabled><span class="report-label">Print</span></button>
           </div>
+
+          <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to dark theme" title="Switch theme">
+            <span id="theme-icon" class="icon" data-icon="moon" aria-hidden="true"></span><span>Theme</span>
+          </button>
         </div>
-        <p id="export-status" class="export-status" role="status">Export and print are available after the current results load.</p>
-        <button id="sheet-toggle" class="sheet-toggle" type="button" aria-expanded="false" aria-controls="panel-body">Expand opportunities</button>
       </header>
-      <div id="panel-body" class="panel-body">
-        <details class="legend">
-          <summary>Map key</summary>
-          <div class="legend-section">
-            <p class="legend-heading">Location</p>
-            <div class="legend-grid">
-              <svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line x1="3" y1="8" x2="25" y2="8"/><circle cx="37" cy="8" r="5"/></svg><span>Exact location</span>
-              <svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line class="key-dashed" x1="3" y1="8" x2="25" y2="8"/><circle class="key-ring" cx="37" cy="8" r="5"/></svg><span>Approximate location</span>
-              <svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line class="key-dotted" x1="3" y1="8" x2="25" y2="8"/><circle class="key-ring-dashed" cx="37" cy="8" r="5"/></svg><span>Town-level location: only a town centre matched</span>
+      <aside class="panel" data-testid="bottom-sheet" aria-label="Coordination opportunities">
+        <header class="title-block">
+          <div id="tour-invitation-box" class="tour-entry" hidden>
+            <button id="tour-invitation" type="button"></button>
+            <button id="tour-dismiss" type="button" hidden></button>
+          </div>
+
+          <p id="status" class="status-line visually-hidden" role="status" aria-live="polite">Loading public plans.</p>
+          <p id="export-status" class="export-status" role="status">Export and print are available after the current results load.</p>
+          <button id="sheet-toggle" class="sheet-toggle" type="button" aria-expanded="false" aria-controls="panel-body">Expand opportunities</button>
+        </header>
+        <div id="panel-body" class="panel-body">
+          <section class="search-region" aria-label="Find a place or project">
+            <p id="filter-warning" class="filter-warning" data-testid="filter-warning" role="status" hidden></p>
+            <p id="search-state" class="search-state" data-testid="search-state" role="status">Enter at least 2 characters to search local plans.</p>
+            <p id="search-selection" class="search-selection" data-testid="search-selection" hidden></p>
+            <button id="explore-area" class="explore-button" type="button" hidden>Explore this area</button>
+            <!-- In the UI pass's slot: after "Explore this area" for keyboard order, and folded away in the phone peek. -->
+            <div id="start-here-slot" class="insight-slot">
+              <section id="start-here" class="start-here" aria-labelledby="start-here-heading">
+                <h2 id="start-here-heading">Start here: places with the most close pairs</h2>
+                <div id="start-here-places" class="start-here-places"></div>
+              </section>
             </div>
-            <p>Lines are routes; dots and rings are single sites. Unknown locations are listed, not drawn.</p>
-          </div>
-          <div class="legend-section">
-            <p class="legend-heading">Utilities</p>
-            <div class="legend-grid">
-              <span class="sample sample-desc"></span><span>Dominion Energy SC</span>
-              <span class="sample sample-gp"></span><span>Georgia Power</span>
-              <span class="sample sample-meag"></span><span>MEAG Power</span>
-              <span class="sample sample-gtc"></span><span>Georgia Transmission Corp.</span>
-              <span class="sample sample-minor"></span><span>Dalton Utilities / Georgia ITS (joint)</span>
-            </div>
-            <p>“(inferred)” means the plan names only Southern Company; the utility is inferred from the project location.</p>
-          </div>
-          <div class="legend-section">
-            <p class="legend-heading">Line width follows voltage</p>
-            <div class="legend-grid">
-              <span class="voltage-sample voltage-6"></span><span>500 kV and up</span>
-              <span class="voltage-sample voltage-4"></span><span>230 kV</span>
-              <span class="voltage-sample voltage-3"></span><span>115 kV</span>
-              <span class="voltage-sample voltage-2"></span><span>Lower or not stated</span>
-            </div>
-          </div>
-          <div class="legend-section">
-            <p class="legend-heading">Distance bands</p>
-            <div class="legend-grid">
-              <svg class="band-glyph" viewBox="0 0 14 12" aria-hidden="true" focusable="false"><rect class="on" x="0.5" y="8.5" width="2" height="3"/><rect class="on" x="4.2" y="6" width="2" height="5.5"/><rect class="on" x="7.9" y="3.5" width="2" height="8"/><rect class="on" x="11.5" y="0.5" width="2" height="11"/></svg><span>Touching / crossing</span>
-              <svg class="band-glyph" viewBox="0 0 14 12" aria-hidden="true" focusable="false"><rect class="on" x="0.5" y="8.5" width="2" height="3"/><rect class="on" x="4.2" y="6" width="2" height="5.5"/><rect class="on" x="7.9" y="3.5" width="2" height="8"/><rect x="11.5" y="0.5" width="2" height="11"/></svg><span>Under 1.6 km</span>
-              <svg class="band-glyph" viewBox="0 0 14 12" aria-hidden="true" focusable="false"><rect class="on" x="0.5" y="8.5" width="2" height="3"/><rect class="on" x="4.2" y="6" width="2" height="5.5"/><rect x="7.9" y="3.5" width="2" height="8"/><rect x="11.5" y="0.5" width="2" height="11"/></svg><span>Under 8 km</span>
-              <svg class="band-glyph" viewBox="0 0 14 12" aria-hidden="true" focusable="false"><rect class="on" x="0.5" y="8.5" width="2" height="3"/><rect x="4.2" y="6" width="2" height="5.5"/><rect x="7.9" y="3.5" width="2" height="8"/><rect x="11.5" y="0.5" width="2" height="11"/></svg><span>Under 40 km</span>
-            </div>
-          </div>
-        </details>
-        <section class="search-region" aria-labelledby="find-heading">
-          <div class="step-head">
-            <span class="step-number" aria-hidden="true">1</span>
-            <h2 id="find-heading">Find a place or project</h2>
-            <p class="step-hint">Search a city or project, or narrow the list with Filters.</p>
-          </div>
-          <div class="search-controls">
-            <button id="filters-toggle" class="filters-toggle" type="button" aria-expanded="false" aria-controls="filter-panel" disabled>Filters</button>
-            <form id="search-form" role="search">
-              <label for="search-input">Search a city or project</label>
-              <span class="search-field"><input id="search-input" type="search" list="search-options" autocomplete="off" minlength="2" placeholder="Search a city or project"></span>
-              <datalist id="search-options"></datalist>
-            </form>
-          </div>
-          <div id="filter-panel" class="filter-panel" hidden>
-            <fieldset id="filter-utilities" class="filter-utilities"><legend>Utilities</legend><div id="filter-utility-options"></div></fieldset>
-            <label for="filter-band">Distance band</label>
-            <select id="filter-band" name="band">
-              <option value="">All bands</option>
-              <option value="touching">Touching / crossing</option>
-              <option value="lt_1_6km">Under 1.6 km</option>
-              <option value="lt_8km">Under 8 km</option>
-              <option value="lt_40km">Under 40 km</option>
-            </select>
-            <details id="more-filters"><summary>More filters</summary>
-              <div class="more-filter-fields">
-                <label for="filter-voltage">Voltage</label><select id="filter-voltage" name="voltage_kv"><option value="">All voltages</option></select>
-                <div class="year-filter-grid">
-                  <div><label for="filter-year-min">In service from</label><input id="filter-year-min" name="year_min" type="number" min="1900" max="2200" step="1" inputmode="numeric"></div>
-                  <div><label for="filter-year-max">Through</label><input id="filter-year-max" name="year_max" type="number" min="1900" max="2200" step="1" inputmode="numeric"></div>
-                </div>
-                <label for="filter-type">Project type</label><select id="filter-type" name="project_type">
-                  <option value="">All types</option><option value="new_line">New line</option><option value="rebuild_line">Rebuild line</option>
-                  <option value="reconductor">Reconductor</option><option value="new_substation">New substation</option>
-                  <option value="substation_upgrade">Substation upgrade</option><option value="equipment">Equipment</option><option value="other">Other</option>
-                </select>
-                <label for="filter-cross-state">Cross-state</label><select id="filter-cross-state" name="cross_state">
-                  <option value="">All pairs</option><option value="true">Cross-state only</option><option value="false">Within one state</option>
-                </select>
+            <p id="area-selection" class="area-selection" data-testid="area-selection" role="status" hidden></p>
+            <section id="area-panel" class="area-panel" aria-labelledby="area-heading" hidden>
+              <div class="area-heading"><h2 id="area-heading">Selected area</h2><button id="area-clear" type="button">Clear area</button></div>
+              <label for="area-radius">Area radius</label>
+              <div class="area-radius"><input id="area-radius" type="range" min="1" max="80" step="1" value="40"><output id="area-radius-output" for="area-radius">40 km</output></div>
+              <p id="area-center-label"></p>
+              <p id="area-state" role="status" aria-live="polite"></p>
+              <button id="area-retry" type="button" hidden>Retry area</button>
+              <p id="area-caveat">Screening covers mapped projects in the loaded plans, including approximate locations. Projects with unknown locations cannot be screened.</p>
+              <p>Area totals use all loaded plans, independently of list filters and the selected year.</p>
+              <div id="area-results" hidden>
+                <h3>Projects by utility</h3><dl id="area-utilities"></dl>
+                <h3>Overlaps by distance band</h3><dl id="area-bands"></dl>
+                <details><summary>Projects in area</summary><ul id="area-projects"></ul></details>
+                <details><summary>Overlaps with a project in area</summary><ol id="area-overlaps"></ol></details>
               </div>
-            </details>
-            <button id="filter-clear" class="filter-clear" type="button">Clear all filters</button>
-          </div>
-          <p id="filter-warning" class="filter-warning" data-testid="filter-warning" role="status" hidden></p>
-          <p id="search-state" class="search-state" data-testid="search-state" role="status">Enter at least 2 characters to search local plans.</p>
-          <p id="search-selection" class="search-selection" data-testid="search-selection" hidden></p>
-          <button id="explore-area" class="explore-button" type="button" hidden>Explore this area</button>
-          <!-- In the UI pass's slot: after "Explore this area" for keyboard order, and folded away in the phone peek. -->
-          <div id="start-here-slot" class="insight-slot">
-            <section id="start-here" class="start-here" aria-labelledby="start-here-heading">
-              <h2 id="start-here-heading">Start here: places with the most close pairs</h2>
-              <div id="start-here-places" class="start-here-places"></div>
             </section>
-          </div>
-          <p id="area-selection" class="area-selection" data-testid="area-selection" role="status" hidden></p>
-          <section id="area-panel" class="area-panel" aria-labelledby="area-heading" hidden>
-            <div class="area-heading"><h2 id="area-heading">Selected area</h2><button id="area-clear" type="button">Clear area</button></div>
-            <label for="area-radius">Area radius</label>
-            <div class="area-radius"><input id="area-radius" type="range" min="1" max="80" step="1" value="40"><output id="area-radius-output" for="area-radius">40 km</output></div>
-            <p id="area-center-label"></p>
-            <p id="area-state" role="status" aria-live="polite"></p>
-            <button id="area-retry" type="button" hidden>Retry area</button>
-            <p id="area-caveat">Screening covers mapped projects in the loaded plans, including approximate locations. Projects with unknown locations cannot be screened.</p>
-            <p>Area totals use all loaded plans, independently of list filters and the selected year.</p>
-            <div id="area-results" hidden>
-              <h3>Projects by utility</h3><dl id="area-utilities"></dl>
-              <h3>Overlaps by distance band</h3><dl id="area-bands"></dl>
-              <details><summary>Projects in area</summary><ul id="area-projects"></ul></details>
-              <details><summary>Overlaps with a project in area</summary><ol id="area-overlaps"></ol></details>
-            </div>
           </section>
-        </section>
-        <section id="opportunities" class="opportunities" aria-labelledby="opportunities-heading" tabindex="-1">
-          <div class="step-head section-head">
-            <span class="step-number" aria-hidden="true">2</span>
-            <h2 id="opportunities-heading">Choose a pair</h2>
-            <span id="overlap-count" class="count" data-src="count"></span>
-            <p class="step-hint">A pair is two planned projects near each other, ranked by distance, timing, location accuracy and cross-state.</p>
-          </div>
-          <div id="list-insight-slot" class="insight-slot">
-            <div id="impact-card" class="impact-card" hidden>
-              <p id="impact-line" data-src="overlaps"></p>
-              <details><summary>About this estimate</summary><p>Each pair is estimated on its own. Pairs that share a project overlap, so this is a screening figure, not a budget.</p></details>
+          <section id="opportunities" class="opportunities" aria-labelledby="opportunities-heading" tabindex="-1">
+            <div class="step-head section-head">
+              <span class="step-number" aria-hidden="true">2</span>
+              <h2 id="opportunities-heading">Pairs</h2>
+              <span id="overlap-count" class="count" data-src="count"></span>
+              <p class="step-hint">A pair is two planned projects near each other, ranked by distance, timing, location accuracy and cross-state.</p>
             </div>
+            <div id="list-insight-slot" class="insight-slot">
+              <div id="impact-card" class="impact-card" hidden>
+                <p id="impact-line" data-src="overlaps"></p>
+                <details><summary>About this estimate</summary><p>Each pair is estimated on its own. Pairs that share a project overlap, so this is a screening figure, not a budget.</p></details>
+              </div>
+            </div>
+            <div id="list-state" class="list-state" data-testid="loading-state" role="status">Loading ranked opportunities</div>
+            <ol id="overlap-list" class="overlap-list"></ol>
+          </section>
+          <section id="projects-panel" class="projects-panel" aria-labelledby="projects-heading" hidden>
+            <h2 id="projects-heading">Projects</h2>
+            <label for="project-filter">Find a project</label>
+            <input id="project-filter" type="search" autocomplete="off">
+            <p id="projects-state" class="projects-state" data-testid="projects-state" role="status">Loading projects</p>
+            <ul id="project-list" class="project-list"></ul>
+          </section>
+          <section id="project-detail" class="project-detail" data-testid="project-detail" aria-labelledby="project-detail-heading" hidden>
+            <button id="project-back" class="back-button" type="button">Back to projects</button>
+            <h2 id="project-detail-heading" data-src="name"></h2>
+            <div id="project-fields"></div>
+            <h3>Overlaps within 40 km</h3>
+            <div id="project-overlaps"></div>
+          </section>
+          <details id="unknown-locations" class="unknown-locations" hidden>
+            <summary id="unknown-heading">Location unknown</summary>
+            <ul id="unknown-list"></ul>
+          </details>
+          <footer class="disclaimer">Independent student project; not affiliated with Dominion Energy, Georgia Power, Southern Company, GTC, MEAG or Sperry Tech. Estimates are for discussion only.</footer>
+        </div>
+      </aside>
+      <section class="map-region" role="region" aria-label="Interactive project map">
+        <section id="timeline" class="timeline" aria-label="In-service timeline">
+          <div class="timeline-heading"><label for="timeline-year">In-service year</label><output id="timeline-output" for="timeline-year">All years</output></div>
+          <div class="timeline-controls">
+            <button id="timeline-all" type="button" aria-pressed="true">All years</button>
+            <input id="timeline-year" type="range" min="2026" max="2026" value="2026" step="1" aria-valuetext="All years" disabled>
+            <button id="timeline-play" type="button" disabled>Play years</button>
           </div>
-          <div id="list-state" class="list-state" data-testid="loading-state" role="status">Loading ranked opportunities</div>
-          <ol id="overlap-list" class="overlap-list"></ol>
+          <p id="timeline-status" role="status">Loading in-service years.</p>
         </section>
+        <div id="map" class="map" data-testid="map"></div>
+        <button id="map-pair-open" class="map-pair-open" type="button" hidden>Open highlighted pair</button>
+        <div class="map-key" role="group" aria-label="Map key" data-testid="map-key">
+          <p class="map-key-title">Map key</p>
+          <ul class="key-list">
+            <li><svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line x1="3" y1="8" x2="25" y2="8"/><circle cx="37" cy="8" r="5"/></svg><span>Exact location</span></li>
+            <li><svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line class="key-dashed" x1="3" y1="8" x2="25" y2="8"/><circle class="key-ring" cx="37" cy="8" r="5"/></svg><span>Approximate location</span></li>
+            <li><svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line class="key-dotted" x1="3" y1="8" x2="25" y2="8"/><circle class="key-ring-dashed" cx="37" cy="8" r="5"/></svg><span>Town-level location</span></li>
+          </ul>
+          <ul class="key-list key-utilities">
+            <li><span class="sample sample-desc"></span><span>Dominion Energy SC</span></li>
+            <li><span class="sample sample-gp"></span><span>Georgia Power</span></li>
+            <li><span class="sample sample-meag"></span><span>MEAG Power</span></li>
+            <li><span class="sample sample-gtc"></span><span>Georgia Transmission Corp.</span></li>
+            <li><span class="sample sample-minor"></span><span>Dalton Utilities / Georgia ITS (joint)</span></li>
+          </ul>
+          <p class="key-note">Lines are routes; dots and rings are single sites.</p>
+        </div>
+      </section>
+      <aside class="detail-pane" aria-label="Pair detail" hidden>
         <!-- Step 3 bar: stays at the top of the panel while the pair detail and its brief scroll. -->
         <div id="detail-bar" class="detail-bar" hidden>
           <div class="detail-bar-title">
@@ -251,38 +281,9 @@
           <p id="brief-state" class="brief-state" role="status"></p>
           <div id="brief-content"></div>
         </section>
-        <section id="projects-panel" class="projects-panel" aria-labelledby="projects-heading" hidden>
-          <h2 id="projects-heading">Projects</h2>
-          <label for="project-filter">Find a project</label>
-          <input id="project-filter" type="search" autocomplete="off">
-          <p id="projects-state" class="projects-state" data-testid="projects-state" role="status">Loading projects</p>
-          <ul id="project-list" class="project-list"></ul>
-        </section>
-        <section id="project-detail" class="project-detail" data-testid="project-detail" aria-labelledby="project-detail-heading" hidden>
-          <button id="project-back" class="back-button" type="button">Back to projects</button>
-          <h2 id="project-detail-heading" data-src="name"></h2>
-          <div id="project-fields"></div>
-          <h3>Overlaps within 40 km</h3>
-          <div id="project-overlaps"></div>
-        </section>
-        <details id="unknown-locations" class="unknown-locations" hidden>
-          <summary id="unknown-heading">Location unknown</summary>
-          <ul id="unknown-list"></ul>
-        </details>
-        <footer class="disclaimer">Independent student project; not affiliated with Dominion Energy, Georgia Power, Southern Company, GTC, MEAG or Sperry Tech. Estimates are for discussion only.</footer>
-      </div>
-    </aside>
-    <section id="timeline" class="timeline" aria-label="In-service timeline">
-      <div class="timeline-heading"><label for="timeline-year">In-service year</label><output id="timeline-output" for="timeline-year">All years</output></div>
-      <div class="timeline-controls">
-        <button id="timeline-all" type="button" aria-pressed="true">All years</button>
-        <input id="timeline-year" type="range" min="2026" max="2026" value="2026" step="1" aria-valuetext="All years" disabled>
-        <button id="timeline-play" type="button" disabled>Play years</button>
-      </div>
-      <p id="timeline-status" role="status">Loading in-service years.</p>
-    </section>
-  </main>
-  <article id="print-report" aria-label="Coordination report"></article>
-  <noscript><p class="noscript">GridLock needs JavaScript to show the interactive map and ranked opportunities.</p></noscript>
-</body>
+      </aside>
+    </main>
+    <article id="print-report" aria-label="Coordination report"></article>
+    <noscript><p class="noscript">GridLock needs JavaScript to show the interactive map and ranked opportunities.</p></noscript>
+  </body>
 </html>

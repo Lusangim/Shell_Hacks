@@ -11,6 +11,7 @@ import { setupTimeline } from "./timeline.js";
 import { setupExport } from "./export.js";
 import { setupTour } from "./tour.js";
 import { state } from "./state.js";
+import { setupShell } from "./shell.js";
 import { setupTracker } from "./tracker.js";
 
 const status = document.getElementById("status");
@@ -210,11 +211,6 @@ function setupSheet() {
   searchInput.addEventListener("input", () => {
     document.getElementById("search-state").dataset.active = String(searchInput.value.trim().length > 0);
   });
-  // The map key is long: on a phone, opening it in the peek also opens the sheet.
-  const legend = document.querySelector(".legend");
-  legend.addEventListener("toggle", () => {
-    if (legend.open && matchMedia("(max-width: 700px)").matches && !sheet.classList.contains("expanded")) setExpanded(true);
-  });
 }
 
 // Report feedback stays a quiet live region until someone uses CSV or Print, then shows.
@@ -231,6 +227,7 @@ delete document.documentElement.dataset.areaLayout;
 setupTheme();
 setupSheet();
 setupReportStatus();
+setupShell(overlapView);
 setupTour();
 document.addEventListener("gridlock:project-click", (event) => {
   overlapView.close();

@@ -5,6 +5,8 @@ from pathlib import Path
 import pytest
 from playwright.sync_api import expect
 
+from tests.e2e.ui_helpers import close_more, open_more
+
 from tests.e2e.test_modern_map import browser_page, configure, loaded, map_value
 
 
@@ -104,12 +106,15 @@ def test_offline_demo_path_remains_usable(browser_page, live_server, available, 
     expect(page.get_by_test_id("search-selection")).to_contain_text("Savannah city")
     page.locator("#explore-area").click()
     expect(page.get_by_test_id("area-circle")).to_have_attribute("data-radius-m", "40000")
+    open_more(page)
     page.locator(".legend summary").click()
     with page.expect_download() as received:
+        open_more(page)
         page.get_by_role("button", name="Export CSV", exact=True).click()
     assert received.value.suggested_filename == "gridlock-overlaps.csv"
     assert len(Path(received.value.path()).read_bytes()) > 100
     if width == 390:
+        close_more(page)
         page.get_by_role("button", name="Collapse opportunities").click()
         expect(page.get_by_test_id("bottom-sheet")).to_have_class("panel")
     assert map_value(page, "state.map.getZoom()") == 11
@@ -138,6 +143,7 @@ def test_stored_dark_theme_is_applied_before_first_visible_frame(browser_page, l
     page.get_by_test_id("overlap-row").first.wait_for()
     page.wait_for_function("() => window.themeFrames.length > 1")
     assert all(frame == {"theme": "dark", "background": "rgb(22, 25, 28)"} for frame in page.evaluate("window.themeFrames"))
+    open_more(page)
     expect(page.get_by_role("button", name="Switch to light theme")).to_be_visible()
     axe_source = (Path(__file__).parent / "vendor" / "axe.min.js").read_text(encoding="utf-8")
     violations = page.evaluate(axe_source + "\nwindow.axe.run(document, {runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa']}})")["violations"]

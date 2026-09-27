@@ -11,9 +11,11 @@ from urllib.parse import urlencode, urlsplit
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
+from tests.e2e.ui_helpers import close_more, open_more
+
 
 def open_reports(page):
-    page.locator(".legend summary").click()
+    open_more(page)
     expect(page.get_by_role("button", name="Print report", exact=True)).to_be_visible()
 
 
@@ -38,6 +40,7 @@ def test_ranked_print_qualifies_only_inferred_utilities(live_server, width):
         page.goto(live_server)
         expect(page.locator(".overlap-button").first).to_be_visible()
         open_reports(page)
+        open_more(page)
         page.get_by_role("button", name="Print report", exact=True).click()
         page.wait_for_function("() => window.printCalls === 1")
         projects = {item["properties"]["id"]: item["properties"] for item in
@@ -74,6 +77,7 @@ def test_mcintosh_detail_and_print_preserve_work_location_limits(live_server, pa
             expect(detail).to_contain_text("6.7-mile Goshen (Savannah)–Georgia Pacific (Rincon)")
             expect(detail).to_contain_text("does not establish work at McIntosh")
         open_reports(page)
+        open_more(page)
         page.get_by_role("button", name="Print report", exact=True).click()
         page.wait_for_function("() => window.printCalls === 1")
         selected = page.locator("#print-selected")
@@ -118,6 +122,7 @@ def test_csv_matches_current_filters_and_visible_ranked_count(live_server, param
         assert bool(pairs) == ("year_min" not in params)
         expect(page.get_by_test_id("overlap-row")).to_have_count(len(pairs))
         expect(page.locator("#overlap-count")).to_have_text(f"{len(pairs)} pairs")
+        open_more(page)
         control = page.get_by_role("button", name="Export CSV", exact=True)
         expect(control).to_be_enabled()
         control.focus()
@@ -155,8 +160,10 @@ def test_letter_print_contains_selected_pair_sources_and_screening_assumptions(l
         expect(first).to_be_visible()
         pair_id = first.get_attribute("data-overlap-id")
         detail = page.request.get(f"{live_server}/api/overlaps/{pair_id}").json()
+        close_more(page)
         first.locator("button").click()
         expect(page.locator("#overlap-content")).to_contain_text(detail["project_a"]["properties"]["name"])
+        open_more(page)
         button = page.get_by_role("button", name="Print report", exact=True)
         button.focus()
         page.keyboard.press("Enter")
@@ -214,6 +221,7 @@ def test_empty_print_and_download_failure_recover(live_server):
         page.add_init_script("window.print = () => { window.printCalls = (window.printCalls || 0) + 1; }")
         page.goto(f"{live_server}/?year_min=2199")
         open_reports(page)
+        open_more(page)
         control = page.get_by_role("button", name="Export CSV", exact=True)
         expect(control).to_be_enabled()
         page.route("**/api/export/overlaps.csv*", lambda route: route.fulfill(status=503, body="unavailable"))
@@ -223,6 +231,7 @@ def test_empty_print_and_download_failure_recover(live_server):
         page.unroute("**/api/export/overlaps.csv*")
         with page.expect_download():
             control.click()
+        open_more(page)
         page.get_by_role("button", name="Print report", exact=True).click()
         page.wait_for_function("() => window.printCalls === 1")
         assert "No overlap selected" in page.locator("#print-report").text_content()
@@ -240,19 +249,23 @@ def test_print_failure_and_filtered_load_error_do_not_print_stale_results(live_s
         first = page.get_by_test_id("overlap-row").first
         expect(first).to_be_visible()
         pair_id = first.get_attribute("data-overlap-id")
+        close_more(page)
         first.locator("button").click()
         expect(page.locator("#overlap-content")).not_to_be_empty()
         page.route(f"**/api/overlaps/{pair_id}", lambda route: route.fulfill(status=503, body="unavailable"))
+        open_more(page)
         page.get_by_role("button", name="Print report", exact=True).click()
         expect(page.locator("#export-status")).to_contain_text("Could not prepare print report")
         assert page.evaluate("window.printCalls || 0") == 0
         page.unroute(f"**/api/overlaps/{pair_id}")
+        open_more(page)
         page.get_by_role("button", name="Print report", exact=True).click()
         page.wait_for_function("() => window.printCalls === 1")
         page.route("**/api/overlaps?band=touching", lambda route: route.fulfill(status=503, body="unavailable"))
         page.locator("#filters-toggle").click()
         page.locator("#filter-band").select_option("touching")
         expect(page.get_by_test_id("error-state")).to_be_visible()
+        open_more(page)
         expect(page.get_by_role("button", name="Export CSV", exact=True)).to_be_disabled()
         expect(page.get_by_role("button", name="Print report", exact=True)).to_be_disabled()
         browser.close()
@@ -275,7 +288,9 @@ def test_download_keeps_server_escaped_cells_and_print_treats_names_as_text(live
         hostile = '<img src="https://invalid.example/image" onerror="window.injected=1">'
         detail["project_a"]["properties"]["name"] = hostile
         page.route(f"**/api/overlaps/{pair_id}", lambda route: route.fulfill(json=detail))
+        close_more(page)
         first.locator("button").click()
+        open_more(page)
         page.get_by_role("button", name="Print report", exact=True).click()
         page.wait_for_function("() => window.printCalls === 1")
         assert hostile in page.locator("#print-selected").text_content()
@@ -285,6 +300,7 @@ def test_download_keeps_server_escaped_cells_and_print_treats_names_as_text(live
         page.route("**/api/export/overlaps.csv*", lambda route: route.fulfill(
             body=raw, content_type="text/csv", headers={"Content-Disposition": 'attachment; filename="gridlock-overlaps.csv"'}))
         with page.expect_download() as received:
+            open_more(page)
             page.get_by_role("button", name="Export CSV", exact=True).click()
         assert Path(received.value.path()).read_bytes() == raw
         assert external == []
@@ -310,16 +326,20 @@ def test_selection_change_cancels_pending_print_with_a_visible_message(live_serv
         open_reports(page)
         first = page.get_by_test_id("overlap-row").first
         expect(first).to_be_visible()
+        close_more(page)
         first.locator("button").click()
         expect(page.locator("#overlap-content")).not_to_be_empty()
         page.evaluate("window.delayPrint = true")
+        open_more(page)
         page.get_by_role("button", name="Print report", exact=True).click()
         page.wait_for_function("() => typeof window.releasePrint === 'function'")
+        close_more(page)
         page.locator("#overlap-back").click()
         page.get_by_test_id("overlap-row").nth(1).locator("button").click()
         page.evaluate("window.releasePrint()")
         expect(page.locator("#export-status")).to_contain_text("Selection changed")
         assert page.evaluate("window.printCalls || 0") == 0
+        open_more(page)
         expect(page.get_by_role("button", name="Print report", exact=True)).to_be_enabled()
         browser.close()
 
@@ -335,6 +355,7 @@ def test_approximate_distant_pair_print_does_not_claim_possibly_touching(live_se
         page.goto(f'{live_server}/?band=lt_40km#overlap={pair["id"]}')
         expect(page.locator("#overlap-content")).not_to_be_empty()
         open_reports(page)
+        open_more(page)
         page.get_by_role("button", name="Print report", exact=True).click()
         page.wait_for_function("() => window.printCalls === 1")
         content = page.locator("#print-selected").text_content()
@@ -357,6 +378,7 @@ def test_print_readable_selected_and_full_ranked_evidence(live_server, rank):
         page.goto(f'{live_server}/#overlap={pair["id"]}')
         expect(page.locator("#overlap-detail-heading")).to_have_text(f"Overlap #{rank}")
         open_reports(page)
+        open_more(page)
         page.get_by_role("button", name="Print report", exact=True).click()
         page.wait_for_function("() => window.printCalls === 1")
         report = page.locator("#print-report")
@@ -404,6 +426,7 @@ def test_print_labels_all_filters_and_unknown_assumptions_without_codes(live_ser
         page.goto(f"{live_server}/?{query}#overlap={pair_id}")
         expect(page.locator("#overlap-detail-heading")).to_have_text("Overlap #1")
         open_reports(page)
+        open_more(page)
         page.get_by_role("button", name="Print report", exact=True).click()
         page.wait_for_function("() => window.printCalls === 1")
         report = page.locator("#print-report")
@@ -428,6 +451,7 @@ def test_print_follows_filtered_deep_link_and_history_and_clears_bad_links(live_
         def check_pair(payload):
             expect(page.locator("#overlap-detail-heading")).to_have_text(f'Overlap #{payload["overlap"]["rank"]}')
             count = page.evaluate("window.printCalls || 0")
+            open_more(page)
             page.get_by_role("button", name="Print report", exact=True).click()
             page.wait_for_function("count => window.printCalls === count + 1", arg=count)
             selected = page.locator("#print-selected")
@@ -450,6 +474,7 @@ def test_print_follows_filtered_deep_link_and_history_and_clears_bad_links(live_
             page.evaluate("id => { location.hash = `overlap=${id}`; }", bad)
             expect(page.locator("#overlap-detail-heading")).to_have_text(heading)
             count = page.evaluate("window.printCalls")
+            open_more(page)
             page.get_by_role("button", name="Print report", exact=True).click()
             page.wait_for_function("count => window.printCalls === count + 1", arg=count)
             expect(page.locator("#print-selected")).to_contain_text("No overlap selected")
@@ -469,6 +494,7 @@ def test_print_no_savings_remains_explicit_and_readable(live_server, status, rea
         page.goto(f'{live_server}/#overlap={pair["id"]}')
         expect(page.locator("#overlap-detail-heading")).to_have_text(f'Overlap #{pair["rank"]}')
         open_reports(page)
+        open_more(page)
         page.get_by_role("button", name="Print report", exact=True).click()
         page.wait_for_function("() => window.printCalls === 1")
         expect(page.locator("#print-selected")).to_contain_text(f"No estimate: {reason}.")

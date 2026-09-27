@@ -28,7 +28,7 @@ export function setupTour() {
     try { localStorage.setItem("gridlock-tour-dismissed", "yes"); }
     catch (_error) { dismissed = true; }
   }
-  dismiss.addEventListener("click", () => { remember(); launch.focus(); });
+  dismiss.addEventListener("click", () => { remember(); document.getElementById("more-toggle").focus(); });
 
   const card = document.createElement("section");
   card.id = "tour-card";
@@ -85,7 +85,7 @@ export function setupTour() {
     if (openedLegend) document.querySelector(".legend").open = false;
     openedLegend = false;
     remember();
-    launch.focus();
+    document.getElementById("more-toggle").focus();
   }
 
   // Observe the real detail request, with a bounded wait when it fails or is removed.
@@ -162,6 +162,8 @@ export function setupTour() {
         await waitForTarget(step.target);
       }
       if (step.prepare === "export") {
+        const more = document.getElementById("more-toggle");
+        if (more.getAttribute("aria-expanded") !== "true") more.click();
         const legend = document.querySelector(".legend");
         if (legend && !legend.open) { legend.querySelector("summary").click(); openedLegend = true; }
       }

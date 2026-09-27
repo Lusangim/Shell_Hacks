@@ -5,6 +5,8 @@ from pathlib import Path
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
+from tests.e2e.ui_helpers import open_more
+
 
 @pytest.fixture
 def browser_page():
@@ -25,6 +27,7 @@ def start(page, url, width, theme="light"):
 
 
 def project(page, project_id):
+    open_more(page)
     page.locator("#projects-toggle").click()
     page.locator(f'[data-project-ref="{project_id}"] button').click()
     return page.locator("#project-fields")
@@ -87,7 +90,9 @@ def test_printed_cost_keeps_adjacent_warnings_and_unflagged_stays_plain(live_ser
     page.goto(f"{live_server}/#overlap={pair['id']}")
     expect(page.locator("#overlap-content .cost-warning").first).to_be_visible()
     page.evaluate("window.print = () => {}")
+    open_more(page)
     page.locator(".legend summary").click()
+    open_more(page)
     page.locator("#print-report-button").click()
     expect(page.locator("#print-selected .cost-warning").first).to_contain_text("Printed total")
     expect(page.locator('#print-selected [data-src="cost_usd"]').first).to_have_text("$1,238,443")
@@ -123,6 +128,7 @@ def test_phone_search_feedback_is_visible_and_recovers(live_server, browser_page
 def test_filtered_project_empty_explains_recovery_and_search_remains_distinct(live_server, browser_page, width):
     page = browser_page
     start(page, f"{live_server}/?year_min=2199", width)
+    open_more(page)
     page.locator("#projects-toggle").click()
     expect(page.locator("#projects-state")).to_have_text("No projects match the current filters. Open Filters and select Clear all filters to see all projects.")
     page.locator("#filters-toggle").click()
@@ -162,8 +168,8 @@ def test_keyboard_exposes_timeline_and_background_controls(live_server, browser_
         page.locator("#sheet-toggle").click()
     if width == 390:
         expect(page.locator("#sheet-toggle")).to_have_attribute("aria-expanded", "true")
-    # Begin within the sheet; actual reverse Tab reaches map controls and wraps to timeline.
-    page.locator("#tour-launch").focus()
+    # Begin at the detail, after the map in DOM order; reverse Tab reaches its controls.
+    page.locator("#overlap-back" if path == "pair" else "#more-toggle").focus()
     reached = set()
     for _ in range(24):
         page.keyboard.press("Shift+Tab")

@@ -186,7 +186,7 @@ function labelAndFitStates(basemap) {
     const timeline = document.querySelector(".timeline").getBoundingClientRect();
     const bottom = mobile ? innerHeight - timeline.top + 12 : 140;
     const bounds = L.geoJSON({ type: "FeatureCollection", features: states }).getBounds();
-    const options = { animate: false, paddingTopLeft: mobile ? [16, 16] : [456, 24],
+    const options = { animate: false, paddingTopLeft: mobile ? [16, 16] : [24, 24],
       paddingBottomRight: [24, bottom] };
     // Small screens may need a slightly wider overview to keep both states above the sheet.
     if (mobile) state.map.setMinZoom(0);
@@ -269,7 +269,7 @@ export function fitPairBounds(bounds) {
     animate: !reduced,
     duration: 0.6,
     maxZoom: 11,
-    paddingTopLeft: mobile ? [16, 16] : [440, 20],
+    paddingTopLeft: [20, 20],
     paddingBottomRight: mobile ? [16, Math.min(window.innerHeight * 0.6 + 16, 530)] : [20, 20],
   });
 }

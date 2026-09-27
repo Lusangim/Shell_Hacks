@@ -158,6 +158,20 @@ def test_savannah_keyboard_search_centers_map_and_explores_40_km(live_server, wi
           return [center.lat, center.lng, state.map.getZoom()];
         }""") == [expected["lat"], expected["lon"], 11]
         page.keyboard.press("Tab")
+        expect(page.locator("#filters-toggle")).to_be_focused()
+        page.keyboard.press("Tab")
+        expect(page.locator("#more-toggle")).to_be_focused()
+        visited = set()
+        for _ in range(32):
+            page.keyboard.press("Tab")
+            focused = page.evaluate("""() => ({
+              index: [...document.querySelectorAll('*')].indexOf(document.activeElement),
+              id: document.activeElement.id
+            })""")
+            if focused["id"] == "explore-area":
+                break
+            assert focused["index"] not in visited, "Keyboard route cycled before Explore this area"
+            visited.add(focused["index"])
         assert page.evaluate("document.activeElement.id") == "explore-area"
         page.keyboard.press("Enter")
         expect(page.get_by_test_id("area-circle")).to_have_count(1)

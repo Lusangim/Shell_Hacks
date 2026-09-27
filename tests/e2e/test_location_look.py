@@ -5,6 +5,8 @@ from datetime import date
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
+from tests.e2e.ui_helpers import close_more, open_more
+
 
 def open_page(playwright, live_server, width=1440, height=900, theme="light", path="", dismissed=True):
     browser = playwright.chromium.launch()
@@ -85,6 +87,7 @@ def test_town_level_wording_in_tooltip_row_and_project_detail(live_server):
         row = page.locator(f'[data-testid="overlap-row"][data-overlap-id="{pair["id"]}"]')
         # The compact row keeps a short marker; the tooltip above and the project detail below say it in full.
         expect(row.locator('[data-src="town_only"]')).to_have_text("Town-level")
+        open_more(page)
         page.locator("#projects-toggle").click()
         page.locator(f'[data-project-ref="{town_id}"] button').click()
         bullet = page.locator('#project-fields [data-src="town_only"]')
@@ -116,7 +119,9 @@ def test_capped_pair_note_is_visible_in_row_detail_and_print(live_server):
         assert page.evaluate("""() => [...document.querySelectorAll('[data-testid="pair-halo"]')]
           .every(el => el.getAttribute('fill') !== 'none' || el.getAttribute('stroke') !== 'none')""")
         page.evaluate("window.print = () => { window.printed = true; }")  # same document after the hash change
+        open_more(page)
         page.locator(".legend summary").click()
+        open_more(page)
         page.get_by_role("button", name="Print report", exact=True).click()
         page.wait_for_function("() => window.printed === true")
         expect(page.locator('#print-selected [data-src="town_capped"]')).to_contain_text("Counted as under 40 km")
@@ -137,6 +142,7 @@ def test_map_key_shows_exact_approximate_and_town_level(live_server, width, heig
             expect(key.locator(".sample")).to_have_count(5)
         else:
             expect(key).to_be_hidden()
+            open_more(page)
             page.locator(".legend summary").click()
             for label in labels:
                 expect(page.locator(".legend").get_by_text(label).first).to_be_visible()
@@ -333,6 +339,7 @@ def test_rows_search_and_tour_use_drawn_icons_and_plain_words(live_server):
         expect(page.locator("#search-options option")).not_to_have_count(0)
         page.locator("#search-input").press("Enter")
         expect(page.get_by_test_id("search-selection")).to_have_text("Place: Savannah city")
+        open_more(page)
         page.get_by_role("button", name="Take the tour", exact=True).click()
         card = page.get_by_role("dialog", name="GridLock tour")
         panel = page.locator(".panel").bounding_box()
@@ -410,16 +417,17 @@ def test_years_to_coordinate_tag_in_rows_and_pair_summary(live_server):
 
 
 @pytest.mark.parametrize("width,height", [(1440, 900), (390, 844)])
-def test_panel_reads_as_three_steps_with_reports_in_reach(live_server, width, height):
+def test_shell_keeps_search_pairs_and_reports_in_reach(live_server, width, height):
     with sync_playwright() as playwright:
         browser, page = open_page(playwright, live_server, width, height)
         page.get_by_test_id("overlap-row").first.wait_for()
         _, pairs = records(page, live_server)
         if width == 390:
             page.locator("#sheet-toggle").click()
-        expect(page.get_by_role("heading", name="Find a place or project", exact=True)).to_be_visible()
-        expect(page.get_by_role("heading", name="Choose a pair", exact=True)).to_be_visible()
+        expect(page.locator(".app-bar #search-input")).to_be_visible()
+        expect(page.get_by_role("heading", name="Pairs", exact=True)).to_be_visible()
         expect(page.locator("#opportunities .step-hint")).to_contain_text("A pair is two planned projects")
+        open_more(page)
         expect(page.locator(".legend > summary")).to_have_text("Map key")
         about = page.locator("#about-data")
         expect(about.locator("summary")).to_contain_text("About the data")
@@ -429,18 +437,24 @@ def test_panel_reads_as_three_steps_with_reports_in_reach(live_server, width, he
         expect(about.locator("#no-overlap")).to_be_visible()
         for name in ("Export CSV", "Print report"):
             expect(page.get_by_role("button", name=name, exact=True)).to_be_visible()
+        close_more(page)
         page.get_by_test_id("overlap-row").first.locator("button").click()
         expect(page.locator("#overlap-content .overlap-project")).to_have_count(2)
-        # Step 2 keeps just the chosen row, pressed; step 3's bar follows it.
-        chosen = page.locator('[data-testid="overlap-row"]:visible')
-        expect(chosen).to_have_count(1)
+        # The chosen row remains selected while the right pane holds its detail.
+        chosen = page.locator(f'[data-testid="overlap-row"][data-overlap-id="{pairs[0]["id"]}"]')
+        expect(page.get_by_test_id("overlap-row")).to_have_count(len(pairs))
+        if width > 700:
+            expect(page.get_by_test_id("overlap-row").nth(1)).to_be_visible()
         expect(chosen).to_have_attribute("data-overlap-id", pairs[0]["id"])
         expect(chosen.get_by_role("button")).to_have_attribute("aria-pressed", "true")
         bar = page.locator("#detail-bar")
         expect(bar.locator(".step-number")).to_have_text("3")
         expect(bar.locator("#overlap-detail-heading")).to_have_text(f'Overlap #{pairs[0]["rank"]}')
+        expect(page.locator(".detail-pane #overlap-detail")).to_be_visible()
+        open_more(page)
         for name in ("Export CSV", "Print report"):
             expect(page.get_by_role("button", name=name, exact=True)).to_be_visible()  # still in reach with a pair open
+        close_more(page)
         page.get_by_role("button", name="Back to ranked overlaps").click()
         expect(page.get_by_test_id("overlap-row").nth(1)).to_be_visible()
         expect(bar).to_be_hidden()
@@ -471,7 +485,7 @@ def test_pair_summary_and_section_nav_under_a_sticky_bar(live_server, width, hei
             expect(page.locator(target)).to_be_focused()
             layout = page.evaluate("""target => {
               const bar = document.querySelector('#detail-bar').getBoundingClientRect();
-              const body = document.querySelector('.panel-body').getBoundingClientRect();
+              const body = document.querySelector('.detail-pane').getBoundingClientRect();
               const heading = document.querySelector(target).getBoundingClientRect();
               return {barTop: bar.top, barBottom: bar.bottom, bodyTop: body.top, bodyBottom: body.bottom, top: heading.top};
             }""", target)

@@ -7,6 +7,8 @@ import json
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
+from tests.e2e.ui_helpers import open_more
+
 
 MCINTOSH = "desc-p41__sertp-p107-9bc088"
 NO_COST = "sertp-p68-a0289a__sertp-p72-81610d"
@@ -152,12 +154,25 @@ def test_keyboard_phone_detail_has_focus_no_overflow_or_console_error(live_serve
         page.goto(live_server)
         expect(page.get_by_test_id("overlap-row").first).to_be_visible()
         page.locator("#search-input").focus()
-        # The phone peek folds Start here away, so only the places on screen take a Tab stop.
-        for button in [item for item in page.locator("#start-here-places button").all() if item.is_visible()]:
-            page.keyboard.press("Tab")
-            assert button.evaluate("element => document.activeElement === element"), "Start here place not reachable from search by Tab"
         page.keyboard.press("Tab")
-        assert page.evaluate("document.activeElement.classList.contains('overlap-button')"), "Ranked overlap not reachable after Start here by Tab"
+        expect(page.locator("#filters-toggle")).to_be_focused()
+        page.keyboard.press("Tab")
+        expect(page.locator("#more-toggle")).to_be_focused()
+        # Visible suggestions remain on the real route between the top bar and rows.
+        places = [item for item in page.locator("#start-here-places button").all() if item.is_visible()]
+        visited, reached_places = set(), []
+        for _ in range(32):
+            page.keyboard.press("Tab")
+            position = page.evaluate("[...document.querySelectorAll('*')].indexOf(document.activeElement)")
+            assert position not in visited, "Keyboard route cycled before the ranked list"
+            visited.add(position)
+            for index, button in enumerate(places):
+                if button.evaluate("element => document.activeElement === element"):
+                    reached_places.append(index)
+            if page.evaluate("document.activeElement.classList.contains('overlap-button')"):
+                break
+        assert reached_places == list(range(len(places))), "Start here places not reached in order before the ranked list"
+        assert page.evaluate("document.activeElement.classList.contains('overlap-button')"), "Ranked overlap not reachable after the top bar by Tab"
         page.keyboard.press("Enter")
         detail = page.get_by_test_id("overlap-detail")
         expect(detail).to_be_visible()
@@ -267,6 +282,7 @@ def test_shell_load_finishing_after_projects_toggle_preserves_projects_view(live
         })();""")
         page.goto(live_server)
         expect(page.locator("html[data-shell-pending='true']")).to_have_count(1)
+        open_more(page)
         page.get_by_role("button", name="Projects").click()
         expect(page.get_by_test_id("project-row")).to_have_count(0)
         expect(page.locator("#projects-panel")).to_be_visible()

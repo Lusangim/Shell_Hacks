@@ -252,7 +252,7 @@ def test_invalid_area_url_releases_reserved_phone_layout(live_server, theme, que
         expect(page.locator("#sheet-toggle")).to_have_attribute("aria-expanded", "false")
         assert page.locator("html").get_attribute("data-area-layout") is None
         assert "expanded" not in page.locator(".panel").get_attribute("class")
-        assert abs(page.locator(".panel").bounding_box()["height"] - 844 * .58) < 1
+        assert abs(page.locator(".panel").bounding_box()["height"] - 844 * .48) < 1
         page.reload()
         expect(page.locator("#status")).to_contain_text("ranked opportunities loaded")
         assert page.locator("html").get_attribute("data-area-layout") is None
@@ -264,5 +264,5 @@ def test_invalid_area_url_releases_reserved_phone_layout(live_server, theme, que
         else:
             expect(page.locator("#area-panel")).to_be_hidden()
             expect(page.locator("#sheet-toggle")).to_have_attribute("aria-expanded", "false")
-            assert abs(page.locator(".panel").bounding_box()["height"] - 844 * .58) < 1
+            assert abs(page.locator(".panel").bounding_box()["height"] - 844 * .48) < 1
         browser.close()

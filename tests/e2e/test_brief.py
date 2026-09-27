@@ -7,6 +7,8 @@ from pathlib import Path
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
+from tests.e2e.ui_helpers import open_more
+
 from tests.e2e.audits.checks import TEXT_LINT_JS
 
 
@@ -229,6 +231,7 @@ def test_hostile_evidence_safe_links_and_view_change_clear(browser_page, live_se
     assert not re.search(r"desc-p41|shared_endpoint|data/raw", panel.inner_text())
     expect(panel.get_by_role("link")).to_have_count(1)
     assert panel.get_by_role("link").get_attribute("href").startswith("/api/sources/")
+    open_more(page)
     page.locator("#projects-toggle").click()
     expect(panel).to_be_hidden()
     expect(page.locator("#brief-content")).to_be_empty()
@@ -255,6 +258,7 @@ def test_leaving_during_pair_fetch_cannot_render_or_select_a_hidden_pair(browser
     page.goto(f"{live_server}/#overlap={PAIR}")
     page.wait_for_function("() => typeof window.releasePair === 'function'")
     expect(page.locator("#overlap-state")).to_contain_text("Loading overlap")
+    open_more(page)
     page.locator("#projects-toggle").click()
     expect(page.locator("#overlap-detail")).to_be_hidden()
     page.evaluate("window.releasePair()")
