@@ -294,7 +294,7 @@ details[open] > summary::before { transform: none; }
 .detail-bar h2 { margin: 0; min-width: 0; font-size: 18px; line-height: 1.3; overflow-wrap: anywhere; }
 .detail-nav { display: flex; flex-wrap: wrap; gap: 4px; }
 .detail-nav button { min-height: 32px; padding: 4px 10px; border-radius: var(--radius-pill); font-size: 13px; }
-#overlap-detail, .overlap-evidence [data-section], #brief-panel { scroll-margin-top: 104px; }
+#overlap-detail, .overlap-evidence [data-section], #brief-panel, .overlap-evidence .tour-target { scroll-margin-top: 104px; }
 .detail-hint { margin: 0 0 8px; }
 .overlap-detail h2 { margin: 0 0 8px; font-size: 20px; line-height: 1.3; }
 .overlap-detail h3 { margin: 20px 0 4px; font-size: 16px; }
@@ -388,7 +388,7 @@ details[open] > summary::before { transform: none; }
   .projects-panel, .project-detail, .overlap-detail { padding: 12px 16px 24px; }
   .detail-bar { padding: 8px 16px; }
   .detail-bar .back-button, .detail-nav button { min-height: 44px; }
-  #overlap-detail, .overlap-evidence [data-section], #brief-panel { scroll-margin-top: 124px; }
+  #overlap-detail, .overlap-evidence [data-section], #brief-panel, .overlap-evidence .tour-target { scroll-margin-top: 124px; }
   .projects-panel input { font-size: 16px; }
   .leaflet-control-zoom a { width: 44px; height: 44px; line-height: 44px; }
   .leaflet-tooltip { max-width: min(220px, calc(100vw - 48px)); }
