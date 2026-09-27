@@ -136,6 +136,109 @@ def test_export_empty_filter_is_header_only(real_client: TestClient) -> None:
     assert csv_rows(real_client, [("utility", "No such utility")]) == []
 
 
+def test_export_all_real_savings_keep_evidence_and_original_fields(real_client: TestClient) -> None:
+    pairs = real_client.get("/api/overlaps").json()
+    projects = {item["properties"]["id"]: item["properties"]
+                for item in real_client.get("/api/projects").json()["features"]}
+    response = real_client.get("/api/export/overlaps.csv")
+    rows = csv_rows(real_client)
+    assert len(rows) == len(pairs) == 489
+    assert sum(pair["savings"]["status"] == "range" for pair in pairs) == 201
+    assert response.content.startswith(b"\xef\xbb\xbf")
+    assert response.content.endswith(b"\r\n")
+    assert b"\n" not in response.content.replace(b"\r\n", b"")
+    assert list(rows[0]) == [
+        "Rank", "Overlap ID", "Project A", "Utility A", "Project B", "Utility B",
+        "Band", "Distance km", "Touch reason", "Why they touch", "In-service year A",
+        "In-service year B", "Year gap", "Accuracy A", "Accuracy B", "Source A",
+        "Source page A", "Source B", "Source page B", "Savings status",
+        "Savings low USD", "Savings high USD", "Coordination status",
+        "Savings qualification", "Savings basis", "Savings assumptions", "Savings caveat",
+    ]
+    for row, pair in zip(rows, pairs, strict=True):
+        savings = pair["savings"]
+        assert row["Overlap ID"] == pair["id"]
+        assert row["Rank"] == str(pair["rank"])
+        assert row["Savings status"] == savings["status"]
+        assert row["Savings basis"] == savings["basis"]
+        for bound in ("low", "high"):
+            amount = savings[f"{bound}_usd"]
+            assert row[f"Savings {bound} USD"] == (str(amount) if amount is not None else "")
+        for side in ("A", "B"):
+            project = projects[pair[side.lower()]]
+            assert row[f"Project {side}"] == project["name"]
+            assert row[f"Source {side}"] == project["source"]["doc"]
+            assert row[f"Source page {side}"] == str(project["source"]["page"])
+        if savings["status"] == "range":
+            assert row["Savings qualification"] == "Screening estimate"
+            assert "Team assumption (2026-09-26)" in row["Savings assumptions"]
+            assert "1%–3% of reference cost" in row["Savings assumptions"]
+            assert "Shared work and savings are not verified" in row["Savings caveat"]
+        else:
+            assert row["Savings qualification"] == "No savings estimate"
+            assert row["Savings assumptions"] == ""
+        for assumption_id in savings["assumption_ids"]:
+            assert assumption_id not in " ".join(row.values())
+
+
+def test_export_top_and_mileage_proxy_have_readable_dated_assumptions(real_client: TestClient) -> None:
+    rows = csv_rows(real_client)
+    top = rows[0]
+    assert top["Overlap ID"] == "desc-p41__sertp-p107-9bc088"
+    assert "$5,376,418" in top["Savings basis"]
+    assert "partner cost not stated" in top["Savings basis"]
+    assert "known scope only" in top["Savings basis"]
+    assert "1%–3%" in top["Savings assumptions"]
+    proxy = rows[4]
+    assert proxy["Rank"] == "5"
+    assert (proxy["Savings low USD"], proxy["Savings high USD"]) == ("50000", "450000")
+    assert "5.0 miles" in proxy["Savings basis"]
+    assert "$1,000,000–$3,000,000 per line mile" in proxy["Savings assumptions"]
+    assert "not a published construction-cost rate" in proxy["Savings assumptions"]
+
+
+def test_csv_inferred_utility_qualifier_does_not_change_canonical_data(real_client: TestClient) -> None:
+    before = real_client.get("/api/projects").json()
+    rows = {row["Overlap ID"]: row for row in csv_rows(real_client)}
+    assert rows["desc-p41__sertp-p107-9bc088"]["Utility B"] == "Georgia Power (inferred)"
+    assert rows["desc-p41__sertp-p111-fe1e3b"]["Utility B"] == "Georgia Power"
+    assert rows["desc-p41__sertp-p107-9bc088"]["Utility A"] == "Dominion Energy SC"
+    for pair in real_client.get("/api/overlaps").json():
+        for side in ("a", "b"):
+            project = next(p["properties"] for p in before["features"] if p["properties"]["id"] == pair[side])
+            suffix = " (inferred)" if project["utility_basis"] == "inferred_from_location" else ""
+            assert rows[pair["id"]][f"Utility {side.upper()}"] == project["utility"] + suffix
+            assert pair[f"{side}_utility"] == project["utility"]
+    assert real_client.get("/api/projects").json() == before
+
+
+@pytest.mark.parametrize("status,reason", [
+    ("unknown_year", "At least one in-service year is not stated; no savings estimate."),
+    ("no_cost", "No printed plan cost or eligible stated line mileage for a proxy estimate."),
+    ("timing_too_far", "In-service years are 3 years apart; no savings estimate."),
+])
+def test_csv_non_range_reasons_have_no_amounts(artifacts: Path, status: str, reason: str) -> None:
+    pairs = json.loads((artifacts / "overlaps.json").read_text(encoding="utf-8"))
+    pairs[0]["savings"] = dict(status=status, basis=reason, low_usd=None, high_usd=None, assumption_ids=[])
+    (artifacts / "overlaps.json").write_text(json.dumps(pairs), encoding="utf-8")
+    with TestClient(create_app(artifact_dir=artifacts), base_url="http://localhost") as client:
+        row = csv_rows(client)[0]
+    assert row["Savings basis"] == reason
+    assert row["Savings qualification"] == "No savings estimate"
+    assert row["Savings low USD"] == row["Savings high USD"] == row["Savings assumptions"] == ""
+
+
+def test_new_csv_basis_escapes_formula_and_missing_assumption_stays_explicit(artifacts: Path) -> None:
+    pairs = json.loads((artifacts / "overlaps.json").read_text(encoding="utf-8"))
+    pairs[0]["savings"]["basis"] = "=SYNTHETIC_FORMULA()"
+    (artifacts / "overlaps.json").write_text(json.dumps(pairs), encoding="utf-8")
+    with TestClient(create_app(artifact_dir=artifacts), base_url="http://localhost") as client:
+        row = csv_rows(client)[0]
+    assert row["Savings basis"] == "'=SYNTHETIC_FORMULA()"
+    assert "Assumption details unavailable" in row["Savings assumptions"]
+    assert "fixture-1" not in " ".join(row.values())
+
+
 @pytest.mark.parametrize("params", [
     [("year_min", "2030"), ("year_max", "2020")],
     [("band", "invalid")],
