@@ -84,6 +84,51 @@
       ],
       "title": "Savings",
       "type": "object"
+    },
+    "ScoreParts": {
+      "additionalProperties": false,
+      "description": "The five factors whose product is a pair's score, so the page can show why a pair ranks where it does.",
+      "properties": {
+        "band": {
+          "maximum": 4,
+          "minimum": 1,
+          "title": "Band",
+          "type": "integer"
+        },
+        "location": {
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Location",
+          "type": "number"
+        },
+        "savings": {
+          "maximum": 1.3,
+          "minimum": 1,
+          "title": "Savings",
+          "type": "number"
+        },
+        "state_line": {
+          "maximum": 1.5,
+          "minimum": 1,
+          "title": "State Line",
+          "type": "number"
+        },
+        "timing": {
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Timing",
+          "type": "number"
+        }
+      },
+      "required": [
+        "band",
+        "timing",
+        "location",
+        "state_line",
+        "savings"
+      ],
+      "title": "ScoreParts",
+      "type": "object"
     }
   },
   "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -199,6 +244,9 @@
       "title": "Score",
       "type": "number"
     },
+    "score_parts": {
+      "$ref": "#/$defs/ScoreParts"
+    },
     "timeline": {
       "title": "Timeline",
       "type": "string"
@@ -258,6 +306,7 @@
     "pair_note",
     "accuracy_pair",
     "score",
+    "score_parts",
     "rank",
     "savings",
     "brief_status"

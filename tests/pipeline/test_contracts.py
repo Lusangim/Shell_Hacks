@@ -107,6 +107,32 @@ def test_brief_non_range_has_no_numeric_bounds():
         BriefSavings.model_validate(value)
 
 
+@pytest.mark.parametrize("change", [
+    {"score": 5.0},                                     # the parts multiply to 4.8
+    {"score_parts": {"band": 3}},                       # a touching pair weighs 4
+    {"score_parts": {"timing": 0.7}},                   # same year is 1.0
+    {"score_parts": {"location": 1.0}},                 # an approximate pair cannot be 1.0
+    {"score_parts": {"state_line": 1.0}},               # a cross-state pair is 1.5
+])
+def test_score_must_match_its_parts(change):
+    value = json.loads((FIXTURES / "overlaps.json").read_text(encoding="utf-8"))[0]
+    Overlap.model_validate(value)
+    value["score"] = change.get("score", value["score"])
+    value["score_parts"].update(change.get("score_parts", {}))
+    with pytest.raises(ValidationError):
+        Overlap.model_validate(value)
+
+
+def test_savings_bonus_needs_a_range():
+    value = json.loads((FIXTURES / "overlaps.json").read_text(encoding="utf-8"))[0]
+    value["savings"] = {"status": "no_cost", "low_usd": None, "high_usd": None, "basis": None, "assumption_ids": []}
+    Overlap.model_validate(value)
+    value["score_parts"]["savings"] = 1.1
+    value["score"] = round(4 * 1.0 * 0.8 * 1.5 * 1.1, 3)
+    with pytest.raises(ValidationError):
+        Overlap.model_validate(value)
+
+
 def test_same_utility_overlap_rejected():
     value = json.loads((FIXTURES / "overlaps.json").read_text(encoding="utf-8"))[0]
     value["b_utility"] = value["a_utility"]

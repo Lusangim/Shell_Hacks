@@ -22,6 +22,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 5.823,
+  "score_parts": {
+   "band": 4,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.5,
+   "savings": 1.2132
+  },
   "savings": {
    "status": "range",
    "low_usd": 62000,
@@ -57,6 +64,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 4.578,
+  "score_parts": {
+   "band": 4,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.1922
+  },
   "savings": {
    "status": "range",
    "low_usd": 62000,
@@ -92,6 +106,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 4.29,
+  "score_parts": {
+   "band": 3,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.5,
+   "savings": 1.1918
+  },
   "savings": {
    "status": "range",
    "low_usd": 33000,
@@ -127,6 +148,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 4.0,
+  "score_parts": {
+   "band": 4,
+   "timing": 1.0,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -160,6 +188,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 3.942,
+  "score_parts": {
+   "band": 4,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.2318
+  },
   "savings": {
    "status": "range",
    "low_usd": 109000,
@@ -195,6 +230,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 3.728,
+  "score_parts": {
+   "band": 4,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.1651
+  },
   "savings": {
    "status": "range",
    "low_usd": 40000,
@@ -230,6 +272,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 3.728,
+  "score_parts": {
+   "band": 4,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.1651
+  },
   "savings": {
    "status": "range",
    "low_usd": 40000,
@@ -265,6 +314,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 3.328,
+  "score_parts": {
+   "band": 4,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.3
+  },
   "savings": {
    "status": "range",
    "low_usd": 4583000,
@@ -300,6 +356,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 3.328,
+  "score_parts": {
+   "band": 4,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.3
+  },
   "savings": {
    "status": "range",
    "low_usd": 1890000,
@@ -335,6 +398,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 3.2,
+  "score_parts": {
+   "band": 4,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -368,6 +438,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 3.2,
+  "score_parts": {
+   "band": 4,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -401,6 +478,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 3.131,
+  "score_parts": {
+   "band": 4,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2231
+  },
   "savings": {
    "status": "range",
    "low_usd": 82000,
@@ -436,6 +520,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 3.058,
+  "score_parts": {
+   "band": 4,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1945
+  },
   "savings": {
    "status": "range",
    "low_usd": 69000,
@@ -471,6 +562,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 3.055,
+  "score_parts": {
+   "band": 4,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1935
+  },
   "savings": {
    "status": "range",
    "low_usd": 52000,
@@ -506,6 +604,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 2.528,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.1286
+  },
   "savings": {
    "status": "range",
    "low_usd": 12000,
@@ -541,6 +646,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 2.522,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.1258
+  },
   "savings": {
    "status": "range",
    "low_usd": 22000,
@@ -576,6 +688,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 2.33,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.3
+  },
   "savings": {
    "status": "range",
    "low_usd": 4812000,
@@ -611,6 +730,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 2.327,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2984
+  },
   "savings": {
    "status": "range",
    "low_usd": 260000,
@@ -646,6 +772,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 2.318,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2935
+  },
   "savings": {
    "status": "range",
    "low_usd": 241000,
@@ -681,6 +814,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 2.273,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2685
+  },
   "savings": {
    "status": "range",
    "low_usd": 164000,
@@ -716,6 +856,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 2.269,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.266
+  },
   "savings": {
    "status": "range",
    "low_usd": 158000,
@@ -751,6 +898,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 2.24,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -784,6 +938,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 2.233,
+  "score_parts": {
+   "band": 2,
+   "timing": 1.0,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.1167
+  },
   "savings": {
    "status": "range",
    "low_usd": 27000,
@@ -819,6 +980,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 2.233,
+  "score_parts": {
+   "band": 2,
+   "timing": 1.0,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.1167
+  },
   "savings": {
    "status": "range",
    "low_usd": 27000,
@@ -854,6 +1022,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 2.173,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2127
+  },
   "savings": {
    "status": "range",
    "low_usd": 80000,
@@ -889,6 +1064,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 1.97,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.4,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.231
+  },
   "savings": {
    "status": "range",
    "low_usd": 107000,
@@ -924,6 +1106,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 1.97,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.4,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.231
+  },
   "savings": {
    "status": "range",
    "low_usd": 107000,
@@ -959,6 +1148,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.886,
+  "score_parts": {
+   "band": 2,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.1785
+  },
   "savings": {
    "status": "range",
    "low_usd": 0,
@@ -994,6 +1190,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.425,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.1134
+  },
   "savings": {
    "status": "range",
    "low_usd": 18000,
@@ -1029,6 +1232,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.331,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.3
+  },
   "savings": {
    "status": "range",
    "low_usd": 306000,
@@ -1064,6 +1274,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.324,
+  "score_parts": {
+   "band": 2,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.1822
+  },
   "savings": {
    "status": "range",
    "low_usd": 0,
@@ -1099,6 +1316,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.292,
+  "score_parts": {
+   "band": 2,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.1538
+  },
   "savings": {
    "status": "range",
    "low_usd": 0,
@@ -1134,6 +1358,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.292,
+  "score_parts": {
+   "band": 2,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.1538
+  },
   "savings": {
    "status": "range",
    "low_usd": 0,
@@ -1169,6 +1400,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.28,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.25
+  },
   "savings": {
    "status": "range",
    "low_usd": 141000,
@@ -1204,6 +1442,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.28,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -1237,6 +1482,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.28,
+  "score_parts": {
+   "band": 2,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "range",
    "low_usd": 0,
@@ -1272,6 +1524,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.271,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.241
+  },
   "savings": {
    "status": "range",
    "low_usd": 126000,
@@ -1307,6 +1566,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.201,
+  "score_parts": {
+   "band": 3,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.2511
+  },
   "savings": {
    "status": "range",
    "low_usd": 87000,
@@ -1342,6 +1608,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.201,
+  "score_parts": {
+   "band": 3,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.2511
+  },
   "savings": {
    "status": "range",
    "low_usd": 87000,
@@ -1377,6 +1650,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 1.15,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.198
+  },
   "savings": {
    "status": "range",
    "low_usd": 0,
@@ -1412,6 +1692,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.126,
+  "score_parts": {
+   "band": 2,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2566
+  },
   "savings": {
    "status": "range",
    "low_usd": 114000,
@@ -1447,6 +1734,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 1.126,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.1733
+  },
   "savings": {
    "status": "range",
    "low_usd": 63000,
@@ -1482,6 +1776,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 1.111,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.1111
+  },
   "savings": {
    "status": "range",
    "low_usd": 27000,
@@ -1517,6 +1818,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 1.111,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.1111
+  },
   "savings": {
    "status": "range",
    "low_usd": 27000,
@@ -1552,6 +1860,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 1.031,
+  "score_parts": {
+   "band": 2,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.5,
+   "savings": 1.0737
+  },
   "savings": {
    "status": "range",
    "low_usd": 0,
@@ -1587,6 +1902,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 1.031,
+  "score_parts": {
+   "band": 2,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.5,
+   "savings": 1.0737
+  },
   "savings": {
    "status": "range",
    "low_usd": 0,
@@ -1622,6 +1944,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.029,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.2868
+  },
   "savings": {
    "status": "range",
    "low_usd": 233000,
@@ -1657,6 +1986,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.029,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.2868
+  },
   "savings": {
    "status": "range",
    "low_usd": 233000,
@@ -1692,6 +2028,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.024,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -1725,6 +2068,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.012,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.2645
+  },
   "savings": {
    "status": "range",
    "low_usd": 166000,
@@ -1760,6 +2110,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 1.012,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.2645
+  },
   "savings": {
    "status": "range",
    "low_usd": 166000,
@@ -1795,6 +2152,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 1.0,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -1828,6 +2192,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 1.0,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -1861,6 +2232,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.96,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -1894,6 +2272,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.931,
+  "score_parts": {
+   "band": 2,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.212
+  },
   "savings": {
    "status": "range",
    "low_usd": 58000,
@@ -1929,6 +2314,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.84,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -1962,6 +2354,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.84,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -1995,6 +2394,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.822,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2844
+  },
   "savings": {
    "status": "range",
    "low_usd": 225000,
@@ -2030,6 +2436,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.806,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2591
+  },
   "savings": {
    "status": "range",
    "low_usd": 153000,
@@ -2065,6 +2478,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.805,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.198
+  },
   "savings": {
    "status": "range",
    "low_usd": 0,
@@ -2100,6 +2520,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2133,6 +2560,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2166,6 +2600,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2199,6 +2640,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2232,6 +2680,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2265,6 +2720,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2298,6 +2760,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2331,6 +2800,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2364,6 +2840,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2397,6 +2880,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2430,6 +2920,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2463,6 +2960,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2496,6 +3000,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2529,6 +3040,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2562,6 +3080,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2595,6 +3120,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2628,6 +3160,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2661,6 +3200,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.8,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -2694,6 +3240,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.791,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.1773
+  },
   "savings": {
    "status": "range",
    "low_usd": 44000,
@@ -2729,6 +3282,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.784,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2252
+  },
   "savings": {
    "status": "range",
    "low_usd": 91000,
@@ -2764,6 +3324,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.78,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2189
+  },
   "savings": {
    "status": "range",
    "low_usd": 82000,
@@ -2799,6 +3366,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.778,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.1111
+  },
   "savings": {
    "status": "range",
    "low_usd": 27000,
@@ -2834,6 +3408,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.778,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2159
+  },
   "savings": {
    "status": "range",
    "low_usd": 79000,
@@ -2869,6 +3450,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.778,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.1111
+  },
   "savings": {
    "status": "range",
    "low_usd": 27000,
@@ -2904,6 +3492,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.773,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2073
+  },
   "savings": {
    "status": "range",
    "low_usd": 69000,
@@ -2939,6 +3534,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.769,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2017
+  },
   "savings": {
    "status": "range",
    "low_usd": 176000,
@@ -2974,6 +3576,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.769,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2011
+  },
   "savings": {
    "status": "range",
    "low_usd": 63000,
@@ -3009,6 +3618,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.756,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1814
+  },
   "savings": {
    "status": "range",
    "low_usd": 129000,
@@ -3044,6 +3660,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.74,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1562
+  },
   "savings": {
    "status": "range",
    "low_usd": 31000,
@@ -3079,6 +3702,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.719,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.2843
+  },
   "savings": {
    "status": "range",
    "low_usd": 225000,
@@ -3114,6 +3744,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.719,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.2843
+  },
   "savings": {
    "status": "range",
    "low_usd": 225000,
@@ -3149,6 +3786,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.711,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1111
+  },
   "savings": {
    "status": "range",
    "low_usd": 27000,
@@ -3184,6 +3828,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.7,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3217,6 +3868,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.7,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3250,6 +3908,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.7,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3283,6 +3948,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.7,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3316,6 +3988,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.7,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3349,6 +4028,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.7,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3382,6 +4068,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.672,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3415,6 +4108,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.672,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3448,6 +4148,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.672,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3481,6 +4188,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.672,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3514,6 +4228,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.672,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3547,6 +4268,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.64,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3580,6 +4308,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.64,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3613,6 +4348,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.64,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3646,6 +4388,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.64,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3679,6 +4428,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.64,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3712,6 +4468,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.64,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3745,6 +4508,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.64,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3778,6 +4548,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.64,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3811,6 +4588,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.64,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3844,6 +4628,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.64,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3877,6 +4668,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.64,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3910,6 +4708,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.64,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3943,6 +4748,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.64,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -3976,6 +4788,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.64,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4009,6 +4828,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.64,
+  "score_parts": {
+   "band": 1,
+   "timing": 1.0,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4042,6 +4868,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.622,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.1111
+  },
   "savings": {
    "status": "range",
    "low_usd": 27000,
@@ -4077,6 +4910,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.622,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.1111
+  },
   "savings": {
    "status": "range",
    "low_usd": 27000,
@@ -4112,6 +4952,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.575,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.5,
+   "savings": 1.198
+  },
   "savings": {
    "status": "range",
    "low_usd": 0,
@@ -4147,6 +4994,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.575,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.5,
+   "savings": 1.198
+  },
   "savings": {
    "status": "range",
    "low_usd": 0,
@@ -4182,6 +5036,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.574,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2812
+  },
   "savings": {
    "status": "range",
    "low_usd": 214000,
@@ -4217,6 +5078,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.566,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2628
+  },
   "savings": {
    "status": "range",
    "low_usd": 161000,
@@ -4252,6 +5120,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4285,6 +5160,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4318,6 +5200,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4351,6 +5240,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4384,6 +5280,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4417,6 +5320,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4450,6 +5360,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4483,6 +5400,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4516,6 +5440,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4549,6 +5480,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4582,6 +5520,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4615,6 +5560,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4648,6 +5600,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4681,6 +5640,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4714,6 +5680,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4747,6 +5720,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4780,6 +5760,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4813,6 +5800,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4846,6 +5840,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4879,6 +5880,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4912,6 +5920,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.56,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -4945,6 +5960,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.556,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.241
+  },
   "savings": {
    "status": "range",
    "low_usd": 140000,
@@ -4980,6 +6002,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.556,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.241
+  },
   "savings": {
    "status": "range",
    "low_usd": 140000,
@@ -5015,6 +6044,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.555,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2395
+  },
   "savings": {
    "status": "range",
    "low_usd": 113000,
@@ -5050,6 +6086,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.555,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2395
+  },
   "savings": {
    "status": "range",
    "low_usd": 113000,
@@ -5085,6 +6128,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.547,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2203
+  },
   "savings": {
    "status": "range",
    "low_usd": 114000,
@@ -5120,6 +6170,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.541,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2065
+  },
   "savings": {
    "status": "range",
    "low_usd": 150000,
@@ -5155,6 +6212,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.541,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2073
+  },
   "savings": {
    "status": "range",
    "low_usd": 69000,
@@ -5190,6 +6254,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.537,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.198
+  },
   "savings": {
    "status": "range",
    "low_usd": 166000,
@@ -5225,6 +6296,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.535,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1952
+  },
   "savings": {
    "status": "range",
    "low_usd": 140000,
@@ -5260,6 +6338,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.534,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1911
+  },
   "savings": {
    "status": "range",
    "low_usd": 84000,
@@ -5295,6 +6380,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.529,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.181
+  },
   "savings": {
    "status": "range",
    "low_usd": 46000,
@@ -5330,6 +6422,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.529,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1814
+  },
   "savings": {
    "status": "range",
    "low_usd": 129000,
@@ -5365,6 +6464,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.529,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1814
+  },
   "savings": {
    "status": "range",
    "low_usd": 129000,
@@ -5400,6 +6506,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.529,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1814
+  },
   "savings": {
    "status": "range",
    "low_usd": 129000,
@@ -5435,6 +6548,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.522,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1645
+  },
   "savings": {
    "status": "range",
    "low_usd": 36000,
@@ -5470,6 +6590,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.518,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1562
+  },
   "savings": {
    "status": "range",
    "low_usd": 31000,
@@ -5505,6 +6632,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.513,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1446
+  },
   "savings": {
    "status": "range",
    "low_usd": 26000,
@@ -5540,6 +6674,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.508,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1338
+  },
   "savings": {
    "status": "range",
    "low_usd": 22000,
@@ -5575,6 +6716,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.501,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1189
+  },
   "savings": {
    "status": "range",
    "low_usd": 18000,
@@ -5610,6 +6758,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.479,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0694
+  },
   "savings": {
    "status": "range",
    "low_usd": 8000,
@@ -5645,6 +6800,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.46,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.198
+  },
   "savings": {
    "status": "range",
    "low_usd": 0,
@@ -5680,6 +6842,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.46,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.198
+  },
   "savings": {
    "status": "range",
    "low_usd": 0,
@@ -5715,6 +6884,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -5748,6 +6924,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -5781,6 +6964,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -5814,6 +7004,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -5847,6 +7044,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -5880,6 +7084,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -5913,6 +7124,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -5946,6 +7164,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -5979,6 +7204,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6012,6 +7244,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6045,6 +7284,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6078,6 +7324,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6111,6 +7364,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6144,6 +7404,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6177,6 +7444,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6210,6 +7484,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6243,6 +7524,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6276,6 +7564,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6309,6 +7604,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6342,6 +7644,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6375,6 +7684,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6408,6 +7724,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.448,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.7,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6441,6 +7764,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.441,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.1493
+  },
   "savings": {
    "status": "range",
    "low_usd": 28000,
@@ -6476,6 +7806,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.406,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.2677
+  },
   "savings": {
    "status": "range",
    "low_usd": 174000,
@@ -6511,6 +7848,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.406,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.2677
+  },
   "savings": {
    "status": "range",
    "low_usd": 174000,
@@ -6546,6 +7890,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.4,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -6579,6 +7930,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.4,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -6612,6 +7970,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.4,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6645,6 +8010,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.4,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6678,6 +8050,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.4,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6711,6 +8090,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.4,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6744,6 +8130,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.4,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6777,6 +8170,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.4,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6810,6 +8210,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.4,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6843,6 +8250,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.398,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.2424
+  },
   "savings": {
    "status": "range",
    "low_usd": 201000,
@@ -6878,6 +8292,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.398,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.2424
+  },
   "savings": {
    "status": "range",
    "low_usd": 201000,
@@ -6913,6 +8334,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.384,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6946,6 +8374,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.384,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -6979,6 +8414,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.325,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2696
+  },
   "savings": {
    "status": "range",
    "low_usd": 179000,
@@ -7014,6 +8456,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.324,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2646
+  },
   "savings": {
    "status": "range",
    "low_usd": 190000,
@@ -7049,6 +8498,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.323,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2636
+  },
   "savings": {
    "status": "range",
    "low_usd": 164000,
@@ -7084,6 +8540,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.321,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2525
+  },
   "savings": {
    "status": "range",
    "low_usd": 138000,
@@ -7119,6 +8582,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -7152,6 +8622,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -7185,6 +8662,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -7218,6 +8702,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -7251,6 +8742,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -7284,6 +8782,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -7317,6 +8822,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -7350,6 +8862,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -7383,6 +8902,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -7416,6 +8942,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -7449,6 +8982,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -7482,6 +9022,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -7515,6 +9062,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -7548,6 +9102,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -7581,6 +9142,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -7614,6 +9182,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -7647,6 +9222,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -7680,6 +9262,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -7713,6 +9302,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -7746,6 +9342,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -7779,6 +9382,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -7812,6 +9422,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -7845,6 +9462,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -7878,6 +9502,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -7911,6 +9542,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.32,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -7944,6 +9582,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.318,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2422
+  },
   "savings": {
    "status": "range",
    "low_usd": 118000,
@@ -7979,6 +9624,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.315,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2303
+  },
   "savings": {
    "status": "range",
    "low_usd": 98000,
@@ -8014,6 +9666,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.312,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2187
+  },
   "savings": {
    "status": "range",
    "low_usd": 164000,
@@ -8049,6 +9708,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.312,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2194
+  },
   "savings": {
    "status": "range",
    "low_usd": 83000,
@@ -8084,6 +9750,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.309,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2051
+  },
   "savings": {
    "status": "range",
    "low_usd": 67000,
@@ -8119,6 +9792,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.308,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.2034
+  },
   "savings": {
    "status": "range",
    "low_usd": 95000,
@@ -8154,6 +9834,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.306,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1958
+  },
   "savings": {
    "status": "range",
    "low_usd": 58000,
@@ -8189,6 +9876,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.305,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1918
+  },
   "savings": {
    "status": "range",
    "low_usd": 137000,
@@ -8224,6 +9918,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.303,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1826
+  },
   "savings": {
    "status": "range",
    "low_usd": 47000,
@@ -8259,6 +9960,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.301,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1773
+  },
   "savings": {
    "status": "range",
    "low_usd": 43000,
@@ -8294,6 +10002,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.297,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1585
+  },
   "savings": {
    "status": "range",
    "low_usd": 33000,
@@ -8329,6 +10044,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.29,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1338
+  },
   "savings": {
    "status": "range",
    "low_usd": 22000,
@@ -8364,6 +10086,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.29,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.133
+  },
   "savings": {
    "status": "range",
    "low_usd": 52000,
@@ -8399,6 +10128,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.284,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1111
+  },
   "savings": {
    "status": "range",
    "low_usd": 27000,
@@ -8434,6 +10170,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.284,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.1111
+  },
   "savings": {
    "status": "range",
    "low_usd": 16000,
@@ -8469,6 +10212,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.278,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0852
+  },
   "savings": {
    "status": "range",
    "low_usd": 11000,
@@ -8504,6 +10254,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.278,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0852
+  },
   "savings": {
    "status": "range",
    "low_usd": 11000,
@@ -8539,6 +10296,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.272,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0622
+  },
   "savings": {
    "status": "range",
    "low_usd": 7000,
@@ -8574,6 +10338,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.267,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0418
+  },
   "savings": {
    "status": "range",
    "low_usd": 6000,
@@ -8609,6 +10380,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -8642,6 +10420,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -8675,6 +10460,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -8708,6 +10500,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -8741,6 +10540,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -8774,6 +10580,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -8807,6 +10620,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 4,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -8840,6 +10660,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -8873,6 +10700,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -8906,6 +10740,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -8939,6 +10780,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -8972,6 +10820,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -9005,6 +10860,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -9038,6 +10900,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -9071,6 +10940,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -9104,6 +10980,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -9137,6 +11020,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -9170,6 +11060,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -9203,6 +11100,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -9236,6 +11140,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -9269,6 +11180,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -9302,6 +11220,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -9335,6 +11260,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.256,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.4,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "no_cost",
    "low_usd": null,
@@ -9368,6 +11300,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.24,
+  "score_parts": {
+   "band": 3,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9401,6 +11340,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.24,
+  "score_parts": {
+   "band": 3,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9434,6 +11380,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.2,
+  "score_parts": {
+   "band": 2,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9467,6 +11420,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.12,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9500,6 +11460,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.12,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9533,6 +11500,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.12,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9566,6 +11540,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.12,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9599,6 +11580,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.12,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9632,6 +11620,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.12,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9665,6 +11660,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.12,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9698,6 +11700,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.12,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9731,6 +11740,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.1,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9764,6 +11780,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.1,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9797,6 +11820,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.1,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9830,6 +11860,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.1,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9863,6 +11900,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.1,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9896,6 +11940,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.1,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9929,6 +11980,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.1,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9962,6 +12020,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.1,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -9995,6 +12060,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.1,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10028,6 +12100,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.1,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10061,6 +12140,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.1,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10094,6 +12180,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.1,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10127,6 +12220,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.1,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10160,6 +12260,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.1,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10193,6 +12300,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.1,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10226,6 +12340,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "exact",
   "score": 0.1,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 1.0,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10259,6 +12380,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.096,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10292,6 +12420,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.096,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10325,6 +12460,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.096,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10358,6 +12500,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.096,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10391,6 +12540,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.096,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10424,6 +12580,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.096,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10457,6 +12620,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.096,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10490,6 +12660,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.096,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10523,6 +12700,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.096,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10556,6 +12740,13 @@
   "pair_note": null,
   "accuracy_pair": "approximate",
   "score": 0.096,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.5,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10589,6 +12780,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10622,6 +12820,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10655,6 +12860,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10688,6 +12900,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10721,6 +12940,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10754,6 +12980,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10787,6 +13020,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10820,6 +13060,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10853,6 +13100,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10886,6 +13140,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10919,6 +13180,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10952,6 +13220,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -10985,6 +13260,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11018,6 +13300,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11051,6 +13340,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11084,6 +13380,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11117,6 +13420,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11150,6 +13460,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11183,6 +13500,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11216,6 +13540,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11249,6 +13580,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11282,6 +13620,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11315,6 +13660,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11348,6 +13700,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11381,6 +13740,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11414,6 +13780,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11447,6 +13820,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11480,6 +13860,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11513,6 +13900,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11546,6 +13940,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11579,6 +13980,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11612,6 +14020,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11645,6 +14060,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11678,6 +14100,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11711,6 +14140,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11744,6 +14180,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11777,6 +14220,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11810,6 +14260,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11843,6 +14300,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11876,6 +14340,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11909,6 +14380,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11942,6 +14420,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -11975,6 +14460,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.08,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.8,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12008,6 +14500,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12041,6 +14540,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12074,6 +14580,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12107,6 +14620,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12140,6 +14660,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12173,6 +14700,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12206,6 +14740,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12239,6 +14780,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12272,6 +14820,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12305,6 +14860,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12338,6 +14900,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12371,6 +14940,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12404,6 +14980,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12437,6 +15020,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12470,6 +15060,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12503,6 +15100,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12536,6 +15140,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12569,6 +15180,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12602,6 +15220,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12635,6 +15260,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12668,6 +15300,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12701,6 +15340,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12734,6 +15380,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12767,6 +15420,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12800,6 +15460,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12833,6 +15500,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12866,6 +15540,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12899,6 +15580,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12932,6 +15620,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12965,6 +15660,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -12998,6 +15700,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13031,6 +15740,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13064,6 +15780,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13097,6 +15820,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13130,6 +15860,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13163,6 +15900,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13196,6 +15940,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13229,6 +15980,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13262,6 +16020,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13295,6 +16060,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13328,6 +16100,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13361,6 +16140,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13394,6 +16180,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13427,6 +16220,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13460,6 +16260,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13493,6 +16300,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13526,6 +16340,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13559,6 +16380,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13592,6 +16420,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13625,6 +16460,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13658,6 +16500,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13691,6 +16540,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13724,6 +16580,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13757,6 +16620,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13790,6 +16660,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13823,6 +16700,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13856,6 +16740,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13889,6 +16780,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13922,6 +16820,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13955,6 +16860,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -13988,6 +16900,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14021,6 +16940,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14054,6 +16980,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14087,6 +17020,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14120,6 +17060,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14153,6 +17100,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14186,6 +17140,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14219,6 +17180,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14252,6 +17220,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14285,6 +17260,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14318,6 +17300,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14351,6 +17340,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14384,6 +17380,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14417,6 +17420,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14450,6 +17460,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14483,6 +17500,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14516,6 +17540,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14549,6 +17580,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14582,6 +17620,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14615,6 +17660,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14648,6 +17700,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14681,6 +17740,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14714,6 +17780,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14747,6 +17820,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14780,6 +17860,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14813,6 +17900,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14846,6 +17940,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14879,6 +17980,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14912,6 +18020,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14945,6 +18060,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -14978,6 +18100,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15011,6 +18140,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15044,6 +18180,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15077,6 +18220,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15110,6 +18260,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15143,6 +18300,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15176,6 +18340,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15209,6 +18380,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15242,6 +18420,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15275,6 +18460,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15308,6 +18500,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15341,6 +18540,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15374,6 +18580,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15407,6 +18620,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15440,6 +18660,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15473,6 +18700,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15506,6 +18740,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15539,6 +18780,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,
@@ -15572,6 +18820,13 @@
   "pair_note": "May already plan jointly through Georgia's Integrated Transmission System",
   "accuracy_pair": "approximate",
   "score": 0.064,
+  "score_parts": {
+   "band": 1,
+   "timing": 0.1,
+   "location": 0.64,
+   "state_line": 1.0,
+   "savings": 1.0
+  },
   "savings": {
    "status": "timing_too_far",
    "low_usd": null,

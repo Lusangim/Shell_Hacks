@@ -111,7 +111,10 @@ def test_answer_first_blocks_keep_citations_and_visible_honesty(live_server, wid
         page.goto(f"{live_server}/#overlap={MCINTOSH}")
         detail = page.locator("#overlap-content")
         expect(detail).to_contain_text("Possible saving (estimate): $62,000 to $264,000")
-        expect(detail.locator(".detail-block")).to_have_count(6)
+        expect(detail.locator("[data-src='score']")).to_have_text(
+            "Score 5.8 = touching (4) × same year (1.0) × one location approximate (0.8)"
+            " × crosses the state line (1.5) × savings up to $264,000 (1.21)")
+        expect(detail.locator(".detail-block")).to_have_count(7)
         assert detail.locator(".detail-block").evaluate_all("nodes => nodes.every(n => n.querySelector(':scope > .detail-answer') && n.querySelectorAll(':scope > ul > li').length <= 3 && n.querySelector(':scope > details'))")
         expect(detail.locator("[data-src='assumption']").first).to_be_visible()
         expect(detail).to_contain_text("Not verified: the plans do not show shared work.")

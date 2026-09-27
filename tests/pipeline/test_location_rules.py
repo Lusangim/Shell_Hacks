@@ -109,11 +109,14 @@ def _overlap(**changes) -> dict:
     base = dict(id="a__b", a="a", b="b", a_utility="X", b_utility="Y", a_name="A", b_name="B",
                 distance_km=0.0, band="touching", band_label="Touching / crossing", touch_reason="proximity",
                 touch_detail="d", can_share="c", a_year=None, b_year=None, year_gap=None, timeline="unknown",
-                cross_state=False, pair_note=None, accuracy_pair="approximate", score=1.0, rank=1,
+                cross_state=False, pair_note=None, accuracy_pair="approximate", rank=1,
                 savings={"status": "unknown_year", "low_usd": None, "high_usd": None, "basis": "b",
                          "assumption_ids": []},
                 brief_status="none")
     base.update(changes)
+    weight = {"touching": 4, "lt_1_6km": 3, "lt_8km": 2, "lt_40km": 1}[base["band"]]
+    base["score_parts"] = dict(band=weight, timing=0.3, location=0.8, state_line=1.0, savings=1.0)
+    base["score"] = round(weight * 0.3 * 0.8, 3)
     return base
 
 

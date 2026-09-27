@@ -111,6 +111,13 @@
       "pair_note": null,
       "accuracy_pair": "approximate",
       "score": 4.8,
+      "score_parts": {
+        "band": 4,
+        "timing": 1.0,
+        "location": 0.8,
+        "state_line": 1.5,
+        "savings": 1.0
+      },
       "rank": 1,
       "savings": {
         "status": "range",

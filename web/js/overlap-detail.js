@@ -7,6 +7,11 @@ const ASSUMPTIONS = new Map([
   ["unit_costs_2026", "Team unit-cost file, 2026-09-26: shareable cost items by job type and distance, priced from MISO's transmission cost guide (escalated to 2026 at 4% a year) and public land, wage and rental sources. Saving rates are team assumptions, not measured savings or evidence of a shared asset."],
 ]);
 const PAIR_ID = /^(?:desc-p[1-9][0-9]*|sertp-p[1-9][0-9]*-[0-9a-f]{6}(?:-[2-9][0-9]*)?)__(?:desc-p[1-9][0-9]*|sertp-p[1-9][0-9]*-[0-9a-f]{6}(?:-[2-9][0-9]*)?)$/;
+const BAND_WORDS = { touching: "touching", lt_1_6km: "under 1.6 km", lt_8km: "under 8 km", lt_40km: "under 40 km" };
+const SCORE_RULES = "Distance band: touching 4, under 1.6 km 3, under 8 km 2, under 40 km 1. Timing: same year 1.0, "
+  + "1 year apart 0.7, 2 years 0.4, 3 or more 0.1, a year unknown 0.3. Location: 1.0 for each exact project and 0.8 "
+  + "for each approximate one. State line: 1.5 when the projects are in different states. Savings: 1 plus up to 0.3, "
+  + "growing with the top of the savings range (0.15 at $100,000, the full 0.3 from $1,000,000).";
 
 function text(tag, value, source, className = "") {
   const node = document.createElement(tag);
@@ -66,7 +71,30 @@ export function renderOverlapDetail(payload, content, heading) {
   estimate.list.append(text("li", "Not verified: the plans do not show shared work.", "savings_caveat"));
   estimate.disclosure.append(text("p", readableEvidence(savings.basis, [a, b]), "savings_basis"));
   container.append(text("h3", "Screening savings"), estimate.block);
+  if (pair.score_parts && Number.isFinite(pair.score)) container.append(text("h3", "How this pair ranks"), scoreBlock(pair, savings));
   content.replaceChildren(container);
+}
+
+// The pipeline supplies the five factors; the page only names them.
+function scoreBlock(pair, savings) {
+  const parts = pair.score_parts;
+  const gap = pair.year_gap;
+  const one = (value) => (Number.isInteger(value) ? value.toFixed(1) : String(value));
+  const terms = [
+    `${BAND_WORDS[pair.band] ?? "distance band"}${pair.town_capped ? " (town only)" : ""} (${parts.band})`,
+    `${gap == null ? "a year unknown" : gap === 0 ? "same year" : `${gap} year${gap > 1 ? "s" : ""} apart`} (${one(parts.timing)})`,
+    `${parts.location === 1 ? "both locations exact" : parts.location === 0.8 ? "one location approximate" : "both locations approximate"} (${one(parts.location)})`,
+    `${pair.cross_state ? "crosses the state line" : "same state"} (${one(parts.state_line)})`,
+    parts.savings > 1 && Number.isFinite(savings.high_usd)
+      ? `savings up to ${money(savings.high_usd)} (${parts.savings.toFixed(2)})` : `no savings bonus (${one(parts.savings)})`,
+  ];
+  const rank = detailBlock(`Score ${pair.score.toPrecision(2)} = ${terms.join(" × ")}`, "score", "How the score works", [
+    text("li", "Distance counts most: savings add at most 30%, so with the rest equal a closer pair ranks higher.", "score_rule"),
+    text("li", "Filters hide pairs; they never change a score or rank.", "score_filters"),
+  ]);
+  rank.block.classList.add("score-detail");
+  rank.disclosure.append(text("p", SCORE_RULES, "score_rules"));
+  return rank.block;
 }
 
 export function setupOverlapDetail(projectView) {

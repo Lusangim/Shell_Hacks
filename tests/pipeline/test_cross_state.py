@@ -42,8 +42,25 @@ def test_real_sc_ga_pair_keeps_cross_state_bonus(built_pairs: tuple) -> None:
     pair = next(item for item in overlaps if item["id"] == "desc-p41__sertp-p107-9bc088")
     assert (projects[pair["a"]]["state"], projects[pair["b"]]["state"]) == ("SC", "GA")
     assert pair["cross_state"] is True
-    # 4 band * 1 timeline * 0.8 accuracy * 1.5 state line * (1 + savings bonus)
+    # 4 band * 1 timeline * 0.8 accuracy * 1.5 state line * (1 + savings bonus for up to $264,000)
+    assert pair["score_parts"] == {"band": 4, "timing": 1.0, "location": 0.8, "state_line": 1.5, "savings": 1.2132}
+    assert pair["score"] == 5.823 and pair["rank"] == 1
     assert pair["pair_note"] is None
+
+
+def test_every_built_score_is_the_product_of_its_parts(built_pairs: tuple) -> None:
+    projects, overlaps, _ = built_pairs
+    weights = {"touching": 4, "lt_1_6km": 3, "lt_8km": 2, "lt_40km": 1}
+    accuracy = {"exact": 1.0, "approximate": 0.8}
+    for pair in overlaps:
+        parts = pair["score_parts"]
+        assert parts["band"] == weights[pair["band"]], pair["id"]
+        assert parts["timing"] == ({0: 1.0, 1: 0.7, 2: 0.4}.get(pair["year_gap"], 0.1) if pair["year_gap"] is not None else 0.3), pair["id"]
+        assert parts["location"] == pytest.approx(accuracy[projects[pair["a"]]["accuracy"]] * accuracy[projects[pair["b"]]["accuracy"]]), pair["id"]
+        assert parts["state_line"] == (1.5 if pair["cross_state"] else 1.0), pair["id"]
+        assert parts["savings"] == pytest.approx(1 + savings_bonus(pair["savings"])), pair["id"]
+        product = parts["band"] * parts["timing"] * parts["location"] * parts["state_line"] * parts["savings"]
+        assert pair["score"] == pytest.approx(product, abs=0.0005 + 1e-9), pair["id"]  # score keeps 3 decimals
 
 
 def test_every_built_pair_flag_and_count_match_sourced_states(built_pairs: tuple) -> None:

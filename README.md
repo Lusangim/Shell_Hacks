@@ -20,6 +20,7 @@ troubleshooting): **[RUNNING.md](RUNNING.md)**. How distances, bands and the ran
 ## What works
 
 - Interactive offline map, project and pair details, 465 ranked opportunities, search, filters, timeline and 1–80 km area explorer.
+- Every pair shows why it ranks where it does: its score, factor by factor (distance band × timing × location × state line × savings, with distance leading).
 - Source-linked evidence, accuracy and uncertainty labels, 119 possible-saving ranges from the team's unit costs by job type and distance, CSV export and a Letter print report.
 - A guided tour and a coordination brief for a selected pair. The default brief is an offline, graded **Template**; the app does not send a message or contact anyone.
 - Light and dark themes, keyboard operation, phone layout and an outline-map fallback when the optional offline map archive is absent.

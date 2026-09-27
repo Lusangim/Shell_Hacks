@@ -68,7 +68,10 @@ for i, g in enumerate(projected):
         )
         acc = ACCURACY_FACTOR[a["accuracy"]] * ACCURACY_FACTOR[b["accuracy"]]
         savings = estimate_savings(a, b, bid, costs)
-        score = round(w * tf * acc * (1.5 if cross_state else 1.0) * (1 + savings_bonus(savings)), 3)
+        state_line = 1.5 if cross_state else 1.0
+        bonus = savings_bonus(savings)
+        score = round(w * tf * acc * state_line * (1 + bonus), 3)
+        score_parts = dict(band=w, timing=tf, location=round(acc, 4), state_line=state_line, savings=round(1 + bonus, 4))
         shareable = shared_mechanisms(job_kind(a), job_kind(b), bid, costs)
         if a["id"] > b["id"]:
             a, b = b, a
@@ -81,7 +84,7 @@ for i, g in enumerate(projected):
             touch_reason=reason, touch_detail=detail, town_capped=town_capped,
             a_year=a.get("year"), b_year=b.get("year"), year_gap=year_gap, timeline=tl,
             cross_state=cross_state, pair_note=pair_note, accuracy_pair=accuracy_pair, score=score,
-            savings=savings, brief_status="none"))
+            score_parts=score_parts, savings=savings, brief_status="none"))
 
 pairs.sort(key=rank_key)
 for rank, p in enumerate(pairs, 1):

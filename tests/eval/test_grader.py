@@ -217,10 +217,14 @@ def test_synthetic_unknown_plan_year_needs_an_explicit_unknown_statement() -> No
     brief, real_pair, real_a, b = baseline()
     # This copy probes the null-year rule; it is not a source record or a manifest case.
     a = real_a.model_copy(update={"properties": real_a.properties.model_copy(update={"year": None})})
+    # An unknown year scores 0.3 for timing and earns no savings bonus.
+    parts = real_pair.score_parts.model_copy(update={"timing": 0.3, "savings": 1.0})
     pair = Overlap.model_validate(real_pair.model_copy(update={
         "a_year": None,
         "year_gap": None,
         "timeline": "year unknown",
+        "score_parts": parts,
+        "score": round(parts.band * parts.timing * parts.location * parts.state_line * parts.savings, 3),
         "savings": Savings(status="unknown_year", low_usd=None, high_usd=None,
                            basis=None, assumption_ids=[]),
     }).model_dump())

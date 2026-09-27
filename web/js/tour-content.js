@@ -16,7 +16,7 @@ export const tourSteps = [
   { id: "search", target: "#search-form", title: "Find Savannah",
     body: "Planners start from a place. Search Savannah and choose the result to move the map; project names work too. Savannah holds the top pairs: Dominion's Okatie–McIntosh tie meets Georgia Power work at McIntosh." },
   { id: "pair", target: ".overlap-button", prepare: "list", title: "Open the top pair",
-    body: "The first row is the top pair in your current results. With no filters, #1 scores 5.8: touching (4) × same year (1.0) × one approximate location (0.8) × crosses SC-GA (1.5) × savings (1.21). Next opens it." },
+    body: "The first row is the top pair in your current results. With no filters, #1 scores 5.8: touching (4) × same year (1.0) × one approximate location (0.8) × crosses SC-GA (1.5) × savings (1.21). Next opens it; every pair's detail ends with its own score, part by part." },
   { id: "source", target: ".overlap-projects", prepare: "pair", title: "Check the source",
     body: "Every project shows its plan document and PDF page, with names copied word for word. The reason the two appear together (same substation, shared endpoint, or simply nearby) is stated. Nearby is a lead to check, not proof of shared work." },
   { id: "savings", target: ".overlap-assumptions, [data-src='savings_status']", prepare: "pair", title: "How savings are estimated",

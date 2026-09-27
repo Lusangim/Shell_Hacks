@@ -55,6 +55,9 @@ never lift a pair past a closer band.
 **Worked example (rank 1):** 4 (touching) × 1.0 (both 2028) × 0.8 (one location approximate) × 1.5
 (South Carolina and Georgia) × 1.21 (up to $264,000 of possible savings) = **5.823**.
 
+Each pair stores its five factors (`score_parts`), and the contract checks that they multiply to its score.
+Every pair's detail ends with them under "How this pair ranks", so any rank can be checked by hand.
+
 ## How savings are estimated
 
 The estimate comes from the team's unit-cost file. See `data/manual/unit_costs_2026.md` for its sources

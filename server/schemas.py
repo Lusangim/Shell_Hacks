@@ -132,6 +132,20 @@ class Savings(Contract):
         return self
 
 
+BAND_WEIGHTS = {Band.touching: 4, Band.lt_1_6km: 3, Band.lt_8km: 2, Band.lt_40km: 1}
+TIMING_FACTORS = {0: 1.0, 1: 0.7, 2: 0.4}  # 3 or more years apart 0.1; a year unknown 0.3
+
+
+class ScoreParts(Contract):
+    """The five factors whose product is a pair's score, so the page can show why a pair ranks where it does."""
+
+    band: int = Field(ge=1, le=4)
+    timing: float = Field(gt=0, le=1)
+    location: float = Field(gt=0, le=1)
+    state_line: float = Field(ge=1, le=1.5)
+    savings: float = Field(ge=1, le=1.3)
+
+
 class Overlap(Contract):
     id: str
     a: str
@@ -156,6 +170,7 @@ class Overlap(Contract):
     pair_note: str | None
     accuracy_pair: Accuracy
     score: float = Field(ge=0)
+    score_parts: ScoreParts
     rank: int = Field(gt=0)
     savings: Savings
     brief_status: Literal["cached", "stale", "template", "none"]
@@ -182,6 +197,19 @@ class Overlap(Contract):
                 raise ValueError("year_gap does not match project years")
         elif self.year_gap is not None:
             raise ValueError("unknown year requires null year_gap")
+        parts = self.score_parts
+        if parts.band != BAND_WEIGHTS[self.band]:
+            raise ValueError("score band weight does not match the band")
+        if parts.timing != (0.3 if self.year_gap is None else TIMING_FACTORS.get(self.year_gap, 0.1)):
+            raise ValueError("score timing does not match the year gap")
+        if parts.location not in (1.0, 0.8, 0.64) or (parts.location == 1.0) != (self.accuracy_pair == Accuracy.exact):
+            raise ValueError("score location factor does not match the pair accuracy")
+        if parts.state_line != (1.5 if self.cross_state else 1.0):
+            raise ValueError("score state-line factor does not match cross_state")
+        if self.savings.status != "range" and parts.savings != 1.0:
+            raise ValueError("only a savings range adds a savings bonus")
+        if abs(parts.band * parts.timing * parts.location * parts.state_line * parts.savings - self.score) > 0.001:
+            raise ValueError("score must equal the product of its parts")
         return self
 
 
