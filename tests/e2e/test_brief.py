@@ -47,7 +47,7 @@ def test_origin_header_controls_label_and_no_access_controls(browser_page, live_
     panel = open_brief(page, live_server)
     expect(panel.locator("#brief-origin")).to_have_text(
         "AI-drafted from public plan data. Check before use." if status == "cached" else "Template")
-    expect(panel).to_contain_text("Possible saving (estimate): $54,000 to $161,000")
+    expect(panel).to_contain_text("Possible saving (estimate): $62,000 to $264,000")
     expect(panel).to_contain_text("Approximate")
     expect(panel).to_contain_text("not verified")
     expect(panel.get_by_role("link")).to_have_count(2)
@@ -101,7 +101,7 @@ def test_copy_visible_brief_and_sources_with_status(browser_page, live_server, f
     if not failure:
         copied = page.evaluate("window.copiedBrief")
         assert "Template" in copied and "Possible saving (estimate)" in copied
-        assert "1% to 3%" in copied and "2026-09-26" in copied
+        assert "Team unit costs" in copied and "2026-09-26" in copied
         assert "/api/sources/desc-scrtp-2026-2030#page=41" in copied
         assert "Copy brief" not in copied and "input_hash" not in copied
         assert "These are separate public plan entries" not in copied  # disclosure is closed

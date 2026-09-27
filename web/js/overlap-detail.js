@@ -4,8 +4,7 @@ import { state } from "./state.js";
 import { setupBrief } from "./brief.js";
 
 const ASSUMPTIONS = new Map([
-  ["coordination_fraction_v1", "Team screening assumption, 2026-09-26: 1% to 3% of reference cost. This is not a measured saving or evidence of a shared asset."],
-  ["line_cost_per_mile_v1", "Team screening proxy, 2026-09-26: $1 million to $3 million per stated line mile. This is not a published rate or evidence of shared physical scope."],
+  ["unit_costs_2026", "Team unit-cost file, 2026-09-26: shareable cost items by job type and distance, priced from MISO's transmission cost guide (escalated to 2026 at 4% a year) and public land, wage and rental sources. Saving rates are team assumptions, not measured savings or evidence of a shared asset."],
 ]);
 const PAIR_ID = /^(?:desc-p[1-9][0-9]*|sertp-p[1-9][0-9]*-[0-9a-f]{6}(?:-[2-9][0-9]*)?)__(?:desc-p[1-9][0-9]*|sertp-p[1-9][0-9]*-[0-9a-f]{6}(?:-[2-9][0-9]*)?)$/;
 
@@ -47,7 +46,7 @@ export function renderOverlapDetail(payload, content, heading) {
   } else {
     const reasons = {
       timing_too_far: "No estimate: project timing is too far apart.",
-      no_cost: "No estimate: usable cost or line mileage is not stated.",
+      no_cost: "No estimate: the plans do not size this pair, or these job types share nothing at this distance.",
       unknown_year: "No estimate: at least one project year is unknown.",
     };
     answer = reasons[savings.status] ?? "No estimate available.";
@@ -55,21 +54,15 @@ export function renderOverlapDetail(payload, content, heading) {
   const estimate = detailBlock(answer, "savings_status", "How we estimated this");
   estimate.block.classList.add("savings-detail");
   estimate.list.classList.add("overlap-assumptions");
-  const planCosts = [a, b].filter((project) => project.properties.cost_basis === "plan" && Number.isFinite(project.properties.cost_usd));
   if (savings.status === "range") {
-    estimate.list.append(text("li", planCosts.length
-      ? "Based on the stated plan costs shown above; unstated partner costs are excluded."
-      : savings.assumption_ids?.includes("line_cost_per_mile_v1")
-        ? "Team cost proxy: $1 million to $3 million per stated line mile."
-        : "Based on stated line mileage; cost assumption details unavailable.", "estimate_scope"));
+    estimate.list.append(text("li", "Only costs both job types need at this distance count; the low end keeps sharing with a public precedent.", "estimate_scope"));
   }
   const assumptionLabels = [];
   for (const id of savings.assumption_ids ?? []) {
-    if (id !== "line_cost_per_mile_v1") assumptionLabels.push(id === "coordination_fraction_v1"
-      ? "1% to 3% of reference cost" : "details unavailable");
+    assumptionLabels.push(id === "unit_costs_2026" ? "team unit costs by job type and distance" : "details unavailable");
     estimate.disclosure.append(text("p", ASSUMPTIONS.get(id) ?? "Assumption details unavailable in this build.", "assumption_evidence"));
   }
-  if (assumptionLabels.length) estimate.list.append(text("li", `Team screening assumption, 2026-09-26: ${assumptionLabels.join("; ")}.`, "assumption"));
+  if (assumptionLabels.length) estimate.list.append(text("li", `Team estimate, 2026-09-26: ${assumptionLabels.join("; ")}.`, "assumption"));
   estimate.list.append(text("li", "Not verified: the plans do not show shared work.", "savings_caveat"));
   estimate.disclosure.append(text("p", readableEvidence(savings.basis, [a, b]), "savings_basis"));
   container.append(text("h3", "Screening savings"), estimate.block);

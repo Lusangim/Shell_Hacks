@@ -3,8 +3,7 @@ import { renderOverlapDetail } from "./overlap-detail.js";
 import { state } from "./state.js";
 
 const ASSUMPTIONS = new Map([
-  ["coordination_fraction_v1", "Team screening assumption, 2026-09-26: 1% to 3% of reference cost. This is not a measured saving or evidence of a shared asset."],
-  ["line_cost_per_mile_v1", "Team screening proxy, 2026-09-26: $1 million to $3 million per stated line mile. This is not a published rate or evidence of shared physical scope."],
+  ["unit_costs_2026", "Team unit-cost file, 2026-09-26: shareable cost items by job type and distance, priced from MISO's transmission cost guide (escalated to 2026 at 4% a year) and public land, wage and rental sources. Saving rates are team assumptions, not measured savings or evidence of a shared asset."],
 ]);
 
 function text(tag, value, source) {
@@ -31,7 +30,7 @@ function savingsText(savings) {
   }
   const reasons = {
     timing_too_far: "No estimate: project timing is too far apart.",
-    no_cost: "No estimate: usable cost or line mileage is not stated.",
+    no_cost: "No estimate: the plans do not size this pair, or these job types share nothing at this distance.",
     unknown_year: "No estimate: at least one project year is unknown.",
   };
   return reasons[savings?.status] ?? "No estimate available.";

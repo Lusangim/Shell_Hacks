@@ -169,8 +169,8 @@ def test_keyboard_tour_walk_and_focus_return(live_server, width, height, theme):
             if last:
                 break
         assert 8 <= len(titles) <= 12, titles
-        assert {"Public plans, shared possibilities", "Read the map", "How pairs are ranked", "Find Savannah",
-                "Open the top pair", "Check the source", "Estimates and uncertainty", "Compare years",
+        assert {"What GridLock does", "Read the map", "How pairs are ranked", "Find Savannah",
+                "Open the top pair", "Check the source", "How savings are estimated", "Compare years",
                 "Narrow the results", "Explore an area", "Read a coordination brief", "Keep a copy"}.issubset(titles), titles
         expect(card).not_to_be_visible()
         expect(launch).to_be_focused()
@@ -270,7 +270,7 @@ def test_tour_keeps_active_filters_and_skips_failed_detail(live_server):
                 break
         expect(card).not_to_be_visible()
         assert "Check the source" not in titles
-        assert "Estimates and uncertainty" not in titles
+        assert "How savings are estimated" not in titles
         expect(page.locator("#filter-band")).to_have_value("touching")
         assert page.evaluate("location.search") == "?band=touching"
         expect(page.locator(".overlap-button")).to_have_count(rows)

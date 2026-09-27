@@ -174,14 +174,14 @@ def test_letter_print_contains_selected_pair_sources_and_screening_assumptions(l
             for value in (props["name"], props["utility"], props["accuracy"], props["source"]["doc"]):
                 assert value in content
             assert selected.locator(f'a[href$="#page={props["source"]["page"]}"]').count() >= 1
-        assert "$54,000 to $161,000" in content
+        assert "$62,000 to $264,000" in content
         assert "possibly touching" in content
-        assert "Team screening assumption" in report.text_content()
-        assert "1% to 3%" in report.text_content()
+        assert "Team unit-cost file" in report.text_content()
+        assert "escalated to 2026 at 4% a year" in report.text_content()
         assert "shared asset" in report.text_content()
         assert "Independent student project" in report.text_content()
         assert "Distance band: Touching" in report.text_content() and "Cross-state: Yes" in report.text_content()
-        assert "Possible saving (estimate): $54,000 to $161,000" in content
+        assert "Possible saving (estimate): $62,000 to $264,000" in content
         assert_readable_report(report)
         assert report.locator(".coordination-status").evaluate_all("nodes => nodes.every(node => node.textContent === '')")
         pair_count = len(page.request.get(f"{live_server}/api/overlaps?band=touching&cross_state=true").json())
@@ -455,7 +455,7 @@ def test_print_follows_filtered_deep_link_and_history_and_clears_bad_links(live_
         browser.close()
 
 
-@pytest.mark.parametrize("status,reason", [("no_cost", "usable cost or line mileage is not stated"),
+@pytest.mark.parametrize("status,reason", [("no_cost", "the plans do not size this pair, or these job types share nothing at this distance"),
                                          ("timing_too_far", "project timing is too far apart")])
 def test_print_no_savings_remains_explicit_and_readable(live_server, status, reason):
     with sync_playwright() as playwright:

@@ -38,10 +38,10 @@ def test_mcintosh_row_shows_source_pages_evidence_savings_and_map_selection(live
         expect(detail.locator('[data-src="touch_detail"]')).to_have_text(expected["overlap"]["touch_detail"])
         expect(detail.locator('[data-src="can_share"]')).to_have_text(expected["overlap"]["can_share"])
         expect(detail).to_contain_text("possibly touching")
-        expect(detail).to_contain_text("$54,000 to $161,000")
+        expect(detail).to_contain_text("$62,000 to $264,000")
         expect(detail.locator('[data-src="savings_basis"]')).to_have_text(expected["savings"]["basis"].replace("desc-p41", "Dominion Energy SC project"))
         expect(detail).to_contain_text("2026-09-26")
-        expect(detail).to_contain_text("1% to 3%")
+        expect(detail).to_contain_text("team unit costs by job type and distance")
         expect(detail.get_by_role("link")).to_have_count(2)
         expect(detail.get_by_role("link").nth(0)).to_have_attribute("href", "/api/sources/desc-scrtp-2026-2030#page=41")
         expect(detail.get_by_role("link").nth(1)).to_have_attribute("href", "/api/sources/sertp-2025-rtp#page=107")
@@ -69,7 +69,7 @@ def test_no_cost_and_proxy_basis_are_distinct_and_source_backed(live_server):
         open_row(page, PROXY)
         expected_proxy = page.request.get(f"{live_server}/api/overlaps/{PROXY}").json()
         expect(detail.locator('[data-src="savings_basis"]')).to_have_text(expected_proxy["savings"]["basis"].replace("sertp-p124-e36f41", "Georgia Transmission Corp. project"))
-        expect(detail).to_contain_text("proxy")
+        expect(detail).to_contain_text("stated miles")
         expect(detail).to_contain_text("2026-09-26")
         browser.close()
 
@@ -227,8 +227,9 @@ def test_delayed_old_detail_cannot_replace_new_selection(live_server, phase):
         page.get_by_role("button", name="Back to ranked overlaps").click()
         other = page.get_by_test_id("overlap-row").nth(1).get_attribute("data-overlap-id")
         assert other != MCINTOSH
+        other_name = page.request.get(f"{live_server}/api/overlaps/{other}").json()["project_b"]["properties"]["name"]
         page.get_by_test_id("overlap-row").nth(1).locator("button").click()
-        expect(page.get_by_test_id("overlap-detail")).to_contain_text("DRESDEN")
+        expect(page.get_by_test_id("overlap-detail")).to_contain_text(other_name)
         expected = page.request.get(f"{live_server}/api/overlaps/{other}").json()
         page.evaluate("window.oldPairGate.release()")
         page.wait_for_function("() => window.oldPairGate.settled === true")
@@ -241,7 +242,7 @@ def test_delayed_old_detail_cannot_replace_new_selection(live_server, phase):
         expect(page.locator(f'[data-overlap-id="{other}"] button')).to_have_attribute("aria-pressed", "true")
         assert page.locator('[data-testid="project-feature"][data-selected="true"]').evaluate_all(
             "nodes => nodes.map(n => n.dataset.projectId).sort()") == sorted([expected["overlap"]["a"], expected["overlap"]["b"]])
-        expect(page.get_by_test_id("overlap-detail")).to_contain_text("DRESDEN")
+        expect(page.get_by_test_id("overlap-detail")).to_contain_text(other_name)
         browser.close()
 
 

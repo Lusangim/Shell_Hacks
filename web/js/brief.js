@@ -28,14 +28,11 @@ function renderBrief(brief, pairDetail, content) {
     ["Shared equipment, access and outages are not verified."]);
   const savings = brief.savings_range;
   const assumptions = [];
-  if (pairDetail.savings.assumption_ids?.includes("coordination_fraction_v1")) {
-    assumptions.push("Team screening assumption, 2026-09-26: 1% to 3% of reference cost.");
-  }
-  if (pairDetail.savings.assumption_ids?.includes("line_cost_per_mile_v1")) {
-    assumptions.push("Team mileage proxy, 2026-09-26: $1 million to $3 million per stated line mile.");
+  if (pairDetail.savings.assumption_ids?.includes("unit_costs_2026")) {
+    assumptions.push("Team unit costs, 2026-09-26: only costs both job types need at this distance count.");
   }
   if (savings.status === "range" && !assumptions.length) assumptions.push("Screening assumption details are not stated.");
-  const reasons = { no_cost: "No estimate: a usable cost basis is not stated.",
+  const reasons = { no_cost: "No estimate: the plans do not size this pair, or these job types share nothing at this distance.",
     timing_too_far: "No estimate: project timing is too far apart.", unknown_year: "No estimate: a project year is not stated." };
   block("Saving estimate", savings.status === "range" && Number.isFinite(savings.low_usd) && Number.isFinite(savings.high_usd)
     ? `Possible saving (estimate): ${money(savings.low_usd)} to ${money(savings.high_usd)}`
