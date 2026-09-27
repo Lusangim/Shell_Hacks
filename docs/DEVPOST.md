@@ -2,10 +2,12 @@
 
 Paste each section into the matching Devpost field. Before submitting: opt into the **Sperry Tech**
 challenge, add the GitHub link (https://github.com/Lusangim/Shell_Hacks), invite every teammate with the
-email they registered with, and add at least one Discord tag.
+email they registered with, and add at least one Discord tag. For the image gallery, upload these screenshots
+from `docs/screenshots/`, in this order: 01 (overview), 04 (top pair), 07 (score), 22 (storm crossing an area),
+23 (storm results), 06 (savings) and 16 (phone).
 
 **Tagline:** Find where neighbouring utilities' transmission plans overlap, with the source page behind every
-fact.
+fact, and stress-test any area with a hypothetical hurricane.
 
 ## Inspiration
 
@@ -107,5 +109,5 @@ Clear labels (exact, approximate, town only, estimate, unverified) matter as muc
 
 ## Built with
 
-Python · FastAPI · Pydantic · Shapely · pyproj · pypdf · Leaflet · protomaps-leaflet · OpenStreetMap · HIFLD ·
+Python · FastAPI · Pydantic · NumPy · Shapely · pyproj · pypdf · Leaflet · protomaps-leaflet · OpenStreetMap · HIFLD ·
 U.S. Census · Playwright · pytest · axe-core · OpenAI Codex · Anthropic Claude
