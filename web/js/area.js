@@ -177,7 +177,7 @@ export function createAreaController(map, announce, setAreaURL) {
       sheet.setAttribute("aria-expanded", "true");
       sheet.textContent = "Collapse opportunities";
     }
-    panel.scrollIntoView({ block: "nearest" });
+    if (write) panel.scrollIntoView({ block: "nearest" });
     void load();
   }
 
