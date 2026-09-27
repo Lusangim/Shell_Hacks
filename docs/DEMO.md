@@ -63,9 +63,12 @@ savings can add at most 30%, less than the step between two distance bands.
 
 ![Coordination brief for pair #1: what, where, when, what could be shared, savings, contacts, caveats, sources](screenshots/08-brief.png)
 
-A one-page note for the pair, ready to copy: what, where, when, what could be shared, the savings range, which
-organisations to contact and the caveats, all from the plans. It is labelled **Template** (written by code) or
-**AI-drafted**, and it names organisations, never people.
+The brief does not repeat the pair's facts. It starts with the **next step** (which organisations to contact
+and what to compare) and what to **check first**, and keeps the shared facts folded away so **Copy brief** still
+gives a complete note. It is labelled **Template** (written by code) and names organisations, never people.
+The **With the Claude API** card shows what an AI-drafted brief adds. For pair #1 it includes an example
+written by Claude from the pair's data and passed by the same evidence grader the live feature uses. The live
+feature is off in this build because it needs an API key and a spending limit.
 
 ## 9. Compare years
 

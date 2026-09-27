@@ -153,10 +153,17 @@ Google Maps or Satellite view. Light and dark themes, full keyboard use and a ph
 
 ## 6. Coordination briefs
 
-Each pair can show a one-page brief: what, where, when, what could be shared, the savings range, which
-organisations to contact, caveats and sources. By default it is a **Template** brief written by code from the
-pair's data (`server/brief_template.py`), so it is the same every time and needs no internet. A grader
-(`tests/eval/grader.py`) checks every brief before it is shown in tests:
+Each pair can show a brief: what, where, when, what could be shared, the savings range, which organisations
+to contact, caveats and sources. By default it is a **Template** brief written by code from the pair's data
+(`server/brief_template.py`), so it is the same every time and needs no internet. The page leads with the
+next step and what to check first, and folds away the facts the pair detail already shows.
+
+The **AI-drafted brief** path is built and guarded but off: `server/brief_generator.py` sends the pair's data to
+Claude with fixed rules, validates the answer against the Brief contract and grades it before caching it. It
+needs a Claude API key and a spending limit. The brief panel's "With the Claude API" card explains what it
+adds and shows an example for pair #1 (`web/js/ai-brief-example.js`). Claude wrote the example outside the app
+under the same rules, and `tests/eval/test_grader.py` checks it with the live grader. A grader
+(`tests/eval/grader.py`) checks every brief:
 
 - It must be 150 to 300 words and state both in-service years, or say a year is unknown.
 - Every dollar amount, page and number must come from the pair's own data.
