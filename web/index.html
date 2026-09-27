@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/web/css/area.css">
     <link rel="stylesheet" href="/web/css/area-mode.css">
     <link rel="stylesheet" href="/web/css/storm.css">
+    <link rel="stylesheet" href="/web/css/storm-detail.css">
     <link rel="stylesheet" href="/web/css/tour.css">
     <link rel="stylesheet" href="/web/css/detail.css">
     <link rel="stylesheet" href="/web/css/brief.css">
@@ -187,6 +188,7 @@
                 <button id="storm-estimate" type="button">Invoke storm</button>
                 <p id="storm-status" role="status" aria-live="polite"></p>
                 <div id="storm-results" hidden>
+                  <button id="storm-open-results" type="button">Open results</button>
                   <div class="storm-controls" role="group" aria-label="Storm track controls">
                     <button id="storm-play" type="button">Pause storm</button>
                     <button id="storm-reset" type="button">Replay storm</button>
@@ -344,6 +346,16 @@
           </div>
           <p id="brief-state" class="brief-state" role="status"></p>
           <div id="brief-content"></div>
+        </section>
+        <section id="storm-detail" class="storm-detail" aria-labelledby="storm-detail-heading" hidden>
+          <div class="storm-detail-bar">
+            <p>HYPOTHETICAL STORM</p>
+            <button id="storm-detail-close" type="button" aria-label="Close storm results">×</button>
+          </div>
+          <h2 id="storm-detail-heading" tabindex="-1"></h2>
+          <p id="storm-detail-area"></p>
+          <div id="storm-detail-content"></div>
+          <p class="storm-disclaimer">Hypothetical scenario: not a forecast, not observed damage.</p>
         </section>
       </aside>
     </main>

@@ -1,0 +1,16 @@
+.storm-detail { padding: 14px 24px 32px; color: var(--ink); overflow-wrap: anywhere; }
+.storm-detail-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.storm-detail-bar p { margin: 0; color: var(--pencil); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+#storm-detail-close { width: 44px; height: 44px; border: 0; border-radius: var(--radius-control); background: var(--panel); color: var(--pencil); font-size: 26px; cursor: pointer; }
+#storm-detail-close:focus-visible, #storm-detail summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+#storm-detail-heading { margin: 16px 0 6px; font-size: 28px; line-height: 1.2; }
+#storm-detail-area { margin: 0; color: var(--pencil); font-size: 14px; }
+.storm-facts { margin: 24px 0 8px; }
+.storm-detail-assets { padding-left: 20px; }
+.storm-detail-assets li { margin: 12px 0; }
+.storm-detail-assets p { margin: 4px 0; font-size: 14px; }
+.storm-detail-assets small, #storm-detail small { display: block; color: var(--pencil); overflow-wrap: anywhere; }
+#storm-detail .pair-disclosure > :not(summary) { font-size: 14px; line-height: 1.45; }
+#storm-detail .pair-disclosure ul { padding-left: 20px; }
+#storm-detail .pair-disclosure li { margin: 8px 0; }
+.storm-disclaimer { margin: 24px 0 0; padding-top: 16px; border-top: 1px solid var(--rule); color: var(--pencil); font-size: 12px; }

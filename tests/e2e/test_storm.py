@@ -127,3 +127,24 @@ def test_storm_options_request_selected_track(live_server):
         assert response.value.request.url.find("direction=SW") > 0
         assert response.value.request.url.find("category=2") > 0
         browser.close()
+
+
+def test_storm_results_use_right_pane_and_restore_pair(live_server):
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        loaded(page, live_server)
+        open_storm(page)
+        page.get_by_role("button", name="Skip to results").click()
+        detail = page.locator("#storm-detail")
+        expect(detail).to_be_visible()
+        expect(page.locator("aside.detail-pane")).to_have_attribute("aria-label", "Storm results")
+        expect(detail).to_contain_text("Possible repair cost")
+        expect(detail).to_contain_text("Coverage")
+        expect(detail).to_contain_text("System rule (Jev not configured)")
+        page.get_by_role("button", name="Close storm results").click()
+        expect(detail).to_be_hidden()
+        expect(page.locator("#storm-estimate")).to_be_focused()
+        page.get_by_test_id("overlap-row").first.locator("button").click()
+        expect(page.locator("#overlap-detail")).to_be_visible()
+        browser.close()

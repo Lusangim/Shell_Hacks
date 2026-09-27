@@ -1,4 +1,5 @@
 import { createStormAnimation } from "./storm-animation.js";
+import { createStormDetail } from "./storm-detail.js";
 
 const ACTIONS = {
   human_review: "Review the estimate", coordinate_project_timing: "Coordinate project timing",
@@ -26,6 +27,7 @@ export function createStormController(map, currentArea) {
   const skipButton = document.getElementById("storm-skip");
   const direction = document.getElementById("storm-direction");
   const category = document.getElementById("storm-category");
+  const detail = createStormDetail();
   let data = null;
   let animation = null;
   let controller = null;
@@ -38,6 +40,7 @@ export function createStormController(map, currentArea) {
     controller = null;
     animation?.clear();
     animation = null;
+    detail.close({ focus: false });
     data = null;
     playing = false;
     frameInput.value = "0";
@@ -136,7 +139,10 @@ export function createStormController(map, currentArea) {
       animation = createStormAnimation(map, payload, {
         onFrame: frame,
         onState: (state) => { playing = state === "playing"; playButton.textContent = playing ? "Pause storm" : "Resume storm"; },
-        onFinish: () => { status.textContent = "Storm passage complete. Hypothetical scenario, not observed damage."; },
+        onFinish: () => {
+          status.textContent = "Storm passage complete. Hypothetical scenario, not observed damage.";
+          detail.open(payload, area);
+        },
       });
       if (playing) status.textContent = "Hypothetical storm in progress. Not observed damage.";
     } catch (error) {
@@ -151,6 +157,9 @@ export function createStormController(map, currentArea) {
   playButton.addEventListener("click", () => { if (playing) animation?.pause(); else animation?.resume(); });
   resetButton.addEventListener("click", () => animation?.replay());
   skipButton.addEventListener("click", () => animation?.skip());
+  document.getElementById("storm-open-results").addEventListener("click", () => {
+    if (data && currentArea()) detail.open(data, currentArea());
+  });
   frameInput.addEventListener("input", () => animation?.scrub(Number(frameInput.value)));
 
   return { clear, refreshTheme: () => animation?.refreshTheme() };
