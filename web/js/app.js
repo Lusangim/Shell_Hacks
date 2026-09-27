@@ -213,12 +213,30 @@ function setupSheet() {
   });
 }
 
-// Report feedback stays a quiet live region until someone uses CSV or Print, then shows.
+// Report feedback: the status line is a live region for screen readers; after someone uses CSV or
+// Print, the outcome also shows for a few seconds as a small toast under the top bar.
 function setupReportStatus() {
   const message = document.getElementById("export-status");
+  const toast = document.createElement("div");
+  toast.className = "report-toast";
+  toast.setAttribute("aria-hidden", "true");
+  document.body.append(toast);
+  let armed = false;
+  let timer = null;
   for (const id of ["export-csv", "print-report-button"]) {
-    document.getElementById(id).addEventListener("click", () => { message.dataset.shown = "true"; });
+    document.getElementById(id).addEventListener("click", () => { armed = true; });
   }
+  new MutationObserver(() => {
+    const text = message.textContent.trim();
+    if (!armed || !/^(CSV download|Could not|Report prepared|Selection changed)/.test(text)) return;
+    armed = false;
+    const failed = text.startsWith("Could not");
+    toast.textContent = text;
+    toast.classList.toggle("report-toast-error", failed);
+    toast.classList.add("shown");
+    clearTimeout(timer);
+    timer = setTimeout(() => toast.classList.remove("shown"), failed ? 7000 : 3500);
+  }).observe(message, { childList: true, characterData: true, subtree: true });
 }
 
 initializeMap();

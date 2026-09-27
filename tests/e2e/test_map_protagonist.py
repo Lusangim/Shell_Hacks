@@ -1,7 +1,15 @@
 """Founder map-first shell and disclosure regression checks."""
 
+import os
+import tempfile
+from pathlib import Path
+
 from playwright.sync_api import expect, sync_playwright
 import pytest
+
+# Review screenshots are artefacts, not assertions: they go to GRIDLOCK_SHOTS_DIR or the system temp folder.
+SHOTS = Path(os.environ.get("GRIDLOCK_SHOTS_DIR") or tempfile.gettempdir()) / "gridlock-redesign"
+SHOTS.mkdir(parents=True, exist_ok=True)
 
 
 def test_three_panes_and_more_disclosure(live_server):
@@ -28,7 +36,7 @@ def test_three_panes_and_more_disclosure(live_server):
         right = page.locator(".detail-pane").bounding_box()
         assert left["x"] + left["width"] <= center["x"] + 1
         assert center["x"] + center["width"] <= right["x"] + 1
-        page.screenshot(path="C:/Users/lucia/dev/gridlock-runs/codex/redesign-shell.png")
+        page.screenshot(path=str(SHOTS / "redesign-shell.png"))
         browser.close()
 
 
@@ -137,7 +145,7 @@ def test_pair_facts_disclosures_and_explicit_brief(live_server):
             payload["project_a"]["properties"]["name"], payload["project_b"]["properties"]["name"]])
         expect(page.locator("#overlap-content .detail-block")).to_have_count(7)
         page.wait_for_function("() => !document.querySelector('.leaflet-zoom-anim')")
-        page.screenshot(path="C:/Users/lucia/dev/gridlock-runs/codex/redesign-detail-overview.png")
+        page.screenshot(path=str(SHOTS / "redesign-detail-overview.png"))
         expect(page.locator(".overlap-projects")).to_be_hidden()
         page.locator("#pair-projects").click()
         expect(page.locator(".overlap-projects")).to_be_visible()
@@ -150,7 +158,7 @@ def test_pair_facts_disclosures_and_explicit_brief(live_server):
         page.get_by_role("button", name="Back to pair detail", exact=True).click()
         expect(page.locator("#brief-panel")).to_be_hidden()
         expect(page.locator("#open-brief")).to_be_focused()
-        page.screenshot(path="C:/Users/lucia/dev/gridlock-runs/codex/redesign-detail.png")
+        page.screenshot(path=str(SHOTS / "redesign-detail.png"))
         browser.close()
 
 
@@ -338,7 +346,7 @@ def test_responsive_edges_keep_controls_and_two_phone_rows_in_view(live_server, 
                 expect(years).to_be_visible()
                 assert years.bounding_box()["height"] >= 14
                 expect(row.locator(".coordinate-tag")).to_be_visible()
-        page.screenshot(path=f"C:/Users/lucia/dev/gridlock-runs/codex/redesign-final-{width}-{theme}.png")
+        page.screenshot(path=str(SHOTS / f"redesign-final-{width}-{theme}.png"))
         page.get_by_test_id("overlap-row").first.locator("button").click()
         pane = page.locator(".detail-pane")
         expect(pane).to_be_visible()
@@ -350,7 +358,7 @@ def test_responsive_edges_keep_controls_and_two_phone_rows_in_view(live_server, 
         else:
             expect(page.get_by_test_id("overlap-row").nth(1)).to_be_visible()
         expect(page.locator("#detail-close")).to_be_visible()
-        page.screenshot(path=f"C:/Users/lucia/dev/gridlock-runs/codex/redesign-final-{width}-{theme}-detail.png")
+        page.screenshot(path=str(SHOTS / f"redesign-final-{width}-{theme}-detail.png"))
         page.locator("#detail-close").click()
         expect(pane).to_be_hidden()
         if width <= 700:
@@ -360,4 +368,56 @@ def test_responsive_edges_keep_controls_and_two_phone_rows_in_view(live_server, 
                 expect(control).to_be_focused()
                 expect(control).to_be_visible()
                 assert control.evaluate("""el=>{const r=el.getBoundingClientRect();return [.2,.5,.8].every(x=>[.2,.5,.8].every(y=>el.contains(document.elementFromPoint(r.x+r.width*x,r.y+r.height*y))));}"""), selector
+        browser.close()
+
+
+@pytest.mark.parametrize("width,height,theme", [(1600, 900, "light"), (1920, 1080, "dark")])
+def test_wide_screens_show_menu_actions_in_the_top_bar(live_server, width, height, theme):
+    """Founder, 2026-09-27: on wide screens the More actions sit in the top bar beside the filter, as icons
+    with tooltips; the top bar drops Map key because the map keeps its own."""
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": width, "height": height}, color_scheme=theme)
+        page.add_init_script(f"localStorage.setItem('gridlock-theme', '{theme}')")
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        page.goto(live_server)
+        expect(page.get_by_test_id("overlap-row").first).to_be_visible()
+        expect(page.locator("#more-toggle")).to_be_hidden()
+        expect(page.locator("#more-menu > details.legend")).to_be_hidden()
+        expect(page.get_by_test_id("map-key")).to_be_visible()
+        bar = page.locator(".app-bar").bounding_box()
+        filters = page.locator("#filters-toggle").bounding_box()
+        launch = page.get_by_role("button", name="Take the tour", exact=True)
+        expect(launch).to_be_visible()
+        expect(launch).to_have_text("Take the tour")  # the tour keeps its words
+        tour_box = launch.bounding_box()
+        assert tour_box["x"] >= filters["x"] + filters["width"] and tour_box["width"] > 48, tour_box
+        actions = [page.get_by_role("button", name=name, exact=True) for name in ("Projects", "Export CSV", "Print report")]
+        actions += [page.locator("#about-data > summary"), page.locator("#theme-toggle")]
+        for action in actions:
+            expect(action).to_be_visible()
+            box = action.bounding_box()
+            assert bar["y"] <= box["y"] and box["y"] + box["height"] <= bar["y"] + bar["height"] + 1, box
+            assert box["x"] >= filters["x"] + filters["width"], box
+            assert box["height"] >= 44 and box["width"] <= 48, box  # an icon button, not a text button
+            assert action.get_attribute("title"), "each icon has a tooltip"
+            assert action.evaluate("el => getComputedStyle(el, '::before').maskImage !== 'none' || el.querySelector('.icon') !== null")
+        expect(page.locator("#about-data > summary")).to_contain_text("About the data")  # its accessible name stays
+        assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
+        about = page.locator("#about-data")
+        about.locator("summary").click()
+        expect(about).to_have_attribute("open", "")
+        expect(page.locator("#editions")).to_be_visible()
+        assert about.locator(".menu-pop").bounding_box()["y"] >= bar["y"] + bar["height"]
+        page.keyboard.press("Escape")
+        expect(about).not_to_have_attribute("open", "")
+        expect(about.locator("summary")).to_be_focused()
+        launch.click()
+        card = page.get_by_role("dialog", name="GridLock tour")
+        expect(card).to_be_visible()
+        page.keyboard.press("Escape")
+        expect(card).to_be_hidden()
+        expect(launch).to_be_focused()
+        assert errors == []
         browser.close()

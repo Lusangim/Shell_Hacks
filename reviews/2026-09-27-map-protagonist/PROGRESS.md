@@ -2,7 +2,7 @@
 
 Founder brief: apply the supplied three-pane mock throughout GridLock while preserving every feature, data hook, accessible control name and existing logic. Work only on `codex/redesign-astra` in `web-redesign-astra`; no data rebuild, push or deployment. Four milestone commits: shell, pair detail, list/map/tablet, phone/full verification.
 
-Reference: `C:/Users/lucia/dev/gridlock-runs/codex/founder-mock-map-protagonist.webp` (viewed). The explicit 2026-09-27 design supersedes the older yellow-selection and single-panel direction.
+Reference: `gridlock-runs/codex/ (outside the repository): founder-mock-map-protagonist.webp` (viewed). The explicit 2026-09-27 design supersedes the older yellow-selection and single-panel direction.
 
 Verification: Python from `GRIDLOCK_PY`; port 8779; AI and Google off; installed Playwright browsers. All existing e2e (including the full audit matrix) and API checks remain in scope. Re-run individual failures three times. No tests of live records or external calls.
 
@@ -54,6 +54,6 @@ Verification: Python from `GRIDLOCK_PY`; port 8779; AI and Google off; installed
 - Final reviewer inspected the late button and palette changes; no new functional blockers. Fresh screenshots confirm the final phone header and two readable rows.
 - Final affected gate: **138 passed** in 17m37s, including the complete full matrix, all 23 redesign regressions, timeline, modern map, location look and T43 keyboard/provenance checks. The 28 warnings concern pytest's existing `record_property` / xunit2 reporting combination; no test failed. The final reviewer also inspected label preservation and found no blocker.
 - Across the final matrix's 24 scenes, maximum measured slider response was 132.7 ms and maximum accumulated layout shift was 0.004392. All existing contrast, target, keyboard, reduced-motion, copy, print and recovery checks passed.
-- Complementary final gate: **460 passed** in 25m10s, with four existing xunit2 reporting warnings. Combined JUnit reports contain **598 unique passing cases: 428 e2e and 170 API, zero failures, errors or skips**. The two batches are non-overlapping and ran against unchanged final product code. Reports: `C:/Users/lucia/dev/gridlock-runs/codex/redesign-m4-final-gate.xml` and `redesign-m4-remainder.xml`.
+- Complementary final gate: **460 passed** in 25m10s, with four existing xunit2 reporting warnings. Combined JUnit reports contain **598 unique passing cases: 428 e2e and 170 API, zero failures, errors or skips**. The two batches are non-overlapping and ran against unchanged final product code. Reports: `gridlock-runs/codex/ (outside the repository): redesign-m4-final-gate.xml` and `redesign-m4-remainder.xml`.
 - Completion check at 08:06 EDT: all requested work complete, no unresolved review findings, no listener on port 8779. Tests closed their own browsers and server. No data build, server/scoring/savings/brief/tracker logic change, push or deployment. Original working copy and older redesign branch/worktree left alone.
 - Lesson, 2026-09-27: style-only map refreshes should retain valid label geometry; repeated DOM measurement can dominate a slider update even when SVG colour updates are cheap.

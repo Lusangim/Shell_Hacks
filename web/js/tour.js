@@ -35,7 +35,12 @@ export function setupTour() {
     try { localStorage.setItem("gridlock-tour-dismissed", "yes"); }
     catch (_error) { dismissed = true; }
   }
-  dismiss.addEventListener("click", () => { remember(); document.getElementById("more-toggle").focus(); });
+  // The tour lives in the top bar on wide screens and behind ⋮ on narrower ones; focus returns to whichever shows.
+  const menuEntry = () => {
+    const more = document.getElementById("more-toggle");
+    return more.getClientRects().length ? more : launch;
+  };
+  dismiss.addEventListener("click", () => { remember(); menuEntry().focus(); });
 
   const card = document.createElement("section");
   card.id = "tour-card";
@@ -92,7 +97,7 @@ export function setupTour() {
     if (openedLegend) document.querySelector(".legend").open = false;
     openedLegend = false;
     remember();
-    document.getElementById("more-toggle").focus();
+    menuEntry().focus();
   }
 
   function revealTarget(selector) {

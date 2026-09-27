@@ -39,3 +39,7 @@
 .storm-action { font-weight: 700; }
 .storm-review { padding: 8px 12px; border: 2px solid var(--error); border-radius: var(--radius-control); font-weight: 700; }
 #storm-cost strong, #storm-coverage, #storm-assets { font-variant-numeric: tabular-nums; }
+
+/* The storm section appears with the area results, so a restored area never shifts it (phone reload audit). */
+#area-panel:has(#area-results[hidden]) #storm-lab { display: none; }
+@media (max-width: 700px) { #storm-direction, #storm-category { font-size: 16px; } }

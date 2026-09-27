@@ -12,7 +12,7 @@ Scope: accumulated presentation changes from `56c37ca`, milestones `463d91b`, `e
 
 ## Evidence and limits
 
-Inspected screenshots in `C:/Users/lucia/dev/gridlock-runs/codex/`:
+Inspected screenshots in `gridlock-runs/codex/ (outside the repository): `:
 
 - `redesign-m3-1440-light-detail.png`
 - `redesign-final-320-light.png`, `redesign-final-320-light-detail.png`, `redesign-final-320-dark.png`

@@ -6,11 +6,27 @@ export function setupShell(overlapView) {
   const filterPanel = document.getElementById("filter-panel");
   const impactCard = document.getElementById("impact-card");
   const impactDisclosure = impactCard.querySelector("details");
+  // Wide screens show the menu's actions in the top bar beside the filter; narrower ones keep the ⋮ disclosure.
+  const inline = matchMedia("(min-width: 1441px)");
+  const popups = [...menu.querySelectorAll(":scope > details")];
   const setMore = (open, restore = false) => {
-    menu.hidden = !open;
-    more.setAttribute("aria-expanded", String(open));
-    if (restore) more.focus();
+    const shown = open || inline.matches;
+    menu.hidden = !shown;
+    more.setAttribute("aria-expanded", String(shown));
+    if (restore && !inline.matches) more.focus();
   };
+  const closePopups = (except = null) => popups.forEach((details) => { if (details !== except) details.open = false; });
+  const layout = () => {
+    menu.classList.toggle("inline-actions", inline.matches);
+    if (inline.matches) closePopups();
+    setMore(false);
+  };
+  inline.addEventListener("change", layout);
+  layout();
+  // In the top bar, Map key and About the data open one at a time.
+  popups.forEach((details) => details.addEventListener("toggle", () => {
+    if (inline.matches && details.open) closePopups(details);
+  }));
   more.addEventListener("click", () => {
     if (!filterPanel.hidden) filters.click();
     setMore(menu.hidden);
@@ -25,12 +41,21 @@ export function setupShell(overlapView) {
       event.stopImmediatePropagation();
       return;
     }
-    if (!menu.hidden) { setMore(false, true); event.preventDefault(); event.stopImmediatePropagation(); }
+    const popup = inline.matches ? popups.find((details) => details.open) : null;
+    if (popup) {
+      popup.open = false;
+      popup.querySelector("summary").focus();
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return;
+    }
+    if (!menu.hidden && !inline.matches) { setMore(false, true); event.preventDefault(); event.stopImmediatePropagation(); }
     else if (!filterPanel.hidden) { filters.click(); filters.focus(); event.preventDefault(); event.stopImmediatePropagation(); }
   }, true);
   document.addEventListener("pointerdown", (event) => {
     if (!impactCard.contains(event.target)) impactDisclosure.open = false;
-    if (!menu.hidden && !menu.contains(event.target) && !more.contains(event.target)) setMore(false);
+    if (inline.matches) popups.forEach((details) => { if (details.open && !details.contains(event.target)) details.open = false; });
+    else if (!menu.hidden && !menu.contains(event.target) && !more.contains(event.target)) setMore(false);
     if (!filterPanel.hidden && !filterPanel.contains(event.target) && !filters.contains(event.target)) filters.click();
   });
   // Programmatic focus of a retained control reveals its containing disclosure.
@@ -42,8 +67,11 @@ export function setupShell(overlapView) {
   });
   document.addEventListener("focusin", (event) => {
     if (!impactCard.contains(event.target)) impactDisclosure.open = false;
-    if (!menu.hidden && !menu.contains(event.target) && event.target !== more && !event.target.closest(".tour-card")) setMore(false);
-    if (!filterPanel.hidden && !filterPanel.contains(event.target) && event.target !== filters && event.target !== more && !event.target.closest(".tour-card")) filters.click();
+    const tourFocus = event.target.closest(".tour-card");
+    if (inline.matches) {
+      popups.forEach((details) => { if (details.open && !details.contains(event.target) && !tourFocus) details.open = false; });
+    } else if (!menu.hidden && !menu.contains(event.target) && event.target !== more && !tourFocus) setMore(false);
+    if (!filterPanel.hidden && !filterPanel.contains(event.target) && event.target !== filters && event.target !== more && !tourFocus) filters.click();
     const pane = document.querySelector(".detail-pane");
     const coveredMap = matchMedia("(max-width: 1099px)").matches && event.target.closest(".map-region");
     const coveredList = matchMedia("(max-width: 700px)").matches && event.target.closest(".panel");
