@@ -267,14 +267,20 @@ export function renderMap(projects, basemap) {
 }
 
 export function fitPairBounds(bounds) {
+  // The right pane may have just opened and narrowed the map; fit against the size it has now.
+  state.map.invalidateSize({ pan: false });
   const mobile = matchMedia("(max-width: 700px)").matches;
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  state.map[reduced ? "fitBounds" : "flyToBounds"](bounds.pad(0.2), {
+  // On a wide map, keep room around the pair for its two labels (about 260 by 72 px) above, below or
+  // beside it, so the closer zoom never pushes a label under the panel or onto the lines it names.
+  const room = !mobile && state.map.getSize().x >= 600 ? [140, 90] : [20, 20];
+  // Close enough that the pair's two lines and labels separate, still with the streets around them.
+  state.map[reduced ? "fitBounds" : "flyToBounds"](bounds.pad(room[0] > 20 ? 0.05 : 0.2), {
     animate: !reduced,
     duration: 0.6,
-    maxZoom: 11,
-    paddingTopLeft: [20, 20],
-    paddingBottomRight: mobile ? [16, Math.min(window.innerHeight * 0.6 + 16, 530)] : [20, 20],
+    maxZoom: 13,
+    paddingTopLeft: room,
+    paddingBottomRight: mobile ? [16, Math.min(window.innerHeight * 0.6 + 16, 530)] : room,
   });
 }
 
@@ -328,11 +334,11 @@ function drawHalo(layers) {
     interactive: false,
     // GeoJSON styles apply to point markers too, so points get a filled disc and lines a band.
     style: (feature) => (isPoint(feature)
-      ? { stroke: false, fill: true, fillColor: color, fillOpacity: 0.9 }
-      : { color, weight: styleForProject(feature).weight + 12, opacity: 0.9,
+      ? { stroke: false, fill: true, fillColor: color, fillOpacity: 1 }
+      : { color, weight: styleForProject(feature).weight + 16, opacity: 1,
         lineCap: "round", lineJoin: "round", dashArray: null, fill: false }),
-    pointToLayer: (feature, latlng) => L.circleMarker(latlng, { radius: pointRadius(feature) + 7, stroke: false,
-      fillColor: color, fillOpacity: 0.9, interactive: false, pane: "haloPane" }),
+    pointToLayer: (feature, latlng) => L.circleMarker(latlng, { radius: pointRadius(feature) + 9, stroke: false,
+      fillColor: color, fillOpacity: 1, interactive: false, pane: "haloPane" }),
     onEachFeature(_feature, layer) {
       layer.on("add", () => {
         const element = layer.getElement();
@@ -461,14 +467,23 @@ function resetLabel(layer) {
   }
 }
 
+// While a pair is selected its two lines grow and every other line gets one step thinner, never
+// fainter, so the pair reads first and the rest keeps its contrast. Dotted lines keep dots of 3 px.
+function pairWeight(style, isSelected, pairOpen) {
+  if (isSelected) return style.weight + 4;
+  if (!pairOpen) return style.weight;
+  return Math.max(style.dashArray === "1 7" ? 3 : 2, style.weight - 1);
+}
+
 export function highlightPair(overlap) {
   if (!state.projectLayers) { drawRankMarker(null, []); return; }
   const selectedIds = new Set(overlap ? [overlap.a, overlap.b] : []);
+  const pairOpen = selectedIds.size > 0;
   const selected = [];
   state.projectLayers.eachLayer((layer) => {
     const isSelected = selectedIds.has(layer.feature?.properties?.id);
     const style = styleForProject(layer.feature);
-    layer.setStyle({ ...style, weight: style.weight + (isSelected ? 2 : 0) });
+    layer.setStyle({ ...style, weight: pairWeight(style, isSelected, pairOpen) });
     const element = layer.getElement();
     if (element) element.dataset.selected = String(isSelected);
     if (isSelected) { layer.bringToFront(); selected.push(layer); }
@@ -477,8 +492,10 @@ export function highlightPair(overlap) {
   state.casingLayers?.eachLayer((layer) => {
     const isSelected = selectedIds.has(layer.feature?.properties?.id);
     const style = styleForCasing(layer.feature);
-    // A selected dashed line sits on a continuous casing, so the halo never shows through the gaps.
-    layer.setStyle({ ...style, weight: style.weight + (isSelected ? 2 : 0), dashArray: isSelected ? null : style.dashArray });
+    // The casing stays 2 px wider than its line. A selected dashed line sits on a continuous casing,
+    // so the halo never shows through the gaps.
+    layer.setStyle({ ...style, weight: pairWeight(styleForProject(layer.feature), isSelected, pairOpen) + 2,
+      dashArray: isSelected ? null : style.dashArray });
     if (isSelected) layer.bringToFront();
   });
   selected.forEach((layer) => layer.bringToFront());

@@ -51,18 +51,16 @@ function selectOverlap(overlap, button, byId, openDetail = true) {
   const status = document.getElementById("status");
   status.dataset.src = "utility";
   status.textContent = `Selected overlap ${overlap.rank}: ${utilityLabel(a?.properties)} and ${utilityLabel(b?.properties)}.`;
-  const layers = state.projectLayers;
-  if (layers) {
-    const bounds = L.latLngBounds([]);
-    layers.eachLayer((layer) => {
-      if (layer.feature?.properties?.id === overlap.a || layer.feature?.properties?.id === overlap.b) {
-        if (layer.getBounds) bounds.extend(layer.getBounds());
-        else if (layer.getLatLng) bounds.extend(layer.getLatLng());
-      }
-    });
-    if (bounds.isValid()) fitPairBounds(bounds);
-  }
+  const bounds = L.latLngBounds([]);
+  state.projectLayers?.eachLayer((layer) => {
+    if (layer.feature?.properties?.id === overlap.a || layer.feature?.properties?.id === overlap.b) {
+      if (layer.getBounds) bounds.extend(layer.getBounds());
+      else if (layer.getLatLng) bounds.extend(layer.getLatLng());
+    }
+  });
+  // Open the detail first: its pane narrows the map, and the fit must use the final map size.
   if (openDetail) document.dispatchEvent(new CustomEvent("gridlock:pair-open-request", { detail: { overlapId: overlap.id } }));
+  if (bounds.isValid()) fitPairBounds(bounds);
 }
 
 export function renderList(overlaps, projects) {
