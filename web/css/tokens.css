@@ -24,6 +24,12 @@
   --line-glow: #23282e66;
   --map-state: #5b6670;
   --map-county: #c3c9cf;
+  --storm-track: #23282e;
+  --storm-none: #5b6670;
+  --storm-minor: #187e73;
+  --storm-moderate: #004280;
+  --storm-severe: #863e7f;
+  --storm-failed: #8c342c;
   --radius-control: 8px;
   --radius-card: 12px;
   --radius-pill: 999px;
@@ -56,4 +62,10 @@
   --line-glow: #e8ecef66;
   --map-state: #a7b1ba;
   --map-county: #3a4148;
+  --storm-track: #e8ecef;
+  --storm-none: #a7b1ba;
+  --storm-minor: #7ad0c5;
+  --storm-moderate: #b3d8ff;
+  --storm-severe: #b071a9;
+  --storm-failed: #f4a39c;
 }
