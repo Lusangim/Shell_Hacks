@@ -1,5 +1,46 @@
 {
   "$defs": {
+    "Hotspot": {
+      "additionalProperties": false,
+      "properties": {
+        "best_rank": {
+          "exclusiveMinimum": 0,
+          "title": "Best Rank",
+          "type": "integer"
+        },
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "lat": {
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Lat",
+          "type": "number"
+        },
+        "lon": {
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Lon",
+          "type": "number"
+        },
+        "pairs": {
+          "minimum": 2,
+          "title": "Pairs",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "label",
+        "lat",
+        "lon",
+        "pairs",
+        "best_rank"
+      ],
+      "title": "Hotspot",
+      "type": "object"
+    },
     "SourceDocument": {
       "additionalProperties": false,
       "properties": {
@@ -70,6 +111,14 @@
       "title": "Counts By Utility",
       "type": "object"
     },
+    "hotspots": {
+      "items": {
+        "$ref": "#/$defs/Hotspot"
+      },
+      "maxItems": 5,
+      "title": "Hotspots",
+      "type": "array"
+    },
     "no_overlap_count": {
       "minimum": 0,
       "title": "No Overlap Count",
@@ -119,7 +168,8 @@
     "no_overlap_count",
     "unmapped_count",
     "unmapped_reasons",
-    "stale_brief_count"
+    "stale_brief_count",
+    "hotspots"
   ],
   "title": "Meta",
   "type": "object"

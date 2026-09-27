@@ -60,6 +60,19 @@ def test_schemas_exported_for_every_model():
         assert schema == exported_schemas()[name]
 
 
+def test_meta_hotspot_contract_rejects_bad_members():
+    meta = json.loads((FIXTURES / "meta.json").read_text(encoding="utf-8"))
+    assert Meta.model_validate(meta).hotspots[0].label == "Savannah city"
+    for change in ({"pairs": -1}, {"label": ""}, {"label": None}):
+        bad = json.loads(json.dumps(meta))
+        bad["hotspots"][0].update(change)
+        with pytest.raises(ValidationError):
+            Meta.model_validate(bad)
+    del meta["hotspots"][0]["label"]
+    with pytest.raises(ValidationError):
+        Meta.model_validate(meta)
+
+
 def test_unknown_location_has_no_geometry_and_no_fake_coordinates():
     value = json.loads((FIXTURES / "unknown-location.json").read_text(encoding="utf-8"))
     feature = ProjectFeature.model_validate(value["features"][0])

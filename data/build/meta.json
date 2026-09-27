@@ -19,6 +19,43 @@
     "Georgia Transmission Corp.": 66,
     "MEAG Power": 13
   },
+  "hotspots": [
+    {
+      "best_rank": 6,
+      "label": "Centralhatchee town",
+      "lat": 33.368898,
+      "lon": -85.103722,
+      "pairs": 10
+    },
+    {
+      "best_rank": 1,
+      "label": "Rincon city",
+      "lat": 32.29469,
+      "lon": -81.235348,
+      "pairs": 6
+    },
+    {
+      "best_rank": 26,
+      "label": "Whitesburg city",
+      "lat": 33.492068,
+      "lon": -84.9143,
+      "pairs": 6
+    },
+    {
+      "best_rank": 5,
+      "label": "LaGrange city",
+      "lat": 33.02698,
+      "lon": -85.038261,
+      "pairs": 5
+    },
+    {
+      "best_rank": 32,
+      "label": "Sandersville city",
+      "lat": 32.981794,
+      "lon": -82.80513,
+      "pairs": 5
+    }
+  ],
   "no_overlap_count": 96,
   "source_documents": [
     {
