@@ -9,6 +9,8 @@ from pathlib import Path
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
+from tests.e2e.ui_helpers import open_more, open_pair_section
+
 
 AXE = (Path(__file__).parent / "vendor" / "axe.min.js").read_text(encoding="utf-8")
 
@@ -21,6 +23,7 @@ def first_pair(page):
 
 def open_pair(page, pair_id):
     page.locator(f'[data-overlap-id="{pair_id}"] button').click()
+    open_pair_section(page, "Your coordination status")
     expect(page.locator("#pair-tracker")).to_be_visible()
 
 
@@ -35,8 +38,10 @@ def csv_rows(raw):
 
 
 def download_csv(page):
+    open_more(page)
     page.locator(".legend summary").click()
     with page.expect_download() as received:
+        open_more(page)
         page.get_by_role("button", name="Export CSV", exact=True).click()
     return Path(received.value.path()).read_bytes()
 
@@ -50,6 +55,7 @@ def test_status_note_persist_chip_and_default_removes_entry(live_server):
         open_pair(page, pair_id)
         set_tracking(page)
         page.reload()
+        open_pair_section(page, "Your coordination status")
         expect(page.locator("#pair-tracker")).to_be_visible()
         expect(page.get_by_label("Coordination status", exact=True)).to_have_value("Contacted")
         expect(page.get_by_label("Notes", exact=True)).to_have_value("Call the planning team.")
@@ -73,7 +79,9 @@ def test_print_report_fills_selected_and_ranked_status(live_server):
         pair_id = first_pair(page)
         open_pair(page, pair_id)
         set_tracking(page)
+        open_more(page)
         page.locator(".legend summary").click()
+        open_more(page)
         page.get_by_role("button", name="Print report", exact=True).click()
         page.wait_for_function("() => window.printCalls === 1")
         expect(page.locator("#print-selected .coordination-status")).to_contain_text("Contacted")

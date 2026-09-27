@@ -7,7 +7,7 @@ export const tourWords = {
 
 // Written for a first-time judge: what each feature does, how to read it, and the numbers behind it.
 export const tourSteps = [
-  { id: "purpose", target: ".title-block", title: "What GridLock does",
+  { id: "purpose", target: ".app-bar", title: "What GridLock does",
     body: "The challenge: find where neighbouring utilities' planned work overlaps in place or time. GridLock compares two public plans (Dominion Energy SC and the Georgia utilities in SERTP), ranks every pair within 40 km, and shows the source page behind each fact." },
   { id: "map", target: "#map", title: "Read the map",
     body: "Each colour is a utility. Solid lines and filled dots are exact; dashed lines and rings are approximate. Dotted lines or dashed rings are town-level: placed at a town centre because the substation is not mapped. Unknown locations stay in the list, never guessed." },

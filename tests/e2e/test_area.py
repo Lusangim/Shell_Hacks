@@ -46,6 +46,25 @@ def explore_search(page, name="Savannah"):
     search.press("Enter")
     expect(page.get_by_test_id("search-selection")).to_be_visible()
     search.press("Tab")
+    filters = page.locator("#filters-toggle")
+    if filters.is_enabled():
+        expect(filters).to_be_focused()
+        page.keyboard.press("Tab")
+    else:
+        expect(filters).to_be_disabled()
+        expect(filters).not_to_be_focused()
+    expect(page.locator("#more-toggle")).to_be_focused()
+    visited = set()
+    for _ in range(32):
+        page.keyboard.press("Tab")
+        focused = page.evaluate("""() => ({
+          index: [...document.querySelectorAll('*')].indexOf(document.activeElement),
+          id: document.activeElement.id
+        })""")
+        if focused["id"] == "explore-area":
+            break
+        assert focused["index"] not in visited, "Keyboard route cycled before Explore this area"
+        visited.add(focused["index"])
     expect(page.locator("#explore-area")).to_be_focused()
     page.keyboard.press("Enter")
 

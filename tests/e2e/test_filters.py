@@ -78,6 +78,8 @@ def test_no_match_clear_all_and_unknown_reasons(live_server):
         assert_parity(page, projects, overlaps)
         unknown = [feature for feature in projects if feature["geometry"] is None]
         expect(page.locator("#unknown-heading")).to_have_text(f"Location unknown ({len(unknown)})")
+        page.locator("#filters-toggle").click()
+        expect(page.locator("#filters-toggle")).to_have_attribute("aria-expanded", "false")
         page.locator("#unknown-locations summary").click()
         expect(page.locator("#unknown-list li")).to_have_count(len(unknown))
         unknown_text = page.locator("#unknown-list").inner_text()
@@ -107,9 +109,12 @@ def test_filter_url_reload_back_forward_and_selection_outside_filters(live_serve
         open_filters(page, more=True)
         first = page.get_by_test_id("overlap-row").first
         selected_id = first.get_attribute("data-overlap-id")
+        page.locator("#filters-toggle").click()
+        expect(page.locator("#filters-toggle")).to_have_attribute("aria-expanded", "false")
         first.locator("button").click()
         expect(page.get_by_test_id("overlap-detail")).to_be_visible()
         assert page.url.endswith(f"#overlap={selected_id}")
+        open_filters(page)
         page.locator("#filter-year-min").fill("2199")
         page.locator("#filter-year-min").press("Tab")
         expect(page.get_by_test_id("overlap-detail")).to_contain_text("outside the current filters")

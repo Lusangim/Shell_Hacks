@@ -6,6 +6,8 @@ from pathlib import Path
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
+from tests.e2e.ui_helpers import open_more, open_pair_section
+
 
 MCINTOSH = "desc-p41__sertp-p107-9bc088"
 FORBIDDEN = re.compile(r"desc-p|sertp-p|\bTAP\d+\b|\b[a-z]+_[a-z0-9_]+\b|data[/\\]|[A-Z]:[/\\]")
@@ -35,6 +37,7 @@ def test_filtered_unknown_and_placed_project_absence_are_distinct(live_server):
         page = browser.new_page()
         page.goto(f"{live_server}/?utility=Dominion+Energy+SC")
         expect(page.locator("#overlap-count")).to_have_text("0 pairs")
+        open_more(page)
         page.locator("#projects-toggle").click()
         page.locator('[data-project-ref="desc-p41"] button').click()
         expect(page.locator("#project-overlaps")).to_have_text("No related overlaps are shown by the current filters.")
@@ -56,7 +59,7 @@ def test_filtered_unknown_and_placed_project_absence_are_distinct(live_server):
 
 def assert_selection(page, payload):
     pair = payload["overlap"]
-    expect(page.locator("#overlap-detail-heading")).to_have_text(f"Overlap #{pair['rank']}")
+    expect(page.locator("#overlap-detail-heading")).to_have_text(f"Pair {pair['rank']}")
     assert page.url.endswith(f"#overlap={pair['id']}")
     assert page.evaluate("async () => (await import('/web/js/state.js')).state.selectedOverlapId") == pair["id"]
     visible_rows = page.locator(f'[data-overlap-id="{pair["id"]}"] button')
@@ -64,7 +67,9 @@ def assert_selection(page, payload):
         expect(visible_rows).to_have_attribute("aria-pressed", "true")
     highlighted = page.locator('[data-testid="project-feature"][data-selected="true"]').evaluate_all("els => els.map(el => el.dataset.projectId).sort()")
     assert highlighted == sorted([pair["a"], pair["b"]])
+    open_more(page)
     page.locator(".legend").evaluate("el => el.open = true")
+    open_more(page)
     page.get_by_role("button", name="Print report", exact=True).click()
     page.wait_for_function("() => window.printCalls > 0")
     page.evaluate("window.printCalls = 0")
@@ -95,6 +100,7 @@ def test_filtered_deep_link_history_and_invalid_links_use_visible_selection(live
             expect(page.locator("#overlap-state")).to_contain_text(message)
             assert page.evaluate("async () => (await import('/web/js/state.js')).state.selectedOverlapId") is None
             expect(page.locator('[data-testid="project-feature"][data-selected="true"]')).to_have_count(0)
+            open_more(page)
             page.get_by_role("button", name="Print report", exact=True).click()
             page.wait_for_function("() => window.printCalls > 0")
             page.evaluate("window.printCalls = 0")
@@ -116,8 +122,10 @@ def test_answer_first_blocks_keep_citations_and_visible_honesty(live_server, wid
             " × crosses the state line (1.5) × savings up to $264,000 (1.21)")
         expect(detail.locator(".detail-block")).to_have_count(7)
         assert detail.locator(".detail-block").evaluate_all("nodes => nodes.every(n => n.querySelector(':scope > .detail-answer') && n.querySelectorAll(':scope > ul > li').length <= 3 && n.querySelector(':scope > details'))")
+        open_pair_section(page, "About the estimate")
         expect(detail.locator("[data-src='assumption']").first).to_be_visible()
         expect(detail).to_contain_text("Not verified: the plans do not show shared work.")
+        open_pair_section(page, "Sources")
         assert detail.get_by_role("link").count() == 2
         for link in detail.get_by_role("link").all():
             expect(link).to_be_visible()

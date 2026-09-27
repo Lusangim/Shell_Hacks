@@ -1,3 +1,4 @@
+import { nearestGeometryMidpoint } from "./nearest-geometry.js";
 import { state } from "./state.js";
 import { initializeBasemap, isolateMapControls } from "./basemap.js";
 import { utilityLabel } from "./project-detail.js";
@@ -153,6 +154,8 @@ export function initializeMap() {
   map.createPane("outlinePane").style.zIndex = 210;
   // The selected pair's halo sits above the base map and below every project line.
   map.createPane("haloPane").style.zIndex = 390;
+  map.createPane("rankPane").style.zIndex = 620;
+  map.getPane("rankPane").style.pointerEvents = "none";
   map.setView([32.75, -81.55], 6);
   state.map = map;
   state.basemapControl = initializeBasemap(map);
@@ -186,7 +189,7 @@ function labelAndFitStates(basemap) {
     const timeline = document.querySelector(".timeline").getBoundingClientRect();
     const bottom = mobile ? innerHeight - timeline.top + 12 : 140;
     const bounds = L.geoJSON({ type: "FeatureCollection", features: states }).getBounds();
-    const options = { animate: false, paddingTopLeft: mobile ? [16, 16] : [456, 24],
+    const options = { animate: false, paddingTopLeft: mobile ? [16, 16] : [24, 24],
       paddingBottomRight: [24, bottom] };
     // Small screens may need a slightly wider overview to keep both states above the sheet.
     if (mobile) state.map.setMinZoom(0);
@@ -203,6 +206,7 @@ export function renderMap(projects, basemap) {
   if (state.casingLayers) state.casingLayers.clearLayers();
   if (state.projectLayers) state.projectLayers.clearLayers();
   drawHalo([]);
+  drawRankMarker(null, []);
   state.pairLabelLayers = [];
   state.cityMarkers = [];
   state.basemapLayers = L.geoJSON(basemap, {
@@ -269,12 +273,51 @@ export function fitPairBounds(bounds) {
     animate: !reduced,
     duration: 0.6,
     maxZoom: 11,
-    paddingTopLeft: mobile ? [16, 16] : [440, 20],
+    paddingTopLeft: [20, 20],
     paddingBottomRight: mobile ? [16, Math.min(window.innerHeight * 0.6 + 16, 530)] : [20, 20],
   });
 }
 
 // A soft accent band under the two selected projects, drawn outside the utility palette.
+function projectedGeometry(geometry) {
+  if (!geometry) return null;
+  const point = (coordinate) => {
+    if (!Array.isArray(coordinate) || !Number.isFinite(coordinate[0])
+      || !Number.isFinite(coordinate[1])) return null;
+    const projected = L.CRS.EPSG3857.project(L.latLng(coordinate[1], coordinate[0]));
+    return [projected.x, projected.y];
+  };
+  if (geometry.type === "Point") return { type: "Point", coordinates: point(geometry.coordinates) };
+  if (geometry.type === "LineString") return {
+    type: "LineString", coordinates: geometry.coordinates.map(point),
+  };
+  if (geometry.type === "MultiLineString") return {
+    type: "MultiLineString", coordinates: geometry.coordinates.map((line) => line.map(point)),
+  };
+  return null;
+}
+
+function drawRankMarker(overlap, layers) {
+  state.pairRankMarker?.remove();
+  state.pairRankMarker = null;
+  if (!overlap || !Number.isInteger(overlap.rank) || overlap.rank < 1 || layers.length !== 2) return;
+  const midpoint = nearestGeometryMidpoint(
+    projectedGeometry(layers[0].feature.geometry), projectedGeometry(layers[1].feature.geometry));
+  if (!midpoint) return;
+  const location = L.CRS.EPSG3857.unproject(L.point(midpoint[0], midpoint[1]));
+  const label = document.createElement("span");
+  label.textContent = String(overlap.rank);
+  label.dataset.src = "rank";
+  const icon = L.divIcon({ html: label, className: "pair-rank-marker",
+    iconSize: [36, 36], iconAnchor: [18, 18] });
+  state.pairRankMarker = L.marker(location, {
+    icon, pane: "rankPane", interactive: false, keyboard: false,
+  }).addTo(state.map);
+  const element = state.pairRankMarker.getElement();
+  element.dataset.testid = "pair-rank-marker";
+  element.setAttribute("aria-hidden", "true");
+}
+
 function drawHalo(layers) {
   if (state.haloLayer) state.haloLayer.remove();
   state.haloLayer = null;
@@ -419,7 +462,7 @@ function resetLabel(layer) {
 }
 
 export function highlightPair(overlap) {
-  if (!state.projectLayers) return;
+  if (!state.projectLayers) { drawRankMarker(null, []); return; }
   const selectedIds = new Set(overlap ? [overlap.a, overlap.b] : []);
   const selected = [];
   state.projectLayers.eachLayer((layer) => {
@@ -440,6 +483,7 @@ export function highlightPair(overlap) {
   });
   selected.forEach((layer) => layer.bringToFront());
   drawHalo(selected);
+  drawRankMarker(overlap, selected);
   placePairLabels(selected);
 }
 

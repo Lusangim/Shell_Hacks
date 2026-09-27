@@ -6,6 +6,8 @@ from pathlib import Path
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
+from tests.e2e.ui_helpers import open_more
+
 
 @pytest.mark.parametrize("width,height", [(1440, 900), (768, 900), (390, 844)])
 @pytest.mark.parametrize("theme", ["light", "dark"])
@@ -64,6 +66,7 @@ def test_first_visit_invitation_keeps_projects_reachable(live_server, width, hei
             assert first_view["zoomBottom"] <= first_view["panelTop"]
             page.locator("#sheet-toggle").click()
             expect(page.locator("#sheet-toggle")).to_have_attribute("aria-expanded", "true")
+        open_more(page)
         projects = page.locator("#projects-toggle")
         # Trial click waits for the sheet transition, then checks the real pointer target.
         try:
@@ -75,10 +78,10 @@ def test_first_visit_invitation_keeps_projects_reachable(live_server, width, hei
         button_box = projects.bounding_box()
         prompt_box = page.locator("#tour-invitation-box").bounding_box()
         print({"width": width, "theme": theme, "projects": button_box, "invitation": prompt_box})
-        assert (button_box["x"] + button_box["width"] <= prompt_box["x"]
-                or prompt_box["x"] + prompt_box["width"] <= button_box["x"]
-                or button_box["y"] + button_box["height"] <= prompt_box["y"]
-                or prompt_box["y"] + prompt_box["height"] <= button_box["y"])
+        assert projects.evaluate("""button => {
+          const box = button.getBoundingClientRect();
+          return button.contains(document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2));
+        }"""), "Projects is obscured inside the More menu"
         projects.click()
         expect(page.locator("#project-filter")).to_be_focused()
         records = page.request.get(f"{live_server}/api/projects").json()["features"]
@@ -93,15 +96,17 @@ def test_first_visit_invitation_keeps_projects_reachable(live_server, width, hei
         page.get_by_role("button", name="Dismiss tour invitation").click()
         launch = page.get_by_role("button", name="Take the tour", exact=True)
         expect(invitation).not_to_be_visible()
-        expect(launch).to_be_focused()
+        expect(page.get_by_role("button", name="More", exact=True)).to_be_focused()
+        open_more(page)
         launch.press("Enter")
         card = page.get_by_role("dialog", name="GridLock tour")
         expect(card).to_be_focused()
         page.keyboard.press("Escape")
         expect(card).not_to_be_visible()
-        expect(launch).to_be_focused()
+        expect(page.get_by_role("button", name="More", exact=True)).to_be_focused()
         page.reload()
         expect(invitation).not_to_be_visible()
+        open_more(page)
         expect(launch).to_be_visible()
         browser.close()
 
@@ -119,6 +124,7 @@ def test_keyboard_tour_walk_and_focus_return(live_server, width, height, theme):
         page.on("request", lambda request: external.append(request.url) if not request.url.startswith(live_server) else None)
         page.goto(live_server)
         expect(page.locator(".overlap-button").first).to_be_visible()
+        open_more(page)
         launch = page.get_by_role("button", name="Take the tour", exact=True)
         expect(launch).to_be_visible()
         initial_query = page.evaluate("location.search")
@@ -173,17 +179,19 @@ def test_keyboard_tour_walk_and_focus_return(live_server, width, height, theme):
                 "Open the top pair", "Check the source", "How savings are estimated", "Compare years",
                 "Narrow the results", "Explore an area", "Read a coordination brief", "Keep a copy"}.issubset(titles), titles
         expect(card).not_to_be_visible()
-        expect(launch).to_be_focused()
+        expect(page.get_by_role("button", name="More", exact=True)).to_be_focused()
         assert page.evaluate("location.search") == initial_query
         expect(page.locator("#search-input")).to_have_value("")
+        open_more(page)
         launch.press("Enter")
         expect(card).to_be_visible()
         page.keyboard.press("Escape")
         expect(card).not_to_be_visible()
-        expect(launch).to_be_focused()
+        expect(page.get_by_role("button", name="More", exact=True)).to_be_focused()
+        open_more(page)
         launch.press("Enter")
         card.get_by_role("button", name="Skip tour", exact=True).click()
-        expect(launch).to_be_focused()
+        expect(page.get_by_role("button", name="More", exact=True)).to_be_focused()
         assert errors == []
         assert external == []
         browser.close()
@@ -198,6 +206,7 @@ def test_prompt_persistence_and_storage_denied(live_server):
         page.get_by_role("button", name="Dismiss tour invitation").click()
         page.reload()
         expect(page.get_by_role("button", name="New here? Take the tour", exact=True)).not_to_be_visible()
+        open_more(page)
         expect(page.get_by_role("button", name="Take the tour", exact=True)).to_be_visible()
         page.close()
         page = browser.new_page()
@@ -208,9 +217,10 @@ def test_prompt_persistence_and_storage_denied(live_server):
         page.get_by_role("button", name="New here? Take the tour", exact=True).click()
         expect(page.get_by_role("dialog", name="GridLock tour")).to_be_visible()
         page.keyboard.press("Escape")
-        expect(page.get_by_role("button", name="Take the tour", exact=True)).to_be_focused()
+        expect(page.get_by_role("button", name="More", exact=True)).to_be_focused()
         page.reload()
         page.get_by_role("button", name="Dismiss tour invitation").click()
+        open_more(page)
         page.get_by_role("button", name="Take the tour", exact=True).click()
         expect(page.get_by_role("dialog", name="GridLock tour")).to_be_visible()
         page.keyboard.press("Escape")
@@ -228,6 +238,7 @@ def test_missing_and_hidden_targets_skip_without_stranded_focus(live_server):
         page.goto(live_server)
         expect(page.locator(".overlap-button").first).to_be_visible()
         page.evaluate("document.querySelector('#timeline').remove(); document.querySelector('#map').hidden = true;")
+        open_more(page)
         page.get_by_role("button", name="Take the tour", exact=True).click()
         card = page.get_by_role("dialog", name="GridLock tour")
         titles = []
@@ -242,7 +253,7 @@ def test_missing_and_hidden_targets_skip_without_stranded_focus(live_server):
         assert "Read the map" not in titles
         assert "Compare years" not in titles
         expect(card).not_to_be_visible()
-        expect(page.get_by_role("button", name="Take the tour", exact=True)).to_be_focused()
+        expect(page.get_by_role("button", name="More", exact=True)).to_be_focused()
         assert errors == []
         browser.close()
 
@@ -257,6 +268,7 @@ def test_tour_keeps_active_filters_and_skips_failed_detail(live_server):
         expect(page.locator(".overlap-button").first).to_be_visible()
         rows = page.locator(".overlap-button").count()
         page.route("**/api/overlaps/*", lambda route: route.fulfill(status=503, content_type="application/json", body='{}'))
+        open_more(page)
         page.get_by_role("button", name="Take the tour", exact=True).click()
         card = page.get_by_role("dialog", name="GridLock tour")
         titles = []
@@ -274,7 +286,7 @@ def test_tour_keeps_active_filters_and_skips_failed_detail(live_server):
         expect(page.locator("#filter-band")).to_have_value("touching")
         assert page.evaluate("location.search") == "?band=touching"
         expect(page.locator(".overlap-button")).to_have_count(rows)
-        expect(page.get_by_role("button", name="Take the tour", exact=True)).to_be_focused()
+        expect(page.get_by_role("button", name="More", exact=True)).to_be_focused()
         assert errors == []
         browser.close()
 
@@ -295,6 +307,7 @@ def test_tour_preserves_selected_search_and_handles_failed_brief(live_server, br
         search.press("Enter")
         expect(page.locator("#search-selection")).to_contain_text("Savannah city")
         initial_query = page.evaluate("location.search")
+        open_more(page)
         page.locator("#tour-launch").click()
         card = page.get_by_role("dialog", name="GridLock tour")
         titles = []
@@ -314,5 +327,5 @@ def test_tour_preserves_selected_search_and_handles_failed_brief(live_server, br
         expect(page.locator("#explore-area")).to_be_visible()
         expect(page.locator("#filter-band")).to_have_value("touching")
         assert page.evaluate("location.search") == initial_query
-        expect(page.locator("#tour-launch")).to_be_focused()
+        expect(page.locator("#more-toggle")).to_be_focused()
         browser.close()

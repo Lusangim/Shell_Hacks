@@ -30,5 +30,7 @@ export function renderImpact(pairs) {
     line.textContent = `${pairs.length} pairs · ${pairs.filter((pair) => pair.cross_state).length} across the state line · ${savings} · most pairs: ${names[0]} and ${names[1]} (${count})`;
     card.querySelector("details").hidden = false;
   }
+  line.title = line.textContent;
+  document.getElementById("impact-full").textContent = line.textContent;
   card.hidden = false;
 }

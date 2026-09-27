@@ -142,13 +142,14 @@ export function setupProjectDetail() {
   function showView(next) {
     view = next;
     opportunities.hidden = next !== "overlaps" && next !== "overlap-detail";
-    // With a pair open, step 2 keeps just the chosen row (see app.css) and step 3 follows it;
-    // Back brings the whole ranked list back.
+    // The ranked list remains available alongside the selected pair's detail.
     opportunities.classList.toggle("pair-open", next === "overlap-detail");
     detailBar.hidden = next !== "overlap-detail";
     projectsPanel.hidden = next !== "projects";
     detail.hidden = next !== "detail";
     overlapDetail.hidden = next !== "overlap-detail";
+    document.querySelector(".detail-pane").hidden = next !== "overlap-detail";
+    requestAnimationFrame(() => window.dispatchEvent(new Event("resize")));
     unknown.hidden = next !== "overlaps" || !unknown.querySelector("li");
     toggle.textContent = next === "overlaps" ? "Projects" : "Overlaps";
     toggle.setAttribute("aria-pressed", String(next !== "overlaps"));
@@ -253,13 +254,13 @@ export function setupProjectDetail() {
   toggle.addEventListener("click", () => {
     showView(view === "overlaps" ? "projects" : "overlaps");
     if (view === "projects") filter.focus();
-    else document.getElementById("opportunities-heading").focus();
+    else opportunities.focus();
   });
   filter.addEventListener("input", filterProjects);
   back.addEventListener("click", () => {
     showView(previousView);
     if (selectedButton?.isConnected && previousView === "projects") selectedButton.focus();
-    else toggle.focus();
+    else opportunities.focus();
   });
 
   return { renderProjects, showLoadError, openProject,

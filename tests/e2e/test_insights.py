@@ -20,6 +20,26 @@ def expected_impact(pairs):
             f"{savings} · most pairs: {names[0]} and {names[1]} ({count})")
 
 
+def assert_impact_disclosure(page, expected):
+    """The quiet line keeps its complete figure and caveat reachable by keyboard."""
+    summary = page.locator("#impact-card summary")
+    expect(summary).to_have_accessible_name("About this estimate")
+    expect(page.locator("#impact-full")).to_be_hidden()
+    summary.focus()
+    page.keyboard.press("Shift+Tab")
+    page.keyboard.press("Tab")
+    expect(summary).to_be_focused()
+    assert summary.evaluate("element => getComputedStyle(element).outlineStyle") != "none"
+    page.keyboard.press("Enter")
+    expect(page.locator("#impact-full")).to_be_visible()
+    expect(page.locator("#impact-full")).to_have_text(expected)
+    expect(page.locator(".impact-popover")).to_contain_text("screening figure, not a budget")
+    assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
+    page.keyboard.press("Enter")
+    expect(page.locator("#impact-full")).to_be_hidden()
+    expect(summary).to_be_focused()
+
+
 @pytest.mark.parametrize("width,height,theme", [
     (1440, 900, "light"), (1440, 900, "dark"), (390, 844, "light"), (390, 844, "dark"),
 ])
@@ -46,6 +66,7 @@ def test_start_here_and_impact_follow_api_and_pass_axe(live_server, width, heigh
         assert len(tops) == 1, "the chips stay on one row"
         pairs = page.request.get(f"{live_server}/api/overlaps").json()
         expect(page.locator("#impact-line")).to_have_text(expected_impact(pairs))
+        assert_impact_disclosure(page, expected_impact(pairs))
         buttons.first.click()
         expect(page.locator("#area-panel")).to_be_visible()
         expect(page.locator("#area-radius-output")).to_have_text("10 km")
@@ -63,6 +84,8 @@ def test_start_here_and_impact_follow_api_and_pass_axe(live_server, width, heigh
         expect(page.locator("#impact-line")).to_have_text(expected_impact(touching))
         violations = page.evaluate("window.axe.run(document, {runOnly: {type: 'tag', values: ['wcag2a','wcag2aa','wcag21a','wcag21aa']}})")["violations"]
         assert violations == []
+        page.locator("#filters-toggle").click()
+        assert_impact_disclosure(page, expected_impact(touching))
         browser.close()
 
 

@@ -28,7 +28,7 @@ export function setupTour() {
     try { localStorage.setItem("gridlock-tour-dismissed", "yes"); }
     catch (_error) { dismissed = true; }
   }
-  dismiss.addEventListener("click", () => { remember(); launch.focus(); });
+  dismiss.addEventListener("click", () => { remember(); document.getElementById("more-toggle").focus(); });
 
   const card = document.createElement("section");
   card.id = "tour-card";
@@ -85,16 +85,29 @@ export function setupTour() {
     if (openedLegend) document.querySelector(".legend").open = false;
     openedLegend = false;
     remember();
-    launch.focus();
+    document.getElementById("more-toggle").focus();
+  }
+
+  function revealTarget(selector) {
+    const node = document.querySelector(selector);
+    if (!node) return false;
+    for (let parent = node.parentElement; parent; parent = parent.parentElement) {
+      if (parent.tagName === "DETAILS" && !parent.open) parent.open = true;
+    }
+    if (node.closest("#brief-panel") && !document.querySelector(".detail-pane").classList.contains("brief-open")) {
+      const open = document.getElementById("open-brief");
+      if (visible(open)) open.click();
+    }
+    return visible(node);
   }
 
   // Observe the real detail request, with a bounded wait when it fails or is removed.
   function waitForTarget(selector) {
-    if (visible(document.querySelector(selector))) return Promise.resolve();
+    if (revealTarget(selector)) return Promise.resolve();
     return new Promise((resolve) => {
       const stop = () => { observer.disconnect(); clearTimeout(timer); pendingCleanup = null; resolve(); };
       const observer = new MutationObserver(() => {
-        if (visible(document.querySelector(selector))) stop();
+        if (revealTarget(selector)) stop();
       });
       const timer = setTimeout(stop, 2000);
       pendingCleanup = stop;
@@ -151,6 +164,16 @@ export function setupTour() {
     clearTarget();
     while (active && candidate >= 0 && candidate < steps.length) {
       const step = steps[candidate];
+      if (step.id !== "brief" && document.querySelector(".detail-pane").classList.contains("brief-open")) {
+        document.getElementById("brief-back").click();
+      }
+      if (step.id === "timeline" && matchMedia("(max-width: 1099px)").matches && visible(document.getElementById("overlap-back"))) {
+        document.getElementById("overlap-back").click();
+      }
+      if (step.id === "timeline" && matchMedia("(max-width: 700px)").matches) {
+        const sheet = document.getElementById("sheet-toggle");
+        if (sheet.getAttribute("aria-expanded") === "true") sheet.click();
+      }
       if (step.prepare === "list") {
         if (visible(document.getElementById("overlap-back"))) document.getElementById("overlap-back").click();
         const sheet = document.getElementById("sheet-toggle");
@@ -158,12 +181,13 @@ export function setupTour() {
       }
       if (step.prepare === "pair" && !visible(document.querySelector(step.target))) {
         const pair = document.querySelector(".overlap-button");
-        if (visible(pair)) pair.click();
+        if (document.getElementById("overlap-detail").hidden && visible(pair)) pair.click();
         await waitForTarget(step.target);
       }
       if (step.prepare === "export") {
-        const legend = document.querySelector(".legend");
-        if (legend && !legend.open) { legend.querySelector("summary").click(); openedLegend = true; }
+        const more = document.getElementById("more-toggle");
+        if (more.getAttribute("aria-expanded") !== "true") more.click();
+
       }
       if (!active || ownRevision !== revision) return;
       const node = document.querySelector(step.target);

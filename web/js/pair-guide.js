@@ -1,8 +1,6 @@
-// Step 3 guidance around a pair's detail: an at-a-glance summary, section headings with a
-// one-line hint each, and the section nav in the sticky bar. Presentation only: every value
-// shown is the pair's own field, and the detail's evidence, savings and score text is untouched.
-import { bandGlyph, coordinateTag, swatchFor } from "./look.js";
-import { money } from "./project-detail.js";
+// Presentation of the selected pair. Facts and evidence remain the API's own fields.
+import { coordinateTag, swatchFor } from "./look.js";
+import { money, utilityLabel } from "./project-detail.js";
 
 function text(tag, value, source, className = "") {
   const node = document.createElement(tag);
@@ -12,43 +10,43 @@ function text(tag, value, source, className = "") {
   return node;
 }
 
-function savingsLabel(savings) {
-  return savings?.status === "range" && Number.isFinite(savings.low_usd) && Number.isFinite(savings.high_usd)
-    ? `Savings estimate ${money(savings.low_usd)} to ${money(savings.high_usd)}`
-    : "No savings estimate";
-}
-
-// Two short names (one line each, full text in the title), then chips for the numbers.
 export function renderPairSummary(payload, target) {
   const { overlap: pair, project_a: a, project_b: b, savings } = payload;
-  const names = document.createElement("div");
-  names.className = "summary-names";
+  const title = text("h3", utilityLabel(a.properties), "summary_utility", "pair-title");
+  title.append(text("span", "+ " + utilityLabel(b.properties), "summary_utility", "pair-partner"));
+  const projects = document.createElement("div");
+  projects.className = "summary-names";
   for (const project of [a, b]) {
-    const line = document.createElement("p");
-    line.className = "summary-project";
-    const name = text("span", project?.properties?.name, "summary_name", "summary-name");
+    const entry = document.createElement("div");
+    entry.className = "summary-project";
+    const copy = document.createElement("div");
+    const name = text("p", project.properties.name, "summary_name", "summary-name");
     name.title = name.textContent;
-    line.append(swatchFor(project?.properties), name);
-    names.append(line);
+    copy.append(text("strong", utilityLabel(project.properties), "summary_utility"),
+      text("span", "Plan entry", "", "project-caption"), name);
+    entry.append(swatchFor(project.properties), copy);
+    projects.append(entry);
   }
-  const chips = document.createElement("ul");
-  chips.className = "summary-chips";
-  chips.setAttribute("aria-label", "Pair at a glance");
-  const chip = (className, ...children) => {
-    const item = document.createElement("li");
-    item.className = `summary-chip ${className}`.trim();
-    item.append(...children);
-    chips.append(item);
+  const facts = document.createElement("dl");
+  facts.className = "pair-facts";
+  facts.setAttribute("aria-label", "Pair at a glance");
+  const fact = (label, value, source, className = "") => {
+    const item = document.createElement("div");
+    const result = text("dd", "", "", className);
+    result.append(value instanceof Node ? value : text("span", value, source));
+    item.append(text("dt", label), result);
+    facts.append(item);
   };
-  chip("summary-chip-band", bandGlyph(pair.band), text("span", pair.band_label ?? "Band not stated", "summary_band"), " ",
-    text("span", Number.isFinite(pair.distance_km) ? `${pair.distance_km.toFixed(1)} km` : "Distance not stated", "summary_distance"));
-  if (pair.town_capped === true) chip("summary-chip-quiet", text("span", "Counted as under 40 km"));
-  chip("", text("span", `${pair.a_year ?? "unknown"} / ${pair.b_year ?? "unknown"}`, "summary_years"));
-  const coordinate = coordinateTag(pair.a_year, pair.b_year, "");
-  if (coordinate) chip("summary-chip-quiet coordinate-chip", coordinate);
-  if (Number.isFinite(pair.score)) chip("", text("span", `Score ${pair.score}`, "summary_score"));
-  chip("summary-chip-savings", text("span", savingsLabel(savings), "summary_savings"));
-  target.replaceChildren(names, chips);
+  fact("Proximity", pair.band_label ?? "Band not stated", "summary_band");
+  const accuracy = { approximate: "Approx.", exact: "Exact" }[pair.accuracy_pair] ?? "Unknown";
+  fact("Distance", Number.isFinite(pair.distance_km) ? `${pair.distance_km.toFixed(1)} km · ${accuracy}` : "Distance not stated", "summary_distance");
+  fact("Years (in service)", `${pair.a_year ?? "unknown"} / ${pair.b_year ?? "unknown"}`, "summary_years");
+  fact("Coordination window", coordinateTag(pair.a_year, pair.b_year, "coordinate-chip") ?? "Unknown", "summary_window");
+  fact("Score", Number.isFinite(pair.score) ? String(pair.score) : "Unknown", "summary_score");
+  fact("Possible saving", savings?.status === "range" && Number.isFinite(savings.low_usd) && Number.isFinite(savings.high_usd)
+    ? `${money(savings.low_usd)} to ${money(savings.high_usd)} (estimate)` : "No savings estimate", "summary_savings");
+  target.replaceChildren(title, projects, facts);
+  if (pair.town_capped === true) target.append(text("p", "Counted as under 40 km: town-level location.", "town_capped", "detail-note"));
   target.hidden = false;
 }
 
@@ -57,58 +55,29 @@ export function clearPairSummary(target) {
   target.hidden = true;
 }
 
-const GUIDES = {
-  why: "How close the two projects are, how sure their locations are, and their timing.",
-  projects: "Each plan entry with its utility, source page, cost and location.",
-  savings: "How the screening estimate was made and what it assumes.",
-  rank: "How the score behind this rank is built.",
-};
-
-function guide(heading, section) {
-  heading.dataset.section = section;
-  heading.id = `pair-${section}`;
-  heading.tabIndex = -1;
-  heading.after(text("p", GUIDES[section], "", "section-hint"));
+function disclosure(label, section, block) {
+  const details = document.createElement("details");
+  details.className = "pair-disclosure";
+  const summary = text("summary", label);
+  summary.id = `pair-${section}`;
+  summary.dataset.section = section;
+  details.append(summary, block);
+  return details;
 }
 
-// Marks the rendered sections by structure (the block each heading introduces), not by wording.
+// The seven original detail blocks, source links and all data-src hooks stay intact inside.
 export function addSectionGuides(content) {
   const evidence = content.querySelector(".overlap-evidence");
   if (!evidence) return;
+  const why = evidence.querySelector(":scope > .detail-block");
   const projects = evidence.querySelector(":scope > .overlap-projects");
-  if (projects) {
-    const heading = text("h3", "The two projects");
-    projects.before(heading);
-  }
-  let why = false;
-  for (const heading of evidence.querySelectorAll(":scope > h3")) {
-    const next = heading.nextElementSibling;
-    if (next?.classList.contains("overlap-projects")) guide(heading, "projects");
-    else if (next?.classList.contains("savings-detail")) guide(heading, "savings");
-    else if (next?.classList.contains("score-detail")) guide(heading, "rank");
-    else if (!why && next?.classList.contains("detail-block")) { guide(heading, "why"); why = true; }
-  }
-}
-
-// Jumps keep the sticky bar in view (see scroll-margin in app.css) and move focus with the view.
-export function setupDetailNav(nav, content) {
-  const brief = document.getElementById("brief-panel");
-  const targetFor = (section) => section === "brief"
-    ? (brief.hidden ? null : brief)
-    : content.querySelector(`[data-section="${section}"]`);
-  nav.addEventListener("click", (event) => {
-    const button = event.target.closest("button[data-section]");
-    const target = button && targetFor(button.dataset.section);
-    if (!target) return;
-    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    target.scrollIntoView({ block: "start", behavior: reduced ? "auto" : "smooth" });
-    (target === brief ? document.getElementById("brief-heading") : target).focus({ preventScroll: true });
-  });
-  return {
-    refresh() {
-      for (const button of nav.querySelectorAll("button[data-section]")) button.hidden = !targetFor(button.dataset.section);
-      nav.hidden = false;
-    },
-    hide() { nav.hidden = true; },
-  };
+  const savings = evidence.querySelector(":scope > .savings-detail");
+  const rank = evidence.querySelector(":scope > .score-detail");
+  const sections = [
+    disclosure("Why they appear together", "why", why),
+    disclosure("Sources", "projects", projects),
+    disclosure("About the estimate", "savings", savings),
+  ];
+  if (rank) sections.push(disclosure("How this pair ranks", "rank", rank));
+  evidence.replaceChildren(...sections);
 }
