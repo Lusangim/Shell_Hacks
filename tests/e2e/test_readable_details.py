@@ -170,7 +170,8 @@ def test_every_project_and_pair_detail_has_readable_expanded_evidence(live_serve
           }
           return texts;
         }""")
-        assert len(texts) == 719
+        # 230 projects + 465 pairs after the location data change (was 230 + 489).
+        assert len(texts) == 695
         for view in texts:
             assert not FORBIDDEN.search(view["text"]), view
             assert not re.search(r"\b(?:undefined|NaN|null)\b|\[object", view["text"]), view
