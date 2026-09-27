@@ -125,6 +125,7 @@ when G4 passes and rewrites `DELIVERY.md` at every gate. Deadline Sun 11:00 EDT;
 - 20:13 · 5228640 / API ed82d4d · API T4.3 committed five owned paths after a green quiet lane gate: 716 suite + 19 shell + 99 audits, zero failed/skipped. Lead reviewed the CSV/Template diff against its brief and reran 33 focused export, formula and selected-template cases green on 8779; port family clear. Scoped security read and main merge next.
 - 20:14 · 4142863 · API T4.3 merged after lane 716/19/99 and lead 33/33 focused checks; WEB, WEB-2 and API judged corrections are now on main. Baseline raised from 674 to the exact 716 passing suite count. Fresh task-local security reviewer on frozen `4142863` is source-only during the quiet G4 VERIFY; all builder branches are idle.
 - 20:36 · 39eecd9 (g4) · G4 VERIFY `20260926-201457-009` exit 0: 716 passed/0 failed/0 skipped against baseline 716 on main; port 8790 clear. Scoped T4.3 security read on frozen `4142863` found no P0–P3; nine judged P2s corrected, two P3 UI notes remain for Claude. T4.3 and G4 ticked; delivery README/startup, sanitizer and final report next.
+- 20:40 · 4b754fe · D.2 README validated: offline setup PASS; START on 8770 served `/` and 489 overlap records with HTTP 200, then listener stopped and port freed. README now names the 716-test baseline; G4 report and security evidence committed. Delivery candidate to be sanitized before the local `delivered` tag.
 
 ## Environment facts
 - Working copy `C:\Users\lucia\dev\gridlock`; git data `C:\Users\lucia\dev\gridlock-git` (the `.git` in the

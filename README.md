@@ -39,6 +39,8 @@ $env:GRIDLOCK_GOOGLE = 'off'
 
 `VERIFY.cmd` compiles the Python code, runs pytest (including Chromium browser checks) and writes a timestamped `summary.json` under the local `gridlock-runs\verify` folder. It exits nonzero for a failed check, a count below `scripts/verify-baseline.json`, or an unexpected skip. `scripts\quick-gate.ps1` also runs the shell and interface audits used before merges. The delivery report records the final tested commit, totals and exact summary path.
 
+The current local verification baseline is 716 passing tests, with no allowed skips.
+
 ## Data and limits
 
 The loaded plans are Dominion Energy SC's 2026–2030 planned-facilities PDF and the SERTP 2025 regional transmission plan. Each project keeps a document and page reference. Committed source inputs and the pipeline are under `gridlock-data/` and `pipeline/`; the app starts from committed build artifacts without rerunning extraction. Location estimates use named public geography sources; map proximity does not prove shared construction limits. A possible saving is a screening range, not a measured saving or a commitment by either utility.

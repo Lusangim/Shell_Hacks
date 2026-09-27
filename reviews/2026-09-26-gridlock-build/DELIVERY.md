@@ -1,6 +1,6 @@
 # GridLock delivery report
 
-**In progress — G4 judged corrections passed, 2026-09-26 20:36 EDT.** Main VERIFY passed on `39eecd9` with 716 passed, zero failed and zero skipped against baseline 716; tag `g4` exists. All nine unique P2 findings from the founder-capped two judging rounds have corrections merged and tested. Two P3 UI notes remain for Claude's final review. README startup validation, sanitizer and final delivery remain; this is a current handoff.
+**In progress — G4 judged corrections passed, 2026-09-26 20:39 EDT.** Main VERIFY passed on `39eecd9` with 716 passed, zero failed and zero skipped against baseline 716; tag `g4` exists. All nine unique P2 findings from the founder-capped two judging rounds have corrections merged and tested. Two P3 UI notes remain for Claude's final review. README startup validation is complete; sanitizer and final delivery remain.
 
 ## What works now
 
@@ -8,7 +8,7 @@
 - The data pipeline keeps 230 of 481 input rows, places 181 projects, explains 128 unplaced rows, and records 43 cross-state overlaps. Unknown and inferred locations stay labelled; costs and savings retain their basis and caveats.
 - Briefs are graded offline templates by default. The 30-case real-ID evaluation has 20 development and 10 held-out cases; all 30 selected templates and all 489 built-overlap templates passed the grader. No real Claude call or spend occurred.
 - The local PMTiles map is optional on a fresh clone: when its separate archive is absent, the app visibly falls back to state outlines. Optional Google map controls require a configured browser key and an online browser; every build test and server run kept Google off and never opened the real key.
-- To run: `SETUP.cmd -Offline` with the prepared local environment, then `START.cmd -Port 8770 -NoBrowser`; to verify, set `GRIDLOCK_GOOGLE=off` and run `VERIFY.cmd` with a free `GRIDLOCK_TEST_PORT`. The rewritten README describes the current app. Offline setup passed; START validation remains at D.2.
+- To run: `SETUP.cmd -Offline` with the prepared local environment, then `START.cmd -Port 8770 -NoBrowser`; to verify, set `GRIDLOCK_GOOGLE=off` and run `VERIFY.cmd` with a free `GRIDLOCK_TEST_PORT`. The rewritten README describes the current app. Offline setup passed; START served `/` and 489 overlaps with HTTP 200, then port 8770 was confirmed free.
 
 ## Task state and evidence
 
@@ -27,7 +27,9 @@
 | G3 | Feature freeze: all decided features are demoable offline; full matrix and held-out evaluation green; `g3` tag points to `8d83ad0`. |
 | T4.1–T4.2 | Complete: six fresh judges on frozen `g3`, two rounds as capped by the founder; 0 P0/P1, nine unique P2 and two P3 findings. Judgments and essential screenshots are committed under `judge-*/`. |
 | T4.3, G4 | Complete. WEB `8f70b2b`, WEB-2 `fa008a2` and API `ed82d4d` merged after RED/GREEN checks and lane gates; API's final synced gate passed 716 suite + 19 shell + 99 audits, lead reran 33 focused cases, task-local security review found zero P0–P3. Main VERIFY 716/716, tag `g4` on `39eecd9`. T4.4 confirmation skipped by founder. |
-| D.1–D.3 | Offline setup and README content read passed. START startup validation, sanitizer on the delivery candidate, final README/report commit and `delivered` tag remain. |
+| D.1 | Sanitizer on the delivery candidate is pending; no files have been pushed or published. |
+| D.2 | Complete: README reflects the delivered app and 716-test baseline; offline setup passed, START served `/` and 489 overlaps with HTTP 200 on 8770 and stopped cleanly, and G4 VERIFY passed. |
+| D.3 | Final delivery report, exact-commit sanitizer and `delivered` tag remain. |
 | F1–F7, T5.0–T5.5, H0–H9 | Claude and founder work after Codex delivery; not started by this lead. Nothing was pushed, deployed, submitted, sent or purchased. |
 
 ## Verification and judgments

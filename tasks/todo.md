@@ -189,7 +189,7 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 
 - [ ] **D.1 Sanitizer on the delivery commit** (JUDGE sub-agent, `gridlock-sanitizer`)
   - Acceptance: no builder running; VERIFY on main green (a red line re-run quietly three times; a repeat is a defect to fix, not to skip); the sanitizer reports PASS or its findings are fixed (locations and pattern names only, never secret content).
-- [ ] **D.2 README true for the delivered state** (DOCS sub-agent or LEAD)
+- [x] **D.2 README true for the delivered state** (LEAD) — rewritten for the current app and 716-test baseline; `SETUP.cmd -Offline` passed, `START.cmd -NoBrowser -Port 8770` served `/` and 489 `/api/overlaps` records with HTTP 200, then port 8770 was confirmed free. G4 `VERIFY.cmd` passed 716/716.
   - Acceptance: `README.md` says what works now, what is hidden or not built, and how to run `SETUP.cmd`, `START.cmd` and `VERIFY.cmd`; nothing claimed that the delivered commit does not do.
 - [ ] **D.3 Deliver** (LEAD)
   - Acceptance: final `reviews/2026-09-26-gridlock-build/DELIVERY.md` (rewritten at every gate since G1a): each task done / partly done / not started, with evidence · VERIFY summary path and totals · each judge's verdict and the open findings · parked tasks and hidden features · founder questions · lessons (one dated line each) · session ids and how to resume; README and DELIVERY.md committed; tag `delivered` on that commit; every server and browser started during the run stopped; no sub-agent running. The lead then ends its turn.
