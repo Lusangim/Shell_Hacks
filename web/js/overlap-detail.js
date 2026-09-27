@@ -2,6 +2,7 @@ import { detailBlock, money, projectSummary, readableEvidence, touchReasonLabel 
 import { fitPairBounds, highlightPair } from "./map.js";
 import { state } from "./state.js";
 import { setupBrief } from "./brief.js";
+import { addSectionGuides, clearPairSummary, renderPairSummary, setupDetailNav } from "./pair-guide.js";
 
 const ASSUMPTIONS = new Map([
   ["coordination_fraction_v1", "Team screening assumption, 2026-09-26: 1% to 3% of reference cost. This is not a measured saving or evidence of a shared asset."],
@@ -90,6 +91,8 @@ export function setupOverlapDetail(projectView) {
   const stateMessage = document.getElementById("overlap-state");
   const heading = document.getElementById("overlap-detail-heading");
   const back = document.getElementById("overlap-back");
+  const summary = document.getElementById("pair-summary");
+  const nav = setupDetailNav(document.getElementById("detail-nav"), content);
   let requestNumber = 0;
   let controller = null;
   let visiblePair = null;
@@ -106,6 +109,8 @@ export function setupOverlapDetail(projectView) {
   function show(message) {
     projectView.showOverlapDetail();
     content.replaceChildren();
+    clearPairSummary(summary);
+    nav.hide();
     stateMessage.textContent = message;
     const panel = document.querySelector(".panel");
     if (matchMedia("(max-width: 700px)").matches && !panel.classList.contains("expanded")) {
@@ -166,10 +171,15 @@ export function setupOverlapDetail(projectView) {
       if (ownRequest !== requestNumber || detail.hidden) return;
       if (payload.overlap?.id !== overlapId) throw new Error("Mismatched overlap detail");
       renderOverlapDetail(payload, content, heading);
+      addSectionGuides(content);
+      renderPairSummary(payload, summary);
       visiblePair = payload.overlap;
       select(visiblePair);
       if (frame) framePair(payload);
       void brief.open(payload);
+      nav.refresh();
+      // The list is out of the way now, so the pair's detail can start at the top of the panel.
+      detail.scrollIntoView({ block: "start" });
       stateMessage.textContent = state.overlaps.some((pair) => pair.id === overlapId)
         ? "Public plan screening detail. A coordination opportunity is unverified."
         : "This pair is outside the current filters; its public-plan detail is shown below.";

@@ -34,6 +34,23 @@ export function swatchFor(properties) {
   return swatch;
 }
 
+// Years left before the earlier project's in-service year; null when either year is unknown.
+export function coordinateText(aYear, bYear, now = new Date()) {
+  if (!Number.isInteger(aYear) || !Number.isInteger(bYear)) return null;
+  const years = Math.max(0, Math.min(aYear, bYear) - now.getFullYear());
+  if (years === 0) return "Coordinate now";
+  return years === 1 ? "1 year to coordinate" : `${years} years to coordinate`;
+}
+
+export function coordinateTag(aYear, bYear, className = "coordinate-tag") {
+  const value = coordinateText(aYear, bYear);
+  if (!value) return null;
+  const tag = document.createElement("span");
+  tag.className = className;
+  tag.textContent = value;
+  return tag;
+}
+
 // An ordered four-bar glyph: more filled bars means closer. Text always accompanies it.
 const BAND_BARS = { touching: 4, lt_1_6km: 3, lt_8km: 2, lt_40km: 1 };
 
