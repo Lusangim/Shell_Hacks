@@ -47,6 +47,15 @@ The current local verification baseline is 716 passing tests, with no allowed sk
 
 The loaded plans are Dominion Energy SC's 2026–2030 planned-facilities PDF and the SERTP 2025 regional transmission plan. Each project keeps a document and page reference. Committed source inputs and the pipeline are under `data/` and `pipeline/`; the app starts from committed build artifacts without rerunning extraction. Location estimates use named public geography sources; map proximity does not prove shared construction limits. A possible saving is a screening range, not a measured saving or a commitment by either utility.
 
-The public SERTP overview has a source-classification question because some page headers include “(CEII)”; the founder and Sperry must decide public-release treatment before submission. Okatie's placement remains inferred pending a source-drawing check. The loaded plans do not support a Thomson–Vogtle project by name. See [the delivery report](reviews/2026-09-26-gridlock-build/DELIVERY.md) for the current verification, judging findings, remaining decisions and the final status.
+SERTP posts its 2025 plan publicly, though some of its page headers include “(CEII)”; GridLock uses only that public document. Okatie's location is inferred from a junction on the Jasper–Yemassee line and is labelled inferred in the app. The loaded plans do not support a Thomson–Vogtle project by name. See [the delivery report](reviews/2026-09-26-gridlock-build/DELIVERY.md) for the build's verification and judging record.
 
 Independent student project; not affiliated with Dominion Energy, Georgia Power, Southern Company, Georgia Transmission, MEAG Power or Sperry Tech. Estimates are for discussion only.
+
+## Team
+
+Luciano Sanchez, Daniel Cabrera, Srija Uprety and Alex Demarco Sarria, at ShellHacks 2026.
+
+## Licence
+
+GridLock's code and documentation are under the [MIT License](LICENSE). Libraries, source documents and map data
+keep their own terms: see [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
