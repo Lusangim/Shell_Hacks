@@ -349,6 +349,9 @@ def create_app(artifact_dir: Path | None = None, settings: Settings | None = Non
         if request.url.path == "/api/map-config":
             response.headers["Cache-Control"] = "no-store"
             response.headers["Cross-Origin-Resource-Policy"] = "same-origin"
+        elif request.url.path == "/" or request.url.path.startswith("/web/"):
+            # Revalidate the page and its modules on every load, so an updated checkout never runs stale code.
+            response.headers["Cache-Control"] = "no-cache"
         return response
 
     @app.exception_handler(RequestValidationError)

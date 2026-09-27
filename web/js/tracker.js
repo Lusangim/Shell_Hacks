@@ -111,7 +111,8 @@ function decorateRows() {
     const chip = document.createElement("span");
     chip.className = "tracker-chip";
     chip.textContent = entry.status;
-    row.querySelector(".row-flags")?.append(chip);
+    // The row's number line (distance, years) is visible in every layout, so the status sits with it.
+    (row.querySelector(".row-metric") ?? row.querySelector(".overlap-button") ?? row).append(" ", chip);
   }
 }
 

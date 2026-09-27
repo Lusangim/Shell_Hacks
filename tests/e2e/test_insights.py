@@ -30,11 +30,20 @@ def test_start_here_and_impact_follow_api_and_pass_axe(live_server, width, heigh
         page.add_init_script(f"localStorage.setItem('gridlock-theme', '{theme}')")
         page.goto(live_server)
         hotspots = page.request.get(f"{live_server}/api/meta").json()["hotspots"]
+        if width <= 700:
+            # The phone peek folds Start here away; it appears once the sheet is expanded.
+            expect(page.locator("#start-here")).to_be_hidden()
+            page.locator("#sheet-toggle").click()
         buttons = page.locator("#start-here button")
         expect(buttons).to_have_count(len(hotspots))
+        tops = set()
         for button, place in zip(buttons.all(), hotspots):
-            expect(button).to_have_text(f"{place['label']} · {place['pairs']} close pairs")
+            short = place["label"].rsplit(" ", 1)[0] if place["label"].split()[-1] in {"city", "town", "CDP", "village"} else place["label"]
+            expect(button).to_have_text(f"{short} · {place['pairs']}")
+            expect(button).to_have_accessible_name(f"{place['label']}, {place['pairs']} close pairs")
             assert button.evaluate("element => element.getBoundingClientRect().height") >= 44
+            tops.add(round(button.evaluate("element => element.getBoundingClientRect().top")))
+        assert len(tops) == 1, "the chips stay on one row"
         pairs = page.request.get(f"{live_server}/api/overlaps").json()
         expect(page.locator("#impact-line")).to_have_text(expected_impact(pairs))
         buttons.first.click()

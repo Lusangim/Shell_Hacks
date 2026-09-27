@@ -60,7 +60,10 @@ export function createAreaController(map, announce, setAreaURL) {
   let requestNumber = 0;
   let controller = null;
   let areaMode = false;
-  const areaControl = L.control({ position: "topright" });
+  // On phones the year slider sits under the top-right controls, so the button uses the free top-left corner.
+  const phoneLayout = matchMedia("(max-width: 700px)");
+  const areaControl = L.control({ position: phoneLayout.matches ? "topleft" : "topright" });
+  phoneLayout.addEventListener?.("change", (event) => areaControl.setPosition(event.matches ? "topleft" : "topright"));
   areaControl.onAdd = () => {
     const container = L.DomUtil.create("div", "leaflet-control-area");
     const button = L.DomUtil.create("button", "", container);

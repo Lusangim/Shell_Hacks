@@ -1,7 +1,10 @@
 .start-here { margin-top: 12px; }
-.start-here h2 { margin: 0 0 8px; font-size: 14px; }
-.start-here-places { display: flex; flex-wrap: wrap; gap: 8px; }
-.start-here-places button { min-height: 44px; max-width: 100%; padding: 8px 12px; border: 1px solid var(--rule-strong); border-radius: var(--radius-control); background: var(--panel); color: var(--ink); font: inherit; font-size: 13px; text-align: left; overflow-wrap: anywhere; cursor: pointer; }
+.start-here h2 { margin: 0 0 6px; font-size: 13px; }
+/* One row of short chips, its height reserved from the first paint, so filling it never moves the list. */
+.start-here-places { display: flex; flex-wrap: nowrap; gap: 8px; min-height: 44px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: thin; }
+.start-here-places button { flex: none; min-height: 44px; padding: 8px 12px; border: 1px solid var(--rule-strong); border-radius: var(--radius-control); background: var(--panel); color: var(--ink); font: inherit; font-size: 13px; white-space: nowrap; cursor: pointer; }
+/* While an area is open or being restored, the shortcuts step aside for the area panel. */
+:root[data-area-layout] #start-here, .search-region:has(#area-panel:not([hidden])) #start-here { display: none; }
 .start-here-places button:hover { background: var(--canvas); }
 .start-here-places button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 .impact-card { margin: 0 0 12px; padding: 10px 12px; border: 1px solid var(--rule); border-radius: var(--radius-control); background: var(--canvas); color: var(--ink); font-size: 13px; line-height: 1.45; }

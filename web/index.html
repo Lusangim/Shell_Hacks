@@ -167,7 +167,13 @@
           <p id="search-state" class="search-state" data-testid="search-state" role="status">Enter at least 2 characters to search local plans.</p>
           <p id="search-selection" class="search-selection" data-testid="search-selection" hidden></p>
           <button id="explore-area" class="explore-button" type="button" hidden>Explore this area</button>
-          <div id="start-here-slot" class="insight-slot"></div>
+          <!-- In the UI pass's slot: after "Explore this area" for keyboard order, and folded away in the phone peek. -->
+          <div id="start-here-slot" class="insight-slot">
+            <section id="start-here" class="start-here" aria-labelledby="start-here-heading">
+              <h2 id="start-here-heading">Start here: places with the most close pairs</h2>
+              <div id="start-here-places" class="start-here-places"></div>
+            </section>
+          </div>
           <p id="area-selection" class="area-selection" data-testid="area-selection" role="status" hidden></p>
           <section id="area-panel" class="area-panel" aria-labelledby="area-heading" hidden>
             <div class="area-heading"><h2 id="area-heading">Selected area</h2><button id="area-clear" type="button">Clear area</button></div>
@@ -184,11 +190,6 @@
               <details><summary>Projects in area</summary><ul id="area-projects"></ul></details>
               <details><summary>Overlaps with a project in area</summary><ol id="area-overlaps"></ol></details>
             </div>
-          </section>
-          <!-- After the search status, "Explore this area" and the area panel, so search then Tab still reaches them first. -->
-          <section id="start-here" class="start-here" aria-labelledby="start-here-heading" hidden>
-            <h2 id="start-here-heading">Start here</h2>
-            <div id="start-here-places" class="start-here-places"></div>
           </section>
         </section>
         <section id="opportunities" class="opportunities" aria-labelledby="opportunities-heading" tabindex="-1">

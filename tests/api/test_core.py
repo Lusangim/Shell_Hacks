@@ -112,6 +112,14 @@ def test_security_headers_on_success_and_error(client: TestClient) -> None:
         assert "access-control-allow-origin" not in response.headers
 
 
+def test_page_and_modules_are_revalidated_so_updates_never_run_stale(client: TestClient) -> None:
+    for path in ("/", "/web/js/app.js", "/web/css/app.css"):
+        response = client.get(path)
+        assert response.status_code == 200, path
+        assert response.headers["cache-control"] == "no-cache", path
+    assert "cache-control" not in client.get("/api/health").headers
+
+
 def test_startup_refuses_missing_and_invalid_artifacts(artifacts: Path) -> None:
     (artifacts / "meta.json").unlink()
     with pytest.raises(RuntimeError, match="meta.json"):
