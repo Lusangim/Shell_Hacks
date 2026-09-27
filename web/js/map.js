@@ -268,7 +268,10 @@ export function renderMap(projects, basemap) {
 
 export function fitPairBounds(bounds) {
   // The right pane may have just opened and narrowed the map; fit against the size it has now.
+  // A hidden map has no size to fit into, so it keeps its view.
   state.map.invalidateSize({ pan: false });
+  const size = state.map.getSize();
+  if (!size.x || !size.y) return;
   const mobile = matchMedia("(max-width: 700px)").matches;
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   // On a wide map, keep room around the pair for its two labels (about 260 by 72 px) above, below or
