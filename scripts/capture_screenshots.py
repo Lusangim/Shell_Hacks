@@ -165,9 +165,7 @@ def capture(shooter: Shooter, google: bool) -> None:
 
     page = s.page()
     s.search(page, "Savannah")
-    page.locator("#search-input").press("Tab")
-    expect(page.locator("#explore-area")).to_be_focused()
-    page.keyboard.press("Enter")
+    page.locator("#explore-area").click()
     expect(page.locator("#area-panel")).to_be_visible()
     expect(page.locator("#area-projects li").first).to_be_attached(timeout=15000)
     s.save(page, "11-explore-area")
@@ -241,9 +239,7 @@ def capture(shooter: Shooter, google: bool) -> None:
     if storm.ok:
         page = s.page()
         s.search(page, "Savannah")
-        page.locator("#search-input").press("Tab")
-        expect(page.locator("#explore-area")).to_be_focused()
-        page.keyboard.press("Enter")
+        page.locator("#explore-area").click()
         expect(page.locator("#area-panel")).to_be_visible()
         expect(page.locator("#area-projects li").first).to_be_attached(timeout=15000)
         page.locator("#storm-lab").evaluate("el => el.scrollIntoView({block: 'center'})")

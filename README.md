@@ -32,6 +32,18 @@ security, tests): [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** · **The exact 
    opens in your browser.
 4. Accept the tour invitation, or press **Take the tour** in the top bar later (under **⋮** on narrower screens).
 
+**Or with Python only, on any system** (if a script will not run, or you downloaded the ZIP from GitHub with
+**Code → Download ZIP** and unzipped it): open a terminal in the GridLock folder and run
+
+```
+python run.py
+```
+
+(`python3 run.py` on macOS and Linux; `py run.py` also works on Windows). The first run creates the Python 3.12
+environment and installs the pinned packages; every run then starts GridLock and opens http://127.0.0.1:8765.
+Add `--no-map` to skip the optional 220 MB street map (the app then shows its outline map), `--port 8780` for
+another port, and press Ctrl+C to stop.
+
 Full instructions (Google Maps and Satellite view, rebuilding the data from the PDFs, tests, Mac and Linux,
 troubleshooting): **[RUNNING.md](RUNNING.md)**. How distances, bands and the ranking work:
 [docs/METHODOLOGY.md](docs/METHODOLOGY.md).
@@ -79,7 +91,7 @@ $env:GRIDLOCK_GOOGLE = 'off'
 
 `VERIFY.cmd` compiles the Python code, runs pytest (including Chromium browser checks) and writes a timestamped `summary.json` under the local `gridlock-runs\verify` folder. It exits nonzero for a failed check, a count below `scripts/verify-baseline.json`, or an unexpected skip. `scripts\quick-gate.ps1` also runs the shell and interface audits used before merges. The delivery report records the final tested commit, totals and exact summary path.
 
-The suite has 799 tests, with no allowed skips. The last full run (September 27, 03:06) passed 793 of them. The 6 phone-layout failures it found are fixed, and those tests now pass.
+The suite has 852 tests, with no allowed skips. The last full run (September 27, 09:40) passed 847 of them. Of its 5 failures, 3 are fixed (two top-bar checks and a colour-token lint) and now pass; the other 2 were page-speed timings on a busy machine that passed three times out of three when rerun alone. The export and tour changes merged after that run passed their own test files.
 
 ## Data and limits
 
