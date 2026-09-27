@@ -21,6 +21,8 @@ from server.storm.schemas import (
 DIRECTION_VECTOR = {"N": (0, 1), "NE": (1, 1), "E": (1, 0), "SE": (1, -1),
                     "S": (0, -1), "SW": (-1, -1), "W": (-1, 0), "NW": (-1, 1)}
 STRENGTH = {1: (25, 40), 2: (40, 38), 3: (55, 35), 4: (70, 32)}
+DIRECTION_NAME = {"N": "north", "NE": "northeast", "E": "east", "SE": "southeast",
+                  "S": "south", "SW": "southwest", "W": "west", "NW": "northwest"}
 
 
 def synthetic_scenario(base: dict, *, lat: float, lon: float, direction: str, category: int) -> dict:
@@ -31,15 +33,25 @@ def synthetic_scenario(base: dict, *, lat: float, lon: float, direction: str, ca
     east, north = east / length, north / length
     pressure, rmax = STRENGTH[category]
     anchors = []
-    for hour, distance, pressure_share in ((-18, -350, .4), (-17, -340, .4 + .6 * 10 / 180),
-                                           (-8.5, -170, 1), (0, 0, 1), (3.5, 70, 1),
-                                           (12, 240, .6 + .4 * 10 / 180), (13, 250, .6)):
+    for hour in range(-18, 14):
+        distance = max(-350, min(250, hour * 20))
+        progress = (distance + 350) / 600
+        if progress < .3:
+            part = progress / .3
+            pressure_share = .4 + .6 * part * part * (3 - 2 * part)
+        elif progress > .7:
+            part = (progress - .7) / .3
+            pressure_share = 1 - .4 * part * part * (3 - 2 * part)
+        else:
+            pressure_share = 1
         point_lon, point_lat = TO_DEGREES(x - east * distance * 1000, y - north * distance * 1000)
         anchors.append({"t_hours": hour, "lat": point_lat, "lon": point_lon,
                         "dp_hpa": pressure * pressure_share, "rmax_km": rmax})
-    return {**base, "id": "synthetic", "name": f"Category {category} from {direction}",
+    return {**base, "id": "synthetic", "name": f"Category {category} from the {DIRECTION_NAME[direction]}",
             "version": "1", "label": "Hypothetical storm: not a forecast, not observed damage",
-            "anchors": anchors}
+            "anchors": anchors,
+            "top_assumptions": ["Chosen straight hypothetical track and illustrative fragility curves; not a forecast or observed damage.",
+                                *base["top_assumptions"][1:]]}
 
 
 def _radius_33(frame: Frame, physics: dict) -> float:

@@ -158,6 +158,15 @@ def test_synthetic_track_crosses_center_and_direction_quadrants(client: TestClie
         assert ((x1 - x0) ** 2 + (y1 - y0) ** 2) ** 0.5 < 1000
         assert all(frame["radius_33_ms_km"] >= 0 for frame in frames)
         assert all(0 <= asset["peak_frame"] < len(frames) for asset in response.json()["assets"])
+        origin = TO_METRES(-81.16, 32.18)
+        for frame, expected_km in ((frames[0], 350), (frames[-1], 250)):
+            location = TO_METRES(frame["lon"], frame["lat"])
+            assert ((location[0] - origin[0]) ** 2 + (location[1] - origin[1]) ** 2) ** .5 / 1000 == pytest.approx(expected_km, abs=.01)
+        pressure = {frame["t_hours"]: frame["dp_hpa"] for frame in frames}
+        assert pressure[-18] == pytest.approx(pressure[0] * .4)
+        assert pressure[13] == pytest.approx(pressure[0] * .6)
+        assert pressure[-16] - pressure[-17] < .8 * (pressure[-12] - pressure[-13])
+        assert pressure[11] - pressure[12] < .8 * (pressure[8] - pressure[9])
     assert se.json()["scenario"]["frames"][0]["lon"] > -81.16
     assert sw.json()["scenario"]["frames"][0]["lon"] < -81.16
     assert se.json()["scenario"]["frames"][0]["lat"] < 32.18
@@ -171,6 +180,8 @@ def test_synthetic_strength_determinism_and_contract(client: TestClient) -> None
     assert max(asset["peak_wind_ms"] for asset in strong.json()["assets"]) > max(
         asset["peak_wind_ms"] for asset in weak.json()["assets"])
     assert strong.json() == synthetic(client, category=4).json()
+    assert strong.json()["scenario"]["name"] == "Category 4 from the southeast"
+    assert "GL-1" not in " ".join(strong.json()["summary"]["top_assumptions"])
     assert {choice["id"] for choice in client.get("/api/storm/scenarios").json()} == {"gl1", "synthetic"}
     schema = exported_schemas()["storm-estimate"]
     assert "radius_33_ms_km" in json.dumps(schema)

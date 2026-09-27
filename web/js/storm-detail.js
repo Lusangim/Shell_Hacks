@@ -76,7 +76,8 @@ function assumptions(data) {
 
 function sources(data) {
   const list = document.createElement("ul");
-  for (const source of new Set(data.assets.map((asset) => asset.source))) {
+  for (const source of new Set(["HIFLD transmission lines (archived)", "OpenStreetMap substations",
+    ...data.assets.map((asset) => asset.source)])) {
     list.append(node("li", source, "assets.source"));
   }
   list.append(node("li", "Team unit-cost file", "assets.evidence"));

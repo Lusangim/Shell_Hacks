@@ -136,6 +136,8 @@ export function createStormController(map, currentArea) {
       renderDecision();
       renderAssets();
       results.hidden = false;
+      map.fitBounds(L.latLngBounds(payload.scenario.frames.map((point) => [point.lat, point.lon])),
+        { padding: [55, 55], animate: false, maxZoom: 8 });
       animation = createStormAnimation(map, payload, {
         onFrame: frame,
         onState: (state) => { playing = state === "playing"; playButton.textContent = playing ? "Pause storm" : "Resume storm"; },
@@ -155,7 +157,7 @@ export function createStormController(map, currentArea) {
 
   button.addEventListener("click", () => { void estimate(); });
   playButton.addEventListener("click", () => { if (playing) animation?.pause(); else animation?.resume(); });
-  resetButton.addEventListener("click", () => animation?.replay());
+  resetButton.addEventListener("click", () => { detail.close({ focus: false }); animation?.replay(); });
   skipButton.addEventListener("click", () => animation?.skip());
   document.getElementById("storm-open-results").addEventListener("click", () => {
     if (data && currentArea()) detail.open(data, currentArea());
