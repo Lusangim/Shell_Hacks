@@ -177,11 +177,11 @@ active. Every merge passes `scripts\quick-gate.ps1`; every gate passes `VERIFY.c
 
 - [x] **T4.1 Judges round 1** (JUDGE ×3, Codex sub-agents with `gridlock-judge.md`, frozen `g3` worktrees, ports 8781–8783): domain expert · first-week user + design (ui-contract critique procedure) · reliability + security. Three judgments filed: 0 P0/P1, five unique P2 (two domain, two user/design, one reliability), one P3; correction wave after round two.
 - [x] **T4.2 Judges round 2** (×3): business / hackathon fit (`gridlock-judge.md`) · change-reviewer on every user-facing word (`gridlock-reviewer.md`) · accessibility (`gridlock-a11y.md`, §F). Three judgments filed; unique new P2: CSV estimate context, filtered-empty wording, duplicate search IDs, obscured phone timeline focus; JDOMAIN-01 and JREL-01 corroborated. Two-round cap reached; no T4.4 confirmation.
-- [ ] **T4.3 Corrections wave** (builder sub-agents by ownership): reproduce → fix → check added → quick gate → merge; merged verify.
+- [x] **T4.3 Corrections wave** — WEB `8f70b2b`, WEB-2 `fa008a2`, API `ed82d4d` merged; corrected all nine judged P2s with RED/GREEN checks. Final API lane gate 716 suite + 19 shell + 99 audits, lead 33 focused rerun, task-local security review P0–P3 zero; merged VERIFY 716/716, zero failed/skipped.
 - [x] **T4.4 Confirmation round** — skipped by founder amendment 5 (2026-09-26); judging capped at T4.1 and T4.2 on frozen `g3`.
 
 ### Checkpoint G4
-- [ ] No open P0–P1 · [ ] merged verify green, totals ≥ baseline · [ ] tracker checkpoint
+- [x] No open P0–P1 · [x] merged VERIFY 716/716, zero failed/skipped, baseline 716 (`20260926-201457-009`) · [x] tracker checkpoint and tag `g4` at `39eecd9`
 
 ---
 
