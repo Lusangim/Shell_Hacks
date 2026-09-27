@@ -21,6 +21,7 @@ function renderBrief(brief, pairDetail, content) {
     pair.accuracy_pair === "approximate" ? "Approximate locations; physical sharing is not verified."
       : pair.accuracy_pair === "exact" ? "Exact mapped locations; physical sharing is not verified."
         : "Location accuracy is unknown; physical sharing is not verified.",
+    ...(pair.town_capped === true ? ["Counted as under 40 km: a location is only a town centre, not a substation."] : []),
   ]);
   block("When", `${a.properties.in_service ?? "Not stated"} / ${b.properties.in_service ?? "Not stated"}`,
     "brief_when", [brief.when], ["Confirm current schedules with both organizations."]);
@@ -71,6 +72,7 @@ export function setupBrief() {
   const status = document.getElementById("brief-state");
   const copy = document.getElementById("brief-copy");
   const retry = document.getElementById("brief-retry");
+  const heading = document.getElementById("brief-heading");
   let revision = 0;
   let controller;
   let current;
@@ -89,7 +91,7 @@ export function setupBrief() {
     retry.hidden = true;
   }
 
-  async function open(pairDetail) {
+  async function open(pairDetail, { fromRetry = false } = {}) {
     clear();
     if (document.getElementById("overlap-detail").hidden) return;
     current = pairDetail;
@@ -98,6 +100,8 @@ export function setupBrief() {
     panel.hidden = false;
     panel.setAttribute("aria-busy", "true");
     status.textContent = "Loading coordination brief.";
+    // A retry hides its own button; keep the keyboard position on the brief's heading.
+    if (fromRetry) heading.focus({ preventScroll: true });
     try {
       const response = await fetch(`/api/briefs/${encodeURIComponent(pairDetail.overlap.id)}`, { signal: controller.signal });
       if (ownRevision !== revision) return;
@@ -115,12 +119,13 @@ export function setupBrief() {
       content.replaceChildren();
       status.textContent = "Could not load this brief. Retry for the selected pair or check the local server.";
       retry.hidden = false;
+      if (fromRetry && document.activeElement === heading) retry.focus();
     } finally {
       if (ownRevision === revision) panel.removeAttribute("aria-busy");
     }
   }
 
-  retry.addEventListener("click", () => { if (current) void open(current); });
+  retry.addEventListener("click", () => { if (current) void open(current, { fromRetry: true }); });
   copy.addEventListener("click", async () => {
     const ownRevision = revision;
     // innerText includes only evidence whose disclosure the reader has opened.
