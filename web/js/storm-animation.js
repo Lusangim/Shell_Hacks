@@ -165,6 +165,11 @@ export function createStormAnimation(map, data, { onFrame, onFinish, onState }) 
 
   function scrub(index) {
     pause();
+    // Scrubbing a finished storm makes it resumable from the chosen frame.
+    if (finished) {
+      finished = false;
+      onState("paused");
+    }
     const bounded = Math.max(0, Math.min(frames.length - 1, index));
     elapsed = 1500 + 7000 * bounded / (frames.length - 1);
     draw(elapsed);

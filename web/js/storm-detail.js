@@ -5,6 +5,12 @@ const ACTIONS = {
 };
 const money = (value) => `$${Number(value).toLocaleString("en-US")}`;
 const percent = (value) => `${Math.round(Number(value) * 100)}%`;
+// Illustrative inputs do not support cents or tenths: winds to the whole unit, costs to the thousand.
+export const wind = (asset) => `${Math.round(asset.peak_wind_ms)} m/s (${Math.round(asset.peak_wind_mph)} mph)`;
+export const nearestThousand = (value) => (value < 1000 ? "under $1,000" : `about ${money(Math.round(value / 1000) * 1000)}`);
+export const className = (value) => (value.startsWith("line_") ? `${value.slice(5)} line` : value.replaceAll("_", " "));
+export const confidenceText = (decision) =>
+  `Rule confidence ${percent(decision.confidence)}: the share of the expected cost on exactly located assets`;
 
 function node(tag, value, source) {
   const item = document.createElement(tag);
@@ -35,8 +41,8 @@ function assetsList(data) {
   for (const asset of top) {
     const item = document.createElement("li");
     item.append(node("strong", asset.name, "assets.name"),
-      node("p", `${asset.class.replaceAll("_", " ")} | Peak wind ${asset.peak_wind_ms} m/s (${asset.peak_wind_mph} mph)`, "assets.peak_wind_ms"),
-      node("p", `Illustrative damage chance ${percent(asset.damage.minor)} | Expected repair cost ${asset.expected_usd == null ? "no cost basis" : money(asset.expected_usd)}`, "assets.damage"),
+      node("p", `${className(asset.class)} | Peak wind ${wind(asset)}`, "assets.peak_wind_ms"),
+      node("p", `Illustrative damage chance ${percent(asset.damage.minor)} | Expected repair cost ${asset.expected_usd == null ? "no cost basis" : nearestThousand(asset.expected_usd)}`, "assets.damage"),
       node("small", `${asset.accuracy} location | ${asset.source}`, "assets.source"));
     list.append(item);
   }
@@ -48,7 +54,7 @@ function recommendation(data) {
   const decision = data.decision;
   box.append(node("p", "System rule (Jev not configured)"),
     node("p", ACTIONS[decision.action] ?? decision.action, "decision.action"),
-    node("p", `Confidence: ${percent(decision.confidence)}`, "decision.confidence"));
+    node("p", confidenceText(decision), "decision.confidence"));
   if (decision.review_required) {
     const banner = node("p", "Requires human review");
     banner.className = "storm-review";
@@ -120,7 +126,7 @@ export function createStormDetail() {
     const summary = data.summary;
     const facts = document.createElement("dl");
     facts.className = "pair-facts storm-facts";
-    facts.append(fact("Peak wind in area", strongest ? `${strongest.peak_wind_ms} m/s (${strongest.peak_wind_mph} mph)` : "No mapped assets", "assets.peak_wind_ms"),
+    facts.append(fact("Peak wind in area", strongest ? wind(strongest) : "No mapped assets", "assets.peak_wind_ms"),
       fact("Assets exposed", `${counts.line_wood} wood lines, ${counts.line_steel} steel lines, ${counts.substation} substations`, "assets.class"),
       fact("Possible repair cost", `${money(summary.p10_usd)} to ${money(summary.p90_usd)}; median ${money(summary.p50_usd)}`, "summary"),
       fact("Coverage", `${summary.assets_with_cost} of ${summary.assets_total} assets with a cost basis`, "summary"));

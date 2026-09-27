@@ -1,5 +1,5 @@
 import { createStormAnimation } from "./storm-animation.js";
-import { createStormDetail } from "./storm-detail.js";
+import { className, confidenceText, createStormDetail, nearestThousand, wind } from "./storm-detail.js";
 
 const ACTIONS = {
   human_review: "Review the estimate", coordinate_project_timing: "Coordinate project timing",
@@ -56,7 +56,7 @@ export function createStormController(map, currentArea) {
     frameInput.value = String(index);
     frameInput.setAttribute("aria-valuetext", `${selected.t_hours} hours from area crossing`);
     const time = selected.t_hours < 0 ? `t ${selected.t_hours} h` : `t +${selected.t_hours} h`;
-    frameLabel.textContent = `${time}; 33 m/s radius ${selected.radius_33_ms_km} km`;
+    frameLabel.textContent = `${time}; 33 m/s radius ${Math.round(selected.radius_33_ms_km)} km`;
     frameLabel.dataset.src = "scenario.frames";
   }
 
@@ -78,7 +78,7 @@ export function createStormController(map, currentArea) {
     const title = node("p", ACTIONS[decision.action] ?? decision.action);
     title.className = "storm-action";
     const provider = node("p", "System rule (Jev not configured)");
-    const confidence = node("p", `Confidence: ${percent(decision.confidence)}`, "decision.confidence");
+    const confidence = node("p", confidenceText(decision), "decision.confidence");
     const reasons = document.createElement("ul");
     for (const reason of decision.reasons) {
       const row = document.createElement("li");
@@ -105,8 +105,8 @@ export function createStormController(map, currentArea) {
     target.replaceChildren(...top.map((asset) => {
       const row = document.createElement("li");
       row.append(node("strong", asset.name, "assets.name"),
-        node("p", `${asset.class.replaceAll("_", " ")} | Peak wind ${asset.peak_wind_ms.toFixed(1)} m/s (${asset.peak_wind_mph.toFixed(1)} mph)`, "assets.peak_wind_ms"),
-        node("p", `Damage chance: ${percent(asset.damage.minor)} | Expected cost: ${dollars(asset.expected_usd)}`, "assets.damage"),
+        node("p", `${className(asset.class)} | Peak wind ${wind(asset)}`, "assets.peak_wind_ms"),
+        node("p", `Damage chance: ${percent(asset.damage.minor)} | Expected cost: ${asset.expected_usd == null ? "no cost basis" : nearestThousand(asset.expected_usd)}`, "assets.damage"),
         node("p", `${asset.accuracy} location | ${asset.source}`, "assets.source"));
       return row;
     }));
@@ -140,7 +140,12 @@ export function createStormController(map, currentArea) {
         { padding: [55, 55], animate: false, maxZoom: 8 });
       animation = createStormAnimation(map, payload, {
         onFrame: frame,
-        onState: (state) => { playing = state === "playing"; playButton.textContent = playing ? "Pause storm" : "Resume storm"; },
+        onState: (state) => {
+          playing = state === "playing";
+          playButton.textContent = playing ? "Pause storm" : "Resume storm";
+          // A finished storm has nothing to resume; Replay storm starts it again.
+          playButton.hidden = state === "finished";
+        },
         onFinish: () => {
           status.textContent = "Storm passage complete. Hypothetical scenario, not observed damage.";
           detail.open(payload, area);
