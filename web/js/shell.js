@@ -43,7 +43,7 @@ export function setupShell(overlapView) {
   document.addEventListener("focusin", (event) => {
     if (!impactCard.contains(event.target)) impactDisclosure.open = false;
     if (!menu.hidden && !menu.contains(event.target) && event.target !== more && !event.target.closest(".tour-card")) setMore(false);
-    if (!filterPanel.hidden && !filterPanel.contains(event.target) && event.target !== filters && !event.target.closest(".tour-card")) filters.click();
+    if (!filterPanel.hidden && !filterPanel.contains(event.target) && event.target !== filters && event.target !== more && !event.target.closest(".tour-card")) filters.click();
     const pane = document.querySelector(".detail-pane");
     const coveredMap = matchMedia("(max-width: 1099px)").matches && event.target.closest(".map-region");
     const coveredList = matchMedia("(max-width: 700px)").matches && event.target.closest(".panel");

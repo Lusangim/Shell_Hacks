@@ -28,10 +28,10 @@ function projectWeight(properties) {
 
 // Exact: solid line, filled dot. Approximate: dashed line, hollow ring.
 // Town centre only: dotted line, dashed hollow ring. Colour never carries accuracy alone.
-function styleForProject(feature) {
+function styleForProject(feature, palette = null) {
   const properties = projectProperties(feature);
   const look = locationLook(properties);
-  const color = token(utilityToken(properties));
+  const color = palette?.get(utilityToken(properties)) ?? token(utilityToken(properties));
   if (isPoint(feature)) {
     const hollow = look !== "exact";
     return {
@@ -49,12 +49,13 @@ function styleForProject(feature) {
   };
 }
 
-function styleForCasing(feature) {
-  const style = styleForProject(feature);
+function styleForCasing(feature, palette = null) {
+  const style = styleForProject(feature, palette);
+  const casing = palette?.get("--map-casing") ?? token("--map-casing");
   return {
-    color: token("--map-casing"), weight: style.weight + 2, opacity: 1,
+    color: casing, weight: style.weight + 2, opacity: 1,
     dashArray: isPoint(feature) ? null : style.dashArray, lineCap: style.lineCap,
-    fillColor: token("--map-casing"), fillOpacity: 1,
+    fillColor: casing, fillOpacity: 1,
   };
 }
 
@@ -461,13 +462,18 @@ function resetLabel(layer) {
   }
 }
 
-export function highlightPair(overlap) {
+export function highlightPair(overlap, { preserveLabels = false } = {}) {
   if (!state.projectLayers) { drawRankMarker(null, []); return; }
+  // Read theme colours before changing SVG styles, avoiding one style flush per project.
+  const names = new Set(state.projects.map((feature) => utilityToken(feature.properties)));
+  names.add("--map-casing");
+  const computed = getComputedStyle(document.documentElement);
+  const palette = new Map([...names].map((name) => [name, computed.getPropertyValue(name).trim()]));
   const selectedIds = new Set(overlap ? [overlap.a, overlap.b] : []);
   const selected = [];
   state.projectLayers.eachLayer((layer) => {
     const isSelected = selectedIds.has(layer.feature?.properties?.id);
-    const style = styleForProject(layer.feature);
+    const style = styleForProject(layer.feature, palette);
     layer.setStyle({ ...style, weight: style.weight + (isSelected ? 2 : 0) });
     const element = layer.getElement();
     if (element) element.dataset.selected = String(isSelected);
@@ -476,7 +482,7 @@ export function highlightPair(overlap) {
   });
   state.casingLayers?.eachLayer((layer) => {
     const isSelected = selectedIds.has(layer.feature?.properties?.id);
-    const style = styleForCasing(layer.feature);
+    const style = styleForCasing(layer.feature, palette);
     // A selected dashed line sits on a continuous casing, so the halo never shows through the gaps.
     layer.setStyle({ ...style, weight: style.weight + (isSelected ? 2 : 0), dashArray: isSelected ? null : style.dashArray });
     if (isSelected) layer.bringToFront();
@@ -484,7 +490,12 @@ export function highlightPair(overlap) {
   selected.forEach((layer) => layer.bringToFront());
   drawHalo(selected);
   drawRankMarker(overlap, selected);
-  placePairLabels(selected);
+  // A year/theme refresh changes styles, not label geometry. Movement and sheet
+  // changes reposition labels separately; new project layers always need placement.
+  if (!preserveLabels || selected.length !== state.pairLabelLayers.length
+      || selected.some((layer) => !state.pairLabelLayers.includes(layer))) {
+    placePairLabels(selected);
+  }
 }
 
 export function refreshMapTheme() {
@@ -496,7 +507,6 @@ export function refreshMapTheme() {
 
 export function refreshProjectStyles() {
   if (state.projectLayers) {
-    state.projectLayers.setStyle(styleForProject);
-    highlightPair(state.overlaps.find((overlap) => overlap.id === state.selectedOverlapId));
+    highlightPair(state.overlaps.find((overlap) => overlap.id === state.selectedOverlapId), { preserveLabels: true });
   }
 }

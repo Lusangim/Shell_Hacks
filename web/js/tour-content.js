@@ -1,6 +1,7 @@
 // Keep every tour word here for copy review.
 export const tourWords = {
   launch: "Take the tour", invitation: "New here? Take the tour", dismiss: "Dismiss tour invitation", dismissSymbol: "×",
+  shortInvitation: "Tour",
   label: "GridLock tour", back: "Back", next: "Next", finish: "Finish tour", skip: "Skip tour",
   count: (index, total) => `Step ${index} of ${total}`,
 };

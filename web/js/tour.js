@@ -11,7 +11,14 @@ export function setupTour() {
   const invitationBox = document.getElementById("tour-invitation-box");
   const dismiss = document.getElementById("tour-dismiss");
   launch.textContent = tourWords.launch;
-  invitation.textContent = tourWords.invitation;
+  invitation.setAttribute("aria-label", tourWords.invitation);
+  const invitationLabel = document.createElement("span");
+  invitationLabel.className = "tour-invitation-long";
+  invitationLabel.textContent = tourWords.invitation;
+  const invitationShort = document.createElement("span");
+  invitationShort.className = "tour-invitation-short";
+  invitationShort.textContent = tourWords.shortInvitation;
+  invitation.replaceChildren(invitationLabel, invitationShort);
   const dismissIcon = document.createElement("span");
   dismissIcon.className = "icon";
   dismissIcon.dataset.icon = "x";

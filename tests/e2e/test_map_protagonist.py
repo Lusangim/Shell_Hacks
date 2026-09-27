@@ -1,6 +1,7 @@
 """Founder map-first shell and disclosure regression checks."""
 
 from playwright.sync_api import expect, sync_playwright
+import pytest
 
 
 def test_three_panes_and_more_disclosure(live_server):
@@ -42,6 +43,28 @@ def test_filters_tab_exit_keeps_phone_focus_visible(live_server):
         page.keyboard.press("Tab")
         expect(page.locator("#filter-panel")).to_be_hidden()
         assert page.evaluate("document.activeElement.getClientRects().length > 0")
+        browser.close()
+
+
+@pytest.mark.parametrize("width", [390, 1440])
+def test_filters_keyboard_entrance_reaches_fields(live_server, width):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": width, "height": 900})
+        page.goto(live_server)
+        expect(page.get_by_test_id("overlap-row").first).to_be_visible()
+        filters = page.locator("#filters-toggle")
+        filters.focus()
+        page.keyboard.press("Enter")
+        expect(page.locator("#filter-panel")).to_be_visible()
+        page.keyboard.press("Tab")
+        expect(page.locator("#more-toggle")).to_be_focused()
+        page.keyboard.press("Tab")
+        expect(page.locator("#filter-panel input").first).to_be_focused()
+        expect(page.locator("#filter-panel")).to_be_visible()
+        page.keyboard.press("Escape")
+        expect(page.locator("#filter-panel")).to_be_hidden()
+        expect(filters).to_be_focused()
         browser.close()
 
 
@@ -277,4 +300,64 @@ def test_impact_popover_yields_to_next_keyboard_target(live_server):
         page.keyboard.press("Escape")
         expect(page.locator("#impact-full")).to_be_hidden()
         expect(summary).to_be_focused()
+        browser.close()
+
+
+@pytest.mark.parametrize("width,height", [(320,640), (390,844), (700,900), (701,900), (1099,900)])
+@pytest.mark.parametrize("theme", ["light", "dark"])
+def test_responsive_edges_keep_controls_and_two_phone_rows_in_view(live_server, width, height, theme):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width":width, "height":height}, color_scheme=theme, reduced_motion="reduce")
+        page.add_init_script("""window.redesignCls=0;new PerformanceObserver(list=>{
+          for(const e of list.getEntries())if(!e.hadRecentInput)window.redesignCls+=e.value;
+        }).observe({type:'layout-shift',buffered:true});""")
+        page.goto(live_server)
+        expect(page.get_by_test_id("overlap-row").first).to_be_visible()
+        expect(page.locator("#timeline-year")).to_be_enabled()
+        assert page.evaluate("document.documentElement.scrollWidth <= innerWidth"), "horizontal page overflow"
+        assert page.evaluate("window.redesignCls") < 0.1
+        for selector in ("#search-input", "#filters-toggle", "#more-toggle", "#timeline-year", "#timeline-all", "#timeline-play", "#tour-invitation", "#tour-dismiss"):
+            control = page.locator(selector)
+            expect(control).to_be_visible()
+            assert control.evaluate("""el=>{const r=el.getBoundingClientRect();return el.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));}"""), selector
+            if width <= 700:
+                rect = control.bounding_box()
+                assert rect["height"] >= 44, (selector, rect)
+                assert rect["width"] >= 44, (selector, rect)
+        if width <= 700:
+            assert page.locator("#search-input").bounding_box()["width"] >= 180
+            zoom = page.locator(".leaflet-control-zoom").bounding_box()
+            timeline = page.locator("#timeline").bounding_box()
+            assert zoom["y"] + zoom["height"] <= timeline["y"], "zoom must not cover timeline labels"
+            expect(page.locator("#sheet-toggle")).to_have_attribute("aria-expanded", "false")
+            second = page.get_by_test_id("overlap-row").nth(1)
+            assert second.bounding_box()["y"] + second.bounding_box()["height"] <= height
+            for row in [page.get_by_test_id("overlap-row").first, second]:
+                years = row.locator(".metric-time")
+                expect(years).to_be_visible()
+                assert years.bounding_box()["height"] >= 14
+                expect(row.locator(".coordinate-tag")).to_be_visible()
+        page.screenshot(path=f"C:/Users/lucia/dev/gridlock-runs/codex/redesign-final-{width}-{theme}.png")
+        page.get_by_test_id("overlap-row").first.locator("button").click()
+        pane = page.locator(".detail-pane")
+        expect(pane).to_be_visible()
+        rect = pane.bounding_box()
+        assert rect["y"] == 64 and rect["height"] == height-64
+        assert rect["x"] + rect["width"] == width
+        if width <= 700:
+            assert rect["x"] == 0
+        else:
+            expect(page.get_by_test_id("overlap-row").nth(1)).to_be_visible()
+        expect(page.locator("#detail-close")).to_be_visible()
+        page.screenshot(path=f"C:/Users/lucia/dev/gridlock-runs/codex/redesign-final-{width}-{theme}-detail.png")
+        page.locator("#detail-close").click()
+        expect(pane).to_be_hidden()
+        if width <= 700:
+            for selector in ("#map-pair-open", "#timeline-play", "#timeline-year", "#timeline-all"):
+                control = page.locator(selector)
+                control.focus()
+                expect(control).to_be_focused()
+                expect(control).to_be_visible()
+                assert control.evaluate("""el=>{const r=el.getBoundingClientRect();return [.2,.5,.8].every(x=>[.2,.5,.8].every(y=>el.contains(document.elementFromPoint(r.x+r.width*x,r.y+r.height*y))));}"""), selector
         browser.close()

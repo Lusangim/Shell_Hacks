@@ -111,6 +111,8 @@
 }
 
 /* Quiet pair list: utility names lead; complete project names remain in the button name. */
+.tour-invitation-short { display: none; }
+.map-pair-short { display: none; }
 .opportunities.pair-open .overlap-row + .overlap-row { border-top: 1px solid var(--rule); }
 .overlap-button { grid-template-columns: 28px minmax(0, 1fr); padding: 12px 8px; column-gap: 10px; }
 .overlap-button[aria-pressed="true"] { box-shadow: inset 3px 0 var(--primary); }
@@ -147,6 +149,7 @@
 .map-key[open] .key-list { margin-top: 4px; }
 .pair-rank-marker { display: grid; place-items: center; border: 2px solid var(--rank-marker-ink); border-radius: 50%; background: var(--rank-marker); color: var(--rank-marker-ink); box-shadow: var(--card-shadow); font-size: 14px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; pointer-events: none; }
 @media (max-width: 700px) {
+  .map-region:has(.leaflet-control-area) .map-pair-open { top: 178px; }
   .timeline { left: 50%; right: auto; bottom: calc(48dvh + 56px); width: calc(100% - 24px); padding: 6px 10px; }
   .timeline-controls { gap: 4px; }
   .timeline-controls button { min-height: 44px; padding: 6px; }
@@ -155,4 +158,18 @@
   :root:not([data-area-layout]) .panel:not(.expanded) .row-metric { display: flex; flex-direction: row; align-items: center; gap: 4px 8px; margin-top: 1px; }
   :root:not([data-area-layout]) .panel:not(.expanded) .row-metric .metric-time { display: inline-flex; }
   :root:not([data-area-layout]) .panel:not(.expanded) .row-band { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); }
+}
+@media (max-width: 420px) {
+  .app-bar h1 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+@media (max-width: 360px) {
+  .map-region:has(.leaflet-control-area) .map-pair-open { top: 12px; }
+  .map-pair-label { display: none; }
+  .map-pair-short { display: inline; }
+  .leaflet-control-zoom { display: flex; }
+  .leaflet-control-zoom a { border-bottom: 0; }
+  .leaflet-control-zoom a + a { border-left: 1px solid var(--rule-strong); }
+  .tour-invitation-long { display: none; }
+  .tour-invitation-short { display: inline; }
+  .panel .tour-entry #tour-invitation { min-width: 44px; min-height: 44px; padding-inline: 8px; }
 }
