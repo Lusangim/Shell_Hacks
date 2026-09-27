@@ -152,7 +152,8 @@ def test_keyboard_phone_detail_has_focus_no_overflow_or_console_error(live_serve
         page.goto(live_server)
         expect(page.get_by_test_id("overlap-row").first).to_be_visible()
         page.locator("#search-input").focus()
-        for button in page.locator("#start-here-places button").all():
+        # The phone peek folds Start here away, so only the places on screen take a Tab stop.
+        for button in [item for item in page.locator("#start-here-places button").all() if item.is_visible()]:
             page.keyboard.press("Tab")
             assert button.evaluate("element => document.activeElement === element"), "Start here place not reachable from search by Tab"
         page.keyboard.press("Tab")

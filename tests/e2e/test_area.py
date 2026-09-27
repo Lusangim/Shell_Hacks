@@ -141,7 +141,11 @@ def test_area_mode_button_keyboard_and_axe(live_server, width, height, theme):
         assert button.get_attribute("title")
         box = button.bounding_box()
         assert box["width"] >= 44 and box["height"] >= 44
-        page.locator(".leaflet-control-zoom-out").focus()
+        if width <= 700:
+            # On phones the button takes the free top-left corner, the first of the map's own controls.
+            page.locator("#map").focus()
+        else:
+            page.locator(".leaflet-control-zoom-out").focus()
         page.keyboard.press("Tab")
         expect(button).to_be_focused()
         outline = button.evaluate("el => getComputedStyle(el).outline")

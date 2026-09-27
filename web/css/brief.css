@@ -8,4 +8,10 @@
 #brief-copy:disabled { background: var(--canvas); border-color: var(--rule); color: var(--pencil); }
 .brief-source { margin: 4px 0; font-size: 14px; }
 .brief-source a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 0; }
+/* The folded facts and the Claude API card read as quieter sections of the brief. */
+.brief-intro { margin: 0 0 4px; color: var(--pencil); font-size: 14px; line-height: 1.5; }
+.brief-facts { margin-top: 16px; }
+.brief-facts > summary { display: flex; align-items: center; min-height: 44px; padding: 8px 0; font-size: 14px; font-weight: 600; cursor: pointer; }
+.brief-facts h4 { margin: 12px 0 2px; color: var(--pencil); font-size: 13px; font-weight: 650; }
+.ai-brief-card { padding: 12px; border: 1px dashed var(--rule-strong); border-radius: var(--radius-control); }
 @media (max-width: 700px) { .brief-panel { padding: 20px 16px; } }
