@@ -37,6 +37,17 @@ def real_case():
     return pair, projects[pair.a], projects[pair.b]
 
 
+def test_top_template_qualifies_inferred_attribution_without_changing_contacts() -> None:
+    pair, a, b = real_case()
+    brief = make_template_brief(pair, a, b, CONTACTS)
+    assert f"{a.properties.name} is listed by Dominion Energy SC." in brief.what
+    assert f"{b.properties.name} is attributed to Georgia Power (inferred from location)." in brief.what
+    assert "is listed by Georgia Power" not in brief.what
+    assert brief.who_to_contact == ["Dominion Energy SC", "Georgia Power"]
+    assert any("Confirm ownership" in caveat for caveat in brief.caveats)
+    assert grade_brief(brief, pair, a, b, CONTACTS).ok
+
+
 def parsed(brief: Brief, stop_reason: str = "end_turn"):
     return SimpleNamespace(stop_reason=stop_reason, parsed_output=brief)
 

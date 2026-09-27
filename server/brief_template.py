@@ -63,6 +63,12 @@ def _savings(pair: Overlap) -> BriefSavings:
     )
 
 
+def _project_attribution(project: ProjectFeature, utility: str) -> str:
+    if project.properties.utility_basis == "inferred_from_location":
+        return f"{project.properties.name} is attributed to {utility} (inferred from location). "
+    return f"{project.properties.name} is listed by {utility}. "
+
+
 def make_template_brief(
     pair: Overlap,
     project_a: ProjectFeature,
@@ -79,9 +85,9 @@ def make_template_brief(
         raise ValueError("Both utility organizations need source-backed contact labels")
 
     what = (
-        f"{project_a.properties.name} is listed by {utility_a}. "
-        f"{project_b.properties.name} is listed by {utility_b}. "
-        "These are separate public plan entries. This note identifies a possible planning "
+        _project_attribution(project_a, utility_a)
+        + _project_attribution(project_b, utility_b)
+        + "These are separate plan entries. This note identifies a possible planning "
         "conversation; it does not establish that either project can use the other's "
         "equipment, contract, or work order."
     )

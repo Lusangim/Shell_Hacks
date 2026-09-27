@@ -20,6 +20,7 @@ from pydantic import BaseModel, ConfigDict, Field, JsonValue, TypeAdapter, Valid
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.responses import Response
 
+from pipeline.savings import load_assumptions
 from server.area import build_area
 from server.brief_routes import register_brief_routes, stale_brief_count
 from server.map_assets import GOOGLE_CSP, OFFLINE_CSP, MapConfig, archive_response, map_error, offline_available, same_origin
@@ -37,6 +38,7 @@ CSV_COLUMNS = (
     "In-service year B", "Year gap", "Accuracy A", "Accuracy B", "Source A",
     "Source page A", "Source B", "Source page B", "Savings status",
     "Savings low USD", "Savings high USD", "Coordination status",
+    "Savings qualification", "Savings basis", "Savings assumptions", "Savings caveat",
 )
 
 
@@ -245,16 +247,48 @@ def _csv_text(value: str) -> str:
     return f"'{value}" if value and value[0] in "=+-@\t\r\n" else value
 
 
-def _csv_row(pair: Overlap, projects: dict[str, ProjectFeature]) -> tuple[str | int | float | None, ...]:
+def _csv_assumption_labels() -> dict[str, str]:
+    """Present the committed rates and provenance without exposing assumption IDs."""
+    labels = {}
+    for assumption_id, assumption in load_assumptions(ROOT / "data/manual/assumptions.json").items():
+        low, high = assumption["low"], assumption["high"]
+        if assumption["unit"] == "fraction_of_reference_cost":
+            rate = f"{low * 100:g}%–{high * 100:g}% of reference cost"
+        else:
+            rate = f"${low:,.0f}–${high:,.0f} per line mile"
+        labels[assumption_id] = (
+            f"Team assumption ({assumption['source']['date']}): {rate}. "
+            f"{assumption['rationale']}"
+        )
+    return labels
+
+
+def _csv_utility(project: ProjectFeature) -> str:
+    props = project.properties
+    suffix = " (inferred)" if props.utility_basis == "inferred_from_location" else ""
+    return _csv_text(props.utility + suffix)
+
+
+def _csv_row(
+    pair: Overlap, projects: dict[str, ProjectFeature], assumption_labels: dict[str, str],
+) -> tuple[str | int | float | None, ...]:
     a = projects[pair.a].properties
     b = projects[pair.b].properties
+    savings = pair.savings
+    assumptions = " ".join(
+        assumption_labels.get(assumption_id, "Assumption details unavailable; verify before using this estimate.")
+        for assumption_id in savings.assumption_ids
+    )
     return (
-        pair.rank, _csv_text(pair.id), _csv_text(a.name), _csv_text(a.utility),
-        _csv_text(b.name), _csv_text(b.utility), _csv_text(pair.band.value), pair.distance_km,
+        pair.rank, _csv_text(pair.id), _csv_text(a.name), _csv_utility(projects[pair.a]),
+        _csv_text(b.name), _csv_utility(projects[pair.b]), _csv_text(pair.band.value), pair.distance_km,
         _csv_text(pair.touch_reason), _csv_text(pair.touch_detail), a.year, b.year,
         pair.year_gap, _csv_text(a.accuracy.value), _csv_text(b.accuracy.value),
         _csv_text(a.source.doc), a.source.page, _csv_text(b.source.doc), b.source.page,
         _csv_text(pair.savings.status), pair.savings.low_usd, pair.savings.high_usd, "",
+        "Screening estimate" if savings.status == "range" else "No savings estimate",
+        _csv_text(savings.basis), _csv_text(assumptions),
+        "Shared work and savings are not verified; confirm scope, costs, and schedules with the utilities.",
     )
 
 
@@ -263,8 +297,9 @@ def export_csv(pairs: list[Overlap], projects: ProjectCollection) -> bytes:
     writer = csv.writer(output, lineterminator="\r\n")
     writer.writerow(CSV_COLUMNS)
     by_id = {project.properties.id: project for project in projects.features}
+    assumption_labels = _csv_assumption_labels()
     for pair in pairs:
-        writer.writerow(_csv_row(pair, by_id))
+        writer.writerow(_csv_row(pair, by_id, assumption_labels))
     return ("\ufeff" + output.getvalue()).encode("utf-8")
 
 
