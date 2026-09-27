@@ -52,7 +52,7 @@ def test_offline_rebuild_preserves_counts_pairs_and_bytes(monkeypatch: pytest.Mo
     assert meta["stage_counts"]["placement_candidates"] == 380
     assert meta["stage_counts"]["kept"] == 230
     assert meta["stage_counts"]["placed"] == 181
-    assert meta["stage_counts"]["overlaps"] == 489
+    assert meta["stage_counts"]["overlaps"] == 465
     assert meta["stage_counts"]["cross_state"] == 43
     assert meta["stage_counts"]["source_rows"] == (
         meta["stage_counts"]["kept"] + sum(ledger["dropped_by_reason"].values())
@@ -63,7 +63,7 @@ def test_offline_rebuild_preserves_counts_pairs_and_bytes(monkeypatch: pytest.Mo
         for row in ledger["rows"].values()
     )
     assert len(projects["features"]) == 230
-    assert len(overlaps) == 489
+    assert len(overlaps) == 465
     assert [(pair["a"], pair["b"]) for pair in overlaps[:10]] == TOP_TEN
 
 

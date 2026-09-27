@@ -55,7 +55,7 @@ def test_meta_counts_all_unmapped_rows_and_production_loader_succeeds() -> None:
     assert meta.stage_counts["source_rows"] == 481
     assert meta.stage_counts["kept"] == 230
     assert meta.stage_counts["placed"] == 181
-    assert meta.stage_counts["overlaps"] == 489
+    assert meta.stage_counts["overlaps"] == 465
     assert meta.stage_counts["cross_state"] == 43
     assert meta.unmapped_count == 128
     assert meta.unmapped_reasons == {
@@ -82,7 +82,7 @@ def test_meta_counts_all_unmapped_rows_and_production_loader_succeeds() -> None:
     )
     loaded = load_artifacts(BUILT)
     assert len(loaded.projects.features) == 230
-    assert len(loaded.overlaps) == 489
+    assert len(loaded.overlaps) == 465
     assert len(loaded.basemap.features) == 803
 
 

@@ -10,7 +10,8 @@ from pathlib import Path
 from shapely.geometry import shape
 from shapely.ops import transform
 from shapely.strtree import STRtree
-from overlap_geometry import TO_METRES, band_for, can_share, classify_touch, nearest_point_distance_m, rank_key
+from overlap_geometry import (TO_METRES, TOWN_CAP_NOTE, band_for, can_share, classify_touch,
+                              nearest_point_distance_m, rank_key, town_capped_band)
 from savings import estimate_savings, load_assumptions
 
 BANDS = {
@@ -51,6 +52,10 @@ for i, g in enumerate(projected):
         bid = band_for(d)
         if bid is None:
             continue
+        reason, detail = classify_touch(a, b, geoms[i], geoms[j], d)
+        bid, town_capped = town_capped_band(bid, reason, bool(a.get("town_only") or b.get("town_only")))
+        if town_capped:
+            detail = f"{detail} {TOWN_CAP_NOTE}"
         label, w = BANDS[bid]
         tl, tf = timeline(a, b)
         a_state, b_state = a.get("state"), b.get("state")
@@ -61,7 +66,6 @@ for i, g in enumerate(projected):
         )
         acc = ACCURACY_FACTOR[a["accuracy"]] * ACCURACY_FACTOR[b["accuracy"]]
         score = round(w * tf * acc * (1.5 if cross_state else 1.0), 3)
-        reason, detail = classify_touch(a, b, geoms[i], geoms[j], d)
         if a["id"] > b["id"]:
             a, b = b, a
         year_gap = abs(a["year"] - b["year"]) if a.get("year") is not None and b.get("year") is not None else None
@@ -70,7 +74,7 @@ for i, g in enumerate(projected):
             id=f'{a["id"]}__{b["id"]}',
             a=a["id"], b=b["id"], a_name=a["name"], b_name=b["name"], a_utility=a["utility"], b_utility=b["utility"],
             distance_km=d / 1000, band=bid, band_label=label, can_share=can_share(bid, reason),
-            touch_reason=reason, touch_detail=detail,
+            touch_reason=reason, touch_detail=detail, town_capped=town_capped,
             a_year=a.get("year"), b_year=b.get("year"), year_gap=year_gap, timeline=tl,
             cross_state=cross_state, pair_note=pair_note, accuracy_pair=accuracy_pair, score=score,
             savings=estimate_savings(a, b, assumptions), brief_status="none"))

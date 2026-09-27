@@ -254,6 +254,11 @@
           "title": "Touch Reason",
           "type": "string"
         },
+        "town_capped": {
+          "default": false,
+          "title": "Town Capped",
+          "type": "boolean"
+        },
         "year_gap": {
           "anyOf": [
             {
@@ -530,6 +535,11 @@
             }
           ],
           "title": "Status"
+        },
+        "town_only": {
+          "default": false,
+          "title": "Town Only",
+          "type": "boolean"
         },
         "utility": {
           "minLength": 1,

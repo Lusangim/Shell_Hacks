@@ -79,6 +79,8 @@ class ProjectProperties(Contract):
     state: Literal["GA", "SC"] | None
     accuracy: Accuracy
     location_source: str | None
+    # True when the only location found is a Census town centre, not a substation (founder, 2026-09-26)
+    town_only: bool = False
     source: Source
 
     @model_validator(mode="after")
@@ -101,6 +103,8 @@ class ProjectFeature(Contract):
     def location_consistency(self) -> ProjectFeature:
         if (self.geometry is None) != (self.properties.accuracy == Accuracy.unknown):
             raise ValueError("unknown location must have null geometry, and placed project needs accuracy")
+        if self.properties.town_only and self.properties.accuracy != Accuracy.approximate:
+            raise ValueError("a town-centre-only location must be placed and approximate")
         return self
 
 
@@ -141,6 +145,8 @@ class Overlap(Contract):
     band_label: str
     touch_reason: Literal["same_substation", "shared_endpoint", "lines_cross", "proximity", "same_area_approximate"]
     touch_detail: str
+    # True when a town-centre-only location would have put the pair closer than "under 40 km"
+    town_capped: bool = False
     can_share: str
     a_year: int | None
     b_year: int | None
@@ -166,7 +172,10 @@ class Overlap(Contract):
             Band.lt_1_6km if metres < 1600 else
             Band.lt_8km if metres < 8000 else Band.lt_40km
         )
-        if self.band != expected:
+        if self.town_capped:
+            if self.band != Band.lt_40km or expected == Band.lt_40km:
+                raise ValueError("a town-capped pair is a closer distance counted as under 40 km")
+        elif self.band != expected:
             raise ValueError("band does not match distance")
         if self.a_year is not None and self.b_year is not None:
             if self.year_gap != abs(self.a_year - self.b_year):

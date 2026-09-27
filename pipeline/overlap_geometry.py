@@ -139,3 +139,20 @@ def can_share(band: str, reason: str) -> str:
 
 def rank_key(pair: dict) -> tuple[float, float, str]:
     return -pair["score"], pair["distance_km"], pair["id"]
+
+
+TOWN_CAPPED_BANDS = frozenset({"touching", "lt_1_6km", "lt_8km"})
+NAME_MATCH_REASONS = frozenset({"same_substation", "shared_endpoint"})
+TOWN_CAP_NOTE = ("One location is only a town centre, not a substation, so GridLock counts this pair "
+                 "as under 40 km at most.")
+
+
+def town_capped_band(band: str, reason: str, town_only: bool) -> tuple[str, bool]:
+    """A town-centre location alone cannot put a pair closer than 'under 40 km'.
+
+    Pairs whose plans name the same substation keep their band: that match comes from the plans' own
+    words, not from where the town centre happens to be.
+    """
+    if town_only and band in TOWN_CAPPED_BANDS and reason not in NAME_MATCH_REASONS:
+        return "lt_40km", True
+    return band, False
