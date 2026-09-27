@@ -5,6 +5,8 @@ from __future__ import annotations
 import csv
 import io
 import re
+from datetime import date
+from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 from urllib.parse import urlencode, urlsplit
 
@@ -24,6 +26,14 @@ FORBIDDEN_REPORT = re.compile(
     r"\b[a-z]+(?:_[a-z0-9]+)+\b|\bdata[\\/]|\b[A-Za-z]:[\\/]|"
     r"\b(?:undefined|NaN|null)\b|\[object"
 )
+
+
+def km(value):
+    """The page's toFixed(1) and the CSV: one decimal, exact ties rounded up."""
+    return str(Decimal(value).quantize(Decimal("0.1"), rounding=ROUND_HALF_UP))
+
+
+DISCLAIMER = "Screening leads from public plans: shared work, locations and savings are not verified."
 
 
 def assert_readable_report(report):
@@ -82,7 +92,8 @@ def test_mcintosh_detail_and_print_preserve_work_location_limits(live_server, pa
         page.wait_for_function("() => window.printCalls === 1")
         selected = page.locator("#print-selected")
         expect(selected.locator('[data-src="touch_detail"]')).to_have_text(pair["touch_detail"])
-        expect(selected.locator('[data-src="can_share"]')).to_have_text(pair["can_share"])
+        # The work-location limits stay verbatim; the report states that shared work is not verified.
+        expect(page.locator("#print-report .print-disclaimer")).to_have_text(DISCLAIMER)
         assert selected.locator('a[href$="#page=41"]').count() >= 1
         assert selected.locator(f'a[href$="#page={source_page}"]').count() >= 1
         browser.close()
@@ -136,7 +147,7 @@ def test_csv_matches_current_filters_and_visible_ranked_count(live_server, param
         rows = list(csv.DictReader(io.StringIO(raw.decode("utf-8-sig"), newline="")))
         assert [row["Overlap ID"] for row in rows] == [pair["id"] for pair in pairs]
         assert [int(row["Rank"]) for row in rows] == [pair["rank"] for pair in pairs]
-        assert [float(row["Distance km"]) for row in rows] == [pair["distance_km"] for pair in pairs]
+        assert [row["Distance (km)"] for row in rows] == [km(pair["distance_km"]) for pair in pairs]
         assert all(row["Coordination status"] == "" for row in rows)
         assert "Coordination status" in raw.decode("utf-8-sig")
         assert errors == [] and external == []
@@ -172,32 +183,44 @@ def test_letter_print_contains_selected_pair_sources_and_screening_assumptions(l
         selected = report.locator("#print-selected")
         content = selected.text_content()
         pair = detail["overlap"]
-        gap = pair["year_gap"]
-        gap_words = "Same in-service year" if gap == 0 else f'{gap} year{"" if gap == 1 else "s"} apart'
-        for value in [f'Overlap #{pair["rank"]}', "Shared named endpoint", pair["touch_detail"], pair["band_label"],
-                      f'{pair["distance_km"]} km', gap_words,
-                      detail["savings"]["basis"].replace(pair["a"], f'{detail["project_a"]["properties"]["utility"]} project')]:
+        years = max(0, min(pair["a_year"], pair["b_year"]) - date.today().year)
+        years_words = "Coordinate now" if years == 0 else f'{years} year{"" if years == 1 else "s"} to coordinate'
+        for value in [f'Pair #{pair["rank"]}', "Shared named endpoint", pair["touch_detail"], pair["band_label"],
+                      f'{km(pair["distance_km"])} km', years_words]:
             assert value in content
         for key in ("project_a", "project_b"):
             props = detail[key]["properties"]
-            for value in (props["name"], props["utility"], props["accuracy"], props["source"]["doc"]):
+            for value in (props["name"], props["utility"], props["accuracy"], props["source"]["doc"], f'In service {props["year"]}'):
                 assert value in content
             assert selected.locator(f'a[href$="#page={props["source"]["page"]}"]').count() >= 1
-        assert "$62,000 to $264,000" in content
         assert "possibly touching" in content
+        # The estimate stays labelled in the card, the key figures and the notes.
+        assert "Possible saving (estimate): $62,000 to $264,000" in content
+        glance = report.locator("#print-glance")
+        pair_count = len(page.request.get(f"{live_server}/api/overlaps?band=touching&cross_state=true").json())
+        assert glance.locator(".print-figure-value").first.text_content() == str(pair_count)
+        assert "Screening estimate, not a budget" in glance.text_content()
         assert "Team unit-cost file" in report.text_content()
         assert "escalated to 2026 at 4% a year" in report.text_content()
         assert "shared asset" in report.text_content()
         assert "Independent student project" in report.text_content()
         assert "Distance band: Touching" in report.text_content() and "Cross-state: Yes" in report.text_content()
-        assert "Possible saving (estimate): $62,000 to $264,000" in content
+        for source in page.request.get(f"{live_server}/api/meta").json()["source_documents"]:
+            assert source["doc"] in report.locator("#print-header").text_content()
+            assert source["doc"] in report.locator("#print-sources").text_content()
+        expect(report.locator(".print-disclaimer")).to_have_text(DISCLAIMER)
         assert_readable_report(report)
         assert report.locator(".coordination-status").evaluate_all("nodes => nodes.every(node => node.textContent === '')")
-        pair_count = len(page.request.get(f"{live_server}/api/overlaps?band=touching&cross_state=true").json())
         assert report.locator("tbody tr").count() == pair_count
+        assert report.locator("thead th").all_text_contents() == [
+            "#", "Utilities", "Projects", "In service", "Distance", "Possible saving (estimate)", "Status"]
+        assert report.locator("button").count() == 0
         page.emulate_media(media="print")
         expect(page.locator(".workspace")).not_to_be_visible()
         expect(report).to_be_visible()
+        # Rows never split across pages and the header row repeats on each page.
+        assert report.locator("thead").evaluate("el => getComputedStyle(el).display") == "table-header-group"
+        assert report.locator("tbody tr").first.evaluate("el => getComputedStyle(el).breakInside") == "avoid"
         assert page.locator("html").evaluate("el => getComputedStyle(el).colorScheme") == "light"
         assert page.locator("body").evaluate("el => getComputedStyle(el).backgroundColor") == "rgb(255, 255, 255)"
         assert report.evaluate("el => getComputedStyle(el).color") == "rgb(0, 0, 0)"
@@ -359,7 +382,7 @@ def test_approximate_distant_pair_print_does_not_claim_possibly_touching(live_se
         page.get_by_role("button", name="Print report", exact=True).click()
         page.wait_for_function("() => window.printCalls === 1")
         content = page.locator("#print-selected").text_content()
-        assert f'Overlap #{pair["rank"]}' in content and pair["band_label"] in content
+        assert f'Pair #{pair["rank"]}' in content and pair["band_label"] in content
         assert "Approximate locations" in content
         assert "possibly touching" not in content
         assert_readable_report(page.locator("#print-report"))
@@ -386,7 +409,7 @@ def test_print_readable_selected_and_full_ranked_evidence(live_server, rank):
         rows = report.locator("tbody tr")
         assert rows.count() == len(pairs)
         assert rows.locator("td:first-child").all_text_contents() == [str(item["rank"]) for item in pairs]
-        assert rows.locator('[data-src="distance_km"]').all_text_contents() == [f'{item["distance_km"]} km' for item in pairs]
+        assert rows.locator('[data-src="distance_km"]').all_text_contents() == [f'{km(item["distance_km"])} km' for item in pairs]
         assert rows.locator('[data-src="band_label"]').all_text_contents() == [item["band_label"] for item in pairs]
         assert rows.locator(".coordination-status").evaluate_all("nodes => nodes.every(node => node.textContent === '')")
         features = page.request.get(f"{live_server}/api/projects").json()["features"]
@@ -399,16 +422,18 @@ def test_print_readable_selected_and_full_ranked_evidence(live_server, rank):
         assert rows.locator('[data-src="source"]').all_text_contents() == [
             f'{projects[item[key]]["source"]["doc"]}, p. {projects[item[key]]["source"]["page"]}'
             for item in pairs for key in ("a", "b")]
+        assert rows.locator('[data-src="in_service"]').all_text_contents() == [
+            str(projects[item[key]]["year"]) if projects[item[key]]["year"] is not None else "unknown"
+            for item in pairs for key in ("a", "b")]
         for key in ("project_a", "project_b"):
             props = payload[key]["properties"]
             selected = report.locator("#print-selected")
             assert props["name"] in selected.text_content()
-            assert props["description"] in selected.text_content()
             assert props["utility"] in selected.text_content()
             assert selected.locator(f'a[href$="#page={props["source"]["page"]}"]').count() >= 1
         page.emulate_media(media="print")
-        expect(report.locator('#print-selected [data-src="description"]').first).to_be_visible()
-        expect(report.locator('#print-selected [data-src="savings_basis"]')).to_be_visible()
+        expect(report.locator('#print-selected [data-src="touch_detail"]')).to_be_visible()
+        expect(report.locator('#print-selected [data-src="savings_status"]')).to_be_visible()
         browser.close()
 
 

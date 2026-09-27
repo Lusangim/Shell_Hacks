@@ -1,37 +1,89 @@
 /* The CSV and Print controls live with the panel status (app.css); only the report is styled here. */
 #print-report { display: none; }
 
-@page { size: Letter portrait; margin: 0.5in; }
+@page { size: Letter portrait; margin: 0.6in 0.6in 0.65in; }
 
 @media print {
   :root, :root[data-theme] { color-scheme: light; }
-  html, body { width: auto; height: auto; min-height: 0; overflow: visible; background: Canvas; color: CanvasText; }
+  html, body { width: auto; height: auto; min-height: 0; margin: 0; overflow: visible; background: #fff; color: #000; }
   body > :not(#print-report) { display: none !important; }
-  #print-report { display: block; width: 7.5in; max-width: 100%; margin: 0; font: 12px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
-  #print-report h1 { margin: 0 0 16px; font-size: 24px; }
-  #print-report h2 { margin: 24px 0 8px; font-size: 20px; break-after: avoid; }
-  #print-report h3 { margin: 16px 0 8px; color: inherit; font-size: 16px; break-after: avoid; }
-  #print-report p { margin: 4px 0; }
-  #print-report a { color: inherit; text-decoration: underline; }
-  #print-report .detail-block { padding: 8px 0; border-color: currentColor; }
-  #print-report .detail-answer { font-size: 14px; }
-  #print-report .detail-points, #print-report .detail-block details { font-size: 12px; }
-  #print-report .detail-block summary { min-height: 0; padding: 4px 0; list-style: none; }
-  #print-report summary::before, #print-report .detail-note::before, #print-report .swatch { display: none; }
-  #print-report .detail-note { padding: 4px 0; background: none; }
-  #print-report .detail-block > a { min-height: 0; padding: 4px 0; font-size: 12px; }
-  #print-report .overlap-projects { display: block; }
-  #print-report .overlap-project { padding-top: 8px; }
-  #print-report .overlap-assumptions { color: inherit; }
-  #print-report table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 11px; line-height: 1.35; }
-  #print-report caption { text-align: left; margin-bottom: 8px; font-weight: 600; }
+  #print-report {
+    display: block; width: auto; max-width: 7.3in; margin: 0 auto; color: #000; background: #fff;
+    font: 10pt/1.45 "Segoe UI", "Helvetica Neue", Arial, system-ui, sans-serif;
+    font-variant-numeric: tabular-nums; overflow-wrap: anywhere;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  #print-report * { color: inherit; background: none; box-shadow: none; }
+  #print-report p, #print-report dl, #print-report dd, #print-report ul { margin: 0; }
+  #print-report a { text-decoration: none; }
+  #print-report .print-muted, #print-report .print-cite, #print-report .print-label,
+  #print-report .print-meta dt, #print-report .print-figure-label, #print-report .print-figure-note { color: #4a4a4a; }
+
+  /* Header */
+  #print-header { padding-bottom: 10pt; border-bottom: 1.5pt solid #000; }
+  #print-report h1 { margin: 0 0 8pt; font-size: 20pt; line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; }
+  #print-report .print-meta {
+    display: grid; grid-template-columns: max-content 1fr; gap: 2pt 12pt; font-size: 9pt; overflow-wrap: break-word;
+  }
+  #print-report .print-edition { display: block; }
+  #print-report .print-meta dt { font-weight: 600; }
+
+  #print-report h2 {
+    margin: 18pt 0 6pt; font-size: 9pt; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    break-after: avoid; page-break-after: avoid;
+  }
+
+  /* Key figures */
+  #print-report .print-figures {
+    display: grid; grid-template-columns: 1fr 1fr 1fr 2fr;
+    border-top: 0.75pt solid #000; border-bottom: 0.75pt solid #000; break-inside: avoid;
+  }
+  #print-report .print-figure { padding: 7pt 10pt 8pt 0; }
+  #print-report .print-figure + .print-figure { padding-left: 10pt; border-left: 0.5pt solid #bdbdbd; }
+  #print-report .print-figure-value { font-size: 16pt; line-height: 1.2; font-weight: 700; }
+  #print-report .print-figure-label { font-size: 8.5pt; }
+  #print-report .print-figure-note { font-size: 8pt; font-style: italic; }
+
+  /* Selected pair */
+  #print-selected { break-inside: avoid; page-break-inside: avoid; }
+  #print-report .print-card { padding: 10pt 12pt; border: 0.75pt solid #000; }
+  #print-report .print-card-title { margin: 0 0 6pt; font-size: 12pt; font-weight: 700; }
+  #print-report .print-card-title .print-muted { font-weight: 400; }
+  #print-report .print-flag { margin: 0 0 6pt; font-weight: 600; }
+  #print-report .print-projects {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14pt; padding-bottom: 8pt; border-bottom: 0.5pt solid #bdbdbd;
+  }
+  #print-report .print-label { font-size: 7.5pt; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  #print-report .print-utility { font-weight: 600; }
+  #print-report .print-cite { font-size: 8pt; }
+  #print-report .print-facts { display: grid; grid-template-columns: 1.35in 1fr; gap: 4pt 12pt; margin-top: 8pt; }
+  #print-report .print-facts dt { font-weight: 600; }
+  #print-report .coordination-status { min-height: 14pt; border-bottom: 0.5pt solid #000; white-space: pre-line; }
+
+  /* Ranked pairs: one row per pair, never split; the header repeats on every page. */
+  #print-report .print-table {
+    width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 8.5pt; line-height: 1.35;
+  }
   #print-report thead { display: table-header-group; }
-  #print-report th, #print-report td { padding: 6px; border: 1px solid currentColor; text-align: left; vertical-align: top; overflow-wrap: anywhere; white-space: normal; }
-  #print-report th:first-child { width: 7%; }
-  #print-report th:nth-child(2), #print-report th:nth-child(3) { width: 19%; }
-  #print-report th:nth-child(4) { width: 25%; }
-  #print-report th:nth-child(5) { width: 20%; }
-  #print-report th:last-child { width: 10%; }
-  #print-report tr { break-inside: avoid; }
-  #print-report .coordination-status { min-height: 32px; border-bottom: 1px solid currentColor; }
+  #print-report th {
+    padding: 4pt 5pt; border-bottom: 1pt solid #000; font-size: 7.5pt; font-weight: 700; letter-spacing: 0.04em;
+    text-align: left; text-transform: uppercase; vertical-align: bottom;
+  }
+  #print-report td { padding: 4pt 5pt; border-bottom: 0.5pt solid #c4c4c4; text-align: left; vertical-align: top; }
+  #print-report tr { break-inside: avoid; page-break-inside: avoid; }
+  #print-report .print-num { text-align: right; }
+  #print-report td.print-pair { padding: 2pt 0; }
+  /* Tracks match the Utilities, Projects and In service columns (16 / 35 / 8). */
+  #print-report .print-pair-grid { display: grid; grid-template-columns: 16fr 35fr 8fr; }
+  #print-report .print-pair-grid > * { min-width: 0; padding: 2pt 5pt; }
+  #print-report .print-pair-grid .print-missing { grid-column: 1 / -1; }
+  #print-report .print-table .print-name { font-weight: 600; }
+  #print-report .print-table .print-cite { font-size: 7.5pt; }
+  #print-report .print-table .coordination-status { min-height: 0; border: 0; }
+
+  /* Sources and notes */
+  #print-sources { font-size: 8.5pt; break-inside: avoid; page-break-inside: avoid; }
+  #print-sources ul { padding-left: 12pt; }
+  #print-sources li + li { margin-top: 2pt; }
+  #print-report .print-disclaimer { margin-top: 8pt; padding-top: 6pt; border-top: 0.75pt solid #000; font-weight: 600; }
 }

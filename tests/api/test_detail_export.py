@@ -6,7 +6,9 @@ import copy
 import csv
 import io
 import json
+import re
 import shutil
+from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 
 import pytest
@@ -21,6 +23,17 @@ from server.settings import ROOT
 FIXTURES = ROOT / "tests" / "fixtures" / "api"
 BUILD = ROOT / "data" / "build"
 OVERLAPS = TypeAdapter(list[Overlap])
+KEY_COLUMNS = [
+    "Rank", "Score", "Utility A", "Project A", "In service A", "Utility B", "Project B", "In service B",
+    "Distance (km)", "Proximity", "Years to coordinate", "Crosses state line",
+    "Possible saving low (USD)", "Possible saving high (USD)", "Location accuracy", "Sources",
+    "Coordination status", "Notes", "Overlap ID",
+]
+
+
+def km(value: float) -> str:
+    """The page's toFixed(1): one decimal, exact ties rounded up."""
+    return str(Decimal(value).quantize(Decimal("0.1"), rounding=ROUND_HALF_UP))
 
 
 @pytest.fixture
@@ -85,9 +98,11 @@ def test_mcintosh_evidence_survives_detail_and_csv(
         assert "6.7-mile Goshen (Savannah)–Georgia Pacific (Rincon)" in artifact["touch_detail"]
         assert "does not establish work at McIntosh" in artifact["touch_detail"]
     row = next(row for row in csv_rows(real_client) if row["Overlap ID"] == pair_id)
-    assert row["Why they touch"] == artifact["touch_detail"]
-    assert artifact["touch_reason"] == "shared_endpoint" and row["Touch reason"] == "Shared named endpoint"
-    assert (row["Source page A"], row["Source page B"]) == ("41", str(source_page))
+    assert artifact["touch_reason"] == "shared_endpoint"
+    # The key-facts file cites both plan pages; the evidence prose stays in the detail and the plans.
+    assert row["Sources"] == ("SCRTP Planned Facilities 2026-2030 $2M & Above, p. 41; "
+                              f"SERTP 2025 Regional Transmission Plan (Nov 26 2025), p. {source_page}")
+    assert artifact["touch_detail"] not in " ".join(row.values())
 
 
 def test_synthetic_detail_and_unknown_id(artifacts: Path) -> None:
@@ -116,20 +131,17 @@ def test_export_rows_equal_filtered_list(real_client: TestClient, params: list[t
     assert [row["Overlap ID"] for row in rows] == [pair.id for pair in pairs]
     assert [int(row["Rank"]) for row in rows] == [pair.rank for pair in pairs]
     assert [float(row["Score"]) for row in rows] == [pair.score for pair in pairs]
-    assert [row["Band"] for row in rows] == [pair.band_label for pair in pairs]
-    assert [row["Distance km"] for row in rows] == [str(pair.distance_km) for pair in pairs]
+    assert [row["Proximity"] for row in rows] == [pair.band_label for pair in pairs]
+    assert [row["Distance (km)"] for row in rows] == [km(pair.distance_km) for pair in pairs]
+    assert [row["Crosses state line"] for row in rows] == ["Yes" if pair.cross_state else "No" for pair in pairs]
 
 
-def test_export_has_required_conflict_matrix_columns(real_client: TestClient) -> None:
+def test_export_has_only_the_key_columns(real_client: TestClient) -> None:
+    response = real_client.get("/api/export/overlaps.csv", params=[("limit", "1")])
+    assert response.content.startswith(b"\xef\xbb\xbf" + ",".join(KEY_COLUMNS).encode() + b"\r\n")
     rows = csv_rows(real_client, [("limit", "1")])
     assert len(rows) > 1
-    assert set(rows[0]) >= {
-        "Rank", "Score", "Overlap ID", "Project A", "Utility A", "Project B", "Utility B",
-        "Band", "Distance km", "Touch reason", "Why they touch", "In-service year A",
-        "In-service year B", "Year gap", "Years to coordinate", "Accuracy A", "Accuracy B", "Source A",
-        "Source page A", "Source B", "Source page B", "Savings status",
-        "Savings low USD", "Savings high USD", "Coordination status", "Notes",
-    }
+    assert list(rows[0]) == KEY_COLUMNS
     assert all(row["Coordination status"] == "" and row["Notes"] == "" for row in rows)
 
 
@@ -138,26 +150,33 @@ def test_export_reads_like_a_planner_worksheet(real_client: TestClient) -> None:
 
     rows = csv_rows(real_client)
     top = rows[0]
-    assert list(top)[:10] == ["Rank", "Score", "Project A", "Utility A", "In-service year A", "Project B",
-                              "Utility B", "In-service year B", "Year gap", "Years to coordinate"]
     assert (top["Rank"], top["Score"]) == ("1", "5.823")
+    assert (top["Utility A"], top["Utility B"]) == ("Dominion Energy SC", "Georgia Power (inferred)")
+    assert (top["In service A"], top["In service B"]) == ("2028", "2028")
     assert top["Years to coordinate"] == str(max(0, 2028 - date.today().year))
-    assert (top["Band"], top["Touch reason"]) == ("Touching / crossing", "Shared named endpoint")
-    assert top["Savings status"] == "Screening estimate"
-    assert top["Accuracy A"] == "approximate" and top["Accuracy B"] == "exact"
-    town = [row for row in rows if "(town only)" in row["Accuracy A"] + row["Accuracy B"]]
-    assert town, "town-only placements are qualified in the accuracy columns"
-    # No internal codes in the reader-facing columns.
+    assert (top["Distance (km)"], top["Proximity"], top["Crosses state line"]) == ("0.0", "Touching / crossing", "Yes")
+    assert (top["Possible saving low (USD)"], top["Possible saving high (USD)"]) == ("62000", "264000")
+    assert top["Location accuracy"] == "Approximate / Exact"
+    town = [row for row in rows if "(town only)" in row["Location accuracy"]]
+    assert town, "town-only placements are qualified in the accuracy column"
     for row in rows:
-        for column in ("Band", "Touch reason", "Savings status", "Accuracy A", "Accuracy B"):
+        # No internal codes in the reader-facing columns; numbers stay plain so Excel can sort them.
+        for column in ("Proximity", "Location accuracy", "Crosses state line"):
             assert "_" not in row[column], (column, row[column])
+        assert re.fullmatch(r"\d+\.\d", row["Distance (km)"]), row["Distance (km)"]
+        for column in ("Possible saving low (USD)", "Possible saving high (USD)"):
+            assert row[column] == "" or re.fullmatch(r"0|[1-9]\d*", row[column]), (column, row[column])
+        assert re.fullmatch(r"(Exact|Approximate( \(town only\))?) / (Exact|Approximate( \(town only\))?)",
+                            row["Location accuracy"]), row["Location accuracy"]
 
 
 def test_export_empty_filter_is_header_only(real_client: TestClient) -> None:
     assert csv_rows(real_client, [("utility", "No such utility")]) == []
 
 
-def test_export_all_real_savings_keep_evidence_and_original_fields(real_client: TestClient) -> None:
+def test_export_all_real_rows_keep_key_fields_verbatim(real_client: TestClient) -> None:
+    from datetime import date
+
     pairs = real_client.get("/api/overlaps").json()
     projects = {item["properties"]["id"]: item["properties"]
                 for item in real_client.get("/api/projects").json()["features"]}
@@ -168,56 +187,42 @@ def test_export_all_real_savings_keep_evidence_and_original_fields(real_client: 
     assert response.content.startswith(b"\xef\xbb\xbf")
     assert response.content.endswith(b"\r\n")
     assert b"\n" not in response.content.replace(b"\r\n", b"")
-    assert list(rows[0]) == [
-        "Rank", "Score", "Project A", "Utility A", "In-service year A", "Project B", "Utility B",
-        "In-service year B", "Year gap", "Years to coordinate", "Distance km", "Band", "Touch reason",
-        "Why they touch", "Accuracy A", "Accuracy B", "Savings low USD", "Savings high USD", "Savings status",
-        "Savings basis", "Source A", "Source page A", "Source B", "Source page B", "Coordination status", "Notes",
-        "Overlap ID", "Savings assumptions", "Savings caveat",
-    ]
-    status_words = {
-        "range": "Screening estimate",
-        "timing_too_far": "No estimate: in-service years more than 2 apart",
-        "no_cost": "No estimate: no size, or nothing both jobs need at this distance",
-        "unknown_year": "No estimate: an in-service year is not stated",
-    }
+    assert list(rows[0]) == KEY_COLUMNS
     for row, pair in zip(rows, pairs, strict=True):
         savings = pair["savings"]
         assert row["Overlap ID"] == pair["id"]
         assert row["Rank"] == str(pair["rank"])
-        assert row["Savings status"] == status_words[savings["status"]]
-        assert row["Savings basis"] == savings["basis"]
-        assert "Shared work and savings are not verified" in row["Savings caveat"]
+        assert row["Distance (km)"] == km(pair["distance_km"])
+        assert row["Proximity"] == pair["band_label"]
+        assert row["Crosses state line"] == ("Yes" if pair["cross_state"] else "No")
+        years = [pair["a_year"], pair["b_year"]]
+        assert row["Years to coordinate"] == (
+            "unknown" if None in years else str(max(0, min(years) - date.today().year)))
+        # A pair without an estimate leaves both cells blank, never 0.
         for bound in ("low", "high"):
             amount = savings[f"{bound}_usd"]
-            assert row[f"Savings {bound} USD"] == (str(amount) if amount is not None else "")
+            cell = row[f"Possible saving {bound} (USD)"]
+            assert cell == (str(amount) if savings["status"] == "range" else "")
+        citations = []
         for side in ("A", "B"):
             project = projects[pair[side.lower()]]
             assert row[f"Project {side}"] == project["name"]
-            assert row[f"Source {side}"] == project["source"]["doc"]
-            assert row[f"Source page {side}"] == str(project["source"]["page"])
-        if savings["status"] == "range":
-            assert "Team unit-cost file (2026-09-26)" in row["Savings assumptions"]
-            assert "escalated to 2026 at 4% a year" in row["Savings assumptions"]
-        else:
-            assert row["Savings assumptions"] == ""
+            assert row[f"In service {side}"] == (str(project["year"]) if project["year"] is not None else "unknown")
+            citations.append(f'{project["source"]["doc"]}, p. {project["source"]["page"]}')
+        assert row["Sources"] == "; ".join(citations)
         for assumption_id in savings["assumption_ids"]:
             assert assumption_id not in " ".join(row.values())
+    assert any(row["Possible saving low (USD)"] == "" for row in rows)
 
 
-def test_export_top_and_mileage_sized_pairs_have_readable_dated_assumptions(real_client: TestClient) -> None:
+def test_export_top_and_mileage_sized_pairs_keep_their_estimates(real_client: TestClient) -> None:
     rows = csv_rows(real_client)
     top = rows[0]
     assert top["Overlap ID"] == "desc-p41__sertp-p107-9bc088"
-    assert "$5,376,418" in top["Savings basis"]
-    assert "sized as one added 230 kV breaker position" in top["Savings basis"]
-    assert "public precedent" in top["Savings basis"]
-    assert "Team unit-cost file (2026-09-26)" in top["Savings assumptions"]
+    assert (top["Possible saving low (USD)"], top["Possible saving high (USD)"]) == ("62000", "264000")
     mileage = rows[1]
     assert mileage["Rank"] == "2"
-    assert (mileage["Savings low USD"], mileage["Savings high USD"]) == ("62000", "191000")
-    assert "6.7 stated miles" in mileage["Savings basis"]
-    assert "not measured savings" in mileage["Savings assumptions"]
+    assert (mileage["Possible saving low (USD)"], mileage["Possible saving high (USD)"]) == ("62000", "191000")
 
 
 def test_csv_inferred_utility_qualifier_does_not_change_canonical_data(real_client: TestClient) -> None:
@@ -246,19 +251,18 @@ def test_csv_non_range_reasons_have_no_amounts(artifacts: Path, status: str, rea
     (artifacts / "overlaps.json").write_text(json.dumps(pairs), encoding="utf-8")
     with TestClient(create_app(artifact_dir=artifacts), base_url="http://localhost") as client:
         row = csv_rows(client)[0]
-    assert row["Savings basis"] == reason
-    assert row["Savings status"].startswith("No estimate: ")
-    assert row["Savings low USD"] == row["Savings high USD"] == row["Savings assumptions"] == ""
+    assert row["Possible saving low (USD)"] == row["Possible saving high (USD)"] == ""
+    assert reason not in " ".join(row.values())
 
 
-def test_new_csv_basis_escapes_formula_and_missing_assumption_stays_explicit(artifacts: Path) -> None:
+def test_csv_leaves_out_basis_prose_and_assumption_ids(artifacts: Path) -> None:
     pairs = json.loads((artifacts / "overlaps.json").read_text(encoding="utf-8"))
     pairs[0]["savings"]["basis"] = "=SYNTHETIC_FORMULA()"
     (artifacts / "overlaps.json").write_text(json.dumps(pairs), encoding="utf-8")
     with TestClient(create_app(artifact_dir=artifacts), base_url="http://localhost") as client:
         row = csv_rows(client)[0]
-    assert row["Savings basis"] == "'=SYNTHETIC_FORMULA()"
-    assert "Assumption details unavailable" in row["Savings assumptions"]
+    assert (row["Possible saving low (USD)"], row["Possible saving high (USD)"]) == ("100", "200")
+    assert "SYNTHETIC_FORMULA" not in " ".join(row.values())
     assert "fixture-1" not in " ".join(row.values())
 
 
@@ -305,24 +309,26 @@ def test_csv_escapes_formula_and_control_prefixes_but_not_numbers(artifacts: Pat
     collection["features"][0]["properties"]["utility"] = "+Utility"
     collection["features"][0]["properties"]["source"]["doc"] = "@Document"
     collection["features"][1]["properties"]["name"] = "-Command"
+    collection["features"][1]["properties"]["utility"] = "\t=SUM(1,1)\rnext"
     (artifacts / "projects.json").write_text(json.dumps(collection), encoding="utf-8")
     pairs = json.loads((artifacts / "overlaps.json").read_text(encoding="utf-8"))
-    pairs[0]["touch_detail"] = "\t=SUM(1,1)\rnext"
+    pairs[0]["band_label"] = "=HYPERLINK(1)"
     (artifacts / "overlaps.json").write_text(json.dumps(pairs), encoding="utf-8")
     with TestClient(create_app(artifact_dir=artifacts), base_url="http://localhost") as client:
         row = csv_rows(client)[0]
     assert row["Project A"] == "'=SUM(1,1)"
     assert row["Utility A"] == "'+Utility"
     assert row["Project B"] == "'-Command"
-    assert row["Source A"] == "'@Document"
-    assert row["Why they touch"] == "'\t=SUM(1,1)\rnext"
+    assert row["Sources"].startswith("'@Document, p. ")
+    assert row["Utility B"] == "'\t=SUM(1,1)\rnext"
+    assert row["Proximity"] == "'=HYPERLINK(1)"
     assert row["Rank"] == "1"
-    assert row["Distance km"] == "0.0"
-    assert row["Savings low USD"] == "100"
-    pairs[0]["touch_detail"] = "\r=SUM(1,1)"
-    (artifacts / "overlaps.json").write_text(json.dumps(pairs), encoding="utf-8")
+    assert row["Distance (km)"] == "0.0"
+    assert row["Possible saving low (USD)"] == "100"
+    collection["features"][1]["properties"]["utility"] = "\r=SUM(1,1)"
+    (artifacts / "projects.json").write_text(json.dumps(collection), encoding="utf-8")
     with TestClient(create_app(artifact_dir=artifacts), base_url="http://localhost") as client:
-        assert csv_rows(client)[0]["Why they touch"] == "'\r=SUM(1,1)"
+        assert csv_rows(client)[0]["Utility B"] == "'\r=SUM(1,1)"
 
 
 @pytest.mark.parametrize("doc_id,filename", [

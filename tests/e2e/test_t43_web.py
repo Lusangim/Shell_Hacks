@@ -44,7 +44,7 @@ def test_inferred_utility_across_real_project_pair_map_and_print(live_server, br
     expect(page.locator('#overlap-content .overlap-project [data-src="utility"]').nth(1)).to_have_text("Georgia Power (inferred)")
     expect(page.locator('.leaflet-tooltip [data-src="utility"]').filter(has_text="Georgia Power")).to_have_text("Georgia Power (inferred)")
     page.evaluate("window.dispatchEvent(new Event('beforeprint'))")
-    expect(page.locator('#print-selected .overlap-project [data-src="utility"]').nth(1)).to_have_text("Georgia Power (inferred)")
+    expect(page.locator('#print-selected .print-project [data-src="utility"]').nth(1)).to_have_text("Georgia Power (inferred)")
     page.locator("#overlap-back").click()
     fields = project(page, "sertp-p107-9bc088")
     expect(fields.locator('[data-src="utility"]')).to_have_text("Georgia Power (inferred)")
@@ -95,8 +95,9 @@ def test_printed_cost_keeps_adjacent_warnings_and_unflagged_stays_plain(live_ser
     page.locator(".legend summary").click()
     open_more(page)
     page.locator("#print-report-button").click()
-    expect(page.locator("#print-selected .cost-warning").first).to_contain_text("Printed total")
-    expect(page.locator('#print-selected [data-src="cost_usd"]').first).to_have_text("$1,238,443")
+    # The key-facts report prints no plan cost, so a flagged total can never print without its warnings.
+    expect(page.locator("#print-selected")).to_contain_text(flagged_project["properties"]["name"])
+    expect(page.locator('#print-report [data-src="cost_usd"]')).to_have_count(0)
 
 
 @pytest.mark.parametrize("state", ["loading", "empty", "error"])
