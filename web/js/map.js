@@ -160,7 +160,12 @@ export function initializeMap() {
   state.basemapControl = initializeBasemap(map);
   map.on("moveend", updateCityLabels);
   // Labels are placed against the settled view, so re-place them after every fit or pan.
-  map.on("moveend", () => { if (state.pairLabelLayers.length) placePairLabels(state.pairLabelLayers); });
+  map.on("moveend", refreshPairLabels);
+  let pending = 0;
+  window.addEventListener("resize", () => {
+    cancelAnimationFrame(pending);
+    pending = requestAnimationFrame(refreshPairLabels);
+  });
   return map;
 }
 
@@ -304,35 +309,72 @@ function anchorOf(layer) {
   try { return layer.getCenter(); } catch (_error) { return layer.getBounds().getCenter(); }
 }
 
-const LABEL_OFFSETS = { left: [-10, 0], right: [10, 0], top: [0, -8], bottom: [0, 8] };
+const LABEL_OFFSETS = { left: [-12, 0], right: [12, 0], top: [0, -12], bottom: [0, 12] };
 
-// The part of the map not covered by the panel or the phone sheet.
+// Screen points along a drawn path, so a label can avoid covering the lines it names.
+function pathSamples(layer) {
+  const element = layer.getElement?.();
+  if (!element || typeof element.getTotalLength !== "function") return [];
+  const matrix = element.getScreenCTM();
+  const total = element.getTotalLength();
+  if (!matrix || !(total > 0)) return [];
+  const steps = Math.min(48, Math.max(8, Math.ceil(total / 10)));
+  return Array.from({ length: steps + 1 }, (_value, step) => {
+    const point = element.getPointAtLength((total * step) / steps);
+    return new DOMPoint(point.x, point.y).matrixTransform(matrix);
+  });
+}
+
+// The part of the map not covered by the panel, or on phones by the sheet and the timeline card.
 function visibleMapBounds() {
   const map = state.map.getContainer().getBoundingClientRect();
   const panel = document.querySelector(".panel")?.getBoundingClientRect();
   const bounds = { left: map.left + 8, right: map.right - 8, top: map.top + 8, bottom: map.bottom - 8 };
-  if (panel && matchMedia("(max-width: 700px)").matches) bounds.bottom = Math.min(bounds.bottom, panel.top - 8);
-  else if (panel) bounds.left = Math.max(bounds.left, panel.right + 8);
+  if (panel && matchMedia("(max-width: 700px)").matches) {
+    const timeline = document.querySelector(".timeline")?.getBoundingClientRect();
+    bounds.bottom = Math.min(bounds.bottom, panel.top - 8, timeline?.height ? timeline.top - 8 : Infinity);
+  } else if (panel) bounds.left = Math.max(bounds.left, panel.right + 8);
   return bounds;
 }
 
-function openLabel(layer, direction) {
+// Candidate anchors: Leaflet's own (a point, or a line's middle), then each end of a line.
+function anchorsFor(layer) {
+  const anchors = [undefined];
+  if (layer.getLatLngs) {
+    const vertices = layer.getLatLngs().flat(Infinity);
+    if (vertices.length > 1) anchors.push(vertices[0], vertices[vertices.length - 1]);
+  }
+  return anchors;
+}
+
+function openLabel(layer, direction, anchor) {
   const tooltip = layer.getTooltip();
   layer.closeTooltip();
   tooltip.options.direction = direction;
   tooltip.options.offset = L.point(LABEL_OFFSETS[direction]);
-  layer.openTooltip();
+  layer.openTooltip(anchor);
   return tooltip.getElement()?.getBoundingClientRect() ?? null;
 }
 
-// Open the pair's labels on opposite sides, then fall back to the first side that is visible
-// and clear of the other label, so labels never stack on one point or hide under the panel.
+// Open the pair's labels on opposite sides, then keep the best side: clear of the other label,
+// fully on the visible map (not under the panel or sheet), covering as little of either
+// selected project as possible. Labels never stack on one point or hide their own lines.
 function placePairLabels(layers) {
   state.pairLabelLayers = layers;
   if (!layers.length || !state.map) return;
   const bounds = visibleMapBounds();
-  const inside = (rect) => rect.left >= bounds.left && rect.right <= bounds.right && rect.top >= bounds.top && rect.bottom <= bounds.bottom;
+  const samples = layers.flatMap(pathSamples);
+  const area = (rect) => Math.max(0, rect.right - rect.left) * Math.max(0, rect.bottom - rect.top);
+  const visible = (rect) => area({ left: Math.max(rect.left, bounds.left), right: Math.min(rect.right, bounds.right),
+    top: Math.max(rect.top, bounds.top), bottom: Math.min(rect.bottom, bounds.bottom) }) / Math.max(1, area(rect));
+  const covered = (rect) => samples.filter((point) => point.x > rect.left && point.x < rect.right
+    && point.y > rect.top && point.y < rect.bottom).length;
   const clash = (a, b) => a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
+  // Scores compare in order; lower is better: [overlaps the other label, partly hidden, samples covered, -share shown].
+  const worse = (a, b) => {
+    for (let index = 0; index < a.length; index += 1) if (a[index] !== b[index]) return a[index] > b[index];
+    return false;
+  };
   const ordered = [...layers].sort((a, b) => anchorOf(a).lng - anchorOf(b).lng);
   const preferences = ordered.length === 2
     ? [["left", "top", "bottom", "right"], ["right", "bottom", "top", "left"]]
@@ -341,15 +383,29 @@ function placePairLabels(layers) {
   ordered.forEach((layer, index) => {
     if (!layer.getTooltip() || !layer._map) return;
     const choices = preferences[Math.min(index, preferences.length - 1)];
-    let rect = null;
-    for (const direction of choices) {
-      rect = openLabel(layer, direction);
-      if (rect && inside(rect) && !placed.some((other) => clash(rect, other))) break;
-      rect = null;
+    let best = null;
+    let last = null;
+    search: for (const anchor of anchorsFor(layer)) {
+      for (const direction of choices) {
+        const rect = openLabel(layer, direction, anchor);
+        if (!rect) continue;
+        last = { direction, anchor };
+        const shown = visible(rect);
+        const score = [placed.some((other) => clash(rect, other)) ? 1 : 0, shown < 0.999 ? 1 : 0, covered(rect), -shown];
+        if (!best || worse(best.score, score)) best = { direction, anchor, rect, score };
+        if (score[0] === 0 && score[1] === 0 && score[2] === 0) break search;
+      }
     }
-    if (!rect) rect = openLabel(layer, choices[0]);
+    if (!best) return;
+    const same = last && last.direction === best.direction && last.anchor === best.anchor;
+    const rect = same ? best.rect : openLabel(layer, best.direction, best.anchor);
     if (rect) placed.push(rect);
   });
+}
+
+// The sheet or the window can change the visible map without moving it.
+export function refreshPairLabels() {
+  if (state.pairLabelLayers.length) placePairLabels(state.pairLabelLayers);
 }
 
 function resetLabel(layer) {
@@ -377,7 +433,8 @@ export function highlightPair(overlap) {
   state.casingLayers?.eachLayer((layer) => {
     const isSelected = selectedIds.has(layer.feature?.properties?.id);
     const style = styleForCasing(layer.feature);
-    layer.setStyle({ ...style, weight: style.weight + (isSelected ? 2 : 0) });
+    // A selected dashed line sits on a continuous casing, so the halo never shows through the gaps.
+    layer.setStyle({ ...style, weight: style.weight + (isSelected ? 2 : 0), dashArray: isSelected ? null : style.dashArray });
     if (isSelected) layer.bringToFront();
   });
   selected.forEach((layer) => layer.bringToFront());

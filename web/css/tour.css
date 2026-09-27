@@ -3,7 +3,7 @@
 .tour-entry #tour-invitation { background: var(--ink); border-color: var(--ink); color: var(--panel); }
 @media (hover: hover) and (pointer: fine) { .tour-entry #tour-invitation:hover { background: var(--pencil); border-color: var(--pencil); } }
 .tour-entry #tour-dismiss { width: 44px; min-width: 44px; padding: 0; margin-left: auto; }
-.tour-target { outline: 4px double var(--focus) !important; outline-offset: 4px; }
+.tour-target { outline: 4px double var(--focus) !important; outline-offset: 4px; scroll-margin: 16px; }
 .title-block.tour-target, .map.tour-target, .brief-panel.tour-target { outline-offset: -8px; }
 .tour-card { position: fixed; z-index: 1600; left: 440px; top: 24px; width: min(360px, calc(100vw - 464px)); padding: 16px 20px; border-radius: var(--radius-card); background: var(--panel); color: var(--ink); box-shadow: var(--card-shadow); }
 .tour-card:focus { outline: none; }

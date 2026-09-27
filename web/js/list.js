@@ -33,9 +33,20 @@ function overlapProjects(overlap, byId) {
   return [byId.get(overlap.a), byId.get(overlap.b)];
 }
 
-function sourceText(project) {
+// The same citation text as before; the page reference never breaks away from its "p.".
+function sourceField(project) {
   const source = project?.properties?.source;
-  return source?.doc && source?.page ? `${source.doc}, p. ${source.page}` : "Source page not stated";
+  const element = document.createElement("span");
+  element.dataset.src = "source";
+  if (!(source?.doc && source?.page)) {
+    element.textContent = "Source page not stated";
+    return element;
+  }
+  const page = document.createElement("span");
+  page.className = "nowrap";
+  page.textContent = `p. ${source.page}`;
+  element.append(document.createTextNode(`${source.doc}, `), page);
+  return element;
 }
 
 function selectOverlap(overlap, button, byId, openDetail = true) {
@@ -82,7 +93,10 @@ export function renderList(overlaps, projects) {
     // Headline: the two utilities, each with a line sample drawn the way the map draws it.
     const utilities = document.createElement("strong");
     utilities.className = "row-utilities";
-    utilities.append(utilityItem(a), separator(" / "), utilityItem(b));
+    // The separator travels with the first utility, so a wrap never starts a line with it.
+    const firstUtility = utilityItem(a);
+    firstUtility.append(separator(" / "));
+    utilities.append(firstUtility, utilityItem(b));
     const metric = document.createElement("span");
     metric.className = "row-metric";
     const band = field("span", overlap.band_label ?? "Distance not stated", "band_label", "row-band");
@@ -95,7 +109,7 @@ export function renderList(overlaps, projects) {
     names.append(field("span", a?.properties?.name, "name"), separator(" / "), field("span", b?.properties?.name, "name"));
     const sources = document.createElement("span");
     sources.className = "row-name row-sources";
-    sources.append(field("span", sourceText(a), "source"), document.createTextNode(" / "), field("span", sourceText(b), "source"));
+    sources.append(sourceField(a), document.createTextNode(" / "), sourceField(b));
     const flags = document.createElement("span");
     flags.className = "row-flags";
     flags.append(field("span", `${capitalized(overlap.accuracy_pair ?? "unknown")} location`, "accuracy", "row-accuracy"));

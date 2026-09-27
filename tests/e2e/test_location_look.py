@@ -129,8 +129,9 @@ def test_map_key_shows_exact_approximate_and_town_level(live_server, width, heig
         key = page.get_by_test_id("map-key")
         if width == 1440:
             expect(key).to_be_visible()
-            for label in labels:
+            for label in labels + ["Dominion Energy SC", "Georgia Power", "MEAG Power", "Georgia Transmission Corp."]:
                 expect(key).to_contain_text(label)
+            expect(key.locator(".sample")).to_have_count(5)
         else:
             expect(key).to_be_hidden()
             page.locator(".legend summary").click()
@@ -194,6 +195,14 @@ def test_selected_pair_labels_keep_words_whole_and_apart(live_server, width, the
         page.wait_for_timeout(200)
         labels = page.evaluate("""() => {
           const panel = document.querySelector('.panel').getBoundingClientRect();
+          const samples = [];
+          for (const path of document.querySelectorAll('[data-testid="project-feature"][data-selected="true"]')) {
+            const total = path.getTotalLength(), matrix = path.getScreenCTM();
+            for (let i = 0; i <= 48; i++) {
+              const point = path.getPointAtLength(total * i / 48);
+              samples.push(new DOMPoint(point.x, point.y).matrixTransform(matrix));
+            }
+          }
           return [...document.querySelectorAll('.leaflet-tooltip')].map(tip => {
             const rect = tip.getBoundingClientRect();
             const name = tip.querySelector('.tooltip-name');
@@ -204,8 +213,9 @@ def test_selected_pair_labels_keep_words_whole_and_apart(live_server, width, the
               range.setEnd(text, match.index + match[0].length);
               if (range.getClientRects().length > 1) split.push(match[0]);
             }
+            const covered = samples.filter(p => p.x > rect.left && p.x < rect.right && p.y > rect.top && p.y < rect.bottom).length;
             return {left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom, width: rect.width,
-                    split, panelRight: panel.right};
+                    split, covered, panelRight: panel.right};
           });
         }""")
         a, b = labels
@@ -214,7 +224,9 @@ def test_selected_pair_labels_keep_words_whole_and_apart(live_server, width, the
             assert label["width"] >= 160, label
         assert a["right"] <= b["left"] or b["right"] <= a["left"] or a["bottom"] <= b["top"] or b["bottom"] <= a["top"], labels
         if width == 1440:
+            # With room to spare, labels sit clear of the panel and of the lines they name.
             assert all(label["left"] >= label["panelRight"] for label in labels), labels
+            assert all(label["covered"] == 0 for label in labels), labels
         browser.close()
 
 
@@ -284,6 +296,16 @@ def test_states_name_filters_show_skeleton_and_clear_stale_loading_text(live_ser
         loading = page.get_by_test_id("loading-state")
         expect(loading).to_contain_text("Loading ranked opportunities")
         expect(loading.locator('.skeleton-row[aria-hidden="true"]')).to_have_count(3)
+        # A disabled control looks disabled: pencil text instead of ink.
+        expect(page.locator("#filters-toggle")).to_be_disabled()
+        assert page.evaluate("""() => {
+          const probe = document.createElement('span');
+          probe.style.color = 'var(--pencil)';
+          document.body.append(probe);
+          const pencil = getComputedStyle(probe).color;
+          probe.remove();
+          return getComputedStyle(document.querySelector('#filters-toggle')).color === pencil;
+        }""")
         page.close()
         page = browser.new_page(viewport={"width": 1440, "height": 900})
         page.route("**/api/overlaps", lambda route: route.fulfill(status=503, json={"error": {"code": "unavailable", "message": "Unavailable"}}))

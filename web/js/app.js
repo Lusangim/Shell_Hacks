@@ -1,5 +1,5 @@
 import { loadFilteredData, loadShellData } from "./api.js";
-import { initializeMap, refreshMapTheme, renderMap } from "./map.js";
+import { initializeMap, refreshMapTheme, refreshPairLabels, renderMap } from "./map.js";
 import { renderList, renderUnknownLocations, restorePairSelection, selectFirstOverlapForProject } from "./list.js";
 import { setupProjectDetail } from "./project-detail.js";
 import { setupOverlapDetail } from "./overlap-detail.js";
@@ -193,6 +193,7 @@ function setupSheet() {
     delete status.dataset.src;
     status.textContent = expanded ? "Opportunity sheet expanded." : "Opportunity sheet collapsed.";
     state.map.invalidateSize();
+    refreshPairLabels();
   }
   button.addEventListener("click", () => setExpanded(!sheet.classList.contains("expanded")));
   document.addEventListener("focusin", (event) => {
