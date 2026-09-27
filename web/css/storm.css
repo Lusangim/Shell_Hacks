@@ -4,6 +4,18 @@
 .storm-lab button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--rule-strong); border-radius: var(--radius-control); background: var(--panel); color: var(--ink); font: inherit; cursor: pointer; }
 .storm-lab button:focus-visible, .storm-lab input:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 .storm-lab button:disabled { opacity: 0.65; cursor: wait; }
+.storm-options { display: grid; grid-template-columns: 1fr; gap: 6px; margin: 12px 0; }
+.storm-options label { font-weight: 600; }
+.storm-options select { width: 100%; min-height: 44px; padding: 8px; border: 1px solid var(--rule-strong); border-radius: var(--radius-control); background: var(--panel); color: var(--ink); font: inherit; }
+.storm-options select:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.storm-icon { background: transparent; border: 0; pointer-events: none; }
+.storm-symbol-art { width: 80px; height: 80px; overflow: visible; color: var(--storm-track); transform-origin: 40px 40px; filter: drop-shadow(0 2px 8px rgba(0,0,0,.3)); }
+.storm-symbol-art path { fill: currentColor; stroke: var(--panel); stroke-width: 1; }
+.storm-cloud-back { fill: var(--storm-track); opacity: .18; }
+.storm-eye { fill: var(--panel); stroke: currentColor; stroke-width: 3; }
+.storm-crossing { animation: storm-area-pulse .8s ease-out 1; }
+@keyframes storm-area-pulse { 50% { stroke-width: 8; stroke-opacity: 1; fill-opacity: .22; } }
+@media (prefers-reduced-motion: reduce) { .storm-crossing { animation: none; } }
 #storm-estimate { width: 100%; font-weight: 600; }
 #storm-status { min-height: 1.4em; }
 .storm-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 12px 0; border-top: 1px solid var(--rule); }

@@ -165,13 +165,32 @@
               </div>
               <section id="storm-lab" class="storm-lab" aria-labelledby="storm-heading">
                 <h3 id="storm-heading">Storm scenario (hypothetical)</h3>
-                <p>Hypothetical storm GL-1: not a forecast, not observed damage.</p>
-                <button id="storm-estimate" type="button">Estimate storm cost for this area</button>
+                <p>Choose a hypothetical storm. This is not a forecast or observed damage.</p>
+                <div class="storm-options">
+                  <label for="storm-direction">Approach direction</label>
+                  <select id="storm-direction">
+                    <option value="SE">From the southeast (Atlantic)</option>
+                    <option value="E">From the east</option>
+                    <option value="NE">From the northeast</option>
+                    <option value="S">From the south</option>
+                    <option value="SW">From the southwest (Gulf)</option>
+                    <option value="W">From the west</option>
+                    <option value="NW">From the northwest</option>
+                    <option value="N">From the north</option>
+                  </select>
+                  <label for="storm-category">Storm strength</label>
+                  <select id="storm-category">
+                    <option value="1">Category 1</option><option value="2">Category 2</option>
+                    <option value="3" selected>Category 3</option><option value="4">Category 4</option>
+                  </select>
+                </div>
+                <button id="storm-estimate" type="button">Invoke storm</button>
                 <p id="storm-status" role="status" aria-live="polite"></p>
                 <div id="storm-results" hidden>
                   <div class="storm-controls" role="group" aria-label="Storm track controls">
-                    <button id="storm-play" type="button">Play storm</button>
-                    <button id="storm-reset" type="button">Reset storm</button>
+                    <button id="storm-play" type="button">Pause storm</button>
+                    <button id="storm-reset" type="button">Replay storm</button>
+                    <button id="storm-skip" type="button">Skip to results</button>
                     <label for="storm-frame">Storm frame</label>
                     <input id="storm-frame" type="range" min="0" max="12" step="1" value="0">
                     <output id="storm-frame-label" for="storm-frame"></output>
