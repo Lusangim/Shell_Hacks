@@ -94,6 +94,30 @@ def slider_latency(page):
     }""")
 
 
+def scoped_focus_graphics(page, selector):
+    """Measure each exposed control before leaving its disclosure or detail view."""
+    controls = page.locator(selector).locator(
+        'button,input:not([type="hidden"]),select,textarea,a[href],summary,'
+        '[role="button"],[tabindex]:not([tabindex="-1"])'
+    )
+    exposed = [control for control in controls.all()
+               if control.is_visible() and control.is_enabled()
+               and control.get_attribute("aria-disabled") != "true"]
+    if not exposed:
+        return []
+    # Use a real Tab to establish keyboard modality, then stay within this surface.
+    exposed[0].focus()
+    page.keyboard.press("Tab")
+    graphics = []
+    for control in exposed:
+        control.focus()
+        if not control.evaluate("element => document.activeElement === element"):
+            graphics.append(f"{selector} control did not receive focus: {control.get_attribute('id')}")
+            continue
+        graphics += surface_issues(page, focus_only=True)["graphics"]
+    return sorted(set(graphics))
+
+
 @pytest.mark.parametrize("state,width,height,theme", MATRIX, ids=[f"{s}-{w}-{t}" for s,w,h,t in MATRIX])
 def test_full_contract_scene(live_server, state, width, height, theme, record_property):
     with sync_playwright() as playwright:
@@ -135,11 +159,13 @@ def test_full_contract_scene(live_server, state, width, height, theme, record_pr
                     if summary.is_visible() and summary.locator("..").get_attribute("open") is None:
                         summary.click()
                 detail_expanded = surface_issues(page)
+                issues["graphics"] += scoped_focus_graphics(page, ".detail-pane")
                 reveal_brief(page)
                 for summary in page.locator("#brief-panel details > summary").all():
                     if summary.is_visible() and summary.locator("..").get_attribute("open") is None:
                         summary.click()
                 brief_expanded = surface_issues(page)
+                issues["graphics"] += scoped_focus_graphics(page, "#brief-panel")
                 issues["overflow"] += page.evaluate(OVERFLOW_JS)
                 brief_lint = page.evaluate(TEXT_LINT_JS)
                 issues["copy"] += brief_lint["own"] + brief_lint["visible"]
@@ -147,6 +173,16 @@ def test_full_contract_scene(live_server, state, width, height, theme, record_pr
                 back_to_pair(page)
                 page.locator("#overlap-back").click()
             open_phone_sheet(page)
+            filters_toggle = page.locator("#filters-toggle")
+            if filters_toggle.get_attribute("aria-expanded") != "true":
+                filters_toggle.click()
+            for summary in page.locator("#filter-panel details > summary").all():
+                if summary.is_visible() and summary.locator("..").get_attribute("open") is None:
+                    summary.click()
+            filters_expanded = surface_issues(page)
+            issues["graphics"] += scoped_focus_graphics(page, "#filter-panel")
+            filters_toggle.click()
+            expect(page.locator("#filter-panel")).to_be_hidden()
             for summary in page.locator("main details > summary").all():
                 if summary.is_visible() and summary.locator("..").get_attribute("open") is None:
                     summary.click()
@@ -156,8 +192,9 @@ def test_full_contract_scene(live_server, state, width, height, theme, record_pr
                 if summary.is_visible() and summary.locator("..").get_attribute("open") is None:
                     summary.click()
             menu_expanded = surface_issues(page)
+            issues["graphics"] += scoped_focus_graphics(page, "#more-menu")
             for category in ("contrast", "graphics", "targets", "fonts", "structure", "names", "motion", "reduced"):
-                issues[category] = sorted(set(issues[category] + detail_expanded.get(category, []) + brief_expanded.get(category, []) + expanded[category] + menu_expanded[category]))
+                issues[category] = sorted(set(issues[category] + detail_expanded.get(category, []) + brief_expanded.get(category, []) + filters_expanded[category] + expanded[category] + menu_expanded[category]))
             close_more(page)
             # The active control's ring must contrast with its actual surrounding surface.
             page.keyboard.press("Tab")
@@ -275,6 +312,8 @@ def test_blocked_brief_and_optional_map_keep_app_usable(live_server, width, heig
             expect(page.locator("#search-options option")).not_to_have_count(0)
             page.locator("#search-input").press("Enter")
             expect(page.locator("#search-selection")).to_contain_text("Savannah")
-            assert slider_latency(page)<200
+            elapsed = slider_latency(page)
+            print({"width": width, "theme": theme, "slider_ms": elapsed})
+            assert elapsed < 200
         finally:
             browser.close()

@@ -31,7 +31,7 @@
         <div class="app-search">
           <form id="search-form" role="search">
             <label id="find-heading" for="search-input">Search a city or project</label>
-            <span class="search-field"><input id="search-input" type="search" list="search-options" autocomplete="off" minlength="2" placeholder="Search a city or project"></span>
+            <span class="search-field"><input id="search-input" type="search" list="search-options" autocomplete="off" minlength="2" placeholder="Search city or project"></span>
             <datalist id="search-options"></datalist>
           </form>
         </div>
@@ -280,7 +280,7 @@
           <p id="timeline-status" role="status">Loading in-service years.</p>
         </section>
         <div id="map" class="map" data-testid="map"></div>
-        <button id="map-pair-open" class="map-pair-open" type="button" hidden>Open highlighted pair</button>
+        <button id="map-pair-open" class="map-pair-open" type="button" aria-label="Open highlighted pair" hidden><span class="map-pair-label">Open highlighted pair</span><span class="map-pair-short">Open pair</span></button>
         <details class="map-key" role="group" aria-label="Map key" data-testid="map-key">
           <summary>Map key</summary>
           <ul class="key-list">

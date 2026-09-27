@@ -109,6 +109,9 @@ def test_capped_pair_note_is_visible_in_row_detail_and_print(live_server):
         expect(row.locator('[data-src="band_label"]')).to_have_text(capped["band_label"])
         assert page.locator(f'[data-overlap-id="{plain["id"]}"] [data-src="town_capped"]').count() == 0
         page.goto(f"{live_server}/#overlap={capped['id']}")
+        overview_note = page.locator('#pair-summary [data-src="town_capped"]')
+        expect(overview_note).to_be_visible()
+        expect(overview_note).to_contain_text("Counted as under 40 km")
         open_pair_section(page, "Why they appear together")
         note = page.locator('#overlap-content [data-src="town_capped"]')
         expect(note).to_be_visible()
