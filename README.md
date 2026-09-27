@@ -10,6 +10,24 @@ Built for ShellHacks 2026, Sperry Tech GridLock Challenge. It compares Dominion 
 security, tests): [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** · **The exact rules: [docs/METHODOLOGY.md](docs/METHODOLOGY.md)**
 · **Live demo script and Q&A: [docs/PITCH.md](docs/PITCH.md)**
 
+## For judges: see it in two minutes
+
+1. **Without installing anything:** [docs/DEMO.md](docs/DEMO.md) walks through every feature in screenshots, and the
+   Devpost page has a short demo video.
+2. **Run it on Windows, macOS or Linux** (needs Python 3.12 and Git; or use **Code → Download ZIP** and unzip):
+
+   ```
+   git clone https://github.com/Lusangim/Shell_Hacks.git
+   cd Shell_Hacks
+   python run.py
+   ```
+
+   Use `python3 run.py` on macOS and Linux. The first run installs the pinned packages (a few minutes) and then
+   opens http://127.0.0.1:8765; add `--no-map` to skip the optional 220 MB street map. The double-click
+   scripts `SETUP` and `START` below do the same.
+3. **Try first:** click pair **#1** and open **How this pair ranks**; search **Savannah**, choose **Explore this
+   area**, then **Invoke storm**; or press **Take the tour** for the 12-step guided walk.
+
 ## At a glance
 
 | | |

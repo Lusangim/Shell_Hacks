@@ -28,7 +28,7 @@ written for a first-time visitor. This step gives the whole ranking formula with
 Planners start from a place. Search a city, project or substation in the top bar; choosing a result moves the
 map.
 
-![Start here: the five places where close pairs cluster, and the impact line for the current results](screenshots/19-start-here-and-impact.png)
+![The impact summary of the current results: pairs, cross-state pairs, possible savings and the utilities with the most pairs](screenshots/19-start-here-and-impact.png)
 
 New here? **Start here** offers the five places where close pairs cluster, such as Rincon, next to the
 McIntosh pairs. One click opens a 10 km area there. The list header sums up the current results: how many
@@ -103,7 +103,7 @@ Choose a place and **Explore this area** to list every project and pair inside a
 1 to 80 km. On the map, the **Explore an area** button does the same for any point. Switch it on, then click
 the map; a plain map click never drops a circle.
 
-![The Explore an area button switched on, asking for a click on the map](screenshots/20-area-tool.png)
+![Explore an area on the map: switched on, one click drops a 40 km circle and lists what is inside](screenshots/20-area-tool.png)
 
 ## 12. Invoke a storm over an area (Resilience Lab preview)
 

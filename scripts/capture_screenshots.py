@@ -69,8 +69,16 @@ class Shooter:
 
     def save(self, page: Page, name: str) -> None:
         self.settle(page, 600)
+        # A keyboard focus ring from the scripted clicks is not part of the picture.
+        page.evaluate("document.activeElement && document.activeElement.blur && document.activeElement.blur()")
+        page.wait_for_timeout(150)
         page.screenshot(path=str(self.out / f"{name}.png"))
         print("saved", name)
+
+    @staticmethod
+    def map_idle(page: Page, ms: int = 900) -> None:
+        page.wait_for_function("!window.__gl.map._animatingZoom && !window.__gl.map._panAnim?._inProgress", timeout=20000)
+        page.wait_for_timeout(ms)
 
     def open_top_pair(self, page: Page) -> None:
         page.get_by_test_id("overlap-row").first.locator("button").click()
@@ -87,11 +95,24 @@ class Shooter:
 
     def reveal(self, page: Page, selector: str, open_details: bool = True) -> None:
         block = page.locator(selector).first
-        # Pair sections sit in folded disclosures in the right pane: open the one holding the block.
-        block.evaluate("el => { const section = el.closest('details'); if (section) section.open = true; }")
+        # Pair sections sit in folded disclosures in the right pane: open only the one holding the block, then
+        # bring its heading to the top of the pane, just below the pane's sticky header.
+        block.evaluate("""el => {
+          const section = el.closest('details');
+          document.querySelectorAll('.detail-pane details.pair-disclosure').forEach(d => { if (d !== section) d.open = false; });
+          if (section) section.open = true;
+        }""")
         if open_details:
             block.evaluate("el => el.querySelectorAll('details').forEach(d => d.open = true)")
-        block.evaluate("el => el.scrollIntoView({block: 'start'})")
+        block.evaluate("""el => {
+          const section = el.closest('details');
+          const anchor = section ? section.querySelector(':scope > summary') : el;
+          const pane = el.closest('.detail-pane');
+          if (!pane) { anchor.scrollIntoView({block: 'start'}); return; }
+          const bar = pane.querySelector('#detail-bar');
+          const offset = (bar && !bar.hidden ? bar.getBoundingClientRect().height : 0) + 16;
+          pane.scrollTop += anchor.getBoundingClientRect().top - pane.getBoundingClientRect().top - offset;
+        }""")
 
     def search(self, page: Page, place: str) -> None:
         box = page.locator("#search-input")
@@ -167,9 +188,12 @@ def capture(shooter: Shooter, google: bool) -> None:
 
     page = s.page()
     s.search(page, "Savannah")
+    s.map_idle(page)
     page.locator("#explore-area").click()
     expect(page.locator("#area-panel")).to_be_visible()
     expect(page.locator("#area-projects li").first).to_be_attached(timeout=15000)
+    expect(page.get_by_test_id("area-circle")).to_be_attached()
+    s.map_idle(page, 1500)
     s.save(page, "11-explore-area")
     page.close()
 
@@ -220,9 +244,17 @@ def capture(shooter: Shooter, google: bool) -> None:
     page = s.page()
     expect(page.locator("#start-here button").first).to_be_visible()
     page.locator("#start-here").evaluate("el => el.scrollIntoView({block: 'center'})")
+    page.locator("#impact-card summary").click()
+    expect(page.locator("#impact-full")).to_be_visible()
     s.save(page, "19-start-here-and-impact")
+    page.locator("#impact-card summary").click()
     page.locator("#area-mode-toggle").click()
     expect(page.locator("#area-mode-toggle")).to_have_attribute("aria-pressed", "true")
+    box = page.get_by_test_id("map").bounding_box()
+    page.mouse.click(box["x"] + box["width"] * 0.525, box["y"] + box["height"] * 0.33)  # near Augusta
+    expect(page.get_by_test_id("area-circle")).to_be_attached(timeout=15000)
+    expect(page.locator("#area-projects li").first).to_be_attached(timeout=15000)
+    s.map_idle(page, 1500)
     s.save(page, "20-area-tool")
     page.close()
 
@@ -231,7 +263,7 @@ def capture(shooter: Shooter, google: bool) -> None:
     expect(page.locator("#pair-tracker")).to_be_visible()
     page.locator("#tracker-status").select_option("Contacted")
     page.locator("#tracker-notes").fill("Example: ask Dominion Energy SC where the Deerfield switching station will be.")
-    page.locator("#pair-tracker").evaluate("el => el.scrollIntoView({block: 'center'})")
+    s.reveal(page, "#pair-tracker", open_details=False)
     s.save(page, "21-coordination-tracker")
     page.close()
 
@@ -241,9 +273,11 @@ def capture(shooter: Shooter, google: bool) -> None:
     if storm.ok:
         page = s.page()
         s.search(page, "Savannah")
+        s.map_idle(page)
         page.locator("#explore-area").click()
         expect(page.locator("#area-panel")).to_be_visible()
         expect(page.locator("#area-projects li").first).to_be_attached(timeout=15000)
+        s.map_idle(page)
         page.locator("#storm-lab").evaluate("el => el.scrollIntoView({block: 'center'})")
         page.get_by_role("button", name="Invoke storm", exact=True).click()
         expect(page.get_by_test_id("storm-symbol")).to_be_attached(timeout=20000)
