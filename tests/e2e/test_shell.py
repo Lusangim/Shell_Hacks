@@ -289,8 +289,13 @@ def test_accuracy_is_encoded_in_line_style_and_unknowns_stay_unmapped(shell_serv
         expect(page.get_by_test_id("project-feature")).to_have_count(12)
         exact = page.locator('[data-project-id="desc-p1"]')
         approximate = page.locator('[data-project-id="desc-p3"]')
+        # These fixture projects are single sites: an exact site is a filled dot and an approximate
+        # site a hollow ring (a dash barely showed on a small filled dot). Dashed approximate lines
+        # are checked on real routes in test_location_look.py.
         assert exact.get_attribute("stroke-dasharray") is None
-        expect(approximate).to_have_attribute("stroke-dasharray", "8 5")
+        expect(exact).to_have_attribute("fill-opacity", "1")
+        expect(approximate).to_have_attribute("fill-opacity", "0")
+        expect(approximate).to_have_attribute("data-look", "approximate")
         assert page.locator('[data-project-id="desc-p13"]').count() == 0
         expect(page.get_by_text("Location unknown (1)")).to_be_visible()
         browser.close()

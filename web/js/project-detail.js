@@ -1,3 +1,5 @@
+import { swatchFor } from "./look.js";
+
 const SOURCE_DOCS = new Map([
   ["SCRTP Planned Facilities 2026-2030 $2M & Above", "desc-scrtp-2026-2030"],
   ["SERTP 2025 Regional Transmission Plan (Nov 26 2025)", "sertp-2025-rtp"],
@@ -63,6 +65,7 @@ export function projectSummary(feature, includeName = true) {
   const summary = detailBlock(utilityLabel(props), "utility", "Source text", [
     sourced("li", `In service: ${props.in_service ?? "not stated"}`, "in_service"),
   ]);
+  summary.block.querySelector(".detail-answer").prepend(swatchFor(props));
   const cost = document.createElement("li");
   cost.append(document.createTextNode("Plan cost: "), sourced("span",
     props.cost_basis === "plan" && Number.isFinite(props.cost_usd) ? money(props.cost_usd) : "not stated", "cost_usd"));
@@ -81,9 +84,16 @@ export function projectSummary(feature, includeName = true) {
   summary.block.insertBefore(citation(props.source), summary.list);
   summary.disclosure.append(sourced("p", props.description, "description"),
     sourced("p", props.need, "need"), sourced("p", `Status: ${props.status ?? "not stated"}`, "status"));
+  // A town-centre-only location says so in the visible bullets, not only behind "Location sources".
+  const townOnly = props.town_only === true && Boolean(feature.geometry);
+  const where = townOnly
+    ? sourced("li", feature.geometry.type === "Point"
+      ? "Town-level location: drawn at the town centre, not at a substation."
+      : "Town-level location: drawn as a straight line between town centres, not substations.", "town_only")
+    : sourced("li", !feature.geometry ? "Proximity cannot be assessed." : feature.geometry.type === "Point"
+      ? "Shown as a mapped point." : "Shown as a mapped line.", "geometry");
   const location = detailBlock(`Location: ${props.accuracy ?? "unknown"}`, "accuracy", "Location sources", [
-    sourced("li", !feature.geometry ? "Proximity cannot be assessed." : feature.geometry.type === "Point"
-      ? "Shown as a mapped point." : "Shown as a mapped line.", "geometry"),
+    where,
     sourced("li", "Construction limits are not verified.", "location_caveat"),
   ]);
   location.disclosure.append(sourced("p", readableEvidence(props.location_source, [feature]), "location_source"));

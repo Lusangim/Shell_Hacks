@@ -3,6 +3,8 @@ export const state = {
   projectLayers: null,
   casingLayers: null,
   basemapLayers: null,
+  haloLayer: null,
+  pairLabelLayers: [],
   cityMarkers: [],
   projects: [],
   overlaps: [],

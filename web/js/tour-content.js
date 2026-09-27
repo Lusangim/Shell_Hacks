@@ -9,7 +9,7 @@ export const tourSteps = [
   { id: "purpose", target: ".title-block", title: "Public plans, shared possibilities",
     body: "Compare public transmission plans across Georgia and South Carolina. GridLock screens projects from different utilities within 40 km for possible coordination around similar timeframes." },
   { id: "map", target: "#map", title: "Read the map",
-    body: "Colours identify utilities across both states; solid lines mark exact locations and dashed lines mark approximate locations. Unknown locations stay in the list." },
+    body: "Colours identify utilities across both states. Solid lines and filled dots are exact, dashed lines and rings are approximate, and dotted lines or dashed rings mark a town-level location; unknown locations stay in the list." },
   { id: "ranking", target: "#opportunities-heading", prepare: "list", title: "How pairs are ranked",
     body: "The score combines distance band, timing, accuracy and a cross-state factor; savings are not in the score. Bands are touching, under 1.6 km, under 8 km and under 40 km." },
   { id: "search", target: "#search-form", title: "Find Savannah",
