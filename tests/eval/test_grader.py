@@ -42,6 +42,17 @@ def errors(brief, pair, a, b):
     return grade_brief(brief, pair, a, b, CONTACTS).errors
 
 
+def test_the_ai_brief_example_in_the_page_passes_the_live_grader() -> None:
+    """The brief panel shows this example of the Claude API brief, so it must meet the live feature's rules."""
+    source = (ROOT / "web/js/ai-brief-example.js").read_text(encoding="utf-8")
+    example = json.loads(source[source.index("{"):source.rindex("}") + 1])
+    pair, a, b = case_input(example["overlap_id"])
+    result = grade_brief(example, pair, a, b, CONTACTS)
+    assert result.ok, result.errors
+    assert example["generated_by"].startswith("claude-") and example["prompt_version"] == "claude-brief-v1"
+    assert (example["savings_range"]["low_usd"], example["savings_range"]["high_usd"]) == (pair.savings.low_usd, pair.savings.high_usd)
+
+
 def test_manifest_is_real_and_covers_available_categories() -> None:
     assert len(CASES) == 30
     assert Counter(case["split"] for case in CASES) == {"dev": 20, "held_out": 10}

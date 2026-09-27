@@ -28,7 +28,7 @@ export const tourSteps = [
   { id: "area", target: "#search-form", title: "Explore an area",
     body: "Search for a place, choose a result and press Enter, then select Explore this area. It lists every project and pair within 40 km, and its radius control changes the circle from 1 to 80 km." },
   { id: "brief", target: "#brief-panel:has(#brief-copy:enabled)", prepare: "pair", title: "Read a coordination brief",
-    body: "A one-page note for the pair: what, where, when, what could be shared, the savings range, which organisations to contact, and caveats, all from the plans. It is labelled Template or AI-drafted; verify it before use." },
+    body: "Who to contact and what to settle first, ready to copy with the pair's facts and sources. It is labelled Template. With a Claude API key, an AI-drafted brief adds a plain-language note and the first question to settle; pair #1 shows an example." },
   { id: "export", target: ".report-controls", prepare: "export", title: "Keep a copy",
     body: "Export CSV saves the ranked list you are looking at, laid out like a utility conflict matrix; Print report gives a readable copy with sources. Estimates stay labelled as estimates." },
 ];

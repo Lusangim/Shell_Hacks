@@ -100,11 +100,38 @@ def test_copy_visible_brief_and_sources_with_status(browser_page, live_server, f
     expect(panel.locator("#brief-state")).to_be_in_viewport()
     if not failure:
         copied = page.evaluate("window.copiedBrief")
-        assert "Template" in copied and "Possible saving (estimate)" in copied
+        assert "Template" in copied and "Next step" in copied and "Contact Dominion Energy SC and Georgia Power planning." in copied
+        # The folded facts belong to the note, so the copy stands alone.
+        assert "Possible saving (estimate)" in copied and "km apart" in copied
         assert "Team unit costs" in copied and "2026-09-26" in copied
         assert "/api/sources/desc-scrtp-2026-2030#page=41" in copied
         assert "Copy brief" not in copied and "input_hash" not in copied
-        assert "These are separate public plan entries" not in copied  # disclosure is closed
+        assert "These are separate plan entries" not in copied  # an unopened evidence disclosure stays out
+        assert "Claude API" not in copied and "Who to contact and what to settle first" not in copied
+
+
+@pytest.mark.parametrize("status", ["template", "cached"])
+def test_brief_leads_with_actions_and_shows_what_the_ai_brief_adds(browser_page, live_server, status):
+    page = browser_page
+    payload = page.request.get(f"{live_server}/api/briefs/{PAIR}").json()
+    page.route(f"**/api/briefs/{PAIR}", lambda route: route.fulfill(json=payload, headers={"X-GridLock-Brief-Status": status}))
+    panel = open_brief(page, live_server)
+    headings = panel.locator("#brief-content > h3").all_text_contents()
+    assert headings[:2] == ["Next step", "Check first"], headings
+    # The facts repeat the pair detail, so they start folded away.
+    facts = panel.locator(".brief-facts")
+    assert facts.evaluate("node => node.open") is False
+    expect(facts.locator("[data-src='brief_savings'].detail-answer")).to_be_hidden()
+    card = panel.locator(".ai-brief-card")
+    expect(card).to_contain_text("AI-drafted briefs are off in this build" if status == "template" else "This brief is AI-drafted")
+    card.locator("summary").click()
+    expect(card).to_contain_text("This build did not generate it.")
+    expect(card).to_contain_text("Deerfield switching station")
+    assert page.get_by_role("button", name=re.compile("Generate|Send")).count() == 0
+    page.evaluate("pair => { location.hash = 'overlap=' + pair; }", OTHER)
+    other_card = page.locator("#brief-panel .ai-brief-card")
+    expect(other_card).to_contain_text("at most 5 per run")
+    expect(other_card).not_to_contain_text("Deerfield")
 
 
 @pytest.mark.parametrize("status", [404, 503])
@@ -193,6 +220,7 @@ def test_hostile_evidence_safe_links_and_view_change_clear(browser_page, live_se
     payload["who_to_contact"].append("Invented Person <person@example.test>")
     page.route(f"**/api/briefs/{PAIR}", lambda route: route.fulfill(json=payload, headers={"X-GridLock-Brief-Status": "cached"}))
     panel = open_brief(page, live_server)
+    panel.locator(".brief-facts > summary").click()
     panel.get_by_text("Full project evidence", exact=True).click()
     expect(panel).to_contain_text(hostile)
     assert panel.locator("img").count() == 0
