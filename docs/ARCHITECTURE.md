@@ -8,23 +8,21 @@ the details. Nothing needs the internet in normal use.
 ```mermaid
 flowchart LR
   subgraph IN["Inputs"]
+    direction TB
     P1["SCRTP plan PDF<br/>Dominion Energy SC, 54 projects"]
     P2["SERTP 2025 plan PDF<br/>Georgia utilities, 427 rows"]
     M["Public map data<br/>HIFLD lines, OSM substations,<br/>Census places"]
     T["Team inputs<br/>unit costs, 1 hand-placed site,<br/>6 organisation contacts"]
   end
   subgraph PIPE["Pipeline: Python, offline, about 4 s"]
-    E["1 Extract<br/>481 rows"] --> K["2 Keep<br/>230 projects"] --> PL["3 Place<br/>181 on the map"] --> PR["4 Pair<br/>465 within 40 km"] --> R["5 Estimate + rank"] --> C["6 Check + save"]
+    direction TB
+    E["1 Extract: 481 rows"] --> K["2 Keep: 230 projects"] --> PL["3 Place: 181 on the map"]
+    PL --> PR["4 Pair: 465 within 40 km"] --> R["5 Estimate savings + rank"] --> C["6 Check + save"]
   end
   B[("data/build<br/>committed JSON")]
   S["FastAPI on 127.0.0.1<br/>validated contracts"]
   W["Web app<br/>Leaflet map, list, details,<br/>brief, export, tour"]
-  P1 --> E
-  P2 --> E
-  M --> PL
-  T --> PL
-  T --> R
-  C --> B --> S --> W
+  IN --> PIPE --> B --> S --> W
 ```
 
 ## 1. The pipeline (`pipeline/`)
