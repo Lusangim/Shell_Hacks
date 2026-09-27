@@ -73,7 +73,7 @@ $env:GRIDLOCK_GOOGLE = 'off'
 
 `VERIFY.cmd` compiles the Python code, runs pytest (including Chromium browser checks) and writes a timestamped `summary.json` under the local `gridlock-runs\verify` folder. It exits nonzero for a failed check, a count below `scripts/verify-baseline.json`, or an unexpected skip. `scripts\quick-gate.ps1` also runs the shell and interface audits used before merges. The delivery report records the final tested commit, totals and exact summary path.
 
-The current local verification baseline is 716 passing tests, with no allowed skips.
+The suite has 799 tests, with no allowed skips. The last full run (September 27, 03:06) passed 793 of them. The 6 phone-layout failures it found are fixed, and those tests now pass.
 
 ## Data and limits
 
