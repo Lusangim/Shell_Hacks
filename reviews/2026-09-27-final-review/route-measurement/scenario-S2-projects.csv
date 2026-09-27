@@ -1,0 +1,63 @@
+id,utility,name,placed today,under S2,pairs today,best rank today
+sertp-p83-7714c0,Georgia Transmission Corp.,"GTC: DOUGLASVILLE – VILLA RICA 230 KV TRANSMISSION LINE, REBUILD",Straight line between Census town centre / HIFLD line endpoints,a dot at its one real substation,26,13
+sertp-p106-69deeb,Georgia Power,"LLOYD SHOALS – PORTERDALE PRIMARY 115 KV TRANSMISSION LINE, REBUILD",Straight line between Census town centre / HIFLD line endpoints,a dot at its one real substation,8,20
+sertp-p112-a1e222,Georgia Power,"UNION CITY – LINE CREEK – YATES 230 KV TRANSMISSION LINES, REBUILD","Census town centre (Union City city, GA)",dropped from the dataset: its utility was only inferred from the town,7,21
+sertp-p125-3f7c7f,Georgia Transmission Corp.,"GTC: UNION CITY PRIMARY 230 KV, BREAKER REPLACEMENTS","Census town centre (Union City city, GA)",no location (was a town centre),20,21
+sertp-p120-093b6c,Georgia Transmission Corp.,"GTC: BARNESVILLE PRIMARY – THOMASTON 230 KV TRANSMISSION LINE, REBUILD",Straight line between Census town centre,no location (both ends were town centres),3,22
+sertp-p149-444c90,MEAG Power,"MEAG: BARNESVILLE PRIMARY 230/115 KV BANK B, REPLACEMENT","Census town centre (Barnesville city, GA)",no location (was a town centre),4,22
+sertp-p120-ad5068,Georgia Transmission Corp.,"GTC: BARNESVILLE – SOUTH GRIFFIN 230 KV, NEW TRANSMISSION LINE, CONSTRUCT","Census town centre (Barnesville city, GA) - only 'BARNESVILLE' located",no location (was a town centre),3,23
+sertp-p148-d26e0e,Georgia Power,"LAWRENCEVILLE – WINDER PRIMARY 115 KV TRANSMISSION LINE, REBUILD",Straight line between Census town centre / HIFLD line endpoints,a dot at its one real substation,8,25
+sertp-p122-5e6941,Georgia Transmission Corp.,"GTC: DAWSON CROSSING – NELSON (BLACK) TRANSMISSION LINE, REBUILD","Census town centre (Nelson city, GA) - only 'NELSON (BLACK)' located",no location (was a town centre),2,26
+sertp-p139-4fa401,Dalton Utilities,"DU: DAWSON CROSSING – NELSON (WHITE) 115 KV TRANSMISSION LINE, REBUILD","Census town centre (Nelson city, GA) - only 'NELSON (WHITE)' located",no location (was a town centre),4,26
+sertp-p152-30cbad,Georgia Power,"BARNESVILLE AREA 115 KV, NETWORK SOLUTION","Census town centre (Barnesville city, GA)",dropped from the dataset: its utility was only inferred from the town,4,28
+sertp-p166-2c0448,Georgia Power,"HOLLY SPRINGS PRIMARY – NELSON 115 KV TRANSMISSION LINE, REBUILD",Straight line between Census town centre,dropped from the dataset: its utility was only inferred from the town,4,29
+sertp-p169-01fa48,Georgia Transmission Corp.,"GTC: AVERY – HOLLY SPRINGS 115 KV TRANSMISSION LINE, REBUILD","Census town centre (Holly Springs city, GA) - only 'HOLLY SPRINGS' loc",no location (was a town centre),6,29
+sertp-p97-703568,Georgia Power,"BREMEN – CROOKED CREEK 115 KV TRANSMISSION LINE, RECONDUCTOR",Straight line between Census town centre,dropped from the dataset: its utility was only inferred from the town,23,36
+sertp-p103-f47086,Georgia Transmission Corp.,"GTC: MCDONOUGH – SOUTH GRIFFIN 115 KV TRANSMISSION LINE, REBUILD","Census town centre (McDonough city, GA) - only 'MCDONOUGH' located",no location (was a town centre),19,36
+sertp-p146-f32011,Georgia Transmission Corp.,"GTC: UNION CITY, LINE TRAP REPLACEMENT","Census town centre (Union City city, GA)",no location (was a town centre),20,40
+sertp-p89-07d5e3,Georgia Power,"LAWRENCEVILLE – WINDER PRIMARY 230 KV TRANSMISSION LINE, REBUILD",Straight line between Census town centre / HIFLD line endpoints,a dot at its one real substation,8,43
+sertp-p80-72152b,Georgia Power,"EAST POINT – UNION CITY, FIBER INSTALLATION",Straight line between Census town centre,dropped from the dataset: its utility was only inferred from the town,10,44
+sertp-p123-f7ecfd,Georgia Transmission Corp.,"GTC: MCDONOUGH – SOUTH GRIFFIN 115 KV TRANSMISSION LINE, REBUILD","Census town centre (McDonough city, GA) - only 'MCDONOUGH' located",no location (was a town centre),19,59
+sertp-p77-052032,Georgia Power,"UNION CITY – YATES 230 KV (WHITE), SWITCH AND TRAP REPLACEMENT",Straight line between Census town centre / HIFLD line endpoints,a dot at its one real substation,14,63
+sertp-p77-053bee,Georgia Power,"UNION CITY (WHITE) – YATES 230 KV TRANSMISSION LINE, REBUILD",Straight line between Census town centre / HIFLD line endpoints,a dot at its one real substation,14,64
+sertp-p67-0e62d9,Georgia Transmission Corp.,"GTC: CONYERS – CORNISH MOUNTAIN 115 KV LINE, UPGRADE","Census town centre (Conyers city, GA) - only 'CONYERS' located",no location (was a town centre),21,67
+sertp-p161-47dc78,Georgia Transmission Corp.,"GTC: EAST SOCIAL CIRCLE – SNELLVILLE 230 KV, LIMINTING ELEMENT REPLACEMENT",Straight line between Census town centre / HIFLD line endpoints,a dot at its one real substation,15,74
+desc-p49,Dominion Energy SC,Stevens Creek - Graniteville 115 kV: Rebuild,Straight line between Census town centre / HIFLD line endpoints,a dot at its one real substation,1,96
+sertp-p117-d0fb9a,Georgia Power,"EAST POINT – MORROW 115 KV TRANSMISSION LINE LIMITING ELEMENTS, REPLACEMENT",Straight line between Census town centre,dropped from the dataset: its utility was only inferred from the town,9,100
+sertp-p152-71df65,Georgia Power,"BAY CREEK – CONYERS 230 KV TRANSMISSION LINE, REBUILD","Census town centre (Conyers city, GA) - only 'CONYERS' located",dropped from the dataset: its utility was only inferred from the town,8,101
+sertp-p155-e79282,Georgia Transmission Corp.,"GTC: OLA – PORTERDALE 115 KV TRANSMISSION LINE, REBUILD","Census town centre (Porterdale city, GA) - only 'PORTERDALE' located",no location (was a town centre),8,101
+sertp-p87-09a00f,Georgia Transmission Corp.,"GTC: RIDDLEVILLE 115 KV, BUS REPLACEMENT","Census town centre (Riddleville town, GA)",no location (was a town centre),4,103
+sertp-p160-37918e,Georgia Power,"BAY CREEK – CONYERS 230 KV, LIMITING ELEMENT REPLACEMENT","Census town centre (Conyers city, GA) - only 'CONYERS' located",dropped from the dataset: its utility was only inferred from the town,8,104
+sertp-p119-20aed9,Georgia Power,"GRADY – MORROW (WHITE) 115 KV TRANSMISSION LINE, REBUILD","Census town centre (Morrow city, GA) - only 'MORROW (WHITE)' located",dropped from the dataset: its utility was only inferred from the town,8,106
+sertp-p129-0351a4,Georgia Power,"MORROW 115 KV, BREAKER REPLACEMENTS","Census town centre (Morrow city, GA)",dropped from the dataset: its utility was only inferred from the town,8,107
+sertp-p116-52c350,Georgia Power,"CONYERS – KLONDIKE 230 KV, NEW TRANSMISSION LINE, CONSTRUCT",Straight line between Census town centre / HIFLD line endpoints,a dot at its one real substation,8,109
+sertp-p103-4236a7,Georgia Transmission Corp.,"GTC: BOSTWICK – EAST SOCIAL CIRCLE 230 KV TRANSMISSION LINE, RECONDUCTOR",Straight line between Census town centre / HIFLD line endpoints,a dot at its one real substation,12,113
+sertp-p166-e70452,Georgia Transmission Corp.,"GTC: CUMMING – DAWSON CROSSING 115 KV TRANSMISSION LINE, REBUILD","Census town centre (Cumming city, GA) - only 'CUMMING' located",no location (was a town centre),6,115
+sertp-p155-7ff70e,Georgia Transmission Corp.,"GTC: MCDONOUGH – OLA 115 KV TRANSMISSION LINE, REBUILD","Census town centre (McDonough city, GA) - only 'MCDONOUGH' located",no location (was a town centre),19,116
+sertp-p76-3136a5,Georgia Power,"SCOTTDALE, RELAY MODERNIZATION","Census town centre (Scottdale CDP, GA)",dropped from the dataset: its utility was only inferred from the town,4,117
+sertp-p129-7038fa,Georgia Power,"NORCROSS – NORTH DRUID HILLS 115 KV TRANSMISSION LINE, REBUILD",Straight line between Census town centre / HIFLD line endpoints,a dot at its one real substation,8,120
+sertp-p73-6c6ec1,Georgia Power,"MORROW – MOUNTAIN VIEW 115 KV TRANSMISSION LINE, REBUILD","Census town centre (Morrow city, GA) - only 'MORROW' located",dropped from the dataset: its utility was only inferred from the town,8,121
+sertp-p74-9cc89d,Georgia Power,"MORROW 115 KV, RELAY UPGRADE","Census town centre (Morrow city, GA)",dropped from the dataset: its utility was only inferred from the town,8,122
+sertp-p89-23bb88,Georgia Power,"JONESBORO – MORROW, RELAY PROTECTION UPGRADE",Straight line between Census town centre,dropped from the dataset: its utility was only inferred from the town,8,126
+sertp-p91-0d9080,Georgia Power,"MORROW – YATES COMMON 115 KV TRANSMISSION LINE, REBUILD","Census town centre (Morrow city, GA) - only 'MORROW' located",dropped from the dataset: its utility was only inferred from the town,8,127
+sertp-p128-fe26c1,MEAG Power,"MEAG: AULTMAN ROAD – FORT VALLEY #1 115 KV TRANSMISSION LINE, REBUILD","Census town centre (Fort Valley city, GA) - only 'FORT VALLEY #1' loca",no location (was a town centre),3,138
+sertp-p143-f6d025,Georgia Transmission Corp.,"GTC: DOUGLASVILLE – EAST VILLA RICA SS 230 KV TRANSMISSION LINE, REBUILD","Census town centre (Douglasville city, GA) - only 'DOUGLASVILLE' locat",no location (was a town centre),21,169
+desc-p33,Dominion Energy SC,Jackson 115kV: Construct 115 – 12kV Distribution Substation,"Census town centre (Jackson town, SC)",no location (was a town centre),1,211
+sertp-p168-83867b,Georgia Power,"EAST POINT – UNION CITY (WHITE) 230 KV TRANSMISSION LINE, REBUILD",Straight line between Census town centre,dropped from the dataset: its utility was only inferred from the town,10,246
+sertp-p167-f0d12f,Georgia Power,"DECATUR – SCOTTDALE 115 KV TRANSMISSION LINE, JUMPER REPLACEMENT",Straight line between Census town centre,dropped from the dataset: its utility was only inferred from the town,9,279
+sertp-p62-309a28,Georgia Power,"BRUNSWICK – MCMANUS 115 KV LINES, RE-TERMINATION",Straight line between Census town centre / OpenStreetMap,a dot at its one real substation,2,353
+sertp-p168-45a687,Georgia Power,"EAST POINT – MORROW 115 KV TRANSMISSION LINE, REBUILD",Straight line between Census town centre,dropped from the dataset: its utility was only inferred from the town,9,388
+sertp-p98-d12081,Georgia Power,"CARTERSVILLE – EMERSON 230 KV TRANSMISSION LINE, REBUILD",Straight line between Census town centre,dropped from the dataset: its utility was only inferred from the town,1,428
+desc-p1,Dominion Energy SC,Summerville 115kV Loop: Rebuild,"Census town centre (Summerville town, SC)",no location (was a town centre),0,
+desc-p4,Dominion Energy SC,Eastover – Sumter 115kV DEP Tie: Rebuild with 1272 ACSR,Straight line between Census town centre / OpenStreetMap,a dot at its one real substation,0,
+desc-p6,Dominion Energy SC,Summerville-Boone Hill 115kV: Move Line for US78 SCDOT Road Widening,"Census town centre (Summerville town, SC) - only 'Summerville' located",no location (was a town centre),0,
+desc-p16,Dominion Energy SC,Church Creek – Faber Place – Charleston Transmission: Add 230kV Line,Straight line between Census town centre / OpenStreetMap,shorter straight line between its real substations,0,
+desc-p19,Dominion Energy SC,St George - Sumter 230kV Tie: Rebuild Line from Santee Substation - Duke/Progress Energy Tie,Straight line between Census town centre / OpenStreetMap,a dot at its one real substation,0,
+desc-p27,Dominion Energy SC,Wateree-Hopkins 230kV Line #1: Rebuild,Straight line between Census town centre / OpenStreetMap,a dot at its one real substation,0,
+desc-p31,Dominion Energy SC,Williams-Summerville 230kV: Upgrade to SPDC B1272 ACSR,Straight line between Census town centre / OpenStreetMap,a dot at its one real substation,0,
+desc-p40,Dominion Energy SC,Cameron Jct – Cameron – St Matthews 46 kV Rebuild,Straight line between Census town centre / OpenStreetMap,shorter straight line between its real substations,0,
+desc-p43,Dominion Energy SC,St. George- Holly Hill 115kV: Rebuild Structures 83-108,Straight line between Census town centre / OpenStreetMap,a dot at its one real substation,0,
+sertp-p134-3b2d6a,Georgia Power,"BAINBRIDGE TRANSMISSION: EAST RIVER ROAD, EAST BAINBRIDGE, NEW SUBSTATION, CONSTRUCT","Census town centre (Bainbridge city, GA)",dropped from the dataset: its utility was only inferred from the town,0,
+sertp-p138-9f1740,Georgia Power,"CORNELIA – TALLULAH LODGE 115 KV TRANSMISSION LINE, REBUILD","Census town centre (Cornelia city, GA) - only 'CORNELIA' located",dropped from the dataset: its utility was only inferred from the town,0,
+sertp-p151-26450e,Georgia Power,"TALLULAH LODGE – TOCCOA 115 KV TRANSMISSION LINE, REBUILD","Census town centre (Toccoa city, GA) - only 'TOCCOA' located",dropped from the dataset: its utility was only inferred from the town,0,
+sertp-p159-39c019,Georgia Power,"JUDY MOUNTAIN – ROME 115 KV TRANSMISSION LINE, REBUILD","Census town centre (Rome city, GA) - only 'ROME' located",dropped from the dataset: its utility was only inferred from the town,0,

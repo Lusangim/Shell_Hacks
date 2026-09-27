@@ -1,0 +1,140 @@
+﻿
+=== an end is a town centre (14)
+- [new_line] Church Creek – Faber Place – Charleston Transmission: Add 230kV Line
+    Church Creek: nearest line end 0.0 km, name in HIFLD: no | Faber Place: nearest line end 0.0 km, name in HIFLD: no | Charleston Transmission: nearest line end 0.9 km, name in HIFLD: no
+    source: Straight line between Census town centre / OpenStreetMap
+- [other] St George - Sumter 230kV Tie: Rebuild Line from Santee Substation - Du
+    St George: nearest line end 0.7 km, name in HIFLD: no | Sumter: nearest line end 0.0 km, name in HIFLD: no
+    source: Straight line between Census town centre / OpenStreetMap
+- [rebuild_line] St. George- Holly Hill 115kV: Rebuild Structures 83-108
+    St. George: nearest line end 0.7 km, name in HIFLD: no | Holly Hill: nearest line end 0.0 km, name in HIFLD: no
+    source: Straight line between Census town centre / OpenStreetMap
+- [rebuild_line] Stevens Creek - Graniteville 115 kV: Rebuild
+    Stevens Creek: nearest line end 0.0 km, name in HIFLD: yes | Graniteville: nearest line end 1.4 km, name in HIFLD: no
+    source: Straight line between Census town centre / HIFLD line endpoints
+- [equipment] JONESBORO – MORROW, RELAY PROTECTION UPGRADE
+    JONESBORO: nearest line end 0.4 km, name in HIFLD: no | MORROW: nearest line end 1.1 km, name in HIFLD: no
+    source: Straight line between Census town centre
+- [rebuild_line] LAWRENCEVILLE – WINDER PRIMARY 230 KV TRANSMISSION LINE, REBUILD
+    LAWRENCEVILLE: nearest line end 1.2 km, name in HIFLD: no | WINDER PRIMARY: nearest line end 0.0 km, name in HIFLD: yes
+    source: Straight line between Census town centre / HIFLD line endpoints
+- [rebuild_line] CARTERSVILLE – EMERSON 230 KV TRANSMISSION LINE, REBUILD
+    CARTERSVILLE: nearest line end 1.0 km, name in HIFLD: no | EMERSON: nearest line end 1.0 km, name in HIFLD: no
+    source: Straight line between Census town centre
+- [rebuild_line] LLOYD SHOALS – PORTERDALE PRIMARY 115 KV TRANSMISSION LINE, REBUILD
+    LLOYD SHOALS: nearest line end 0.0 km, name in HIFLD: yes | PORTERDALE PRIMARY: nearest line end 0.4 km, name in HIFLD: no
+    source: Straight line between Census town centre / HIFLD line endpoints
+- [new_line] CONYERS – KLONDIKE 230 KV, NEW TRANSMISSION LINE, CONSTRUCT
+    CONYERS: nearest line end 0.8 km, name in HIFLD: no | KLONDIKE: nearest line end 0.0 km, name in HIFLD: yes
+    source: Straight line between Census town centre / HIFLD line endpoints
+- [other] EAST POINT – MORROW 115 KV TRANSMISSION LINE LIMITING ELEMENTS, REPLAC
+    EAST POINT: nearest line end 1.1 km, name in HIFLD: no | MORROW: nearest line end 1.1 km, name in HIFLD: no
+    source: Straight line between Census town centre
+- [rebuild_line] LAWRENCEVILLE – WINDER PRIMARY 115 KV TRANSMISSION LINE, REBUILD
+    LAWRENCEVILLE: nearest line end 1.2 km, name in HIFLD: no | WINDER PRIMARY: nearest line end 0.0 km, name in HIFLD: yes
+    source: Straight line between Census town centre / HIFLD line endpoints
+- [rebuild_line] HOLLY SPRINGS PRIMARY – NELSON 115 KV TRANSMISSION LINE, REBUILD
+    HOLLY SPRINGS PRIMARY: nearest line end 1.4 km, name in HIFLD: no | NELSON: nearest line end 0.6 km, name in HIFLD: no
+    source: Straight line between Census town centre
+- [other] DECATUR – SCOTTDALE 115 KV TRANSMISSION LINE, JUMPER REPLACEMENT
+    DECATUR: nearest line end 0.4 km, name in HIFLD: no | SCOTTDALE: nearest line end 0.7 km, name in HIFLD: no
+    source: Straight line between Census town centre
+- [rebuild_line] EAST POINT – MORROW 115 KV TRANSMISSION LINE, REBUILD
+    EAST POINT: nearest line end 1.1 km, name in HIFLD: no | MORROW: nearest line end 1.1 km, name in HIFLD: no
+    source: Straight line between Census town centre
+
+=== end not on the line network (17)
+- [rebuild_line] Eastover – Sumter 115kV DEP Tie: Rebuild with 1272 ACSR
+    Eastover: nearest line end 4.5 km, name in HIFLD: no | Sumter: nearest line end 0.0 km, name in HIFLD: no
+    source: Straight line between Census town centre / OpenStreetMap
+- [rebuild_line] Cameron Jct – Elloree 46 kV Rebuild
+    Cameron Jct: nearest line end 7.6 km, name in HIFLD: no | Elloree: nearest line end 0.0 km, name in HIFLD: no
+    source: Straight line between OpenStreetMap
+- [rebuild_line] Wateree-Hopkins 230kV Line #1: Rebuild
+    Wateree: nearest line end 0.0 km, name in HIFLD: yes | Hopkins: nearest line end 2.0 km, name in HIFLD: no
+    source: Straight line between Census town centre / OpenStreetMap
+- [other] Williams-Summerville 230kV: Upgrade to SPDC B1272 ACSR
+    Williams: nearest line end 0.0 km, name in HIFLD: no | Summerville: nearest line end 3.4 km, name in HIFLD: no
+    source: Straight line between Census town centre / OpenStreetMap
+- [rebuild_line] Orangeburg #1 - Cameron Jct 46kV Line Rebuild
+    Orangeburg #1: nearest line end 0.0 km, name in HIFLD: no | Cameron Jct: nearest line end 7.6 km, name in HIFLD: no
+    source: Straight line between OpenStreetMap
+- [rebuild_line] Cameron Jct – Cameron – St Matthews 46 kV Rebuild
+    Cameron Jct: nearest line end 7.6 km, name in HIFLD: no | Cameron: nearest line end 7.6 km, name in HIFLD: no | St Matthews: nearest line end 6.5 km, name in HIFLD: no
+    source: Straight line between Census town centre / OpenStreetMap
+- [other] BRUNSWICK – MCMANUS 115 KV LINES, RE-TERMINATION
+    BRUNSWICK: nearest line end 1.5 km, name in HIFLD: yes | MCMANUS: nearest line end 0.1 km, name in HIFLD: yes
+    source: Straight line between Census town centre / OpenStreetMap
+- [rebuild_line] UNION CITY (WHITE) – YATES 230 KV TRANSMISSION LINE, REBUILD
+    UNION CITY (WHITE): nearest line end 3.7 km, name in HIFLD: no | YATES: nearest line end 0.0 km, name in HIFLD: yes
+    source: Straight line between Census town centre / HIFLD line endpoints
+- [other] UNION CITY – YATES 230 KV (WHITE), SWITCH AND TRAP REPLACEMENT
+    UNION CITY: nearest line end 3.7 km, name in HIFLD: no | YATES: nearest line end 0.0 km, name in HIFLD: yes
+    source: Straight line between Census town centre / HIFLD line endpoints
+- [other] EAST POINT – UNION CITY, FIBER INSTALLATION
+    EAST POINT: nearest line end 1.1 km, name in HIFLD: no | UNION CITY: nearest line end 3.7 km, name in HIFLD: no
+    source: Straight line between Census town centre
+- [rebuild_line] GTC: DOUGLASVILLE – VILLA RICA 230 KV TRANSMISSION LINE, REBUILD
+    DOUGLASVILLE: nearest line end 3.2 km, name in HIFLD: no | VILLA RICA: nearest line end 0.0 km, name in HIFLD: yes
+    source: Straight line between Census town centre / HIFLD line endpoints
+- [reconductor] BREMEN – CROOKED CREEK 115 KV TRANSMISSION LINE, RECONDUCTOR
+    BREMEN: nearest line end 0.9 km, name in HIFLD: no | CROOKED CREEK: nearest line end 6.7 km, name in HIFLD: no
+    source: Straight line between Census town centre
+- [reconductor] GTC: BOSTWICK – EAST SOCIAL CIRCLE 230 KV TRANSMISSION LINE, RECONDUCT
+    BOSTWICK: nearest line end 14.0 km, name in HIFLD: no | EAST SOCIAL CIRCLE: nearest line end 0.0 km, name in HIFLD: yes
+    source: Straight line between Census town centre / HIFLD line endpoints
+- [rebuild_line] GTC: BARNESVILLE PRIMARY – THOMASTON 230 KV TRANSMISSION LINE, REBUILD
+    BARNESVILLE PRIMARY: nearest line end 0.9 km, name in HIFLD: no | THOMASTON: nearest line end 1.6 km, name in HIFLD: no
+    source: Straight line between Census town centre
+- [rebuild_line] NORCROSS – NORTH DRUID HILLS 115 KV TRANSMISSION LINE, REBUILD
+    NORCROSS: nearest line end 0.0 km, name in HIFLD: yes | NORTH DRUID HILLS: nearest line end 1.8 km, name in HIFLD: no
+    source: Straight line between Census town centre / HIFLD line endpoints
+- [other] GTC: EAST SOCIAL CIRCLE – SNELLVILLE 230 KV, LIMINTING ELEMENT REPLACE
+    EAST SOCIAL CIRCLE: nearest line end 0.0 km, name in HIFLD: yes | SNELLVILLE: nearest line end 3.6 km, name in HIFLD: no
+    source: Straight line between Census town centre / HIFLD line endpoints
+- [rebuild_line] EAST POINT – UNION CITY (WHITE) 230 KV TRANSMISSION LINE, REBUILD
+    EAST POINT: nearest line end 1.1 km, name in HIFLD: no | UNION CITY (WHITE): nearest line end 3.7 km, name in HIFLD: no
+    source: Straight line between Census town centre
+
+=== only a long detour (6)
+- [rebuild_line] Cainhoy - Hamlin 115kV: Rebuild Line and Cainhoy – Hamlin 115 kV #2: C
+    Cainhoy: nearest line end 0.3 km, name in HIFLD: no | Hamlin: nearest line end 0.0 km, name in HIFLD: no
+    source: Straight line between OpenStreetMap
+- [reconductor] SAV: BOULEVARD – DEPTFORD 115 KV TRANSMISSION LINE, RECONDUCTOR
+    BOULEVARD: nearest line end 0.1 km, name in HIFLD: yes | DEPTFORD: nearest line end 0.0 km, name in HIFLD: yes
+    source: Straight line between OpenStreetMap
+- [rebuild_line] ATHENA – EAST WATKINSVILLE 115 KV TRANSMISSION LINE, REBUILD
+    ATHENA: nearest line end 0.0 km, name in HIFLD: yes | EAST WATKINSVILLE: nearest line end 0.0 km, name in HIFLD: yes
+    source: Straight line between OpenStreetMap
+- [rebuild_line] JESUP – OFFERMAN 115 KV TRANSMISSION LINE, REBUILD
+    JESUP: nearest line end 0.0 km, name in HIFLD: yes | OFFERMAN: nearest line end 0.0 km, name in HIFLD: yes
+    source: Straight line between OpenStreetMap
+- [rebuild_line] SAV: COLEMAN – DEAN FOREST 115 KV TRANSMISSION LINE, REBUILD
+    COLEMAN: nearest line end 0.0 km, name in HIFLD: no | DEAN FOREST: nearest line end 0.0 km, name in HIFLD: yes
+    source: Straight line between OpenStreetMap
+- [rebuild_line] SAV: GOSHEN (SAV) – MCINTOSH 115 KV TRANSMISSION LINE, REBUILD
+    GOSHEN (SAV): nearest line end 0.0 km, name in HIFLD: no | MCINTOSH: nearest line end 0.0 km, name in HIFLD: yes
+    source: Straight line between OpenStreetMap
+
+=== plausible, but passes other substations or other voltage (7)
+- [rebuild_line] Urquhart – Toolebeck 115kV line: Rebuild
+    Urquhart: nearest line end 0.0 km, name in HIFLD: yes | Toolebeck: nearest line end 0.0 km, name in HIFLD: no
+    source: Straight line between HIFLD line endpoints / OpenStreetMap
+- [other] Fairfax-Yemassee 115kV: Upgrade for DESCSQ #1151 Interconnection
+    Fairfax: nearest line end 0.0 km, name in HIFLD: no | Yemassee: nearest line end 0.1 km, name in HIFLD: yes
+    source: Straight line between OpenStreetMap
+- [equipment] Okatie – McIntosh 115kV Tie: Add Series Reactor
+    Okatie: nearest line end 0.0 km, name in HIFLD: no | McIntosh: nearest line end 0.0 km, name in HIFLD: yes
+    source: Straight line between Hand-placed from HIFLD Electric Power Transmission Lines, TAP170160 
+- [rebuild_line] GRID: ARKWRIGHT – LLOYD SHOALS 115 KV TRANSMISSION LINE, REBUILD
+    ARKWRIGHT: nearest line end 0.0 km, name in HIFLD: yes | LLOYD SHOALS: nearest line end 0.0 km, name in HIFLD: yes
+    source: Straight line between HIFLD line endpoints
+- [rebuild_line] SAV: COLEMAN – MELDRIM 115 KV TRANSMISSION LINE, REBUILD
+    COLEMAN: nearest line end 0.0 km, name in HIFLD: no | MELDRIM: nearest line end 0.1 km, name in HIFLD: yes
+    source: Straight line between OpenStreetMap
+- [rebuild_line] JEFFERSON ROAD – WINDER PRIMARY 115 KV TRANSMISSION LINE, REBUILD
+    JEFFERSON ROAD: nearest line end 0.0 km, name in HIFLD: yes | WINDER PRIMARY: nearest line end 0.0 km, name in HIFLD: yes
+    source: Straight line between HIFLD line endpoints
+- [other] MEAG: ATHENA – WARRENTON 230 KV TRANSMISSION LINE, CONVERSION
+    ATHENA: nearest line end 0.0 km, name in HIFLD: yes | WARRENTON: nearest line end 0.1 km, name in HIFLD: yes
+    source: Straight line between OpenStreetMap

@@ -1,0 +1,38 @@
+﻿{"scenario": "S0 today", "kept": 230, "placed": 181, "no_location": 49, "dropped_from_dataset": 0, "projects_changed": 0, "pairs": 489, "cross_state": 43, "bands": {"lt_40km": 405, "lt_8km": 19, "touching": 62, "lt_1_6km": 3}, "named": {"Savannah demo pair (rank 1)": 1, "Savannah pair (rank 3)": 3, "Jasper example (rank 52)": 52, "Urquhart example (rank 332)": 332, "Urquhart example (rank 395)": 395}, "matches_pipeline_order": true, "top20_same_as_today": 20, "top50_today_still_paired": 50, "rank1": "desc-p41__sertp-p107-9bc088"}
+{"scenario": "S1 + 11 real routes", "kept": 229, "placed": 180, "no_location": 49, "dropped_from_dataset": 1, "projects_changed": 0, "pairs": 489, "cross_state": 43, "bands": {"lt_40km": 405, "lt_8km": 17, "touching": 62, "lt_1_6km": 5}, "named": {"Savannah demo pair (rank 1)": 1, "Savannah pair (rank 3)": 3, "Jasper example (rank 52)": 52, "Urquhart example (rank 332)": 331, "Urquhart example (rank 395)": 394}, "matches_pipeline_order": null, "top20_same_as_today": 20, "top50_today_still_paired": 50, "rank1": "desc-p41__sertp-p107-9bc088"}
+{"scenario": "S2 + no town-centre guesses", "kept": 206, "placed": 137, "no_location": 69, "dropped_from_dataset": 24, "projects_changed": 62, "pairs": 252, "cross_state": 42, "bands": {"lt_40km": 196, "lt_8km": 12, "touching": 39, "lt_1_6km": 5}, "named": {"Savannah demo pair (rank 1)": 1, "Savannah pair (rank 3)": 3, "Jasper example (rank 52)": 41, "Urquhart example (rank 332)": 189, "Urquhart example (rank 395)": 233}, "matches_pipeline_order": null, "top20_same_as_today": 20, "top50_today_still_paired": 39, "rank1": "desc-p41__sertp-p107-9bc088"}
+{"scenario": "S3 + no guessed middles", "kept": 206, "placed": 137, "no_location": 69, "dropped_from_dataset": 24, "projects_changed": 77, "pairs": 251, "cross_state": 42, "bands": {"lt_40km": 195, "lt_8km": 12, "touching": 39, "lt_1_6km": 5}, "named": {"Savannah demo pair (rank 1)": 1, "Savannah pair (rank 3)": 3, "Jasper example (rank 52)": 41, "Urquhart example (rank 332)": 188, "Urquhart example (rank 395)": 232}, "matches_pipeline_order": null, "top20_same_as_today": 20, "top50_today_still_paired": 39, "rank1": "desc-p41__sertp-p107-9bc088"}
+{"scenario": "S2 + Okatie point unknown", "kept": 206, "placed": 136, "no_location": 70, "dropped_from_dataset": 24, "projects_changed": 65, "pairs": 239, "cross_state": 15, "bands": {"lt_8km": 12, "lt_40km": 183, "touching": 39, "lt_1_6km": 5}, "named": {"Savannah demo pair (rank 1)": 2, "Savannah pair (rank 3)": 8, "Jasper example (rank 52)": 41, "Urquhart example (rank 332)": 177, "Urquhart example (rank 395)": 220}, "matches_pipeline_order": null, "top20_same_as_today": 20, "top50_today_still_paired": 39, "rank1": "sertp-p68-a0289a__sertp-p72-81610d"}
+S2 changes: {'no location (was a town centre)': 19, 'a dot at its one real substation': 17, 'shorter straight line between its real substations': 2, 'dropped from the dataset': 23, 'no location (both ends were town centres)': 1}
+S2 lost pairs in today's top 50: [(21, 'sertp-p112-a1e222__sertp-p125-3f7c7f'), (22, 'sertp-p120-093b6c__sertp-p149-444c90'), (23, 'sertp-p120-ad5068__sertp-p149-444c90'), (26, 'sertp-p122-5e6941__sertp-p139-4fa401'), (28, 'sertp-p149-444c90__sertp-p152-30cbad'), (29, 'sertp-p166-2c0448__sertp-p169-01fa48'), (36, 'sertp-p103-f47086__sertp-p97-703568'), (40, 'sertp-p112-a1e222__sertp-p146-f32011'), (41, 'sertp-p120-093b6c__sertp-p152-30cbad'), (42, 'sertp-p120-ad5068__sertp-p152-30cbad'), (44, 'sertp-p125-3f7c7f__sertp-p80-72152b')]
+okatie-dependent routes: ['desc-p12']
+
+OPTION B: {"scenario": "B + trim town ends from lines that keep a real end", "kept": 229, "placed": 180, "no_location": 49, "dropped_from_dataset": 1, "projects_changed": 19, "pairs": 461, "cross_state": 43, "bands": {"lt_40km": 383, "lt_8km": 17, "touching": 56, "lt_1_6km": 5}, "named": {"Savannah demo pair (rank 1)": 1, "Savannah pair (rank 3)": 3, "Jasper example (rank 52)": 52, "Urquhart example (rank 332)": 307, "Urquhart example (rank 395)": 368}}
+B top20 same: 20 · top50 still paired: 50
+
+S2 loses 241 of today's pairs; by touch reason: {'same_area_approximate': 14, 'shared_endpoint': 4, 'same_substation': 5, 'proximity': 218}
+by band: {'touching': 23, 'lt_8km': 5, 'lt_40km': 213}
+
+Today's top-50 pairs that S2 loses:
+  #21  touching  same_area_approximate  UNION CITY – LINE CREEK – YATES 230 KV TRANSMISS <> GTC: UNION CITY PRIMARY 230 KV, BREAKER REPLACEM
+  #22  touching  shared_endpoint        GTC: BARNESVILLE PRIMARY – THOMASTON 230 KV TRAN <> MEAG: BARNESVILLE PRIMARY 230/115 KV BANK B, REP
+  #23  touching  same_area_approximate  GTC: BARNESVILLE – SOUTH GRIFFIN 230 KV, NEW TRA <> MEAG: BARNESVILLE PRIMARY 230/115 KV BANK B, REP
+  #26  touching  same_substation        GTC: DAWSON CROSSING – NELSON (BLACK) TRANSMISSI <> DU: DAWSON CROSSING – NELSON (WHITE) 115 KV TRAN
+  #28  touching  same_area_approximate  MEAG: BARNESVILLE PRIMARY 230/115 KV BANK B, REP <> BARNESVILLE AREA 115 KV, NETWORK SOLUTION
+  #29  touching  same_area_approximate  HOLLY SPRINGS PRIMARY – NELSON 115 KV TRANSMISSI <> GTC: AVERY – HOLLY SPRINGS 115 KV TRANSMISSION L
+  #36  lt_8km    proximity              GTC: MCDONOUGH – SOUTH GRIFFIN 115 KV TRANSMISSI <> BREMEN – CROOKED CREEK 115 KV TRANSMISSION LINE,
+  #40  touching  same_substation        UNION CITY – LINE CREEK – YATES 230 KV TRANSMISS <> GTC: UNION CITY, LINE TRAP REPLACEMENT
+  #41  touching  same_area_approximate  GTC: BARNESVILLE PRIMARY – THOMASTON 230 KV TRAN <> BARNESVILLE AREA 115 KV, NETWORK SOLUTION
+  #42  touching  same_substation        GTC: BARNESVILLE – SOUTH GRIFFIN 230 KV, NEW TRA <> BARNESVILLE AREA 115 KV, NETWORK SOLUTION
+  #44  touching  same_area_approximate  GTC: UNION CITY PRIMARY 230 KV, BREAKER REPLACEM <> EAST POINT – UNION CITY, FIBER INSTALLATION
+
+Shared-endpoint / same-substation pairs S2 loses:
+  #22  shared_endpoint  GTC: BARNESVILLE PRIMARY – THOMASTON 230 KV TRANSM <> MEAG: BARNESVILLE PRIMARY 230/115 KV BANK B, REPLA
+  #26  same_substation  GTC: DAWSON CROSSING – NELSON (BLACK) TRANSMISSION <> DU: DAWSON CROSSING – NELSON (WHITE) 115 KV TRANSM
+  #40  same_substation  UNION CITY – LINE CREEK – YATES 230 KV TRANSMISSIO <> GTC: UNION CITY, LINE TRAP REPLACEMENT
+  #42  same_substation  GTC: BARNESVILLE – SOUTH GRIFFIN 230 KV, NEW TRANS <> BARNESVILLE AREA 115 KV, NETWORK SOLUTION
+  #244 shared_endpoint  CONYERS – KLONDIKE 230 KV, NEW TRANSMISSION LINE,  <> GTC: CONYERS – CORNISH MOUNTAIN 115 KV LINE, UPGRA
+  #252 shared_endpoint  GTC: UNION CITY, LINE TRAP REPLACEMENT <> UNION CITY – YATES 230 KV (WHITE), SWITCH AND TRAP
+  #254 shared_endpoint  GTC: UNION CITY, LINE TRAP REPLACEMENT <> EAST POINT – UNION CITY, FIBER INSTALLATION
+  #256 same_substation  BAY CREEK – CONYERS 230 KV TRANSMISSION LINE, REBU <> GTC: CONYERS – CORNISH MOUNTAIN 115 KV LINE, UPGRA
+  #257 same_substation  BAY CREEK – CONYERS 230 KV, LIMITING ELEMENT REPLA <> GTC: CONYERS – CORNISH MOUNTAIN 115 KV LINE, UPGRA

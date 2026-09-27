@@ -1,0 +1,56 @@
+id,utility,type,name,category,ratio,hops,named_mids,max_offset_km,voltage_matched,town_end
+desc-p4,Dominion Energy SC,rebuild_line,Eastover – Sumter 115kV DEP Tie: Rebuild with 1272 ACSR,end not on the line network,,,,,,True
+desc-p7,Dominion Energy SC,rebuild_line,Urquhart – Toolebeck 115kV line: Rebuild,real route via taps,1.31,4,,4.13,True,False
+desc-p9,Dominion Energy SC,rebuild_line,Cainhoy - Hamlin 115kV: Rebuild Line and Cainhoy – Hamlin 115 kV #2: Construct New 115 kV Line,only a long detour,3.18,3,,6.69,True,False
+desc-p12,Dominion Energy SC,new_line,Jasper – Okatie 230 kV #2: Construct,"plausible, but passes other substations or other voltage",1.19,2,JASPER; MCINTOSH,1.46,True,False
+desc-p16,Dominion Energy SC,new_line,Church Creek – Faber Place – Charleston Transmission: Add 230kV Line,an end is a town centre,1.31,2,,1.55,True,True
+desc-p18,Dominion Energy SC,other,Fairfax-Yemassee 115kV: Upgrade for DESCSQ #1151 Interconnection,"plausible, but passes other substations or other voltage",1.2,3,YEMASSEE,3.88,False,False
+desc-p19,Dominion Energy SC,other,St George - Sumter 230kV Tie: Rebuild Line from Santee Substation - Duke/Progress Energy Tie,an end is a town centre,1.14,6,,9.6,False,True
+desc-p23,Dominion Energy SC,rebuild_line,Cameron Jct – Elloree 46 kV Rebuild,end not on the line network,,,,,,False
+desc-p27,Dominion Energy SC,rebuild_line,Wateree-Hopkins 230kV Line #1: Rebuild,end not on the line network,,,,,,True
+desc-p31,Dominion Energy SC,other,Williams-Summerville 230kV: Upgrade to SPDC B1272 ACSR,end not on the line network,,,,,,True
+desc-p35,Dominion Energy SC,rebuild_line,Orangeburg #1 - Cameron Jct 46kV Line Rebuild,end not on the line network,,,,,,False
+desc-p40,Dominion Energy SC,rebuild_line,Cameron Jct – Cameron – St Matthews 46 kV Rebuild,end not on the line network,,,,,,True
+desc-p41,Dominion Energy SC,equipment,Okatie – McIntosh 115kV Tie: Add Series Reactor,"plausible, but passes other substations or other voltage",1.29,2,JASPER; MCINTOSH,2.69,True,False
+desc-p43,Dominion Energy SC,rebuild_line,St. George- Holly Hill 115kV: Rebuild Structures 83-108,an end is a town centre,1.13,3,,2.97,True,True
+desc-p48,Dominion Energy SC,rebuild_line,Modoc – McCormick 115/46 kV Rebuild,real route via taps,1.08,3,,1.94,True,False
+desc-p49,Dominion Energy SC,rebuild_line,Stevens Creek - Graniteville 115 kV: Rebuild,an end is a town centre,1.56,6,,10.16,False,True
+sertp-p62-309a28,Georgia Power,other,"BRUNSWICK – MCMANUS 115 KV LINES, RE-TERMINATION",end not on the line network,,,,,,True
+sertp-p68-577cfa,Georgia Transmission Corp.,rebuild_line,"GTC: GORDON – SANDERSVILLE #1 115 KV TRANSMISSION LINE, REBUILD",real route via taps,1.12,5,,10.45,True,False
+sertp-p73-0d42c5,MEAG Power,rebuild_line,"MEAG: RAY PLACE RD – WASHINGTON 115 KV TRANSMISSION LINE, REBUILD",direct real line,1.03,1,,2.12,True,False
+sertp-p75-b353de,Georgia Power,reconductor,"SAV: BOULEVARD – DEPTFORD 115 KV TRANSMISSION LINE, RECONDUCTOR",only a long detour,1.66,2,MAGNOLIA,3.62,True,False
+sertp-p77-053bee,Georgia Power,rebuild_line,"UNION CITY (WHITE) – YATES 230 KV TRANSMISSION LINE, REBUILD",end not on the line network,,,,,,True
+sertp-p77-052032,Georgia Power,other,"UNION CITY – YATES 230 KV (WHITE), SWITCH AND TRAP REPLACEMENT",end not on the line network,,,,,,True
+sertp-p78-4a64fb,Georgia Power,rebuild_line,"ATHENA – EAST WATKINSVILLE 115 KV TRANSMISSION LINE, REBUILD",only a long detour,1.54,5,ATHENA; BARNETT SHOALS,1.49,True,False
+sertp-p80-72152b,Georgia Power,other,"EAST POINT – UNION CITY, FIBER INSTALLATION",end not on the line network,,,,,,True
+sertp-p82-5bdb2b,Georgia ITS (joint),rebuild_line,"GRID: ARKWRIGHT – LLOYD SHOALS 115 KV TRANSMISSION LINE, REBUILD","plausible, but passes other substations or other voltage",1.26,3,LLOYD SHOALS,2.56,True,False
+sertp-p83-7714c0,Georgia Transmission Corp.,rebuild_line,"GTC: DOUGLASVILLE – VILLA RICA 230 KV TRANSMISSION LINE, REBUILD",end not on the line network,,,,,,True
+sertp-p88-c36d98,Georgia Power,rebuild_line,"JESUP – OFFERMAN 115 KV TRANSMISSION LINE, REBUILD",only a long detour,5.44,9,KETTLE CREEK PRIMARY,43.62,True,False
+sertp-p89-23bb88,Georgia Power,equipment,"JONESBORO – MORROW, RELAY PROTECTION UPGRADE",an end is a town centre,1.48,4,,3.36,True,True
+sertp-p89-07d5e3,Georgia Power,rebuild_line,"LAWRENCEVILLE – WINDER PRIMARY 230 KV TRANSMISSION LINE, REBUILD",an end is a town centre,1.24,5,WINDER,4.98,False,True
+sertp-p93-b67656,Georgia Power,rebuild_line,"SAV: GOSHEN (SAV) – KRAFT 115 KV TRANSMISSION LINE, REBUILD",real route via taps,1.24,3,,2.87,True,False
+sertp-p97-b8182e,Georgia Power,rebuild_line,"BARTLETTS FERRY – WEST POINT 115 KV TRANSMISSION LINE, REBUILD",real route via taps,1.23,6,,2.77,True,False
+sertp-p97-703568,Georgia Power,reconductor,"BREMEN – CROOKED CREEK 115 KV TRANSMISSION LINE, RECONDUCTOR",end not on the line network,,,,,,True
+sertp-p98-d12081,Georgia Power,rebuild_line,"CARTERSVILLE – EMERSON 230 KV TRANSMISSION LINE, REBUILD",an end is a town centre,1.42,2,,2.15,False,True
+sertp-p101-6e4282,Georgia Power,rebuild_line,"FITZGERALD – PITTS 115 KV TRANSMISSION LINE, REBUILD",real route via taps,1.1,3,,4.35,True,False
+sertp-p103-4236a7,Georgia Transmission Corp.,reconductor,"GTC: BOSTWICK – EAST SOCIAL CIRCLE 230 KV TRANSMISSION LINE, RECONDUCTOR",end not on the line network,,,,,,True
+sertp-p106-69deeb,Georgia Power,rebuild_line,"LLOYD SHOALS – PORTERDALE PRIMARY 115 KV TRANSMISSION LINE, REBUILD",an end is a town centre,1.18,4,LLOYD SHOALS; VC PORTERDALE HYDROELECTRIC,1.6,False,True
+sertp-p110-2ad81c,Georgia Power,rebuild_line,"SAV: COLEMAN – DEAN FOREST 115 KV TRANSMISSION LINE, REBUILD",only a long detour,2.41,3,DEAN FOREST,2.28,True,False
+sertp-p111-fe1e3b,Georgia Power,rebuild_line,"SAV: GOSHEN (SAV) – MCINTOSH 115 KV TRANSMISSION LINE, REBUILD",only a long detour,41.54,52,BLANDFORD; BOULEVARD; BURTON; CANADYS,142.78,True,False
+sertp-p116-52c350,Georgia Power,new_line,"CONYERS – KLONDIKE 230 KV, NEW TRANSMISSION LINE, CONSTRUCT",an end is a town centre,1.32,5,KLONDIKE,5.3,False,True
+sertp-p117-d0fb9a,Georgia Power,other,"EAST POINT – MORROW 115 KV TRANSMISSION LINE LIMITING ELEMENTS, REPLACEMENT",an end is a town centre,1.3,6,KLONDIKE,3.05,True,True
+sertp-p120-093b6c,Georgia Transmission Corp.,rebuild_line,"GTC: BARNESVILLE PRIMARY – THOMASTON 230 KV TRANSMISSION LINE, REBUILD",end not on the line network,,,,,,True
+sertp-p127-7d93f6,Georgia Power,rebuild_line,"KETTLE CREEK PRIMARY – PINE GROVE PRIMARY 115 KV TRANSMISSION LINE, REBUILD",real route via taps,1.25,7,,10.31,True,False
+sertp-p129-7038fa,Georgia Power,rebuild_line,"NORCROSS – NORTH DRUID HILLS 115 KV TRANSMISSION LINE, REBUILD",end not on the line network,,,,,,True
+sertp-p131-b9253c,Georgia Power,rebuild_line,"SAV: COLEMAN – MELDRIM 115 KV TRANSMISSION LINE, REBUILD","plausible, but passes other substations or other voltage",1.45,3,MELDRIM,4.48,True,False
+sertp-p142-e60160,Georgia Power,rebuild_line,"GORDON – SANDERSVILLE #1 115 KV TRANSMISSION LINE (DEEPSTEP-SAND #6), REBUILD",real route via taps,1.12,5,,10.45,True,False
+sertp-p142-52c2b0,Georgia Transmission Corp.,rebuild_line,"GTC: BONAIRE PRIMARY – EASTMAN PRIMARY 115 KV TRANSMISSION LINE, REBUILD",real route via taps,1.18,5,,12.55,True,False
+sertp-p147-ca498b,Georgia Power,rebuild_line,"JEFFERSON ROAD – WINDER PRIMARY 115 KV TRANSMISSION LINE, REBUILD","plausible, but passes other substations or other voltage",1.32,2,WINDER,5.62,True,False
+sertp-p148-d26e0e,Georgia Power,rebuild_line,"LAWRENCEVILLE – WINDER PRIMARY 115 KV TRANSMISSION LINE, REBUILD",an end is a town centre,1.24,5,WINDER,4.98,False,True
+sertp-p149-352641,MEAG Power,other,"MEAG: ATHENA – WARRENTON 230 KV TRANSMISSION LINE, CONVERSION","plausible, but passes other substations or other voltage",1.1,5,ATHENA; RAY PLACE RD; THOMSON PRIMARY; WARRENTON PRIMARY,9.95,True,False
+sertp-p157-fb6ec2,Georgia Power,rebuild_line,"SAV: GOSHEN (SAV) – KRAFT 115 KV TRANSMISSION LINE TRANSMISSION LINE, REBUILD",real route via taps,1.24,3,,2.87,True,False
+sertp-p161-47dc78,Georgia Transmission Corp.,other,"GTC: EAST SOCIAL CIRCLE – SNELLVILLE 230 KV, LIMINTING ELEMENT REPLACEMENT",end not on the line network,,,,,,True
+sertp-p166-2c0448,Georgia Power,rebuild_line,"HOLLY SPRINGS PRIMARY – NELSON 115 KV TRANSMISSION LINE, REBUILD",an end is a town centre,1.38,6,,4.26,True,True
+sertp-p167-f0d12f,Georgia Power,other,"DECATUR – SCOTTDALE 115 KV TRANSMISSION LINE, JUMPER REPLACEMENT",an end is a town centre,1.05,2,,0.97,True,True
+sertp-p168-45a687,Georgia Power,rebuild_line,"EAST POINT – MORROW 115 KV TRANSMISSION LINE, REBUILD",an end is a town centre,1.3,6,KLONDIKE,3.05,True,True
+sertp-p168-83867b,Georgia Power,rebuild_line,"EAST POINT – UNION CITY (WHITE) 230 KV TRANSMISSION LINE, REBUILD",end not on the line network,,,,,,True

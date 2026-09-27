@@ -1,0 +1,43 @@
+{
+ "node_tolerance_m": 300.0,
+ "hifld_lines": 8782,
+ "network_nodes": 5244,
+ "network_edges": 7179,
+ "straight_line_projects": 55,
+ "by_category": {
+  "end not on the line network": 17,
+  "real route via taps": 10,
+  "only a long detour": 6,
+  "plausible, but passes other substations or other voltage": 7,
+  "an end is a town centre": 14,
+  "direct real line": 1
+ },
+ "by_category_rebuild_or_reconductor": {
+  "end not on the line network": 12,
+  "real route via taps": 10,
+  "only a long detour": 6,
+  "an end is a town centre": 8,
+  "direct real line": 1,
+  "plausible, but passes other substations or other voltage": 3
+ },
+ "routed": 11,
+ "median_ratio_routed": 1.18,
+ "max_offset_km_routed": [
+  12.55,
+  10.45,
+  10.45,
+  10.31,
+  4.35
+ ],
+ "pair_changes": {
+  "same band": 27,
+  "new pair within 40 km": 4,
+  "band lt_8km -> lt_1_6km": 2
+ },
+ "pairs_total_before": 489,
+ "pairs_total_after": 493,
+ "top20_kept": 20,
+ "rank1_before": "desc-p41__sertp-p107-9bc088",
+ "rank1_after": "desc-p41__sertp-p107-9bc088",
+ "band_change_examples_top50": []
+}

@@ -1,0 +1,137 @@
+[
+ {
+  "scenario": "S0 today",
+  "kept": 230,
+  "placed": 181,
+  "no_location": 49,
+  "dropped_from_dataset": 0,
+  "projects_changed": 0,
+  "pairs": 489,
+  "cross_state": 43,
+  "bands": {
+   "lt_40km": 405,
+   "lt_8km": 19,
+   "touching": 62,
+   "lt_1_6km": 3
+  },
+  "named": {
+   "Savannah demo pair (rank 1)": 1,
+   "Savannah pair (rank 3)": 3,
+   "Jasper example (rank 52)": 52,
+   "Urquhart example (rank 332)": 332,
+   "Urquhart example (rank 395)": 395
+  },
+  "matches_pipeline_order": true,
+  "top20_same_as_today": 20,
+  "top50_today_still_paired": 50,
+  "rank1": "desc-p41__sertp-p107-9bc088"
+ },
+ {
+  "scenario": "S1 + 11 real routes",
+  "kept": 229,
+  "placed": 180,
+  "no_location": 49,
+  "dropped_from_dataset": 1,
+  "projects_changed": 0,
+  "pairs": 489,
+  "cross_state": 43,
+  "bands": {
+   "lt_40km": 405,
+   "lt_8km": 17,
+   "touching": 62,
+   "lt_1_6km": 5
+  },
+  "named": {
+   "Savannah demo pair (rank 1)": 1,
+   "Savannah pair (rank 3)": 3,
+   "Jasper example (rank 52)": 52,
+   "Urquhart example (rank 332)": 331,
+   "Urquhart example (rank 395)": 394
+  },
+  "matches_pipeline_order": null,
+  "top20_same_as_today": 20,
+  "top50_today_still_paired": 50,
+  "rank1": "desc-p41__sertp-p107-9bc088"
+ },
+ {
+  "scenario": "S2 + no town-centre guesses",
+  "kept": 206,
+  "placed": 137,
+  "no_location": 69,
+  "dropped_from_dataset": 24,
+  "projects_changed": 62,
+  "pairs": 252,
+  "cross_state": 42,
+  "bands": {
+   "lt_40km": 196,
+   "lt_8km": 12,
+   "touching": 39,
+   "lt_1_6km": 5
+  },
+  "named": {
+   "Savannah demo pair (rank 1)": 1,
+   "Savannah pair (rank 3)": 3,
+   "Jasper example (rank 52)": 41,
+   "Urquhart example (rank 332)": 189,
+   "Urquhart example (rank 395)": 233
+  },
+  "matches_pipeline_order": null,
+  "top20_same_as_today": 20,
+  "top50_today_still_paired": 39,
+  "rank1": "desc-p41__sertp-p107-9bc088"
+ },
+ {
+  "scenario": "S3 + no guessed middles",
+  "kept": 206,
+  "placed": 137,
+  "no_location": 69,
+  "dropped_from_dataset": 24,
+  "projects_changed": 77,
+  "pairs": 251,
+  "cross_state": 42,
+  "bands": {
+   "lt_40km": 195,
+   "lt_8km": 12,
+   "touching": 39,
+   "lt_1_6km": 5
+  },
+  "named": {
+   "Savannah demo pair (rank 1)": 1,
+   "Savannah pair (rank 3)": 3,
+   "Jasper example (rank 52)": 41,
+   "Urquhart example (rank 332)": 188,
+   "Urquhart example (rank 395)": 232
+  },
+  "matches_pipeline_order": null,
+  "top20_same_as_today": 20,
+  "top50_today_still_paired": 39,
+  "rank1": "desc-p41__sertp-p107-9bc088"
+ },
+ {
+  "scenario": "S2 + Okatie point unknown",
+  "kept": 206,
+  "placed": 136,
+  "no_location": 70,
+  "dropped_from_dataset": 24,
+  "projects_changed": 65,
+  "pairs": 239,
+  "cross_state": 15,
+  "bands": {
+   "lt_8km": 12,
+   "lt_40km": 183,
+   "touching": 39,
+   "lt_1_6km": 5
+  },
+  "named": {
+   "Savannah demo pair (rank 1)": 2,
+   "Savannah pair (rank 3)": 8,
+   "Jasper example (rank 52)": 41,
+   "Urquhart example (rank 332)": 177,
+   "Urquhart example (rank 395)": 220
+  },
+  "matches_pipeline_order": null,
+  "top20_same_as_today": 20,
+  "top50_today_still_paired": 39,
+  "rank1": "sertp-p68-a0289a__sertp-p72-81610d"
+ }
+]
