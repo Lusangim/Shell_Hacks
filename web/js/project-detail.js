@@ -140,6 +140,7 @@ export function setupProjectDetail() {
   let filtered = false;
 
   function showView(next) {
+    document.dispatchEvent(new Event("gridlock:pair-view"));
     view = next;
     opportunities.hidden = next !== "overlaps" && next !== "overlap-detail";
     // The ranked list remains available alongside the selected pair's detail.

@@ -1,55 +1,19 @@
+import { createStormAnimation } from "./storm-animation.js";
+import { createStormDetail } from "./storm-detail.js";
+
 const ACTIONS = {
-  human_review: "Review the estimate",
-  coordinate_project_timing: "Coordinate project timing",
-  inspect_asset: "Inspect exposed asset",
-  preposition_crews: "Preposition crews",
+  human_review: "Review the estimate", coordinate_project_timing: "Coordinate project timing",
+  inspect_asset: "Inspect exposed asset", preposition_crews: "Preposition crews",
   verify_source: "Verify source data",
 };
-
-const DAMAGE = {
-  none: { token: "--storm-none", weight: 2, dashArray: "2 5" },
-  minor: { token: "--storm-minor", weight: 2, dashArray: "5 5" },
-  moderate: { token: "--storm-moderate", weight: 3, dashArray: null },
-  severe: { token: "--storm-severe", weight: 4, dashArray: "8 4" },
-  failed: { token: "--storm-failed", weight: 5, dashArray: null },
-};
-
 const dollars = (value) => value == null ? "no cost basis" : `$${Number(value).toLocaleString("en-US")}`;
 const percent = (value) => `${Math.round(Number(value) * 100)}%`;
-const cssToken = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
 function node(tag, value, source) {
   const result = document.createElement(tag);
   result.textContent = String(value);
   if (source) result.dataset.src = source;
   return result;
-}
-
-function damageClass(asset) {
-  const { minor, moderate, severe, failed } = asset.damage;
-  const chances = {
-    none: Math.max(0, 1 - minor),
-    minor: Math.max(0, minor - moderate),
-    moderate: Math.max(0, moderate - severe),
-    severe: Math.max(0, severe - failed),
-    failed,
-  };
-  return Object.entries(chances).sort((a, b) => b[1] - a[1])[0][0];
-}
-
-function mark(layer, testid) {
-  const element = layer.getElement();
-  if (!element) return;
-  element.dataset.testid = testid;
-  element.setAttribute("aria-hidden", "true");
-  element.setAttribute("tabindex", "-1");
-}
-
-function coordinates(asset) {
-  const geometry = asset.geometry;
-  if (geometry?.type === "Point") return [geometry.coordinates[1], geometry.coordinates[0]];
-  if (geometry?.type === "LineString") return geometry.coordinates.map(([lon, lat]) => [lat, lon]);
-  return null;
 }
 
 export function createStormController(map, currentArea) {
@@ -60,34 +24,25 @@ export function createStormController(map, currentArea) {
   const frameLabel = document.getElementById("storm-frame-label");
   const playButton = document.getElementById("storm-play");
   const resetButton = document.getElementById("storm-reset");
+  const skipButton = document.getElementById("storm-skip");
+  const direction = document.getElementById("storm-direction");
+  const category = document.getElementById("storm-category");
+  const detail = createStormDetail();
   let data = null;
-  let layers = [];
-  let frameDots = [];
-  let radiusLayer = null;
-  let timer = null;
+  let animation = null;
   let controller = null;
   let requestId = 0;
-
-  function pause() {
-    if (timer != null) window.clearInterval(timer);
-    timer = null;
-    playButton.textContent = "Play storm";
-  }
-
-  function removeLayers() {
-    for (const layer of layers) map.removeLayer(layer);
-    layers = [];
-    frameDots = [];
-    radiusLayer = null;
-  }
+  let playing = false;
 
   function clear() {
     requestId += 1;
     controller?.abort();
     controller = null;
-    pause();
-    removeLayers();
+    animation?.clear();
+    animation = null;
+    detail.close({ focus: false });
     data = null;
+    playing = false;
     frameInput.value = "0";
     frameLabel.textContent = "";
     status.textContent = "";
@@ -99,65 +54,10 @@ export function createStormController(map, currentArea) {
     if (!data) return;
     const selected = data.scenario.frames[index];
     frameInput.value = String(index);
-    frameInput.setAttribute("aria-valuetext", `${selected.t_hours} hours from landfall`);
-    frameLabel.textContent = `${selected.t_hours} h from landfall; Rmax ${selected.rmax_km} km`;
+    frameInput.setAttribute("aria-valuetext", `${selected.t_hours} hours from area crossing`);
+    const time = selected.t_hours < 0 ? `t ${selected.t_hours} h` : `t +${selected.t_hours} h`;
+    frameLabel.textContent = `${time}; 33 m/s radius ${selected.radius_33_ms_km} km`;
     frameLabel.dataset.src = "scenario.frames";
-    radiusLayer.setLatLng([selected.lat, selected.lon]);
-    radiusLayer.setRadius(selected.rmax_km * 1000);
-    frameDots.forEach((dot, dotIndex) => dot.setStyle({ fillOpacity: dotIndex === index ? 1 : 0.3,
-      weight: dotIndex === index ? 3 : 1 }));
-  }
-
-  function play() {
-    if (timer != null) { pause(); return; }
-    if (Number(frameInput.value) >= data.scenario.frames.length - 1) frame(0);
-    playButton.textContent = "Pause storm";
-    timer = window.setInterval(() => {
-      const next = Number(frameInput.value) + 1;
-      if (next >= data.scenario.frames.length) { pause(); return; }
-      frame(next);
-    }, 300);
-  }
-
-  function draw() {
-    const frames = data.scenario.frames;
-    const track = L.polyline(frames.map((point) => [point.lat, point.lon]), {
-      color: cssToken("--storm-track"), weight: 3, dashArray: "8 6", interactive: false,
-    }).addTo(map);
-    layers.push(track);
-    mark(track, "storm-track");
-    for (const point of frames) {
-      const dot = L.circleMarker([point.lat, point.lon], { radius: 4, color: cssToken("--storm-track"),
-        fillColor: cssToken("--panel"), fillOpacity: 0.3, weight: 1, interactive: false }).addTo(map);
-      layers.push(dot);
-      frameDots.push(dot);
-      mark(dot, "storm-frame-dot");
-    }
-    radiusLayer = L.circle([frames[0].lat, frames[0].lon], { radius: frames[0].rmax_km * 1000,
-      color: cssToken("--storm-track"), weight: 2, dashArray: "4 4",
-      fillColor: cssToken("--storm-track"), fillOpacity: 0.06, interactive: false }).addTo(map);
-    layers.push(radiusLayer);
-    mark(radiusLayer, "storm-rmax");
-    for (const asset of data.assets) {
-      const location = coordinates(asset);
-      if (!location) continue;
-      const style = DAMAGE[damageClass(asset)];
-      const color = cssToken(style.token);
-      const layer = asset.geometry.type === "Point"
-        ? L.circleMarker(location, { radius: 5, color, fillColor: color, fillOpacity: 0.8,
-          weight: style.weight, interactive: false })
-        : L.polyline(location, { color, weight: style.weight, dashArray: style.dashArray,
-          interactive: false });
-      layer.addTo(map);
-      layers.push(layer);
-      mark(layer, "storm-asset");
-    }
-    const { lat, lon } = data.area;
-    const nearest = frames.reduce((best, point, index) => {
-      const distance = (point.lat - lat) ** 2 + ((point.lon - lon) * Math.cos(lat * Math.PI / 180)) ** 2;
-      return distance < best.distance ? { index, distance } : best;
-    }, { index: 0, distance: Infinity });
-    frame(nearest.index);
   }
 
   function renderCost() {
@@ -202,15 +102,14 @@ export function createStormController(map, currentArea) {
       target.replaceChildren(node("li", "No mapped assets in this area."));
       return;
     }
-    const rows = top.map((asset) => {
+    target.replaceChildren(...top.map((asset) => {
       const row = document.createElement("li");
       row.append(node("strong", asset.name, "assets.name"),
         node("p", `${asset.class.replaceAll("_", " ")} | Peak wind ${asset.peak_wind_ms.toFixed(1)} m/s (${asset.peak_wind_mph.toFixed(1)} mph)`, "assets.peak_wind_ms"),
         node("p", `Damage chance: ${percent(asset.damage.minor)} | Expected cost: ${dollars(asset.expected_usd)}`, "assets.damage"),
         node("p", `${asset.accuracy} location | ${asset.source}`, "assets.source"));
       return row;
-    });
-    target.replaceChildren(...rows);
+    }));
   }
 
   async function estimate() {
@@ -220,9 +119,10 @@ export function createStormController(map, currentArea) {
     const ownRequest = ++requestId;
     controller = new AbortController();
     button.disabled = true;
-    status.textContent = "Estimating storm cost for this area.";
+    status.textContent = "Loading a hypothetical storm estimate.";
     try {
-      const params = new URLSearchParams({ scenario: "gl1", lat: area.lat, lon: area.lon, radius_km: area.radius });
+      const params = new URLSearchParams({ scenario: "synthetic", direction: direction.value, category: category.value,
+        lat: area.lat, lon: area.lon, radius_km: area.radius });
       const response = await fetch(`/api/storm/estimate?${params}`, { signal: controller.signal });
       if (!response.ok) throw new Error("Storm estimate request failed");
       const payload = await response.json();
@@ -236,8 +136,17 @@ export function createStormController(map, currentArea) {
       renderDecision();
       renderAssets();
       results.hidden = false;
-      draw();
-      status.textContent = "Storm estimate ready. Hypothetical scenario, not observed damage.";
+      map.fitBounds(L.latLngBounds(payload.scenario.frames.map((point) => [point.lat, point.lon])),
+        { padding: [55, 55], animate: false, maxZoom: 8 });
+      animation = createStormAnimation(map, payload, {
+        onFrame: frame,
+        onState: (state) => { playing = state === "playing"; playButton.textContent = playing ? "Pause storm" : "Resume storm"; },
+        onFinish: () => {
+          status.textContent = "Storm passage complete. Hypothetical scenario, not observed damage.";
+          detail.open(payload, area);
+        },
+      });
+      if (playing) status.textContent = "Hypothetical storm in progress. Not observed damage.";
     } catch (error) {
       if (ownRequest !== requestId || error.name === "AbortError") return;
       status.textContent = "Could not estimate storm cost. Check the local server, then try again.";
@@ -247,17 +156,13 @@ export function createStormController(map, currentArea) {
   }
 
   button.addEventListener("click", () => { void estimate(); });
-  playButton.addEventListener("click", play);
-  resetButton.addEventListener("click", () => { pause(); frame(0); });
-  frameInput.addEventListener("input", () => { pause(); frame(Number(frameInput.value)); });
+  playButton.addEventListener("click", () => { if (playing) animation?.pause(); else animation?.resume(); });
+  resetButton.addEventListener("click", () => { detail.close({ focus: false }); animation?.replay(); });
+  skipButton.addEventListener("click", () => animation?.skip());
+  document.getElementById("storm-open-results").addEventListener("click", () => {
+    if (data && currentArea()) detail.open(data, currentArea());
+  });
+  frameInput.addEventListener("input", () => animation?.scrub(Number(frameInput.value)));
 
-  function refreshTheme() {
-    if (!data) return;
-    const index = Number(frameInput.value);
-    removeLayers();
-    draw();
-    frame(index);
-  }
-
-  return { clear, refreshTheme };
+  return { clear, refreshTheme: () => animation?.refreshTheme() };
 }

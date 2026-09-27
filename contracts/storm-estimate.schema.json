@@ -169,13 +169,23 @@
       "properties": {
         "frames": {
           "items": {
-            "$ref": "#/$defs/Frame"
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Frame"
+              },
+              {
+                "$ref": "#/$defs/SyntheticFrame"
+              }
+            ]
           },
           "title": "Frames",
           "type": "array"
         },
         "id": {
-          "const": "gl1",
+          "enum": [
+            "gl1",
+            "synthetic"
+          ],
           "title": "Id",
           "type": "string"
         },
@@ -297,7 +307,6 @@
           "type": "string"
         },
         "peak_frame": {
-          "maximum": 12,
           "minimum": 0,
           "title": "Peak Frame",
           "type": "integer"
@@ -490,6 +499,54 @@
       ],
       "title": "StormSummary",
       "type": "object"
+    },
+    "SyntheticFrame": {
+      "additionalProperties": false,
+      "properties": {
+        "dp_hpa": {
+          "exclusiveMinimum": 0,
+          "title": "Dp Hpa",
+          "type": "number"
+        },
+        "index": {
+          "minimum": 0,
+          "title": "Index",
+          "type": "integer"
+        },
+        "lat": {
+          "title": "Lat",
+          "type": "number"
+        },
+        "lon": {
+          "title": "Lon",
+          "type": "number"
+        },
+        "radius_33_ms_km": {
+          "minimum": 0,
+          "title": "Radius 33 Ms Km",
+          "type": "number"
+        },
+        "rmax_km": {
+          "exclusiveMinimum": 0,
+          "title": "Rmax Km",
+          "type": "number"
+        },
+        "t_hours": {
+          "title": "T Hours",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "index",
+        "t_hours",
+        "lat",
+        "lon",
+        "dp_hpa",
+        "rmax_km",
+        "radius_33_ms_km"
+      ],
+      "title": "SyntheticFrame",
+      "type": "object"
     }
   },
   "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -502,7 +559,6 @@
       "items": {
         "$ref": "#/$defs/StormAsset"
       },
-      "maxItems": 200,
       "title": "Assets",
       "type": "array"
     },

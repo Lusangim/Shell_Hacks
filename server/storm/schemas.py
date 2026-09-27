@@ -20,17 +20,21 @@ class Frame(StrictModel):
     rmax_km: float = Field(gt=0)
 
 
+class SyntheticFrame(Frame):
+    radius_33_ms_km: float = Field(ge=0)
+
+
 class ScenarioInfo(StrictModel):
-    id: Literal["gl1"]
+    id: Literal["gl1", "synthetic"]
     name: str
     mode: Literal["hypothetical"]
     version: str
     label: str
-    frames: list[Frame]
+    frames: list[Frame | SyntheticFrame]
 
 
 class ScenarioChoice(StrictModel):
-    id: Literal["gl1"]
+    id: Literal["gl1", "synthetic"]
     name: str
     mode: Literal["hypothetical"]
     version: str
@@ -69,7 +73,7 @@ class StormAsset(StrictModel):
     geometry: PointGeometry | LineGeometry
     peak_wind_ms: float = Field(ge=0)
     peak_wind_mph: float = Field(ge=0)
-    peak_frame: int = Field(ge=0, le=12)
+    peak_frame: int = Field(ge=0)
     damage: Damage
     replacement_usd: float | None = Field(ge=0, default=None)
     expected_usd: float | None = Field(ge=0, default=None)
@@ -108,6 +112,6 @@ class StormDecision(StrictModel):
 class StormEstimate(StrictModel):
     scenario: ScenarioInfo
     area: StormArea
-    assets: list[StormAsset] = Field(max_length=200)
+    assets: list[StormAsset]
     summary: StormSummary
     decision: StormDecision

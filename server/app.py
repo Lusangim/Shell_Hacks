@@ -414,18 +414,27 @@ def create_app(artifact_dir: Path | None = None, settings: Settings | None = Non
     @app.get("/api/storm/scenarios", response_model=list[ScenarioChoice])
     def storm_scenarios(request: Request) -> list[ScenarioChoice]:
         source = request.app.state.storm_data.scenario
-        return [ScenarioChoice(**{key: source[key] for key in ("id", "name", "mode", "version", "label")})]
+        return [ScenarioChoice(**{key: source[key] for key in ("id", "name", "mode", "version", "label")}),
+                ScenarioChoice(id="synthetic", name="Choose a hypothetical storm", mode="hypothetical",
+                               version="1", label="Hypothetical storm: not a forecast, not observed damage")]
 
     @app.get("/api/storm/estimate", response_model=StormEstimate, responses={422: {"model": ErrorResponse}})
     def storm_estimate(
         request: Request,
-        scenario: Annotated[str, Query(pattern="^gl1$")],
+        scenario: Annotated[str, Query(pattern="^(gl1|synthetic)$")],
         lat: Annotated[float, Query(ge=-90, le=90, allow_inf_nan=False)],
         lon: Annotated[float, Query(ge=-180, le=180, allow_inf_nan=False)],
         radius_km: Annotated[float, Query(ge=1, le=80, allow_inf_nan=False)] = 40.0,
+        direction: Annotated[str | None, Query()] = None,
+        category: Annotated[int | None, Query()] = None,
     ) -> StormEstimate:
+        if scenario == "synthetic" and (direction not in ("N", "NE", "E", "SE", "S", "SW", "W", "NW")
+                                        or category not in (1, 2, 3, 4)):
+            raise HTTPException(status_code=422, detail="Synthetic storm requires a compass direction and category 1 to 4.")
         return estimate_storm(request.app.state.storm_data, request.app.state.artifacts.projects,
-                              lat=lat, lon=lon, radius_km=radius_km)
+                              lat=lat, lon=lon, radius_km=radius_km,
+                              direction=direction if scenario == "synthetic" else None,
+                              category=category if scenario == "synthetic" else None)
 
     @app.get("/api/projects", response_model=ProjectCollection, responses={422: {"model": ErrorResponse}})
     def projects(

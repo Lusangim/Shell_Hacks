@@ -14,8 +14,53 @@ from server.storm.data import RawAsset, StormData, TO_DEGREES, TO_METRES
 from server.storm.engine import WindContext, damage_exceedance, expected_cost, monte_carlo, wind_speed
 from server.storm.schemas import (
     Damage, DecisionReason, Frame, LineGeometry, PointGeometry, ScenarioChoice,
-    ScenarioInfo, StormArea, StormAsset, StormDecision, StormEstimate, StormSummary,
+    ScenarioInfo, StormArea, StormAsset, StormDecision, StormEstimate, StormSummary, SyntheticFrame,
 )
+
+
+DIRECTION_VECTOR = {"N": (0, 1), "NE": (1, 1), "E": (1, 0), "SE": (1, -1),
+                    "S": (0, -1), "SW": (-1, -1), "W": (-1, 0), "NW": (-1, 1)}
+STRENGTH = {1: (25, 40), 2: (40, 38), 3: (55, 35), 4: (70, 32)}
+DIRECTION_NAME = {"N": "north", "NE": "northeast", "E": "east", "SE": "southeast",
+                  "S": "south", "SW": "southwest", "W": "west", "NW": "northwest"}
+
+
+def synthetic_scenario(base: dict, *, lat: float, lon: float, direction: str, category: int) -> dict:
+    """Project a straight hypothetical track through the selected centre."""
+    x, y = TO_METRES(lon, lat)
+    east, north = DIRECTION_VECTOR[direction]
+    length = math.hypot(east, north)
+    east, north = east / length, north / length
+    pressure, rmax = STRENGTH[category]
+    anchors = []
+    for hour in range(-18, 14):
+        distance = max(-350, min(250, hour * 20))
+        progress = (distance + 350) / 600
+        if progress < .3:
+            part = progress / .3
+            pressure_share = .4 + .6 * part * part * (3 - 2 * part)
+        elif progress > .7:
+            part = (progress - .7) / .3
+            pressure_share = 1 - .4 * part * part * (3 - 2 * part)
+        else:
+            pressure_share = 1
+        point_lon, point_lat = TO_DEGREES(x - east * distance * 1000, y - north * distance * 1000)
+        anchors.append({"t_hours": hour, "lat": point_lat, "lon": point_lon,
+                        "dp_hpa": pressure * pressure_share, "rmax_km": rmax})
+    return {**base, "id": "synthetic", "name": f"Category {category} from the {DIRECTION_NAME[direction]}",
+            "version": "1", "label": "Hypothetical storm: not a forecast, not observed damage",
+            "anchors": anchors,
+            "top_assumptions": ["Chosen straight hypothetical track and illustrative fragility curves; not a forecast or observed damage.",
+                                *base["top_assumptions"][1:]]}
+
+
+def _radius_33(frame: Frame, physics: dict) -> float:
+    radii = np.linspace(0.1, 300, 601)
+    speeds = wind_speed(radii, frame.rmax_km, frame.dp_hpa, frame.lat,
+                        air_density=physics["air_density_kg_m3"], holland_b=physics["holland_b"],
+                        omega=physics["earth_omega_s"], surface_factor=physics["surface_factor"])
+    reached = radii[np.asarray(speeds) >= 33]
+    return round(float(reached[-1]), 2) if len(reached) else 0.0
 
 
 def scenario_frames(scenario: dict, step_hours: int = 6) -> list[Frame]:
@@ -134,19 +179,26 @@ def _project_in_swath(projects: ProjectCollection, circle: object, track: tuple,
     return None
 
 
-def estimate(data: StormData, projects: ProjectCollection, *, lat: float, lon: float, radius_km: float) -> StormEstimate:
+def estimate(data: StormData, projects: ProjectCollection, *, lat: float, lon: float, radius_km: float,
+             direction: str | None = None, category: int | None = None) -> StormEstimate:
     from shapely.geometry import Point as ShapelyPoint
 
-    scenario = data.scenario
-    frames = scenario_frames(scenario)
+    synthetic = direction is not None and category is not None
+    scenario = synthetic_scenario(data.scenario, lat=lat, lon=lon, direction=direction, category=category) if synthetic else data.scenario
+    frames = scenario_frames(scenario, step_hours=1 if synthetic else 6)
+    if synthetic:
+        frames = [SyntheticFrame(**frame.model_dump(), radius_33_ms_km=_radius_33(frame, scenario["physics"])) for frame in frames]
     circle = ShapelyPoint(*TO_METRES(lon, lat)).buffer(radius_km * 1000)
     track = _hourly_track(frames)
     physics = scenario["physics"]
     assets: list[StormAsset] = []
     simulations = []
+    scenario_id = "synthetic-v1" if synthetic else "gl1-v1"
     for raw, geometry, asset_id in _selected(data, circle):
         point = geometry if isinstance(geometry, Point) else geometry.interpolate(0.5, normalized=True)
         peak, frame_index, hour_index = _wind_at(point.x, point.y, track, physics)
+        if synthetic:
+            frame_index = hour_index
         fragility = scenario["fragility"][raw.asset_class]
         probabilities = damage_exceedance(peak, fragility["medians_ms"], fragility["beta"])
         replacement, cost_id = _replacement(raw, geometry, data)
@@ -174,23 +226,25 @@ def estimate(data: StormData, projects: ProjectCollection, *, lat: float, lon: f
     reasons: list[DecisionReason] = []
     if not assets or coverage < 0.6:
         action = "human_review"
-        reasons.append(DecisionReason(text="No mapped assets or insufficient sourced cost coverage in this area.", evidence=["scenario:gl1-v1", "cost:unit_costs_2026:coverage"]))
+        reasons.append(DecisionReason(text="No mapped assets or insufficient sourced cost coverage in this area.", evidence=[f"scenario:{scenario_id}", "cost:unit_costs_2026:coverage"]))
     elif match := _project_in_swath(projects, circle, track, physics):
         action = "coordinate_project_timing"
-        reasons.append(DecisionReason(text=f"Planned project {match[1]} intersects this area and the 33 m/s synthetic wind swath.", evidence=[f"project:{match[0]}", "scenario:gl1-v1", "frame:swath-33ms"]))
+        reasons.append(DecisionReason(text=f"Planned project {match[1]} intersects this area and the 33 m/s synthetic wind swath.", evidence=[f"project:{match[0]}", f"scenario:{scenario_id}", "frame:swath-33ms"]))
     elif severe := next((asset for asset in sorted(assets, key=lambda item: item.damage.severe, reverse=True) if asset.accuracy == "exact" and asset.damage.severe > 0.3), None):
         action = "inspect_asset"
         reasons.append(DecisionReason(text=f"Mapped asset {severe.name} has illustrative severe-or-failed damage chance above 30%.", evidence=severe.evidence))
     elif sum(asset.peak_wind_ms >= 33 for asset in assets) >= 10:
         action = "preposition_crews"
-        reasons.append(DecisionReason(text="At least 10 mapped assets exceed 33 m/s in this synthetic scenario.", evidence=[asset.evidence[0] for asset in assets if asset.peak_wind_ms >= 33][:10] + ["scenario:gl1-v1"]))
+        reasons.append(DecisionReason(text="At least 10 mapped assets exceed 33 m/s in this synthetic scenario.", evidence=[asset.evidence[0] for asset in assets if asset.peak_wind_ms >= 33][:10] + [f"scenario:{scenario_id}"]))
     else:
         action = "verify_source"
-        reasons.append(DecisionReason(text="Confirm source locations and unit costs before operational use.", evidence=["scenario:gl1-v1", "cost:unit_costs_2026:rebuild_line"]))
+        reasons.append(DecisionReason(text="Confirm source locations and unit costs before operational use.", evidence=[f"scenario:{scenario_id}", "cost:unit_costs_2026:rebuild_line"]))
     review = confidence < 0.7
     decision = StormDecision(action=action, provider="system-rule-v1", confidence=round(confidence, 4),
                              reasons=reasons, review_required=review,
                              review_reason="Exact mapped assets with sourced costs account for less than 70% of expected cost." if review else None)
-    ranked = sorted(assets, key=lambda asset: (asset.expected_usd is None, -(asset.expected_usd or 0), asset.id))[:200]
+    ranked = sorted(assets, key=lambda asset: (asset.expected_usd is None, -(asset.expected_usd or 0), asset.id))
+    if not synthetic:
+        ranked = ranked[:200]
     info = ScenarioInfo(id=scenario["id"], name=scenario["name"], mode=scenario["mode"], version=scenario["version"], label=scenario["label"], frames=frames)
     return StormEstimate(scenario=info, area=StormArea(lat=lat, lon=lon, radius_km=radius_km), assets=ranked, summary=summary, decision=decision)

@@ -104,6 +104,7 @@ def test_scenarios_and_mcintosh_contract(client: TestClient) -> None:
     assert committed_schema == exported_schemas()["storm-estimate"]
     assert value.scenario.mode == "hypothetical"
     assert len(value.scenario.frames) == 13
+    assert "radius_33_ms_km" not in response.json()["scenario"]["frames"][0]
     assert value.summary.assets_total > 0
     assert value.summary.p10_usd <= value.summary.p50_usd <= value.summary.p90_usd
     assert value.summary.assets_with_cost <= value.summary.assets_total
@@ -136,3 +137,64 @@ def test_missing_cost_is_null_and_reduces_coverage(client: TestClient) -> None:
     missing = next(asset for asset in value.assets if asset.id.startswith("line-without-cost"))
     assert missing.replacement_usd is None
     assert missing.expected_usd is None
+
+
+def synthetic(client: TestClient, **changes):
+    params = {"scenario": "synthetic", "direction": "SE", "category": 3,
+              "lat": 32.18, "lon": -81.16, "radius_km": 20}
+    return client.get("/api/storm/estimate", params={**params, **changes})
+
+
+def test_synthetic_track_crosses_center_and_direction_quadrants(client: TestClient) -> None:
+    se = synthetic(client)
+    sw = synthetic(client, direction="SW")
+    assert se.status_code == sw.status_code == 200
+    for response in (se, sw):
+        frames = response.json()["scenario"]["frames"]
+        assert [frame["index"] for frame in frames] == list(range(len(frames)))
+        assert all(b["t_hours"] - a["t_hours"] == 1 for a, b in zip(frames, frames[1:]))
+        center = next(frame for frame in frames if frame["t_hours"] == 0)
+        x0, y0 = TO_METRES(-81.16, 32.18)
+        x1, y1 = TO_METRES(center["lon"], center["lat"])
+        assert ((x1 - x0) ** 2 + (y1 - y0) ** 2) ** 0.5 < 1000
+        assert all(frame["radius_33_ms_km"] >= 0 for frame in frames)
+        assert all(0 <= asset["peak_frame"] < len(frames) for asset in response.json()["assets"])
+        assert len(response.json()["assets"]) == response.json()["summary"]["assets_total"]
+        origin = TO_METRES(-81.16, 32.18)
+        for frame, expected_km in ((frames[0], 350), (frames[-1], 250)):
+            location = TO_METRES(frame["lon"], frame["lat"])
+            assert ((location[0] - origin[0]) ** 2 + (location[1] - origin[1]) ** 2) ** .5 / 1000 == pytest.approx(expected_km, abs=.01)
+        pressure = {frame["t_hours"]: frame["dp_hpa"] for frame in frames}
+        assert pressure[-18] == pytest.approx(pressure[0] * .4)
+        assert pressure[13] == pytest.approx(pressure[0] * .6)
+        assert pressure[-16] - pressure[-17] < .8 * (pressure[-12] - pressure[-13])
+        assert pressure[11] - pressure[12] < .8 * (pressure[8] - pressure[9])
+    assert se.json()["scenario"]["frames"][0]["lon"] > -81.16
+    assert sw.json()["scenario"]["frames"][0]["lon"] < -81.16
+    assert se.json()["scenario"]["frames"][0]["lat"] < 32.18
+    assert sw.json()["scenario"]["frames"][0]["lat"] < 32.18
+
+
+def test_synthetic_strength_determinism_and_contract(client: TestClient) -> None:
+    weak = synthetic(client, category=1)
+    strong = synthetic(client, category=4)
+    assert weak.status_code == strong.status_code == 200
+    assert max(asset["peak_wind_ms"] for asset in strong.json()["assets"]) > max(
+        asset["peak_wind_ms"] for asset in weak.json()["assets"])
+    assert strong.json() == synthetic(client, category=4).json()
+    assert strong.json()["scenario"]["name"] == "Category 4 from the southeast"
+    assert "GL-1" not in " ".join(strong.json()["summary"]["top_assumptions"])
+    assert {choice["id"] for choice in client.get("/api/storm/scenarios").json()} == {"gl1", "synthetic"}
+    schema = exported_schemas()["storm-estimate"]
+    assert "radius_33_ms_km" in json.dumps(schema)
+    assert schema == json.loads((ROOT / "contracts" / "storm-estimate.schema.json").read_text(encoding="utf-8"))
+
+
+@pytest.mark.parametrize("changes", [{"direction": "bad"}, {"category": 0}, {"category": 5},
+                                     {"category": "two"}, {"direction": None}, {"category": None}])
+def test_synthetic_rejects_bad_options(client: TestClient, changes: dict) -> None:
+    params = {"scenario": "synthetic", "direction": "SE", "category": 3,
+              "lat": 32.18, "lon": -81.16, "radius_km": 20}
+    params.update(changes)
+    params = {key: value for key, value in params.items() if value is not None}
+    assert client.get("/api/storm/estimate", params=params).status_code == 422

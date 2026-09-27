@@ -16,7 +16,7 @@ def open_storm(page):
     page.get_by_role("button", name="Explore an area").click()
     click_empty_map(page)
     expect(page.locator("#area-panel")).to_be_visible()
-    page.get_by_role("button", name="Estimate storm cost for this area").click()
+    page.get_by_role("button", name="Invoke storm").click()
     expect(page.locator("#storm-results")).to_be_visible(timeout=30000)
 
 
@@ -51,16 +51,16 @@ def test_storm_area_result_play_pause_reset_and_clear(live_server):
         expect(page.locator("#storm-assets li").first).to_contain_text("Expected cost:")
         expect(page.get_by_test_id("storm-track")).to_have_count(1)
         expect(page.get_by_test_id("storm-rmax")).to_have_count(1)
-        expect(page.get_by_test_id("storm-frame-dot")).to_have_count(13)
+        expect(page.get_by_test_id("storm-frame-dot")).to_have_count(len(payload["scenario"]["frames"]))
         slider = page.get_by_label("Storm frame")
         slider.fill("0")
-        page.get_by_role("button", name="Play storm").click()
+        page.get_by_role("button", name="Resume storm").click()
         expect(slider).not_to_have_value("0", timeout=3500)
         page.get_by_role("button", name="Pause storm").click()
         paused = slider.input_value()
         page.wait_for_timeout(450)
         expect(slider).to_have_value(paused)
-        page.get_by_role("button", name="Reset storm").click()
+        page.get_by_role("button", name="Replay storm").click()
         expect(slider).to_have_value("0")
         page.get_by_role("button", name="Clear area").click()
         expect(page.locator("#storm-results")).to_be_hidden()
@@ -77,7 +77,7 @@ def test_storm_from_search_area(live_server):
         loaded(page, live_server)
         explore_search(page, "Savannah")
         expect(page.locator("#area-panel")).to_be_visible()
-        page.get_by_role("button", name="Estimate storm cost for this area").click()
+        page.get_by_role("button", name="Invoke storm").click()
         expect(page.locator("#storm-results")).to_be_visible(timeout=30000)
         expect(page.locator("#storm-cost")).to_contain_text("Possible repair cost (estimate)")
         expect(page.get_by_test_id("storm-track")).to_have_count(1)
@@ -110,4 +110,41 @@ def test_storm_reduced_motion_accessibility_and_escape(live_server, theme):
         expect(page.locator("#area-panel")).to_be_hidden()
         expect(page.get_by_test_id("storm-track")).to_have_count(0)
         assert errors == external == []
+        browser.close()
+
+
+def test_storm_options_request_selected_track(live_server):
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        loaded(page, live_server)
+        page.get_by_role("button", name="Explore an area").click()
+        click_empty_map(page)
+        page.get_by_label("Approach direction").select_option("SW")
+        page.get_by_label("Storm strength").select_option("2")
+        with page.expect_response("**/api/storm/estimate?*") as response:
+            page.get_by_role("button", name="Invoke storm").click()
+        assert response.value.request.url.find("direction=SW") > 0
+        assert response.value.request.url.find("category=2") > 0
+        browser.close()
+
+
+def test_storm_results_use_right_pane_and_restore_pair(live_server):
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        loaded(page, live_server)
+        open_storm(page)
+        page.get_by_role("button", name="Skip to results").click()
+        detail = page.locator("#storm-detail")
+        expect(detail).to_be_visible()
+        expect(page.locator("aside.detail-pane")).to_have_attribute("aria-label", "Storm results")
+        expect(detail).to_contain_text("Possible repair cost")
+        expect(detail).to_contain_text("Coverage")
+        expect(detail).to_contain_text("System rule (Jev not configured)")
+        page.get_by_role("button", name="Close storm results").click()
+        expect(detail).to_be_hidden()
+        expect(page.locator("#storm-estimate")).to_be_focused()
+        page.get_by_test_id("overlap-row").first.locator("button").click()
+        expect(page.locator("#overlap-detail")).to_be_visible()
         browser.close()
