@@ -72,7 +72,7 @@ The built map data is already in the repo. To rebuild it yourself, in the `Shell
 | `%USERPROFILE%\dev\gridlock-venv\Scripts\python.exe -m pipeline.build_all` | `~/dev/gridlock-venv/bin/python -m pipeline.build_all` |
 
 `pipeline.extract` reads the two plan PDFs in `data/raw/` (54 Dominion Energy SC projects, 427 SERTP rows).
-`pipeline.build_all` places the projects on the map and finds the pairs (230 kept, 181 placed, 489 pairs,
+`pipeline.build_all` places the projects on the map and finds the pairs (230 kept, 181 placed, 465 pairs,
 43 across the state line). The rebuilt files match the committed ones exactly.
 
 ### Run the automated checks
