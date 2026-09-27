@@ -27,9 +27,9 @@ export const tourSteps = [
   { id: "filters", target: "#filters-toggle", title: "Narrow the results",
     body: "Filter by utility and distance band; More filters adds voltage, project type and years. A pair stays only when both of its projects pass your filters." },
   { id: "area", target: "#search-form", title: "Explore an area",
-    body: "Search for a place, choose a result and press Enter, then select Explore this area. It lists every project and pair within 40 km, and its radius control changes the circle from 1 to 80 km." },
+    body: "Search a place here, choose a result and press Enter, then select Explore this area. It lists every project and pair within 40 km, and its radius control changes the circle from 1 to 80 km. The Explore an area button on the map does the same for any point, and an open area can invoke a hypothetical storm to estimate repair costs." },
   { id: "brief", target: "#brief-panel:has(#brief-copy:enabled)", prepare: "pair", title: "Read a coordination brief",
     body: "Who to contact and what to settle first, ready to copy with the pair's facts and sources. It is labelled Template. With a Claude API key, an AI-drafted brief adds a plain-language note and the first question to settle; pair #1 shows an example." },
   { id: "export", target: ".report-controls", prepare: "export", title: "Keep a copy",
-    body: "Export CSV saves the ranked list you are looking at, laid out like a utility conflict matrix; Print report gives a readable copy with sources. Estimates stay labelled as estimates." },
+    body: "Export CSV saves the ranked pairs you are looking at with their key facts, ready for Excel; Print report makes a clean Letter report with key figures, the selected pair and sources. Estimates stay labelled as estimates." },
 ];

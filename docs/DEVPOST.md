@@ -32,8 +32,8 @@ each other.
   shows its score factor by factor; distance always counts most.
 - **Tools for a planner.** "Start here" places, search, filters, an in-service year slider, a 1-80 km area
   tool, a coordination brief (who to contact and what to settle first), a coordination tracker (status and
-  notes per pair, saved in the browser), a CSV worksheet, a print report with an "At a glance" page and a
-  guided tour. The map is the centre of the page: pick a pair and the map zooms to it, thickens its two lines
+  notes per pair, saved in the browser), a key-facts CSV for Excel, a clean Letter report (key figures, the
+  selected pair, the ranked pairs with sources) and a guided tour. The map is the centre of the page: pick a pair and the map zooms to it, thickens its two lines
   on a halo and marks its rank, while the facts open in the right pane.
 - **Resilience Lab preview.** Pick an area, choose where a hurricane comes from and how strong it is, and
   watch a hypothetical storm form, cross the area and light up the transmission lines and substations it

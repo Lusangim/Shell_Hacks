@@ -1,8 +1,11 @@
 import { tourSteps, tourWords } from "./tour-content.js";
 
 function visible(node) {
-  return Boolean(node && node.getClientRects().length && !node.closest("[hidden]")
-    && getComputedStyle(node).visibility !== "hidden");
+  if (!node || !node.getClientRects().length || node.closest("[hidden]")) return false;
+  // Content of a closed section keeps a stale box in Chrome: only its summary counts as shown.
+  const closed = node.parentElement?.closest("details:not([open])");
+  if (closed && !closed.querySelector(":scope > summary")?.contains(node)) return false;
+  return getComputedStyle(node).visibility !== "hidden";
 }
 
 export function setupTour() {
@@ -146,11 +149,20 @@ export function setupTour() {
     const inPanel = Boolean(target.closest(".panel"));
     if (inPanel) {
       top = rect.top + Math.min(rect.height, 64) / 2 - 36;
-    } else if (target.closest(".timeline")) {
-      left = Math.max(left, rect.left);
-      top = rect.top - box.height - 12;
-    } else if (innerWidth >= 1100) {
-      left = Math.max(left, innerWidth - box.width - 76);
+    } else {
+      // Beside what the step explains: below, above, left, then right of the target. The first spot on screen
+      // that leaves the target uncovered wins; otherwise the spot that covers the least of it.
+      const gap = 12;
+      const onScreen = ([x, y]) => [Math.min(Math.max(margin, x), innerWidth - box.width - margin),
+        Math.min(Math.max(margin, y), innerHeight - box.height - margin)];
+      const spots = [
+        [rect.right - box.width, rect.bottom + gap], [rect.left, rect.bottom + gap],
+        [rect.left, rect.top - box.height - gap], [rect.right - box.width, rect.top - box.height - gap],
+        [rect.left - box.width - gap, rect.top], [rect.right + gap, rect.top],
+      ].map(onScreen);
+      const covered = ([x, y]) => Math.max(0, Math.min(x + box.width, rect.right) - Math.max(x, rect.left))
+        * Math.max(0, Math.min(y + box.height, rect.bottom) - Math.max(y, rect.top));
+      [left, top] = spots.reduce((best, spot) => (covered(spot) < covered(best) ? spot : best));
     }
     left = Math.min(Math.max(margin, left), innerWidth - box.width - margin);
     top = Math.min(Math.max(margin, top), innerHeight - box.height - margin);
@@ -202,6 +214,7 @@ export function setupTour() {
 
       }
       if (!active || ownRevision !== revision) return;
+      revealTarget(step.target);
       const node = document.querySelector(step.target);
       if (!visible(node)) {
         steps.splice(candidate, 1);
@@ -222,6 +235,16 @@ export function setupTour() {
       positionCard();
       enter();
       card.focus({ preventScroll: true });
+      // The pair pane may still be settling (a section opening, the pane returning to its top): look again
+      // shortly, bring the target back into view and place the card beside it.
+      setTimeout(() => {
+        if (!active || target !== node) return;
+        const settled = node.getBoundingClientRect();
+        if (settled.top < 0 || settled.bottom > innerHeight) {
+          node.scrollIntoView({ block: settled.height > innerHeight * 0.6 ? "start" : "center", behavior: "instant" });
+        }
+        positionCard();
+      }, 350);
       return;
     }
     finish();

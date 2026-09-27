@@ -41,7 +41,7 @@ troubleshooting): **[RUNNING.md](RUNNING.md)**. How distances, bands and the ran
 - A map-first layout: search, filters and **Take the tour** and icons for projects, data notes, CSV, print and theme in the top bar, the 465 ranked pairs on the left, the map in the centre and the selected pair on the right. The map zooms to the pair, thickens its two lines on a halo and marks its rank.
 - Interactive offline map, project and pair details, search, filters, timeline and 1–80 km area explorer.
 - Every pair shows why it ranks where it does: its score, factor by factor (distance band × timing × location × state line × savings, with distance leading).
-- Source-linked evidence, accuracy and uncertainty labels, 119 possible-saving ranges from the team's unit costs by job type and distance, CSV export and a Letter print report.
+- Source-linked evidence, accuracy and uncertainty labels, 119 possible-saving ranges from the team's unit costs by job type and distance, a key-facts CSV for Excel and a clean Letter report (key figures, the selected pair, the ranked pairs with sources).
 - Locations from public map data: a line's real route when one HIFLD line joins its two ends, a route along the existing network when several do, and a "town only" flag when only a town centre matched.
 - A guided tour, five **Start here** places where close pairs cluster, and a one-line impact summary of the current results.
 - An **Explore an area** map tool, and a **coordination tracker** (status and notes per pair, saved in your browser, carried into print and CSV).

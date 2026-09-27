@@ -154,11 +154,13 @@ location can never put a pair closer than "under 40 km" unless both plans name t
 Beside the filter, the top bar has **Take the tour** and one icon per action (hover for its name): Projects, About
 the data, Export CSV, Print report and the theme switch; on narrower screens they fold into the **⋮** menu. **Map key**
 sits on the map. **Export CSV**
-saves the ranked list you are looking at as a planner's worksheet. The first columns are what you read first:
-rank, score, both projects with utility and year, years to coordinate, distance and why they appear together,
-and the possible saving. Evidence and reference columns follow, plus your coordination status and notes.
-**Print report** makes a Letter report: an "At a glance" page, the selected pair with its evidence, and one
-compact row per pair with its sources. Here is [a sample for the touching pairs](sample-report.pdf).
+saves the ranked pairs you are looking at for Excel, with only the key columns: rank and score; each project's
+utility, name and in-service year; distance and proximity; years to coordinate; whether the pair crosses the
+state line; the possible saving as low and high numbers (blank when there is no estimate); location accuracy;
+each project's plan document and page; and your coordination status and notes. **Print report** makes a clean
+Letter report: a header with the plan editions and filters, four key figures, the selected pair on one card, the
+ranked pairs in a table with their sources, and the sources and notes. Filter first for a short report; here is
+[a sample for the touching pairs](sample-report.pdf).
 
 ![The first page of the printed report](screenshots/18-print-report.png)
 
