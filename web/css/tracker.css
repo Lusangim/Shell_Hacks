@@ -1,0 +1,46 @@
+#pair-tracker {
+  border-top: 1px solid var(--rule);
+  margin-top: 24px;
+  padding-top: 16px;
+}
+
+#pair-tracker h3 { margin: 0 0 16px; }
+#pair-tracker label { display: block; font-weight: 650; margin: 12px 0 4px; }
+#pair-tracker select,
+#pair-tracker textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-control);
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  line-height: 1.4;
+  caret-color: var(--ink);
+}
+
+#pair-tracker textarea { resize: vertical; }
+#pair-tracker :is(select, textarea):focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+#pair-tracker .tracker-hint { color: var(--pencil); margin: 8px 0; }
+#tracker-save-state { min-height: 1.4em; margin: 4px 0 0; color: var(--pencil); }
+.tracker-chip {
+  display: inline-block;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-pill);
+  padding: 2px 8px;
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.4;
+}
+.coordination-status { white-space: pre-line; }
+
+@media (max-width: 700px) {
+  #pair-tracker select, #pair-tracker textarea { font-size: 16px; }
+}

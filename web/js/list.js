@@ -124,6 +124,7 @@ export function renderList(overlaps, projects) {
     list.append(row);
   }
   document.getElementById("overlap-count").textContent = `${overlaps.length} pairs`;
+  document.dispatchEvent(new Event("gridlock:list-rendered"));
 }
 
 export function selectFirstOverlapForProject(projectId, hasFilters = false) {

@@ -152,8 +152,11 @@ def test_keyboard_phone_detail_has_focus_no_overflow_or_console_error(live_serve
         page.goto(live_server)
         expect(page.get_by_test_id("overlap-row").first).to_be_visible()
         page.locator("#search-input").focus()
+        for button in page.locator("#start-here-places button").all():
+            page.keyboard.press("Tab")
+            assert button.evaluate("element => document.activeElement === element"), "Start here place not reachable from search by Tab"
         page.keyboard.press("Tab")
-        assert page.evaluate("document.activeElement.classList.contains('overlap-button')"), "Ranked overlap not reachable from search by Tab"
+        assert page.evaluate("document.activeElement.classList.contains('overlap-button')"), "Ranked overlap not reachable after Start here by Tab"
         page.keyboard.press("Enter")
         detail = page.get_by_test_id("overlap-detail")
         expect(detail).to_be_visible()

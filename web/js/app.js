@@ -11,11 +11,13 @@ import { setupTimeline } from "./timeline.js";
 import { setupExport } from "./export.js";
 import { setupTour } from "./tour.js";
 import { state } from "./state.js";
+import { setupTracker } from "./tracker.js";
 
 const status = document.getElementById("status");
 const listState = document.getElementById("list-state");
 const projectView = setupProjectDetail();
 const overlapView = setupOverlapDetail(projectView);
+setupTracker();
 const mapPairOpen = document.getElementById("map-pair-open");
 const filterControl = setupFilters(() => { void applyFilters(); });
 const timeline = setupTimeline(filterControl);

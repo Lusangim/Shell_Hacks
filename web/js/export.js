@@ -1,6 +1,7 @@
 import { citation, money, readableEvidence, touchReasonLabel } from "./project-detail.js";
 import { renderOverlapDetail } from "./overlap-detail.js";
 import { state } from "./state.js";
+import { addTrackingToCsv, coordinationText } from "./tracker.js";
 
 const ASSUMPTIONS = new Map([
   ["unit_costs_2026", "Team unit-cost file, 2026-09-26: shareable cost items by job type and distance, priced from MISO's transmission cost guide (escalated to 2026 at 4% a year) and public land, wage and rental sources. Saving rates are team assumptions, not measured savings or evidence of a shared asset."],
@@ -36,8 +37,8 @@ function savingsText(savings) {
   return reasons[savings?.status] ?? "No estimate available.";
 }
 
-function coordinationField(parent) {
-  const blank = text("p", "");
+function coordinationField(parent, pairId) {
+  const blank = text("p", coordinationText(pairId));
   blank.className = "coordination-status";
   parent.append(blank);
 }
@@ -59,7 +60,7 @@ function selectedBlock(payload, selectedId) {
   field(detail.querySelector("details"), "Nearest mapped distance", distanceText(pair.distance_km), "distance_km");
   section.append(detail);
   section.append(text("h3", "Coordination status"));
-  coordinationField(section);
+  coordinationField(section, pair.id);
   return section;
 }
 
@@ -148,7 +149,7 @@ function rankedTable(projects) {
       sources.append(line);
     }
     const blank = document.createElement("td");
-    coordinationField(blank);
+    coordinationField(blank, pair.id);
     row.append(rank, projectsCell(pair, projects), timing, savings, sources, blank);
     body.append(row);
   }
@@ -219,7 +220,7 @@ export function setupExport(filterControl) {
     try {
       const response = await fetch(`/api/export/overlaps.csv${query ? `?${query}` : ""}`);
       if (!response.ok) throw new Error("CSV request failed");
-      const blob = await response.blob();
+      const blob = await addTrackingToCsv(await response.blob());
       if (ownRevision !== revision) return;
       const filename = /filename="([^"/\\]+)"/i.exec(response.headers.get("Content-Disposition") ?? "")?.[1];
       if (!filename || !response.headers.get("Content-Type")?.startsWith("text/csv")) throw new Error("Invalid CSV response");
