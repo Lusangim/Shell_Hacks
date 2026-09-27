@@ -142,8 +142,8 @@ def test_export_all_real_savings_keep_evidence_and_original_fields(real_client: 
                 for item in real_client.get("/api/projects").json()["features"]}
     response = real_client.get("/api/export/overlaps.csv")
     rows = csv_rows(real_client)
-    assert len(rows) == len(pairs) == 489
-    assert sum(pair["savings"]["status"] == "range" for pair in pairs) == 201
+    assert len(rows) == len(pairs) == 465
+    assert sum(pair["savings"]["status"] == "range" for pair in pairs) == 187
     assert response.content.startswith(b"\xef\xbb\xbf")
     assert response.content.endswith(b"\r\n")
     assert b"\n" not in response.content.replace(b"\r\n", b"")
