@@ -14,6 +14,31 @@ def loaded(page, url):
     expect(page.locator("#status")).to_contain_text("ranked opportunities")
 
 
+def click_empty_map(page, skip=0):
+    points = page.evaluate("""() => {
+      const rect = document.querySelector('#map').getBoundingClientRect();
+      const points = [];
+      for (const y of [.3, .4, .5, .25, .6]) for (const x of [.72, .82, .92, .62]) {
+        const px = Math.round(rect.left + rect.width * x), py = Math.round(rect.top + rect.height * y);
+        const target = document.elementFromPoint(px, py);
+        if (document.querySelector('#map').contains(target) &&
+            !target.closest('.leaflet-interactive, .leaflet-control, .map-pair-open, .basemap-controls'))
+          points.push({x:px, y:py});
+      }
+      return points;
+    }""")
+    assert len(points) > skip, "No empty map point available"
+    point = points[skip]
+    centre = page.evaluate("""async point => {
+      const {state} = await import('/web/js/state.js');
+      const rect = document.querySelector('#map').getBoundingClientRect();
+      const latlng = state.map.containerPointToLatLng([point.x - rect.left, point.y - rect.top]);
+      return [latlng.lat, latlng.lng];
+    }""", point)
+    page.mouse.click(**point)
+    return centre
+
+
 def explore_search(page, name="Savannah"):
     search = page.get_by_label("Search a city or project")
     search.fill(name)
@@ -41,6 +66,93 @@ def parity(page, payload):
     assert names == [feature["properties"]["name"] for feature in payload["projects"]]
     assert sources == [f'{feature["properties"]["source"]["doc"]}, p. {feature["properties"]["source"]["page"]}'
                        for feature in payload["projects"]]
+
+
+def test_map_click_requires_area_mode(live_server):
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900}, reduced_motion="reduce")
+        loaded(page, live_server)
+        button = page.get_by_role("button", name="Explore an area")
+        expect(button).to_have_attribute("aria-pressed", "false")
+        click_empty_map(page)
+        expect(page.locator("#area-panel")).to_be_hidden()
+        expect(page.get_by_test_id("area-circle")).to_have_count(0)
+        assert "area" not in parse_qs(urlparse(page.url).query)
+        button.click()
+        expect(button).to_have_attribute("aria-pressed", "true")
+        expect(page.locator("#status")).to_have_text("Click the map to choose the centre of a 40 km area. Esc cancels.")
+        assert page.locator("#map").evaluate("el => getComputedStyle(el).cursor") == "crosshair"
+        expected_centre = click_empty_map(page)
+        expect(page.locator("#area-state")).to_contain_text("projects in area;")
+        expect(page.get_by_test_id("area-circle")).to_have_attribute("data-radius-m", "40000")
+        expect(button).to_have_attribute("aria-pressed", "false")
+        lat, lon = map(float, parse_qs(urlparse(page.url).query)["area"][0].split(","))
+        assert abs(lat - expected_centre[0]) < 0.00001
+        assert abs(lon - expected_centre[1]) < 0.00001
+        browser.close()
+
+
+@pytest.mark.parametrize("cancel", ["button", "Escape"])
+def test_area_mode_cancels_without_selection(live_server, cancel):
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(reduced_motion="reduce")
+        loaded(page, live_server)
+        button = page.get_by_role("button", name="Explore an area")
+        button.click()
+        if cancel == "button":
+            button.click()
+        else:
+            page.keyboard.press("Escape")
+        expect(button).to_have_attribute("aria-pressed", "false")
+        expect(page.locator("#area-panel")).to_be_hidden()
+        expect(page.get_by_test_id("area-circle")).to_have_count(0)
+        click_empty_map(page)
+        expect(page.locator("#area-panel")).to_be_hidden()
+        assert "area" not in parse_qs(urlparse(page.url).query)
+        browser.close()
+
+
+def test_project_click_keeps_its_behavior_while_area_mode_is_on(live_server):
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900}, reduced_motion="reduce")
+        loaded(page, live_server)
+        button = page.get_by_role("button", name="Explore an area")
+        button.click()
+        page.get_by_test_id("project-feature").first.click(force=True)
+        expect(page.locator("#project-detail")).to_be_visible()
+        expect(page.locator("#area-panel")).to_be_hidden()
+        expect(page.get_by_test_id("area-circle")).to_have_count(0)
+        expect(button).to_have_attribute("aria-pressed", "true")
+        browser.close()
+
+
+@pytest.mark.parametrize("width,height", [(1440, 900), (390, 844)])
+@pytest.mark.parametrize("theme", ["light", "dark"])
+def test_area_mode_button_keyboard_and_axe(live_server, width, height, theme):
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": width, "height": height}, reduced_motion="reduce")
+        page.add_init_script(f"localStorage.setItem('gridlock-theme', '{theme}')")
+        loaded(page, live_server)
+        button = page.get_by_role("button", name="Explore an area", exact=True)
+        assert button.get_attribute("title")
+        box = button.bounding_box()
+        assert box["width"] >= 44 and box["height"] >= 44
+        page.locator(".leaflet-control-zoom-out").focus()
+        page.keyboard.press("Tab")
+        expect(button).to_be_focused()
+        outline = button.evaluate("el => getComputedStyle(el).outline")
+        assert outline != "none" and not outline.startswith("0px"), outline
+        page.keyboard.press("Enter")
+        expect(button).to_have_attribute("aria-pressed", "true")
+        expect(page.locator("#status")).to_have_attribute("aria-live", "polite")
+        axe_source = (Path(__file__).parent / "vendor" / "axe.min.js").read_text(encoding="utf-8")
+        violations = page.evaluate(axe_source + "\nwindow.axe.run(document, {runOnly: {type:'tag', values:['wcag2a','wcag2aa','wcag21a','wcag21aa']}})")["violations"]
+        assert not violations, [(item["id"], item["nodes"][0]["target"]) for item in violations]
+        browser.close()
 
 
 @pytest.mark.parametrize("width,height", [(1440, 900), (390, 844)])
@@ -100,7 +212,8 @@ def test_mouse_area_keeps_pair_and_map_view(live_server):
         expect(page.locator("#overlap-content")).not_to_be_empty()
         before = page.evaluate("""async () => {const {state}=await import('/web/js/state.js');
           return {id:state.selectedOverlapId, zoom:state.map.getZoom(), center:state.map.getCenter(), hash:location.hash};} """)
-        page.locator("#map").click(position={"x": 1100, "y": 360})
+        page.get_by_role("button", name="Explore an area").click()
+        click_empty_map(page)
         expect(page.locator("#area-state")).to_contain_text("projects in area;")
         params = parse_qs(urlparse(page.url).query)
         lat, lon = params["area"][0].split(",")
@@ -186,13 +299,15 @@ def test_late_area_response_cannot_replace_new_map_or_search_selection(live_serv
             } return original(url,options);
           };})();""")
         loaded(page, live_server)
-        page.locator("#map").click(position={"x": 1000, "y": 300})
+        page.get_by_role("button", name="Explore an area").click()
+        click_empty_map(page)
         page.wait_for_function("typeof window.areaGate.release === 'function'")
         expect(page.locator("#area-state")).to_contain_text("Loading")
         if second == "search":
             explore_search(page)
         elif second == "map":
-            page.locator("#map").click(position={"x": 1100, "y": 350})
+            page.get_by_role("button", name="Explore an area").click()
+            click_empty_map(page, skip=1)
         else:
             page.keyboard.press("Escape")
         if second != "clear":

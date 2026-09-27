@@ -1,0 +1,55 @@
+.leaflet-control-area {
+  margin-top: 8px;
+  border-radius: var(--radius-card);
+  background: var(--panel);
+  box-shadow: var(--card-shadow);
+}
+
+.leaflet-control-area button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: var(--radius-control);
+  background: var(--panel);
+  color: var(--ink);
+  font: 600 14px/1.2 system-ui, -apple-system, "Segoe UI", sans-serif;
+  cursor: pointer;
+}
+
+.leaflet-control-area button::before {
+  content: "";
+  display: inline-block;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  background: currentColor;
+  -webkit-mask: url("/web/icons/map-pin.svg") center / contain no-repeat;
+  mask: url("/web/icons/map-pin.svg") center / contain no-repeat;
+}
+
+.leaflet-control-area button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--panel);
+}
+
+.leaflet-control-area button:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .leaflet-control-area button:not([aria-pressed="true"]):hover { background: var(--canvas); }
+  .leaflet-control-area button[aria-pressed="true"]:hover { background: var(--pencil); }
+}
+
+#map.area-mode-active { cursor: crosshair; }
+
+.map-region:has(.leaflet-control-area) .map-pair-open { top: 242px; }
+
+@media (max-width: 1100px) {
+  .map-region:has(.leaflet-control-area) .map-pair-open { top: 236px; }
+}
