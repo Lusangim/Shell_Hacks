@@ -1,9 +1,11 @@
 """Find and rank coordination opportunities between utilities.
 
-Input:  projects.geojson (from place_projects.py)
+Input:  projects.geojson (from place_projects.py), unit_costs_2026.csv (team unit-cost file)
 Output: overlaps.json - every pair of projects from DIFFERENT utilities within 40 km, ranked.
 
 Nearest points are found in EPSG:5070, then their distance is measured geodesically.
+Score = distance band x timing x location accuracy x state line x (1 + savings bonus, at most 0.3);
+distance leads: the bonus is capped below 1/3, so savings alone never lift a pair past a closer band.
 """
 import json
 from pathlib import Path
@@ -12,7 +14,7 @@ from shapely.ops import transform
 from shapely.strtree import STRtree
 from overlap_geometry import (TO_METRES, TOWN_CAP_NOTE, band_for, can_share, classify_touch,
                               nearest_point_distance_m, rank_key, town_capped_band)
-from savings import estimate_savings, load_assumptions
+from savings import estimate_savings, job_kind, load_unit_costs, savings_bonus, shared_mechanisms
 
 BANDS = {
     "touching": ("Touching / crossing", 4),
@@ -26,7 +28,7 @@ feats = [f for f in json.load(open("projects.geojson", encoding="utf-8"))["featu
 geoms = [shape(f["geometry"]) for f in feats]
 projected = [transform(TO_METRES, geometry) for geometry in geoms]
 tree = STRtree(projected)
-assumptions = load_assumptions(Path("assumptions.json"))
+costs = load_unit_costs(Path("unit_costs_2026.csv"))
 
 
 def timeline(a, b):
@@ -65,7 +67,9 @@ for i, g in enumerate(projected):
             if a_state == b_state == "GA" else None
         )
         acc = ACCURACY_FACTOR[a["accuracy"]] * ACCURACY_FACTOR[b["accuracy"]]
-        score = round(w * tf * acc * (1.5 if cross_state else 1.0), 3)
+        savings = estimate_savings(a, b, bid, costs)
+        score = round(w * tf * acc * (1.5 if cross_state else 1.0) * (1 + savings_bonus(savings)), 3)
+        shareable = shared_mechanisms(job_kind(a), job_kind(b), bid, costs)
         if a["id"] > b["id"]:
             a, b = b, a
         year_gap = abs(a["year"] - b["year"]) if a.get("year") is not None and b.get("year") is not None else None
@@ -73,11 +77,11 @@ for i, g in enumerate(projected):
         pairs.append(dict(
             id=f'{a["id"]}__{b["id"]}',
             a=a["id"], b=b["id"], a_name=a["name"], b_name=b["name"], a_utility=a["utility"], b_utility=b["utility"],
-            distance_km=d / 1000, band=bid, band_label=label, can_share=can_share(bid, reason),
+            distance_km=d / 1000, band=bid, band_label=label, can_share=can_share(bid, reason, shareable),
             touch_reason=reason, touch_detail=detail, town_capped=town_capped,
             a_year=a.get("year"), b_year=b.get("year"), year_gap=year_gap, timeline=tl,
             cross_state=cross_state, pair_note=pair_note, accuracy_pair=accuracy_pair, score=score,
-            savings=estimate_savings(a, b, assumptions), brief_status="none"))
+            savings=savings, brief_status="none"))
 
 pairs.sort(key=rank_key)
 for rank, p in enumerate(pairs, 1):

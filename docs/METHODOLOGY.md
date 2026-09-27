@@ -34,6 +34,69 @@ match was not used. A project whose only location is a town centre stays on the 
 only". On its own it cannot put a pair closer than "under 40 km": such a pair is counted as under 40 km
 (15 pairs, each with a note), unless both plans name the same substation.
 
+## How pairs are ranked
+
+Every pair of projects from different utilities within 40 km gets a score. The list sorts by score, then
+by shorter distance, then by pair ID.
+
+**score = distance band × timing × location accuracy × state line × (1 + savings bonus)**
+
+| Part | Values |
+| --- | --- |
+| Distance band | touching 4 · under 1.6 km 3 · under 8 km 2 · under 40 km 1 |
+| Timing (in-service years) | same year 1.0 · 1 year apart 0.7 · 2 years 0.4 · 3 or more 0.1 · a year unknown 0.3 |
+| Location accuracy | exact 1.0 · approximate 0.8, for each of the two projects |
+| State line | × 1.5 when the projects are in different states |
+| Savings bonus | 0 to +30% on a log scale: +15% at $100,000 of possible savings, +30% from $1,000,000 |
+
+Distance leads. The savings bonus is capped below one third, so with everything else equal, savings alone
+never lift a pair past a closer band.
+
+**Worked example (rank 1):** 4 (touching) × 1.0 (both 2028) × 0.8 (one location approximate) × 1.5
+(South Carolina and Georgia) × 1.21 (up to $264,000 of possible savings) = **5.823**.
+
+## How savings are estimated
+
+The estimate comes from the team's unit-cost file. See `data/manual/unit_costs_2026.md` for its sources
+and the MISO 2026 price update. The founder's distance benefits decide what two projects could share:
+
+| Distance | What could be shared |
+| --- | --- |
+| Touching | Outage and crossing coordination, joint engineering and project management, a shared control house and station site |
+| Under 1.6 km | Land and right-of-way, access roads, clearing and mats, permits |
+| Under 8 km | Laydown yards and deliveries |
+| Under 40 km | Crew and equipment moves, heavy-haul deliveries |
+| Any distance | Bulk material buying |
+
+Each tier includes everything from the tiers farther out.
+
+**Job type matters.** An item counts only when the partner's job needs it too:
+- Line crews pair with line jobs, and station crews with station jobs.
+- New land counts only with a new line or a new substation.
+- Heavy-haul deliveries count only with transformer, reactor or new-substation work.
+- A control house counts only between station jobs.
+- Laydown yards and joint engineering count with any job.
+
+**Size.**
+- Line jobs are sized by their stated miles, or scaled to a printed plan cost.
+- Station jobs are scaled to a printed plan cost. Otherwise they are sized as the file's reference job:
+  breaker and relay work as one added 230 kV breaker position, transformer and reactor work as a 300 MVA
+  transformer-and-reactor job.
+- A project with neither a size nor a printed cost adds nothing.
+
+**Range.** The low end counts only items whose saving rate rests on a public precedent (`Evidence` or
+`Evidence+Inference`). The high end counts every shareable item. Both are rounded to $1,000, as direct
+costs before contingency and financing.
+
+**No estimate** when:
+- an in-service year is missing;
+- the years are more than 2 apart;
+- neither project can be sized;
+- the two job types share nothing at that distance.
+
+In the current build, 119 pairs have a range, 205 are too far apart in time, and 141 have no sizing or
+nothing shareable.
+
 ## Draft named examples and demo pair
 
 This draft covers only the challenge's named examples. A pair means the current offline overlap artifact associates two **different utilities'** loaded projects within 40 km of mapped geometry. It does not establish a common work site or a shareable asset. Names below are the existing artifact's source-name fields; citations point to the local plan PDF page recorded on each project. The ranked list covers the named-area candidates found in the loaded plans, not every project around those cities. PDF page numbers mean PDF pages, not the number printed in the page footer.
@@ -54,12 +117,12 @@ This draft covers only the challenge's named examples. A pair means the current 
 | Area | Rank | Pair ID | Project A | Project B | Distance km | Touch reason | Touch detail | Pair accuracy |
 | --- | ---: | --- | --- | --- | ---: | --- | --- | --- |
 | Savannah | 1 | desc-p41__sertp-p107-9bc088 | Okatie – McIntosh 115kV Tie: Add Series Reactor (`desc-p41`) — Dominion Energy SC — SCRTP Planned Facilities 2026-2030 $2M & Above, p. 41 (approximate) | MCINTOSH 230 KV, BREAKER CONTROL RELAY UPGRADES (`sertp-p107-9bc088`) — Georgia Power — SERTP 2025 Regional Transmission Plan (Nov 26 2025), p. 107 (exact) | 0.000 | shared_endpoint | The Okatie–McIntosh 115 kV tie line names McIntosh as an endpoint. The DESC series reactor work is at new Deerfield Switching Station, location not stated; the SERTP relay work is at the McIntosh 230 kV bus (SCRTP Planned Facilities 2026-2030 $2M & Above, p. 41; SERTP 2025 Regional Transmission Plan (Nov 26 2025), p. 107). | approximate |
-| Savannah | 3 | desc-p41__sertp-p111-fe1e3b | Okatie – McIntosh 115kV Tie: Add Series Reactor (`desc-p41`) — Dominion Energy SC — SCRTP Planned Facilities 2026-2030 $2M & Above, p. 41 (approximate) | SAV: GOSHEN (SAV) – MCINTOSH 115 KV TRANSMISSION LINE, REBUILD (`sertp-p111-fe1e3b`) — Georgia Power — SERTP 2025 Regional Transmission Plan (Nov 26 2025), p. 111 (approximate) | 0.000 | shared_endpoint | Both plans name McIntosh as an endpoint of a 115 kV line. The SERTP rebuild covers the 6.7-mile Goshen (Savannah)–Georgia Pacific (Rincon) section; the mapped full Goshen–McIntosh line endpoint does not establish work at McIntosh. The DESC series reactor work is at new Deerfield Switching Station, location not stated (SCRTP Planned Facilities 2026-2030 $2M & Above, p. 41; SERTP 2025 Regional Transmission Plan (Nov 26 2025), p. 111). | approximate |
+| Savannah | 2 | desc-p41__sertp-p111-fe1e3b | Okatie – McIntosh 115kV Tie: Add Series Reactor (`desc-p41`) — Dominion Energy SC — SCRTP Planned Facilities 2026-2030 $2M & Above, p. 41 (approximate) | SAV: GOSHEN (SAV) – MCINTOSH 115 KV TRANSMISSION LINE, REBUILD (`sertp-p111-fe1e3b`) — Georgia Power — SERTP 2025 Regional Transmission Plan (Nov 26 2025), p. 111 (approximate) | 0.000 | shared_endpoint | Both plans name McIntosh as an endpoint of a 115 kV line. The SERTP rebuild covers the 6.7-mile Goshen (Savannah)–Georgia Pacific (Rincon) section; the mapped full Goshen–McIntosh line endpoint does not establish work at McIntosh. The DESC series reactor work is at new Deerfield Switching Station, location not stated (SCRTP Planned Facilities 2026-2030 $2M & Above, p. 41; SERTP 2025 Regional Transmission Plan (Nov 26 2025), p. 111). | approximate |
 | Jasper | 45 | desc-p12__sertp-p107-9bc088 | Jasper – Okatie 230 kV #2: Construct (`desc-p12`) — Dominion Energy SC — SCRTP Planned Facilities 2026-2030 $2M & Above, p. 12 (approximate) | MCINTOSH 230 KV, BREAKER CONTROL RELAY UPGRADES (`sertp-p107-9bc088`) — Georgia Power — SERTP 2025 Regional Transmission Plan (Nov 26 2025), p. 107 (exact) | 4.890 | proximity | Mapped geometries are nearby; a shared asset is not established. | approximate |
 | Augusta | 306 | desc-p7__sertp-p150-ef263c | Urquhart – Toolebeck 115kV line: Rebuild (`desc-p7`) — Dominion Energy SC — SCRTP Planned Facilities 2026-2030 $2M & Above, p. 7 (approximate) | MEAG: GOSHEN AREA STRATEGIC SOLUTION (`sertp-p150-ef263c`) — MEAG Power — SERTP 2025 Regional Transmission Plan (Nov 26 2025), p. 150 (approximate) | 14.860 | proximity | Mapped geometries are nearby; a shared asset is not established. | approximate |
 | Augusta | 372 | desc-p26__sertp-p150-ef263c | Urquhart – Aiken PSA 46 kV: Rebuild (`desc-p26`) — Dominion Energy SC — SCRTP Planned Facilities 2026-2030 $2M & Above, p. 26 (approximate) | MEAG: GOSHEN AREA STRATEGIC SOLUTION (`sertp-p150-ef263c`) — MEAG Power — SERTP 2025 Regional Transmission Plan (Nov 26 2025), p. 150 (approximate) | 14.860 | proximity | Mapped geometries are nearby; a shared asset is not established. | approximate |
 
-For both Savannah pairs, verify work locations before reviewing possible coordination; shared assets remain unverified. In rank 3, SERTP p. 111 identifies the 6.7-mile Goshen (Savannah)–Georgia Pacific (Rincon) work section, while the map represents the full named Goshen–McIntosh line. Its endpoint coincidence does not establish scheduled work at McIntosh. DESC p. 41 also leaves the Deerfield Switching Station work location unstated. No work-section geometry is inferred.
+For both Savannah pairs, verify work locations before reviewing possible coordination; shared assets remain unverified. In rank 2, SERTP p. 111 identifies the 6.7-mile Goshen (Savannah)–Georgia Pacific (Rincon) work section, while the map represents the full named Goshen–McIntosh line. Its endpoint coincidence does not establish scheduled work at McIntosh. DESC p. 41 also leaves the Deerfield Switching Station work location unstated. No work-section geometry is inferred.
 
 The Augusta candidates above are weaker than the Savannah candidates: the loaded Urquhart projects are 3–4 years earlier than the Goshen solution, and the nearest mapped geometries are 14.860 km apart. The `desc-p26` geometry uses only the located Urquhart endpoint; its Aiken PSA tap point remains unplaced. Neither row demonstrates coordination at Vogtle.
 

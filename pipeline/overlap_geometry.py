@@ -120,21 +120,38 @@ def classify_touch(a: dict, b: dict, geometry_a, geometry_b, distance_m: float) 
     return "proximity", "Mapped geometries meet; the plans do not establish a shared asset."
 
 
-def can_share(band: str, reason: str) -> str:
-    """Coordination opportunity, not a claim that an asset can literally be shared."""
+def can_share(band: str, reason: str, shareable: list[str] | None = None) -> str:
+    """Coordination opportunity, not a claim that an asset can literally be shared.
+
+    `shareable` lists what these two job types could share at this band (from the unit-cost file:
+    touching = outages and crossings, under 1.6 km = land and access, under 8 km = yards, under 40 km =
+    crews). None keeps the band's general wording when a project's job scope is not known.
+    """
     if band == "touching":
-        return {
+        base = {
             "same_substation": "Coordinate substation work and outage timing; shared equipment unverified.",
             "shared_endpoint": "Verify work locations before reviewing possible coordination; shared assets unverified.",
             "lines_cross": "Review the mapped crossing and outage timing; shared assets unverified.",
             "same_area_approximate": "Review the mapped area together; physical contact unverified.",
             "proximity": "Review mapped proximity; shared assets unverified.",
         }[reason]
-    if band == "lt_1_6km":
-        return "Review nearby access and right-of-way opportunities; sharing unverified."
-    if band == "lt_8km":
-        return "Review nearby site logistics and deliveries; sharing unverified."
-    return "Review crew and equipment timing in the area; sharing unverified."
+    elif band == "lt_1_6km":
+        base = "Review nearby access and right-of-way opportunities; sharing unverified."
+    elif band == "lt_8km":
+        base = "Review nearby site logistics and deliveries; sharing unverified."
+    else:
+        base = "Review crew and equipment timing in the area; sharing unverified."
+    if shareable is None:
+        return base
+    if band == "touching":
+        return f"{base} Their job types could also share {_join(shareable)}." if shareable else base
+    if shareable:
+        return f"Their job types could share {_join(shareable)} at this distance; sharing unverified."
+    return "Their job types share no cost items at this distance; coordinate timing only; sharing unverified."
+
+
+def _join(words: list[str]) -> str:
+    return words[0] if len(words) == 1 else ", ".join(words[:-1]) + " and " + words[-1]
 
 
 def rank_key(pair: dict) -> tuple[float, float, str]:

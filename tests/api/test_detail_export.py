@@ -57,7 +57,7 @@ def test_real_detail_includes_both_projects_savings_and_citations(real_client: T
     assert (detail.project_a.properties.id, detail.project_b.properties.id) == ("desc-p41", "sertp-p107-9bc088")
     assert detail.overlap.touch_reason == "shared_endpoint"
     assert detail.overlap.touch_detail
-    assert (detail.savings.low_usd, detail.savings.high_usd) == (54000, 161000)
+    assert (detail.savings.low_usd, detail.savings.high_usd) == (62000, 264000)
     assert [(source.doc, source.page) for source in detail.sources] == [
         ("SCRTP Planned Facilities 2026-2030 $2M & Above", 41),
         ("SERTP 2025 Regional Transmission Plan (Nov 26 2025)", 107),
@@ -143,7 +143,7 @@ def test_export_all_real_savings_keep_evidence_and_original_fields(real_client: 
     response = real_client.get("/api/export/overlaps.csv")
     rows = csv_rows(real_client)
     assert len(rows) == len(pairs) == 465
-    assert sum(pair["savings"]["status"] == "range" for pair in pairs) == 187
+    assert sum(pair["savings"]["status"] == "range" for pair in pairs) == 119
     assert response.content.startswith(b"\xef\xbb\xbf")
     assert response.content.endswith(b"\r\n")
     assert b"\n" not in response.content.replace(b"\r\n", b"")
@@ -171,8 +171,8 @@ def test_export_all_real_savings_keep_evidence_and_original_fields(real_client: 
             assert row[f"Source page {side}"] == str(project["source"]["page"])
         if savings["status"] == "range":
             assert row["Savings qualification"] == "Screening estimate"
-            assert "Team assumption (2026-09-26)" in row["Savings assumptions"]
-            assert "1%–3% of reference cost" in row["Savings assumptions"]
+            assert "Team unit-cost file (2026-09-26)" in row["Savings assumptions"]
+            assert "escalated to 2026 at 4% a year" in row["Savings assumptions"]
             assert "Shared work and savings are not verified" in row["Savings caveat"]
         else:
             assert row["Savings qualification"] == "No savings estimate"
@@ -181,20 +181,19 @@ def test_export_all_real_savings_keep_evidence_and_original_fields(real_client: 
             assert assumption_id not in " ".join(row.values())
 
 
-def test_export_top_and_mileage_proxy_have_readable_dated_assumptions(real_client: TestClient) -> None:
+def test_export_top_and_mileage_sized_pairs_have_readable_dated_assumptions(real_client: TestClient) -> None:
     rows = csv_rows(real_client)
     top = rows[0]
     assert top["Overlap ID"] == "desc-p41__sertp-p107-9bc088"
     assert "$5,376,418" in top["Savings basis"]
-    assert "partner cost not stated" in top["Savings basis"]
-    assert "known scope only" in top["Savings basis"]
-    assert "1%–3%" in top["Savings assumptions"]
-    proxy = rows[4]
-    assert proxy["Rank"] == "5"
-    assert (proxy["Savings low USD"], proxy["Savings high USD"]) == ("50000", "450000")
-    assert "5.0 miles" in proxy["Savings basis"]
-    assert "$1,000,000–$3,000,000 per line mile" in proxy["Savings assumptions"]
-    assert "not a published construction-cost rate" in proxy["Savings assumptions"]
+    assert "sized as one added 230 kV breaker position" in top["Savings basis"]
+    assert "public precedent" in top["Savings basis"]
+    assert "Team unit-cost file (2026-09-26)" in top["Savings assumptions"]
+    mileage = rows[1]
+    assert mileage["Rank"] == "2"
+    assert (mileage["Savings low USD"], mileage["Savings high USD"]) == ("62000", "191000")
+    assert "6.7 stated miles" in mileage["Savings basis"]
+    assert "not measured savings" in mileage["Savings assumptions"]
 
 
 def test_csv_inferred_utility_qualifier_does_not_change_canonical_data(real_client: TestClient) -> None:

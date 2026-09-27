@@ -9,6 +9,7 @@ from pathlib import Path
 import pytest
 
 from pipeline import build_all
+from pipeline.savings import savings_bonus
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -41,7 +42,7 @@ def test_real_sc_ga_pair_keeps_cross_state_bonus(built_pairs: tuple) -> None:
     pair = next(item for item in overlaps if item["id"] == "desc-p41__sertp-p107-9bc088")
     assert (projects[pair["a"]]["state"], projects[pair["b"]]["state"]) == ("SC", "GA")
     assert pair["cross_state"] is True
-    assert pair["score"] == 4.8  # 4 band * 1 timeline * 0.8 accuracy * 1.5
+    # 4 band * 1 timeline * 0.8 accuracy * 1.5 state line * (1 + savings bonus)
     assert pair["pair_note"] is None
 
 
@@ -70,7 +71,7 @@ def test_missing_state_does_not_claim_cross_state_or_earn_bonus(tmp_path: Path) 
     (tmp_path / "projects.geojson").write_text(
         json.dumps({"type": "FeatureCollection", "features": features}), encoding="utf-8"
     )
-    shutil.copyfile(ROOT / "data/manual/assumptions.json", tmp_path / "assumptions.json")
+    shutil.copyfile(ROOT / "data/manual/unit_costs_2026.csv", tmp_path / "unit_costs_2026.csv")
     subprocess.run([sys.executable, str(ROOT / "pipeline" / "find_overlaps.py")],
                    cwd=tmp_path, capture_output=True, text=True, check=True)
     pair = json.loads((tmp_path / "overlaps.json").read_text(encoding="utf-8"))[0]

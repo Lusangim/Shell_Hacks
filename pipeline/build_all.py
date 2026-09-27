@@ -107,7 +107,7 @@ def _placement_disposition(row: dict[str, str]) -> dict[str, str | bool | None]:
 def _input_hash(raw: Path, manual: Path) -> str:
     digest = hashlib.sha256()
     for path in [*(raw / name for name in RAW_INPUTS), manual / "manual_locations.csv",
-                 manual / "assumptions.json"]:
+                 manual / "unit_costs_2026.csv"]:
         digest.update(path.name.encode("utf-8"))
         content = path.read_bytes()
         if path.suffix.lower() in {".csv", ".json", ".geojson", ".txt"}:
@@ -178,7 +178,7 @@ def build(root: Path) -> dict[str, object]:
         for name in RAW_INPUTS:
             shutil.copyfile(raw / name, stage / name)
         shutil.copyfile(manual / "manual_locations.csv", stage / "manual_locations.csv")
-        shutil.copyfile(manual / "assumptions.json", stage / "assumptions.json")
+        shutil.copyfile(manual / "unit_costs_2026.csv", stage / "unit_costs_2026.csv")
         _run_script(scripts / "place_projects.py", stage)
         _run_script(scripts / "find_overlaps.py", stage)
 

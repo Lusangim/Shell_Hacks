@@ -28,21 +28,21 @@ def _savings(pair: Overlap) -> BriefSavings:
     source = pair.savings
     if source.status == "range":
         assert source.low_usd is not None and source.high_usd is not None
-        cost_basis = (
-            "a team line mileage proxy for the stated line length"
-            if "line_cost_per_mile_v1" in source.assumption_ids else
-            "printed plan cost for one known scope"
-        )
+        detail = source.basis or ""
+        sizes = [words for key, words in (
+            ("printed cost", "a printed plan cost"), ("stated miles", "stated line mileage"),
+            ("sized as", "a reference job size"), ("average share", "an average share of a printed cost"),
+        ) if key in detail]
+        sizing = " and ".join(sizes) if sizes else "reference job sizes"
         basis = (
-            f"The app estimates a possible coordination saving of ${source.low_usd:,} to "
-            f"${source.high_usd:,}. This range uses a team screening assumption applied to "
-            f"{cost_basis}. It is an estimate, not a "
-            "measured result or an agreed shared budget."
+            f"Estimated possible saving: ${source.low_usd:,} to ${source.high_usd:,}, from team "
+            f"unit costs for these job types at this distance, sized by {sizing}. An estimate, "
+            "not a measured or agreed saving."
         )
     elif source.status == "no_cost":
         basis = (
-            "No savings range is available because the loaded plans do not supply a usable "
-            "cost basis for this pair. A planning team would need a verified scope and cost "
+            "No savings range is available: the loaded plans do not size this pair, or these "
+            "job types share no cost items at this distance. A planning team would need a verified scope and cost "
             "before estimating any benefit."
         )
     elif source.status == "timing_too_far":

@@ -13,15 +13,15 @@ ROOT = Path(__file__).resolve().parents[2]
 OUTPUTS = ("projects.geojson", "placement_report.csv", "overlaps.json", "meta.json", "source_rows.json")
 TOP_TEN = [
     ("desc-p41", "sertp-p107-9bc088"),
-    ("sertp-p68-a0289a", "sertp-p72-81610d"),
     ("desc-p41", "sertp-p111-fe1e3b"),
     ("desc-p41", "sertp-p113-5484a4"),
+    ("sertp-p68-a0289a", "sertp-p72-81610d"),
+    ("sertp-p72-81610d", "sertp-p72-eda876"),
     ("sertp-p124-e36f41", "sertp-p133-9ca229"),
     ("sertp-p124-e36f41", "sertp-p133-a3bd5b"),
-    ("sertp-p68-fbd1c0", "sertp-p72-81610d"),
-    ("sertp-p72-81610d", "sertp-p72-eda876"),
-    ("sertp-p82-5bdb2b", "sertp-p92-ade224"),
     ("sertp-p114-46d04f", "sertp-p124-e36f41"),
+    ("sertp-p68-fbd1c0", "sertp-p72-eda876"),
+    ("sertp-p68-fbd1c0", "sertp-p72-81610d"),
 ]
 
 

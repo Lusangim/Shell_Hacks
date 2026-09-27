@@ -20,7 +20,7 @@ from pydantic import BaseModel, ConfigDict, Field, JsonValue, TypeAdapter, Valid
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.responses import Response
 
-from pipeline.savings import load_assumptions
+from pipeline.savings import UNIT_COSTS_ID, UNIT_COSTS_LABEL
 from server.area import build_area
 from server.brief_routes import register_brief_routes, stale_brief_count
 from server.map_assets import GOOGLE_CSP, OFFLINE_CSP, MapConfig, archive_response, map_error, offline_available, same_origin
@@ -248,19 +248,8 @@ def _csv_text(value: str) -> str:
 
 
 def _csv_assumption_labels() -> dict[str, str]:
-    """Present the committed rates and provenance without exposing assumption IDs."""
-    labels = {}
-    for assumption_id, assumption in load_assumptions(ROOT / "data/manual/assumptions.json").items():
-        low, high = assumption["low"], assumption["high"]
-        if assumption["unit"] == "fraction_of_reference_cost":
-            rate = f"{low * 100:g}%–{high * 100:g}% of reference cost"
-        else:
-            rate = f"${low:,.0f}–${high:,.0f} per line mile"
-        labels[assumption_id] = (
-            f"Team assumption ({assumption['source']['date']}): {rate}. "
-            f"{assumption['rationale']}"
-        )
-    return labels
+    """Present the savings basis and its provenance without exposing assumption IDs."""
+    return {UNIT_COSTS_ID: UNIT_COSTS_LABEL}
 
 
 def _csv_utility(project: ProjectFeature) -> str:

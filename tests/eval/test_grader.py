@@ -130,7 +130,7 @@ def test_template_states_which_screening_cost_basis_was_used() -> None:
     printed, _, _, _ = baseline()
     proxy, _, _, _ = baseline("sertp-p124-e36f41__sertp-p133-9ca229")
     assert "printed plan cost" in printed.savings_range.basis
-    assert "line mileage proxy" in proxy.savings_range.basis
+    assert "stated line mileage" in proxy.savings_range.basis
 
 
 def test_approximate_touching_is_described_as_possible() -> None:
