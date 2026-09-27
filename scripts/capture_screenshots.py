@@ -47,7 +47,7 @@ class Shooter:
         self.browser, self.url, self.out = browser, url, out
         self.top = None
 
-    def page(self, width=1440, height=900, theme="light", path="", dismiss=True) -> Page:
+    def page(self, width=1600, height=900, theme="light", path="", dismiss=True) -> Page:
         page = self.browser.new_page(viewport={"width": width, "height": height}, color_scheme=theme)
         page.add_init_script(f"localStorage.setItem('gridlock-theme', '{theme}')")
         page.goto(f"{self.url}/{path}")
@@ -72,11 +72,21 @@ class Shooter:
 
     def open_top_pair(self, page: Page) -> None:
         page.get_by_test_id("overlap-row").first.locator("button").click()
-        expect(page.locator("#overlap-content .score-detail")).to_be_visible()
+        expect(page.locator("#overlap-content .score-detail")).to_be_attached()
         expect(page.locator("#brief-copy")).to_be_enabled(timeout=15000)
+
+    @staticmethod
+    def open_more(page: Page) -> None:
+        # Wide screens show the menu's actions in the top bar; narrower ones keep them behind the More button.
+        button = page.locator("#more-toggle")
+        if button.is_visible() and button.get_attribute("aria-expanded") != "true":
+            button.click()
+        expect(page.locator("#more-menu")).to_be_visible()
 
     def reveal(self, page: Page, selector: str, open_details: bool = True) -> None:
         block = page.locator(selector).first
+        # Pair sections sit in folded disclosures in the right pane: open the one holding the block.
+        block.evaluate("el => { const section = el.closest('details'); if (section) section.open = true; }")
         if open_details:
             block.evaluate("el => el.querySelectorAll('details').forEach(d => d.open = true)")
         block.evaluate("el => el.scrollIntoView({block: 'start'})")
@@ -113,7 +123,8 @@ def capture(shooter: Shooter, google: bool) -> None:
     page.close()
 
     page = s.page(dismiss=False)
-    page.locator("#tour-launch").click()
+    s.open_more(page)
+    page.get_by_role("button", name="Take the tour", exact=True).click()
     for _ in range(2):
         page.get_by_role("button", name="Next", exact=True).click()
     expect(page.locator("#tour-body")).to_contain_text("Score =")
@@ -131,7 +142,8 @@ def capture(shooter: Shooter, google: bool) -> None:
     s.save(page, "06-savings")
     s.reveal(page, "#overlap-content .score-detail")
     s.save(page, "07-score")
-    s.reveal(page, "#brief-panel", open_details=False)
+    page.get_by_role("button", name="Open brief", exact=True).click()
+    expect(page.locator("#brief-panel")).to_be_visible()
     s.save(page, "08-brief")
     page.close()
 
@@ -175,12 +187,12 @@ def capture(shooter: Shooter, google: bool) -> None:
         page.close()
 
     page = s.page()
-    page.locator(".legend summary").click()
+    page.get_by_test_id("map-key").locator("summary").click()
     s.save(page, "14-legend-and-reports")
     page.close()
 
     page = s.page(theme="dark", path=f"#overlap={top}")
-    expect(page.locator("#overlap-content .score-detail")).to_be_visible()
+    expect(page.locator("#overlap-content .score-detail")).to_be_attached()
     s.save(page, "15-dark-theme")
     page.close()
 
@@ -188,14 +200,14 @@ def capture(shooter: Shooter, google: bool) -> None:
     s.save(page, "16-phone-list")
     page.close()
     page = s.page(width=390, height=844, path=f"#overlap={top}")
-    expect(page.locator("#overlap-content .score-detail")).to_be_visible()
+    expect(page.locator("#overlap-content .score-detail")).to_be_attached()
     s.save(page, "17-phone-pair")
     page.close()
 
     page = s.page(path=f"?band=touching#overlap={top}")
-    expect(page.locator("#overlap-content .score-detail")).to_be_visible()
+    expect(page.locator("#overlap-content .score-detail")).to_be_attached()
     page.evaluate("window.print = () => { window.__printed = true; }")
-    page.locator(".legend summary").click()
+    s.open_more(page)
     page.get_by_role("button", name="Print report", exact=True).click()
     page.wait_for_function("window.__printed === true")
     page.emulate_media(media="print")
@@ -215,6 +227,7 @@ def capture(shooter: Shooter, google: bool) -> None:
     page.close()
 
     page = s.page(path=f"#overlap={top}")
+    page.locator("#tracker-disclosure > summary").click()
     expect(page.locator("#pair-tracker")).to_be_visible()
     page.locator("#tracker-status").select_option("Contacted")
     page.locator("#tracker-notes").fill("Example: ask Dominion Energy SC where the Deerfield switching station will be.")
@@ -222,12 +235,35 @@ def capture(shooter: Shooter, google: bool) -> None:
     s.save(page, "21-coordination-tracker")
     page.close()
 
+    # A hypothetical storm invoked over an area, only when this build has the feature: one shot while
+    # it crosses the area, one of the results in the right pane.
+    storm = s.browser.new_page().request.get(f"{s.url}/api/storm/scenarios")
+    if storm.ok:
+        page = s.page()
+        s.search(page, "Savannah")
+        page.locator("#search-input").press("Tab")
+        expect(page.locator("#explore-area")).to_be_focused()
+        page.keyboard.press("Enter")
+        expect(page.locator("#area-panel")).to_be_visible()
+        expect(page.locator("#area-projects li").first).to_be_attached(timeout=15000)
+        page.locator("#storm-lab").evaluate("el => el.scrollIntoView({block: 'center'})")
+        page.get_by_role("button", name="Invoke storm", exact=True).click()
+        expect(page.get_by_test_id("storm-symbol")).to_be_attached(timeout=20000)
+        page.wait_for_timeout(5200)  # formation (1.5 s) and most of the approach
+        page.get_by_role("button", name="Pause storm", exact=True).click()
+        page.screenshot(path=str(s.out / "22-storm-crossing-an-area.png"))
+        print("saved 22-storm-crossing-an-area")
+        page.get_by_role("button", name="Skip to results", exact=True).click()
+        expect(page.locator("#storm-detail")).to_be_visible(timeout=20000)
+        s.save(page, "23-storm-results")
+        page.close()
+
     if google:
         page = s.page(path=f"#overlap={top}")
         page.get_by_role("button", name="Satellite", exact=True).click()
         expect(page.locator(".basemap-status")).to_contain_text("Satellite", timeout=20000)
         s.settle(page, 3000)
-        s.save(page, "22-google-satellite")
+        s.save(page, "24-google-satellite")
         page.close()
 
 

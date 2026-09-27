@@ -18,6 +18,8 @@ security, tests): [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** · **The exact 
 | **Open a pair** to see why the two projects appear together, with the plan page behind every fact. | **Every rank can be checked by hand:** the score, factor by factor, with distance counting most. |
 | ![Possible saving by job type and distance](docs/screenshots/06-savings.png) | ![A 40 km area around Savannah](docs/screenshots/11-explore-area.png) |
 | **Possible savings** from what the two kinds of work could share at their distance, labelled as an estimate. | **Explore an area** of 1 to 80 km around any place, with its projects and pairs. |
+| ![A hypothetical hurricane crossing the Savannah area](docs/screenshots/22-storm-crossing-an-area.png) | ![Storm results: repair cost from P10 to P90, coverage and a recommendation](docs/screenshots/23-storm-results.png) |
+| **Invoke a storm** over an area: a hypothetical hurricane forms, crosses it from the direction you choose, and lights up the lines it would damage. | **Storm results** in the right pane: repair cost from P10 to P90, coverage, exposed assets with sources and a next step. |
 | ![A rebuild drawn along existing transmission lines](docs/screenshots/12-route-along-existing-lines.png) | ![Pair #1 on a phone](docs/screenshots/17-phone-pair.png) |
 | **Routes along existing lines** when a plan names only a line's two ends. | **Phone layout**, dark theme and full keyboard use. |
 
@@ -28,7 +30,7 @@ security, tests): [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** · **The exact 
    (Linux). It installs the Python environment, the pinned packages and the modern street map (about 220 MB, once).
 3. **Start:** double-click **`START.cmd`**, **`START.command`** or **`START.sh`**. http://127.0.0.1:8765
    opens in your browser.
-4. Click **Take the tour**.
+4. Accept the tour invitation, or press **Take the tour** in the top bar later (under **⋮** on narrower screens).
 
 Full instructions (Google Maps and Satellite view, rebuilding the data from the PDFs, tests, Mac and Linux,
 troubleshooting): **[RUNNING.md](RUNNING.md)**. How distances, bands and the ranking work:
@@ -36,12 +38,14 @@ troubleshooting): **[RUNNING.md](RUNNING.md)**. How distances, bands and the ran
 
 ## What works
 
-- Interactive offline map, project and pair details, 465 ranked opportunities, search, filters, timeline and 1–80 km area explorer.
+- A map-first layout: search, filters and **Take the tour** and icons for projects, data notes, CSV, print and theme in the top bar, the 465 ranked pairs on the left, the map in the centre and the selected pair on the right. The map zooms to the pair, thickens its two lines on a halo and marks its rank.
+- Interactive offline map, project and pair details, search, filters, timeline and 1–80 km area explorer.
 - Every pair shows why it ranks where it does: its score, factor by factor (distance band × timing × location × state line × savings, with distance leading).
 - Source-linked evidence, accuracy and uncertainty labels, 119 possible-saving ranges from the team's unit costs by job type and distance, CSV export and a Letter print report.
 - Locations from public map data: a line's real route when one HIFLD line joins its two ends, a route along the existing network when several do, and a "town only" flag when only a town centre matched.
 - A guided tour, five **Start here** places where close pairs cluster, and a one-line impact summary of the current results.
 - An **Explore an area** map tool, and a **coordination tracker** (status and notes per pair, saved in your browser, carried into print and CSV).
+- **Invoke a storm over an area (Resilience Lab preview):** choose the direction a hypothetical hurricane comes from and its category, and watch it form, cross the area and light up the lines and substations it would damage. The right pane then gives the possible repair cost from P10 to P90 (1,000 seeded draws), coverage, the most exposed assets with sources, the assumptions and a recommended next step, or **Requires human review**. It is labelled hypothetical: not a forecast, not observed damage. The full plan: [docs/RESILIENCE_LAB_PLAN.md](docs/RESILIENCE_LAB_PLAN.md).
 - A coordination brief for a selected pair that leads with who to contact and what to check first. The default brief is an offline, graded **Template**; an example shows what the optional Claude API brief adds. The app does not send a message or contact anyone.
 - Light and dark themes, keyboard operation, phone layout and an outline-map fallback when the optional offline map archive is absent.
 
@@ -52,10 +56,12 @@ The committed build contains 230 projects from the loaded public plans, 181 mapp
 - **Pipeline** (Python, offline, about 4 seconds): two plan PDFs → 481 rows → 230 projects in Georgia and South
   Carolina → 181 placed on the map from public substation and line data → 465 pairs within 40 km → savings and
   ranks. Every file is checked against Pydantic data contracts, and rebuilds are byte-identical.
-- **Server** (FastAPI, loopback only): read-only JSON routes for projects, pairs, search, areas, briefs, CSV and
-  the source PDFs; a Content Security Policy; short JSON errors; a guarded, switched-off AI brief route.
-- **Web app** (Leaflet, no build step): the map, ranked list, pair and project details, brief, export, print and
-  tour, in light and dark, on desktop and phone.
+- **Server** (FastAPI, loopback only): read-only JSON routes for projects, pairs, search, areas, briefs, CSV,
+  the source PDFs and the storm preview (a synthetic track through the area, Holland wind, illustrative
+  fragility, unit-cost repair and seeded Monte Carlo); a Content Security Policy; short JSON errors; a guarded,
+  switched-off AI brief route.
+- **Web app** (Leaflet, no build step): the map, ranked list, pair and project details, brief, export, print,
+  tour and the storm animation, in light and dark, on desktop and phone.
 
 The details, with a diagram and a sample API response, are in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 

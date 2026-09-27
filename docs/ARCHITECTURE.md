@@ -96,6 +96,8 @@ FastAPI and uvicorn on `127.0.0.1:8765`. The server loads `data/build/` once at 
 | `GET /api/export/overlaps.csv` | the filtered ranked list as a spreadsheet file |
 | `GET /api/sources/{doc}` | the source plan PDF; the page's citation links open it at the cited page |
 | `GET /api/map-config`, `/api/basemap`, `/basemap/gasc.pmtiles` | map options, the outline fallback map, the offline street map in byte ranges |
+| `GET /api/storm/scenarios` | the hypothetical storm scenarios: the packaged track GL-1 and the synthetic storm |
+| `GET /api/storm/estimate?scenario=synthetic&direction=&category=&lat=&lon=&radius_km=` | a hypothetical hurricane on a straight track through the area centre, from one of eight directions, Category 1 to 4, in hourly frames; the lines and substations inside the area with their peak wind, peak frame, illustrative damage chances and repair cost; P10/P50/P90 from 1,000 seeded draws; coverage; and a system-rule recommendation with evidence (`scenario=gl1` keeps the packaged track) |
 | `GET /api/health` | a simple "the server is up" check |
 
 A pair from `GET /api/overlaps/desc-p41__sertp-p107-9bc088` (trimmed):
@@ -143,8 +145,8 @@ Google Maps or Satellite view. Light and dark themes, full keyboard use and a ph
 
 | Module (`web/js/`) | Job |
 | --- | --- |
-| `app.js`, `api.js`, `state.js` | start the page, talk to the server, shared page state |
-| `map.js`, `basemap.js` | project shapes and pair highlight; street map, outline fallback, Google switch |
+| `app.js`, `api.js`, `state.js`, `shell.js` | start the page, talk to the server, shared page state; the map-first layout (top bar, More menu, left list, right pane) |
+| `map.js`, `basemap.js`, `nearest-geometry.js` | project shapes and pair highlight (zoom to the pair, thicker lines on a halo, the rank marker at the pair's nearest points, labels kept clear of the lines); street map, outline fallback, Google switch |
 | `list.js` | the ranked pair list and the projects with no location |
 | `overlap-detail.js`, `project-detail.js` | pair detail, including "How this pair ranks"; project detail in readable text |
 | `search.js`, `filters.js`, `timeline.js`, `area.js` | search, filters, the year slider, explore an area (from a search result or the map's "Explore an area" button) |
@@ -152,6 +154,12 @@ Google Maps or Satellite view. Light and dark themes, full keyboard use and a ph
 | `tracker.js` | the coordination tracker: a status and note per pair, saved in this browser, shown in the list and filled into print and CSV |
 | `brief.js`, `ai-brief-example.js`, `export.js` | coordination brief and the Claude API example; CSV export and print report |
 | `tour.js`, `tour-content.js` | the 12-step guided tour; every tour word lives in one file |
+| `storm.js`, `storm-animation.js`, `storm-detail.js` | the storm preview: direction and category controls in the area panel; the hurricane forming, crossing the area and lighting up exposed assets at their peak hour (Pause, Replay, Skip, reduced motion); the results in the right pane |
+
+The storm engine is in `server/storm/`: a Holland (1980) wind field on the hourly track, illustrative lognormal
+fragility curves by asset class, repair ratios on the team's unit costs, and 1,000 Monte Carlo draws with seed
+42 that vary storm pressure, track offset and fragility. Everything it returns is labelled hypothetical or
+illustrative; [RESILIENCE_LAB_PLAN.md](RESILIENCE_LAB_PLAN.md) has the formulas and the full plan.
 
 ## 6. Coordination briefs
 
@@ -183,9 +191,9 @@ it fails if the number of passing tests drops below the recorded baseline.
 | Suite | What it checks |
 | --- | --- |
 | `tests/pipeline` (14 files) | extraction, IDs, bands and boundaries, placement rules, routes, savings, scores, contracts, byte-identical rebuilds, named examples |
-| `tests/api` (7 files) | every route, filters, errors, search, area, CSV export, briefs and the security guards |
+| `tests/api` (8 files) | every route, filters, errors, search, area, CSV export, briefs, the storm estimate (track through the centre, direction and category, determinism, validation) and the security guards |
 | `tests/eval` | the brief grader against a labelled set of real pairs |
-| `tests/e2e` (21 files) | the page in Chromium with Playwright: demo path, details, tour, filters, timeline, area, export and print, offline map, phone layout, and axe-core accessibility audits in light and dark |
+| `tests/e2e` (22 files, plus the audit matrix) | the page in Chromium with Playwright: demo path, the map-first layout, details, tour, filters, timeline, area, the storm animation and its results, export and print, offline map, phone layout, and axe-core accessibility audits in light and dark |
 
 ## 8. How it was built
 
