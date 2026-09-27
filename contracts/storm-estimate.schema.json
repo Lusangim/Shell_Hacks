@@ -559,7 +559,6 @@
       "items": {
         "$ref": "#/$defs/StormAsset"
       },
-      "maxItems": 200,
       "title": "Assets",
       "type": "array"
     },

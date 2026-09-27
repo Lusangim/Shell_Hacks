@@ -243,6 +243,8 @@ def estimate(data: StormData, projects: ProjectCollection, *, lat: float, lon: f
     decision = StormDecision(action=action, provider="system-rule-v1", confidence=round(confidence, 4),
                              reasons=reasons, review_required=review,
                              review_reason="Exact mapped assets with sourced costs account for less than 70% of expected cost." if review else None)
-    ranked = sorted(assets, key=lambda asset: (asset.expected_usd is None, -(asset.expected_usd or 0), asset.id))[:200]
+    ranked = sorted(assets, key=lambda asset: (asset.expected_usd is None, -(asset.expected_usd or 0), asset.id))
+    if not synthetic:
+        ranked = ranked[:200]
     info = ScenarioInfo(id=scenario["id"], name=scenario["name"], mode=scenario["mode"], version=scenario["version"], label=scenario["label"], frames=frames)
     return StormEstimate(scenario=info, area=StormArea(lat=lat, lon=lon, radius_km=radius_km), assets=ranked, summary=summary, decision=decision)

@@ -104,6 +104,7 @@ def test_scenarios_and_mcintosh_contract(client: TestClient) -> None:
     assert committed_schema == exported_schemas()["storm-estimate"]
     assert value.scenario.mode == "hypothetical"
     assert len(value.scenario.frames) == 13
+    assert "radius_33_ms_km" not in response.json()["scenario"]["frames"][0]
     assert value.summary.assets_total > 0
     assert value.summary.p10_usd <= value.summary.p50_usd <= value.summary.p90_usd
     assert value.summary.assets_with_cost <= value.summary.assets_total
@@ -158,6 +159,7 @@ def test_synthetic_track_crosses_center_and_direction_quadrants(client: TestClie
         assert ((x1 - x0) ** 2 + (y1 - y0) ** 2) ** 0.5 < 1000
         assert all(frame["radius_33_ms_km"] >= 0 for frame in frames)
         assert all(0 <= asset["peak_frame"] < len(frames) for asset in response.json()["assets"])
+        assert len(response.json()["assets"]) == response.json()["summary"]["assets_total"]
         origin = TO_METRES(-81.16, 32.18)
         for frame, expected_km in ((frames[0], 350), (frames[-1], 250)):
             location = TO_METRES(frame["lon"], frame["lat"])

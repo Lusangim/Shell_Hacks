@@ -112,6 +112,6 @@ class StormDecision(StrictModel):
 class StormEstimate(StrictModel):
     scenario: ScenarioInfo
     area: StormArea
-    assets: list[StormAsset] = Field(max_length=200)
+    assets: list[StormAsset]
     summary: StormSummary
     decision: StormDecision

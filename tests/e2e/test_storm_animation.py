@@ -1,6 +1,7 @@
 """The selected hypothetical storm animates on the map and reports in the detail pane."""
 
 from pathlib import Path
+from collections import Counter
 
 import pytest
 from playwright.sync_api import expect, sync_playwright
@@ -54,6 +55,7 @@ def test_storm_moves_pauses_replays_and_reports(live_server, theme):
                    else (external.append(route.request.url), route.abort()))
         loaded(page, live_server)
         payload = select_storm(page)
+        expect(page.get_by_test_id("storm-asset")).to_have_count(len(payload["assets"]))
         map_box = page.locator("#map").bounding_box()
         x, y = position(page)
         assert map_box["x"] <= x <= map_box["x"] + map_box["width"]
@@ -74,6 +76,9 @@ def test_storm_moves_pauses_replays_and_reports(live_server, theme):
         summary = payload["summary"]
         expect(detail).to_contain_text(f'${summary["p10_usd"]:,} to ${summary["p90_usd"]:,}')
         expect(detail).to_contain_text(f'{summary["assets_with_cost"]} of {summary["assets_total"]} assets with a cost basis')
+        counts = Counter(asset["class"] for asset in payload["assets"])
+        expect(detail).to_contain_text(
+            f'{counts["line_wood"]} wood lines, {counts["line_steel"]} steel lines, {counts["substation"]} substations')
         expect(detail).to_contain_text("System rule (Jev not configured)")
         assert audit(page, "#storm-detail") == []
         page.get_by_role("button", name="Replay storm").click()
