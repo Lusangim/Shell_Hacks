@@ -86,7 +86,7 @@ def test_mcintosh_evidence_survives_detail_and_csv(
         assert "does not establish work at McIntosh" in artifact["touch_detail"]
     row = next(row for row in csv_rows(real_client) if row["Overlap ID"] == pair_id)
     assert row["Why they touch"] == artifact["touch_detail"]
-    assert row["Touch reason"] == artifact["touch_reason"] == "shared_endpoint"
+    assert artifact["touch_reason"] == "shared_endpoint" and row["Touch reason"] == "Shared named endpoint"
     assert (row["Source page A"], row["Source page B"]) == ("41", str(source_page))
 
 
@@ -115,7 +115,8 @@ def test_export_rows_equal_filtered_list(real_client: TestClient, params: list[t
     assert pairs
     assert [row["Overlap ID"] for row in rows] == [pair.id for pair in pairs]
     assert [int(row["Rank"]) for row in rows] == [pair.rank for pair in pairs]
-    assert [row["Band"] for row in rows] == [pair.band.value for pair in pairs]
+    assert [float(row["Score"]) for row in rows] == [pair.score for pair in pairs]
+    assert [row["Band"] for row in rows] == [pair.band_label for pair in pairs]
     assert [row["Distance km"] for row in rows] == [str(pair.distance_km) for pair in pairs]
 
 
@@ -123,13 +124,33 @@ def test_export_has_required_conflict_matrix_columns(real_client: TestClient) ->
     rows = csv_rows(real_client, [("limit", "1")])
     assert len(rows) > 1
     assert set(rows[0]) >= {
-        "Rank", "Overlap ID", "Project A", "Utility A", "Project B", "Utility B",
+        "Rank", "Score", "Overlap ID", "Project A", "Utility A", "Project B", "Utility B",
         "Band", "Distance km", "Touch reason", "Why they touch", "In-service year A",
-        "In-service year B", "Year gap", "Accuracy A", "Accuracy B", "Source A",
+        "In-service year B", "Year gap", "Years to coordinate", "Accuracy A", "Accuracy B", "Source A",
         "Source page A", "Source B", "Source page B", "Savings status",
-        "Savings low USD", "Savings high USD", "Coordination status",
+        "Savings low USD", "Savings high USD", "Coordination status", "Notes",
     }
-    assert all(row["Coordination status"] == "" for row in rows)
+    assert all(row["Coordination status"] == "" and row["Notes"] == "" for row in rows)
+
+
+def test_export_reads_like_a_planner_worksheet(real_client: TestClient) -> None:
+    from datetime import date
+
+    rows = csv_rows(real_client)
+    top = rows[0]
+    assert list(top)[:10] == ["Rank", "Score", "Project A", "Utility A", "In-service year A", "Project B",
+                              "Utility B", "In-service year B", "Year gap", "Years to coordinate"]
+    assert (top["Rank"], top["Score"]) == ("1", "5.823")
+    assert top["Years to coordinate"] == str(max(0, 2028 - date.today().year))
+    assert (top["Band"], top["Touch reason"]) == ("Touching / crossing", "Shared named endpoint")
+    assert top["Savings status"] == "Screening estimate"
+    assert top["Accuracy A"] == "approximate" and top["Accuracy B"] == "exact"
+    town = [row for row in rows if "(town only)" in row["Accuracy A"] + row["Accuracy B"]]
+    assert town, "town-only placements are qualified in the accuracy columns"
+    # No internal codes in the reader-facing columns.
+    for row in rows:
+        for column in ("Band", "Touch reason", "Savings status", "Accuracy A", "Accuracy B"):
+            assert "_" not in row[column], (column, row[column])
 
 
 def test_export_empty_filter_is_header_only(real_client: TestClient) -> None:
@@ -148,19 +169,25 @@ def test_export_all_real_savings_keep_evidence_and_original_fields(real_client: 
     assert response.content.endswith(b"\r\n")
     assert b"\n" not in response.content.replace(b"\r\n", b"")
     assert list(rows[0]) == [
-        "Rank", "Overlap ID", "Project A", "Utility A", "Project B", "Utility B",
-        "Band", "Distance km", "Touch reason", "Why they touch", "In-service year A",
-        "In-service year B", "Year gap", "Accuracy A", "Accuracy B", "Source A",
-        "Source page A", "Source B", "Source page B", "Savings status",
-        "Savings low USD", "Savings high USD", "Coordination status",
-        "Savings qualification", "Savings basis", "Savings assumptions", "Savings caveat",
+        "Rank", "Score", "Project A", "Utility A", "In-service year A", "Project B", "Utility B",
+        "In-service year B", "Year gap", "Years to coordinate", "Distance km", "Band", "Touch reason",
+        "Why they touch", "Accuracy A", "Accuracy B", "Savings low USD", "Savings high USD", "Savings status",
+        "Savings basis", "Source A", "Source page A", "Source B", "Source page B", "Coordination status", "Notes",
+        "Overlap ID", "Savings assumptions", "Savings caveat",
     ]
+    status_words = {
+        "range": "Screening estimate",
+        "timing_too_far": "No estimate: in-service years more than 2 apart",
+        "no_cost": "No estimate: no size, or nothing both jobs need at this distance",
+        "unknown_year": "No estimate: an in-service year is not stated",
+    }
     for row, pair in zip(rows, pairs, strict=True):
         savings = pair["savings"]
         assert row["Overlap ID"] == pair["id"]
         assert row["Rank"] == str(pair["rank"])
-        assert row["Savings status"] == savings["status"]
+        assert row["Savings status"] == status_words[savings["status"]]
         assert row["Savings basis"] == savings["basis"]
+        assert "Shared work and savings are not verified" in row["Savings caveat"]
         for bound in ("low", "high"):
             amount = savings[f"{bound}_usd"]
             assert row[f"Savings {bound} USD"] == (str(amount) if amount is not None else "")
@@ -170,12 +197,9 @@ def test_export_all_real_savings_keep_evidence_and_original_fields(real_client: 
             assert row[f"Source {side}"] == project["source"]["doc"]
             assert row[f"Source page {side}"] == str(project["source"]["page"])
         if savings["status"] == "range":
-            assert row["Savings qualification"] == "Screening estimate"
             assert "Team unit-cost file (2026-09-26)" in row["Savings assumptions"]
             assert "escalated to 2026 at 4% a year" in row["Savings assumptions"]
-            assert "Shared work and savings are not verified" in row["Savings caveat"]
         else:
-            assert row["Savings qualification"] == "No savings estimate"
             assert row["Savings assumptions"] == ""
         for assumption_id in savings["assumption_ids"]:
             assert assumption_id not in " ".join(row.values())
@@ -223,7 +247,7 @@ def test_csv_non_range_reasons_have_no_amounts(artifacts: Path, status: str, rea
     with TestClient(create_app(artifact_dir=artifacts), base_url="http://localhost") as client:
         row = csv_rows(client)[0]
     assert row["Savings basis"] == reason
-    assert row["Savings qualification"] == "No savings estimate"
+    assert row["Savings status"].startswith("No estimate: ")
     assert row["Savings low USD"] == row["Savings high USD"] == row["Savings assumptions"] == ""
 
 

@@ -8,6 +8,7 @@ import json
 import re
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
+from datetime import date
 from pathlib import Path
 from types import MappingProxyType
 from typing import Annotated, AsyncIterator, Awaitable, Callable, Literal, TypeVar
@@ -32,14 +33,26 @@ SOURCE_PDFS = MappingProxyType({
     "desc-scrtp-2026-2030": ROOT / "data" / "raw" / "desc_scrtp_2026_2030.pdf",
     "sertp-2025-rtp": ROOT / "data" / "raw" / "sertp_2025_rtp.pdf",
 })
+# What a planner reads first comes first; the evidence and reference columns follow. Codes appear as words.
 CSV_COLUMNS = (
-    "Rank", "Overlap ID", "Project A", "Utility A", "Project B", "Utility B",
-    "Band", "Distance km", "Touch reason", "Why they touch", "In-service year A",
-    "In-service year B", "Year gap", "Accuracy A", "Accuracy B", "Source A",
-    "Source page A", "Source B", "Source page B", "Savings status",
-    "Savings low USD", "Savings high USD", "Coordination status",
-    "Savings qualification", "Savings basis", "Savings assumptions", "Savings caveat",
+    "Rank", "Score", "Project A", "Utility A", "In-service year A", "Project B", "Utility B",
+    "In-service year B", "Year gap", "Years to coordinate", "Distance km", "Band", "Touch reason",
+    "Why they touch", "Accuracy A", "Accuracy B", "Savings low USD", "Savings high USD", "Savings status",
+    "Savings basis", "Source A", "Source page A", "Source B", "Source page B", "Coordination status", "Notes",
+    "Overlap ID", "Savings assumptions", "Savings caveat",
 )
+CSV_TOUCH_REASONS = MappingProxyType({
+    "same_substation": "Same named substation", "shared_endpoint": "Shared named endpoint",
+    "lines_cross": "Mapped lines cross", "proximity": "Nearby mapped locations",
+    "same_area_approximate": "Same approximate area",
+})
+CSV_SAVINGS_STATUS = MappingProxyType({
+    "range": "Screening estimate",
+    "timing_too_far": "No estimate: in-service years more than 2 apart",
+    "no_cost": "No estimate: no size, or nothing both jobs need at this distance",
+    "unknown_year": "No estimate: an in-service year is not stated",
+})
+CSV_CAVEAT = "Shared work and savings are not verified; confirm scope, costs, and schedules with the utilities."
 
 
 class Health(BaseModel):
@@ -258,8 +271,20 @@ def _csv_utility(project: ProjectFeature) -> str:
     return _csv_text(props.utility + suffix)
 
 
+def _csv_accuracy(project: ProjectFeature) -> str:
+    props = project.properties
+    return props.accuracy.value + (" (town only)" if props.town_only else "")
+
+
+def years_to_coordinate(pair: Overlap, this_year: int) -> int | None:
+    """Whole years from this year to the earlier in-service year; 0 means coordinate now."""
+    if pair.a_year is None or pair.b_year is None:
+        return None
+    return max(0, min(pair.a_year, pair.b_year) - this_year)
+
+
 def _csv_row(
-    pair: Overlap, projects: dict[str, ProjectFeature], assumption_labels: dict[str, str],
+    pair: Overlap, projects: dict[str, ProjectFeature], assumption_labels: dict[str, str], this_year: int,
 ) -> tuple[str | int | float | None, ...]:
     a = projects[pair.a].properties
     b = projects[pair.b].properties
@@ -269,15 +294,14 @@ def _csv_row(
         for assumption_id in savings.assumption_ids
     )
     return (
-        pair.rank, _csv_text(pair.id), _csv_text(a.name), _csv_utility(projects[pair.a]),
-        _csv_text(b.name), _csv_utility(projects[pair.b]), _csv_text(pair.band.value), pair.distance_km,
-        _csv_text(pair.touch_reason), _csv_text(pair.touch_detail), a.year, b.year,
-        pair.year_gap, _csv_text(a.accuracy.value), _csv_text(b.accuracy.value),
-        _csv_text(a.source.doc), a.source.page, _csv_text(b.source.doc), b.source.page,
-        _csv_text(pair.savings.status), pair.savings.low_usd, pair.savings.high_usd, "",
-        "Screening estimate" if savings.status == "range" else "No savings estimate",
-        _csv_text(savings.basis), _csv_text(assumptions),
-        "Shared work and savings are not verified; confirm scope, costs, and schedules with the utilities.",
+        pair.rank, pair.score, _csv_text(a.name), _csv_utility(projects[pair.a]), a.year,
+        _csv_text(b.name), _csv_utility(projects[pair.b]), b.year, pair.year_gap,
+        years_to_coordinate(pair, this_year), pair.distance_km, _csv_text(pair.band_label),
+        CSV_TOUCH_REASONS[pair.touch_reason], _csv_text(pair.touch_detail),
+        _csv_accuracy(projects[pair.a]), _csv_accuracy(projects[pair.b]), savings.low_usd, savings.high_usd,
+        CSV_SAVINGS_STATUS[savings.status], _csv_text(savings.basis),
+        _csv_text(a.source.doc), a.source.page, _csv_text(b.source.doc), b.source.page, "", "",
+        _csv_text(pair.id), _csv_text(assumptions), CSV_CAVEAT,
     )
 
 
@@ -287,8 +311,9 @@ def export_csv(pairs: list[Overlap], projects: ProjectCollection) -> bytes:
     writer.writerow(CSV_COLUMNS)
     by_id = {project.properties.id: project for project in projects.features}
     assumption_labels = _csv_assumption_labels()
+    this_year = date.today().year
     for pair in pairs:
-        writer.writerow(_csv_row(pair, by_id, assumption_labels))
+        writer.writerow(_csv_row(pair, by_id, assumption_labels, this_year))
     return ("\ufeff" + output.getvalue()).encode("utf-8")
 
 

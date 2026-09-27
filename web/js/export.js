@@ -36,24 +36,6 @@ function savingsText(savings) {
   return reasons[savings?.status] ?? "No estimate available.";
 }
 
-function projectBlock(project, tag = "section") {
-  const block = document.createElement(tag);
-  if (!project) {
-    block.append(text("p", "Project details not available in the current results."));
-    return block;
-  }
-  const props = project.properties;
-  block.append(text("p", props.name, "name"));
-  const utility = props.utility_basis === "inferred_from_location"
-    ? `${props.utility} (inferred)` : props.utility;
-  field(block, "Utility", utility, "utility");
-  field(block, "In service", props.in_service, "in_service");
-  field(block, "Year", props.year, "year");
-  field(block, "Accuracy", props.accuracy, "accuracy");
-  block.append(citation(props.source));
-  return block;
-}
-
 function coordinationField(parent) {
   const blank = text("p", "");
   blank.className = "coordination-status";
@@ -81,12 +63,67 @@ function selectedBlock(payload, selectedId) {
   return section;
 }
 
+function yearsToCoordinate(pair) {
+  if (!Number.isInteger(pair.a_year) || !Number.isInteger(pair.b_year)) return "Years not stated";
+  const years = Math.max(0, Math.min(pair.a_year, pair.b_year) - new Date().getFullYear());
+  return years === 0 ? "Coordinate now" : `${years} year${years === 1 ? "" : "s"} to coordinate`;
+}
+
+// A one-screen summary of the pairs in this report, so the reader knows what the pages below hold.
+function glanceSection(pairs) {
+  const section = document.createElement("section");
+  section.id = "print-glance";
+  section.append(text("h2", "At a glance"));
+  if (!pairs.length) return section;
+  const crossing = pairs.filter((pair) => pair.cross_state).length;
+  section.append(text("p", `${pairs.length} ranked pair${pairs.length === 1 ? "" : "s"} in this report; ${crossing} cross the state line.`));
+  const bands = [["touching", "touching"], ["lt_1_6km", "under 1.6 km"], ["lt_8km", "under 8 km"], ["lt_40km", "under 40 km"]]
+    .map(([band, label]) => [label, pairs.filter((pair) => pair.band === band).length])
+    .filter(([, count]) => count > 0).map(([label, count]) => `${label} ${count}`);
+  section.append(text("p", `By distance: ${bands.join(", ")}.`));
+  const ranged = pairs.filter((pair) => pair.savings?.status === "range" && Number.isFinite(pair.savings.low_usd) && Number.isFinite(pair.savings.high_usd));
+  section.append(text("p", ranged.length
+    ? `Possible savings: ${money(ranged.reduce((sum, pair) => sum + pair.savings.low_usd, 0))} to `
+      + `${money(ranged.reduce((sum, pair) => sum + pair.savings.high_usd, 0))} across ${ranged.length} pair${ranged.length === 1 ? "" : "s"} `
+      + "with an estimate. Each pair is estimated on its own and pairs can share a project, so this is a screening figure, not a budget."
+    : "No pair in this report has a savings estimate."));
+  const top = pairs[0];
+  section.append(text("p", `Highest ranked: #${top.rank}, ${top.a_name} / ${top.b_name} (score ${top.score.toPrecision(2)}).`, "name"));
+  return section;
+}
+
+function projectsCell(pair, projects) {
+  const cell = document.createElement("td");
+  for (const id of [pair.a, pair.b]) {
+    const project = projects.get(id);
+    const line = document.createElement("p");
+    if (!project) {
+      line.textContent = "Project details not available in the current results.";
+    } else {
+      const props = project.properties;
+      const utility = props.utility_basis === "inferred_from_location" ? `${props.utility} (inferred)` : props.utility;
+      line.append(text("strong", props.name, "name"), document.createTextNode(" · "), text("span", utility, "utility"),
+        document.createTextNode(` · ${props.year ?? "year not stated"}`));
+    }
+    cell.append(line);
+  }
+  return cell;
+}
+
 function rankedTable(projects) {
   const table = document.createElement("table");
-  table.append(text("caption", `${state.overlaps.length} ranked overlaps`));
+  table.append(text("caption", `${state.overlaps.length} ranked overlaps. The CSV export has every field, including the evidence text.`));
+  // Letter width: names get the room; the status column stays wide enough to write in.
+  const columns = document.createElement("colgroup");
+  for (const width of ["6%", "32%", "19%", "14%", "16%", "13%"]) {
+    const column = document.createElement("col");
+    column.style.width = width;
+    columns.append(column);
+  }
+  table.append(columns);
   const header = document.createElement("thead");
   const headings = document.createElement("tr");
-  for (const label of ["Rank", "Project A / source", "Project B / source", "Distance / timing / evidence", "Screening savings", "Coordination status"]) {
+  for (const label of ["Rank", "Projects", "Distance, timing and score", "Possible saving", "Sources", "Status"]) {
     const cell = text("th", label);
     cell.scope = "col";
     headings.append(cell);
@@ -96,18 +133,23 @@ function rankedTable(projects) {
   for (const pair of state.overlaps) {
     const row = document.createElement("tr");
     const rank = text("td", String(pair.rank), "rank");
-    const context = [projects.get(pair.a), projects.get(pair.b)].filter(Boolean);
-    const evidence = document.createElement("td");
-    field(evidence, "Distance", distanceText(pair.distance_km), "distance_km");
-    field(evidence, "Band", pair.band_label, "band_label");
-    field(evidence, "Year gap", pair.year_gap == null ? "not stated" : `${pair.year_gap} years`, "year_gap");
-    field(evidence, "Touch reason", touchReasonLabel(pair.touch_reason), "touch_reason");
-    field(evidence, "Source evidence", readableEvidence(pair.touch_detail, context), "touch_detail");
-    const savings = text("td", "");
-    savings.append(text("p", savingsText(pair.savings), "savings_range"), text("p", readableEvidence(pair.savings?.basis, context), "savings_basis"));
+    const timing = document.createElement("td");
+    const where = document.createElement("p");
+    where.append(text("span", distanceText(pair.distance_km), "distance_km"), document.createTextNode(" · "),
+      text("span", pair.band_label ?? "band not stated", "band_label"));
+    timing.append(where, text("p", touchReasonLabel(pair.touch_reason), "touch_reason"),
+      text("p", yearsToCoordinate(pair), "year_gap"), text("p", `Score ${pair.score.toPrecision(2)}`, "score"));
+    const savings = text("td", savingsText(pair.savings), "savings_range");
+    const sources = document.createElement("td");
+    for (const id of [pair.a, pair.b]) {
+      const project = projects.get(id);
+      const line = document.createElement("p");
+      if (project) line.append(citation(project.properties.source));
+      sources.append(line);
+    }
     const blank = document.createElement("td");
     coordinationField(blank);
-    row.append(rank, projectBlock(projects.get(pair.a), "td"), projectBlock(projects.get(pair.b), "td"), evidence, savings, blank);
+    row.append(rank, projectsCell(pair, projects), timing, savings, sources, blank);
     body.append(row);
   }
   table.append(header, body);
@@ -134,6 +176,7 @@ function renderReport(report, query, payload, ready) {
   field(report, "Filters", filterLabels(query), "filters");
   field(report, "Timeline emphasis", state.timelineYear ?? "All years", "timeline_year");
   report.append(text("p", "Timeline emphasis does not change ranked or exported rows. Coordination opportunities and shared assets are unverified. Estimates are for discussion only; no realized savings are claimed."));
+  report.append(glanceSection(state.overlaps));
   report.append(selectedBlock(payload, state.selectedOverlapId));
   report.append(text("h2", "Team assumptions"));
   const ids = new Set([...state.overlaps.flatMap((pair) => pair.savings?.assumption_ids ?? []), ...(payload?.savings?.assumption_ids ?? [])]);
