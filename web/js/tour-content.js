@@ -10,7 +10,7 @@ export const tourSteps = [
   { id: "purpose", target: ".title-block", title: "What GridLock does",
     body: "The challenge: find where neighbouring utilities' planned work overlaps in place or time. GridLock compares two public plans (Dominion Energy SC and the Georgia utilities in SERTP), ranks every pair within 40 km, and shows the source page behind each fact." },
   { id: "map", target: "#map", title: "Read the map",
-    body: "Each colour is a utility. Solid lines are exact routes, dashed lines are approximate, and dots are single sites or the one end we could find. Town-level projects sit at a town centre because their substation is not mapped. Unknown locations stay in the list, never guessed." },
+    body: "Each colour is a utility. Solid lines and filled dots are exact; dashed lines and rings are approximate. Dotted lines or dashed rings are town-level: placed at a town centre because the substation is not mapped. Unknown locations stay in the list, never guessed." },
   { id: "ranking", target: "#opportunities-heading", prepare: "list", title: "How pairs are ranked",
     body: "Score = closeness × timing × location × state line × savings. Closeness: touching 4, under 1.6 km 3, under 8 km 2, under 40 km 1. Timing: same year 1.0, 1 year apart 0.7, 2 years 0.4. Exact 1.0, approximate 0.8. Crossing SC-GA 1.5. Savings add at most 30%, so distance leads." },
   { id: "search", target: "#search-form", title: "Find Savannah",

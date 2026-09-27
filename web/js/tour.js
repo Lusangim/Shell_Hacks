@@ -12,7 +12,11 @@ export function setupTour() {
   const dismiss = document.getElementById("tour-dismiss");
   launch.textContent = tourWords.launch;
   invitation.textContent = tourWords.invitation;
-  dismiss.textContent = tourWords.dismissSymbol;
+  const dismissIcon = document.createElement("span");
+  dismissIcon.className = "icon";
+  dismissIcon.dataset.icon = "x";
+  dismissIcon.setAttribute("aria-hidden", "true");
+  dismiss.replaceChildren(dismissIcon);
   dismiss.setAttribute("aria-label", tourWords.dismiss);
   let dismissed = false;
   try { dismissed = localStorage.getItem("gridlock-tour-dismissed") === "yes"; }
@@ -36,6 +40,11 @@ export function setupTour() {
   card.setAttribute("aria-describedby", "tour-count tour-heading tour-body");
   const count = document.createElement("p");
   count.id = "tour-count";
+  const progress = document.createElement("div");
+  progress.className = "tour-progress";
+  progress.setAttribute("aria-hidden", "true");
+  const progressFill = document.createElement("span");
+  progress.append(progressFill);
   const heading = document.createElement("h2");
   heading.id = "tour-heading";
   const body = document.createElement("p");
@@ -50,7 +59,9 @@ export function setupTour() {
     return button;
   });
   const [back, next, skip] = buttons;
-  card.append(count, heading, body, controls);
+  next.classList.add("btn-primary");
+  skip.classList.add("tour-skip");
+  card.append(count, progress, heading, body, controls);
   document.querySelector("main").append(card);
   let steps = [];
   let index = -1;
@@ -91,9 +102,47 @@ export function setupTour() {
     });
   }
 
+  // Phones flip the card above or below the target; wider screens place it beside what it explains.
   function positionCard() {
     if (!target || card.hidden) return;
-    card.dataset.placement = target.getBoundingClientRect().top < innerHeight / 2 ? "bottom" : "top";
+    const rect = target.getBoundingClientRect();
+    card.dataset.placement = rect.top < innerHeight / 2 ? "bottom" : "top";
+    if (matchMedia("(max-width: 700px)").matches) {
+      card.style.removeProperty("left");
+      card.style.removeProperty("top");
+      delete card.dataset.arrow;
+      return;
+    }
+    const margin = 16;
+    const panel = document.querySelector(".panel").getBoundingClientRect();
+    const box = card.getBoundingClientRect();
+    let left = panel.right + margin;
+    let top = margin;
+    const inPanel = Boolean(target.closest(".panel"));
+    if (inPanel) {
+      top = rect.top + Math.min(rect.height, 64) / 2 - 36;
+    } else if (target.closest(".timeline")) {
+      left = Math.max(left, rect.left);
+      top = rect.top - box.height - 12;
+    } else if (innerWidth >= 1100) {
+      left = Math.max(left, innerWidth - box.width - 76);
+    }
+    left = Math.min(Math.max(margin, left), innerWidth - box.width - margin);
+    top = Math.min(Math.max(margin, top), innerHeight - box.height - margin);
+    card.style.left = `${left}px`;
+    card.style.top = `${top}px`;
+    if (inPanel) {
+      card.dataset.arrow = "left";
+      const pointer = rect.top + Math.min(rect.height, 64) / 2 - top;
+      card.style.setProperty("--arrow-y", `${Math.min(Math.max(24, pointer), box.height - 24)}px`);
+    } else delete card.dataset.arrow;
+  }
+
+  function enter() {
+    // Reduced motion shows each step at once; otherwise a short rise explains the change of step.
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches || typeof card.animate !== "function") return;
+    card.animate([{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }],
+      { duration: 180, easing: "cubic-bezier(0.23, 1, 0.32, 1)" });
   }
 
   async function show(candidate, direction = 1) {
@@ -130,10 +179,12 @@ export function setupTour() {
       heading.textContent = step.title;
       body.textContent = step.body;
       count.textContent = tourWords.count(index + 1, steps.length);
+      progressFill.style.setProperty("--progress", `${Math.round(((index + 1) / steps.length) * 100)}%`);
       back.disabled = index === 0;
       next.textContent = index === steps.length - 1 ? tourWords.finish : tourWords.next;
       card.hidden = false;
       positionCard();
+      enter();
       card.focus({ preventScroll: true });
       return;
     }
@@ -157,4 +208,5 @@ export function setupTour() {
     if (active && event.key === "Escape") { event.preventDefault(); finish(); }
   });
   window.addEventListener("resize", positionCard);
+  document.getElementById("panel-body").addEventListener("scroll", positionCard, { passive: true });
 }

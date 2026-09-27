@@ -122,6 +122,30 @@ def test_error_retry_is_bound_to_current_pair(browser_page, live_server, status)
     expect(page.get_by_role("button", name="Retry brief")).to_be_hidden()
 
 
+@pytest.mark.parametrize("outcome", ["success", "failure"])
+def test_keyboard_retry_keeps_a_visible_focus_target_in_the_brief(browser_page, live_server, outcome):
+    """JA11Y-03: a retry hides its own button; focus stays in the brief instead of falling to BODY."""
+    page = browser_page
+    page.route(f"**/api/briefs/{PAIR}", lambda route: route.fulfill(status=503, json={"error": "fake failure"}))
+    page.goto(f"{live_server}/#overlap={PAIR}")
+    retry = page.get_by_role("button", name="Retry brief")
+    expect(retry).to_be_visible()
+    if outcome == "success":
+        page.unroute(f"**/api/briefs/{PAIR}")
+    retry.focus()
+    page.keyboard.press("Enter")
+    if outcome == "success":
+        expect(page.get_by_role("button", name="Copy brief", exact=True)).to_be_enabled()
+        expect(page.locator("#brief-heading")).to_be_focused()
+        assert page.locator("#brief-heading").evaluate("node => getComputedStyle(node).outlineStyle") != "none"
+        page.keyboard.press("Tab")
+        assert page.evaluate("document.querySelector('#brief-panel').contains(document.activeElement)")
+    else:
+        expect(page.locator("#brief-state")).to_contain_text("Could not load")
+        expect(retry).to_be_focused()
+    assert page.evaluate("document.activeElement !== document.body")
+
+
 @pytest.mark.parametrize("phase", ["headers", "json"])
 def test_late_brief_cannot_replace_current_pair_or_survive_close(browser_page, live_server, phase):
     page = browser_page

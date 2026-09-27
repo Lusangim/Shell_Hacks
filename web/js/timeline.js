@@ -50,7 +50,7 @@ export function setupTimeline(filters) {
     all.setAttribute("aria-pressed", String(year == null));
     if (year == null) {
       status.textContent = outsideLink
-        ? `Linked year is outside the loaded plan years (${first}–${last}). Showing all years.`
+        ? `Linked year is outside the loaded plan years (${first} to ${last}). Showing all years.`
         : `Showing all ${state.overlaps.length} ranked pairs. ${unknown} projects with unknown in-service year.`;
     } else if (lit === 0) {
       status.textContent = `No ranked pairs meet the ${year} year window under current filters. ${entering} projects enter service; ${unknown} projects with unknown in-service year.`;

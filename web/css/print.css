@@ -1,8 +1,7 @@
-.report-controls { padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.report-controls { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--rule); }
 .legend:not([open]) .report-controls { display: none; }
 .report-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
-.report-buttons button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--rule-strong); border-radius: 4px; background: var(--panel); font-size: 14px; }
-.report-buttons button:disabled { cursor: wait; color: var(--pencil); }
+.report-buttons button:disabled { cursor: wait; }
 #export-status { margin: 8px 0 0; color: var(--pencil); font-size: 12px; }
 #print-report { display: none; }
 
@@ -15,13 +14,15 @@
   #print-report { display: block; width: 7.5in; max-width: 100%; margin: 0; font: 12px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
   #print-report h1 { margin: 0 0 16px; font-size: 24px; }
   #print-report h2 { margin: 24px 0 8px; font-size: 20px; break-after: avoid; }
-  #print-report h3 { margin: 16px 0 8px; font-size: 16px; break-after: avoid; }
+  #print-report h3 { margin: 16px 0 8px; color: inherit; font-size: 16px; break-after: avoid; }
   #print-report p { margin: 4px 0; }
   #print-report a { color: inherit; text-decoration: underline; }
   #print-report .detail-block { padding: 8px 0; border-color: currentColor; }
   #print-report .detail-answer { font-size: 14px; }
   #print-report .detail-points, #print-report .detail-block details { font-size: 12px; }
   #print-report .detail-block summary { min-height: 0; padding: 4px 0; list-style: none; }
+  #print-report summary::before, #print-report .detail-note::before, #print-report .swatch { display: none; }
+  #print-report .detail-note { padding: 4px 0; background: none; }
   #print-report .detail-block > a { min-height: 0; padding: 4px 0; font-size: 12px; }
   #print-report .overlap-projects { display: block; }
   #print-report .overlap-project { padding-top: 8px; }

@@ -16,8 +16,10 @@ function loadScript(url) {
   });
 }
 
+export const OSM_ATTRIBUTION = '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> · <a href="https://protomaps.com">Protomaps</a>';
+
 export function isolateMapControls() {
-  document.querySelectorAll(".panel, .timeline, .map-note, .map-pair-open, .basemap-controls, .basemap-status, .leaflet-control").forEach((element) => {
+  document.querySelectorAll(".panel, .timeline, .map-key, .map-pair-open, .basemap-controls, .basemap-status, .leaflet-control").forEach((element) => {
     L.DomEvent.disableScrollPropagation(element);
     L.DomEvent.disableClickPropagation(element);
   });
@@ -30,6 +32,8 @@ function createControls() {
   status.dataset.testid = "basemap-status";
   status.setAttribute("aria-live", "polite");
   status.textContent = "Loading offline map.";
+  // Routine states stay available to screen readers without a floating pill.
+  status.dataset.state = "loading";
   const group = document.createElement("div");
   group.className = "basemap-controls";
   group.setAttribute("role", "group");
@@ -50,24 +54,44 @@ function createControls() {
 
 export function initializeBasemap(map) {
   const ui = createControls();
-  const model = { config: null, offline: null, google: null, request: 0, flavor: null, archive: null, googleReady: null, wantsGoogle: false };
+  const model = { config: null, offline: null, google: null, request: 0, flavor: null, archive: null, googleReady: null,
+    wantsGoogle: false, googleShown: false, osmCredited: false };
   map.attributionControl.setPrefix(false);
-  map.attributionControl.addAttribution('© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> · <a href="https://protomaps.com">Protomaps</a>');
+
+  function setStatus(message, kind) {
+    ui.status.textContent = message;
+    ui.status.dataset.state = kind;
+  }
+
+  // Credit only the base map on screen: OpenStreetMap and Protomaps for the offline street map;
+  // Google's layer carries its own attribution; the outline map uses neither.
+  function syncAttribution() {
+    const wanted = Boolean(model.offline) && !model.googleShown;
+    if (wanted === model.osmCredited) return;
+    model.osmCredited = wanted;
+    if (wanted) map.attributionControl.addAttribution(OSM_ATTRIBUTION);
+    else map.attributionControl.removeAttribution(OSM_ATTRIBUTION);
+  }
 
   function fallback(message = "Outline map: offline street map unavailable.") {
     if (model.offline) map.removeLayer(model.offline);
     model.offline = null;
     map.getContainer().classList.remove("vector-basemap");
-    if (!model.wantsGoogle) ui.status.textContent = message;
+    if (!model.wantsGoogle) setStatus(message, "outline");
+    syncAttribution();
   }
 
   function offlineSelection(message) {
     model.wantsGoogle = false;
+    model.googleShown = false;
     model.request += 1;
     if (model.google) map.removeLayer(model.google);
     model.google = null;
     ui.buttons.forEach((button, index) => button.setAttribute("aria-pressed", String(index === 0)));
-    ui.status.textContent = message || (model.offline ? "Offline street map" : "Outline map: offline street map unavailable.");
+    if (message) setStatus(message, "notice");
+    else if (model.offline) setStatus("Offline street map", "offline");
+    else setStatus("Outline map: offline street map unavailable.", "outline");
+    syncAttribution();
   }
 
   function refreshTheme() {
@@ -80,6 +104,7 @@ export function initializeBasemap(map) {
       attribution: "", pane: "tilePane", zIndex: 0,
     }).addTo(map);
     map.getContainer().classList.add("vector-basemap");
+    syncAttribution();
   }
 
   async function loadOffline() {
@@ -98,7 +123,7 @@ export function initializeBasemap(map) {
         },
       };
       refreshTheme();
-      if (!model.wantsGoogle) ui.status.textContent = "Offline street map";
+      if (!model.wantsGoogle) setStatus("Offline street map", "offline");
     } catch (_error) { fallback(); }
   }
 
@@ -106,7 +131,7 @@ export function initializeBasemap(map) {
     if (!model.config?.google_enabled || !model.config.google_key || !navigator.onLine) return;
     model.wantsGoogle = true;
     const ownRequest = ++model.request;
-    ui.status.textContent = "Loading Google map.";
+    setStatus("Loading Google map.", "notice");
     try {
       if (!model.googleReady) {
         const ready = (async () => {
@@ -140,7 +165,9 @@ export function initializeBasemap(map) {
       });
       if (ownRequest !== model.request) return;
       ui.buttons.forEach((button, position) => button.setAttribute("aria-pressed", String(position === index)));
-      ui.status.textContent = index === 2 ? "Satellite map" : "Google Maps";
+      model.googleShown = true;
+      setStatus(index === 2 ? "Satellite map" : "Google Maps", "google");
+      syncAttribution();
     } catch (_error) {
       if (ownRequest === model.request) {
         model.googleReady = null;

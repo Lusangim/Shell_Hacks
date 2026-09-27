@@ -131,7 +131,8 @@ export function setupSearch(filterControl) {
     const label = document.createElement("span");
     label.dataset.src = "label";
     label.textContent = result.label;
-    selection.replaceChildren(document.createTextNode(`${result.type}: `), label);
+    const kind = { place: "Place", project: "Project", substation: "Substation" }[result.type] ?? "Result";
+    selection.replaceChildren(document.createTextNode(`${kind}: `), label);
     selection.hidden = false;
     exploreButton.hidden = false;
     // A user's destination takes precedence over a pending initial overview fit.

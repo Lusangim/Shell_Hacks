@@ -1,13 +1,18 @@
-.detail-block { padding: 16px 0; border-bottom: 1px solid var(--rule); overflow-wrap: anywhere; }
-.detail-answer { margin: 0 0 8px; font-size: 16px; font-weight: 650; line-height: 1.4; }
-.detail-points { margin: 8px 0; padding-left: 20px; font-size: 14px; }
-.detail-points li { margin: 6px 0; }
+.detail-block { padding: 14px 0; border-bottom: 1px solid var(--rule); overflow-wrap: anywhere; }
+.detail-answer { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin: 0 0 6px; font-size: 16px; font-weight: 650; line-height: 1.4; }
+.detail-points { margin: 6px 0; padding-left: 20px; font-size: 14px; }
+.detail-points li { margin: 4px 0; }
+.detail-points li::marker { color: var(--pencil); }
+.detail-note { display: flex; gap: 8px; align-items: flex-start; margin: 6px 0 8px; padding: 8px 10px; border-radius: var(--radius-control); background: var(--selected); color: var(--ink); font-size: 14px; line-height: 1.4; }
 .detail-block details { font-size: 14px; }
-.detail-block summary { min-height: 44px; padding: 12px 0; cursor: pointer; font-weight: 600; }
-.detail-block details p { margin: 8px 0 12px; }
-.detail-block > a { display: inline-block; min-height: 44px; padding: 10px 0; font-size: 14px; }
-.overlap-project { border: 0; border-radius: 0; padding: 16px 0 0; }
+.detail-block summary { min-height: 44px; padding: 10px 0; font-weight: 600; color: var(--ink); }
+.detail-block details p { margin: 4px 0 12px; }
+.detail-block > a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 0; font-size: 14px; }
+.overlap-project { padding: 16px 0 0; border: 0; border-radius: 0; }
 .overlap-projects { gap: 8px; }
-.overlap-project h3 { font-size: 16px; line-height: 1.4; }
-.savings-detail .detail-answer { font-size: 20px; }
+.overlap-project h3 { margin: 0 0 2px; font-size: 16px; line-height: 1.4; }
+#project-fields .overlap-project { padding-top: 0; }
+.overlap-project .detail-block:first-of-type { padding-top: 6px; }
+.overlap-project .detail-block:first-of-type .detail-answer { font-size: 14px; font-weight: 600; }
+.savings-detail .detail-answer { font-size: 20px; line-height: 1.3; }
 .detail-points.overlap-assumptions { color: var(--ink); font-size: 14px; }

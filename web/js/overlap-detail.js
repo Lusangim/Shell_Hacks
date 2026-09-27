@@ -1,5 +1,5 @@
 import { detailBlock, money, projectSummary, readableEvidence, touchReasonLabel } from "./project-detail.js";
-import { highlightPair } from "./map.js";
+import { fitPairBounds, highlightPair } from "./map.js";
 import { state } from "./state.js";
 import { setupBrief } from "./brief.js";
 
@@ -39,6 +39,13 @@ export function renderOverlapDetail(payload, content, heading) {
       text("li", confidence, "accuracy_pair"),
       text("li", `Timing: ${pair.timeline ?? "not stated"}. Sharing is not verified.`, "timeline"),
     ]);
+  if (pair.town_capped === true) {
+    // The distance stays verbatim; the note explains why the band reads "Under 40 km".
+    const towns = [a, b].filter((project) => project.properties.town_only === true).length;
+    evidence.block.insertBefore(text("p", towns === 2
+      ? "Counted as under 40 km: both locations are only town centres, not substations."
+      : "Counted as under 40 km: one location is only a town centre, not a substation.", "town_capped", "detail-note"), evidence.list);
+  }
   const gap = pair.year_gap;
   evidence.disclosure.append(text("p", readableEvidence(pair.touch_detail, [a, b]), "touch_detail"),
     text("p", readableEvidence(pair.can_share, [a, b]), "can_share"),
@@ -145,7 +152,16 @@ export function setupOverlapDetail(projectView) {
     if (push && location.hash.startsWith("#overlap=")) history.pushState(null, "", `${location.pathname}${location.search}`);
   }
 
-  async function open(overlapId, { push = false } = {}) {
+  // A pair opened by link, reload, history or the area list is framed like a list click.
+  function framePair(payload) {
+    const bounds = L.latLngBounds([]);
+    for (const project of [payload.project_a, payload.project_b]) {
+      if (project?.geometry) bounds.extend(L.geoJSON(project).getBounds());
+    }
+    if (bounds.isValid()) fitPairBounds(bounds);
+  }
+
+  async function open(overlapId, { push = false, frame = false } = {}) {
     brief.clear();
     requestNumber += 1;
     const ownRequest = requestNumber;
@@ -176,6 +192,7 @@ export function setupOverlapDetail(projectView) {
       renderOverlapDetail(payload, content, heading);
       visiblePair = payload.overlap;
       select(visiblePair);
+      if (frame) framePair(payload);
       void brief.open(payload);
       stateMessage.textContent = state.overlaps.some((pair) => pair.id === overlapId)
         ? "Public plan screening detail. A coordination opportunity is unverified."
@@ -187,13 +204,15 @@ export function setupOverlapDetail(projectView) {
     }
   }
 
-  function restoreFromHash() {
+  function restoreFromHash(event) {
     if (!location.hash.startsWith("#overlap=")) {
       close();
       return;
     }
+    // On first load an area in the URL keeps its restored map view; navigation always frames the pair.
+    const frame = Boolean(event) || !new URLSearchParams(location.search).has("area");
     try {
-      open(decodeURIComponent(location.hash.slice(9)));
+      open(decodeURIComponent(location.hash.slice(9)), { frame });
     } catch (_error) {
       open("invalid");
     }

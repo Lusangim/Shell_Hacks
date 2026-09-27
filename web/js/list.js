@@ -1,6 +1,7 @@
 import { state } from "./state.js";
 import { fitPairBounds, highlightPair } from "./map.js";
 import { citation, projectAbsenceMessage, utilityLabel } from "./project-detail.js";
+import { bandGlyph, swatchFor } from "./look.js";
 
 function field(tag, value, source, className = "") {
   const element = document.createElement(tag);
@@ -10,13 +11,42 @@ function field(tag, value, source, className = "") {
   return element;
 }
 
+function separator(text, className = "sep") {
+  const element = document.createElement("span");
+  element.className = className;
+  element.textContent = text;
+  return element;
+}
+
+function utilityItem(project) {
+  const item = document.createElement("span");
+  item.className = "row-utility";
+  item.append(swatchFor(project?.properties), field("span", utilityLabel(project?.properties), "utility"));
+  return item;
+}
+
+function capitalized(value) {
+  return `${value.charAt(0).toUpperCase()}${value.slice(1)}`;
+}
+
 function overlapProjects(overlap, byId) {
   return [byId.get(overlap.a), byId.get(overlap.b)];
 }
 
-function sourceText(project) {
+// The same citation text as before; the page reference never breaks away from its "p.".
+function sourceField(project) {
   const source = project?.properties?.source;
-  return source?.doc && source?.page ? `${source.doc}, p. ${source.page}` : "Source page not stated";
+  const element = document.createElement("span");
+  element.dataset.src = "source";
+  if (!(source?.doc && source?.page)) {
+    element.textContent = "Source page not stated";
+    return element;
+  }
+  const page = document.createElement("span");
+  page.className = "nowrap";
+  page.textContent = `p. ${source.page}`;
+  element.append(document.createTextNode(`${source.doc}, `), page);
+  return element;
 }
 
 function selectOverlap(overlap, button, byId, openDetail = true) {
@@ -60,22 +90,35 @@ export function renderList(overlaps, projects) {
     const rank = field("span", String(overlap.rank), "rank", "row-rank");
     const main = document.createElement("span");
     main.className = "row-main";
+    // Headline: the two utilities, each with a line sample drawn the way the map draws it.
     const utilities = document.createElement("strong");
-    utilities.append(field("span", utilityLabel(a?.properties), "utility"), document.createTextNode(" / "), field("span", utilityLabel(b?.properties), "utility"));
-    const names = document.createElement("span");
-    names.className = "row-name";
-    names.append(field("span", a?.properties?.name, "name"), document.createTextNode(" / "), field("span", b?.properties?.name, "name"));
-    const sources = document.createElement("span");
-    sources.className = "row-name";
-    sources.append(field("span", sourceText(a), "source"), document.createTextNode(" / "), field("span", sourceText(b), "source"));
-    main.append(utilities, names, sources, field("span", `${overlap.accuracy_pair ?? "unknown"} location`, "accuracy", "row-accuracy"));
+    utilities.className = "row-utilities";
+    // The separator travels with the first utility, so a wrap never starts a line with it.
+    const firstUtility = utilityItem(a);
+    firstUtility.append(separator(" / "));
+    utilities.append(firstUtility, utilityItem(b));
     const metric = document.createElement("span");
     metric.className = "row-metric";
-    const glyph = { touching: "●", lt_1_6km: "▦", lt_8km: "▥", lt_40km: "▧" }[overlap.band] || "";
-    metric.append(field("span", `${glyph} ${overlap.band_label ?? "Distance not stated"}`, "band_label", "row-band"));
+    const band = field("span", overlap.band_label ?? "Distance not stated", "band_label", "row-band");
+    band.prepend(bandGlyph(overlap.band));
+    metric.append(band);
     metric.append(field("span", Number.isFinite(overlap.distance_km) ? `${overlap.distance_km.toFixed(1)} km` : "Distance not stated", "distance_km"));
     metric.append(field("span", `${overlap.a_year ?? "unknown"} / ${overlap.b_year ?? "unknown"}`, "year"));
-    button.append(rank, main, metric);
+    const names = document.createElement("span");
+    names.className = "row-name row-names";
+    names.append(field("span", a?.properties?.name, "name"), separator(" / "), field("span", b?.properties?.name, "name"));
+    const sources = document.createElement("span");
+    sources.className = "row-name row-sources";
+    sources.append(sourceField(a), document.createTextNode(" / "), sourceField(b));
+    const flags = document.createElement("span");
+    flags.className = "row-flags";
+    flags.append(field("span", `${capitalized(overlap.accuracy_pair ?? "unknown")} location`, "accuracy", "row-accuracy"));
+    if (a?.properties?.town_only === true || b?.properties?.town_only === true) {
+      flags.append(field("span", "Town-level location", "town_only", "row-flag"));
+    }
+    if (overlap.town_capped === true) flags.append(field("span", "Counted as under 40 km", "town_capped", "row-flag"));
+    main.append(utilities, metric, names, sources, flags);
+    button.append(rank, main);
     button.addEventListener("click", () => selectOverlap(overlap, button, byId));
     row.append(button);
     list.append(row);
