@@ -5,7 +5,7 @@ from urllib.parse import urlsplit
 
 from playwright.sync_api import expect, sync_playwright
 
-from tests.e2e.ui_helpers import open_more
+from tests.e2e.ui_helpers import open_more, open_pair_section
 
 
 def test_search_pair_detail_sources_and_export_stay_connected(live_server):
@@ -33,6 +33,7 @@ def test_search_pair_detail_sources_and_export_stay_connected(live_server):
         detail = page.get_by_test_id("overlap-detail")
         expect(detail).to_be_visible()
         expect(detail).to_contain_text("unverified")
+        open_pair_section(page, "Sources")
         source_links = detail.get_by_role("link")
         expect(source_links).to_have_count(2)
         for link in source_links.all():

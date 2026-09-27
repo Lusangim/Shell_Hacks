@@ -376,7 +376,7 @@ def test_print_readable_selected_and_full_ranked_evidence(live_server, rank):
         pair = pairs[rank - 1]
         payload = page.request.get(f'{live_server}/api/overlaps/{pair["id"]}').json()
         page.goto(f'{live_server}/#overlap={pair["id"]}')
-        expect(page.locator("#overlap-detail-heading")).to_have_text(f"Overlap #{rank}")
+        expect(page.locator("#overlap-detail-heading")).to_have_text(f"Pair {rank}")
         open_reports(page)
         open_more(page)
         page.get_by_role("button", name="Print report", exact=True).click()
@@ -424,7 +424,7 @@ def test_print_labels_all_filters_and_unknown_assumptions_without_codes(live_ser
         query = urlencode({"utility": "Dominion Energy SC", "voltage_kv": "230", "year_min": "2026",
                            "year_max": "2030", "project_type": "new_line", "band": "lt_40km", "cross_state": "false"})
         page.goto(f"{live_server}/?{query}#overlap={pair_id}")
-        expect(page.locator("#overlap-detail-heading")).to_have_text("Overlap #1")
+        expect(page.locator("#overlap-detail-heading")).to_have_text("Pair 1")
         open_reports(page)
         open_more(page)
         page.get_by_role("button", name="Print report", exact=True).click()
@@ -449,7 +449,7 @@ def test_print_follows_filtered_deep_link_and_history_and_clears_bad_links(live_
         open_reports(page)
 
         def check_pair(payload):
-            expect(page.locator("#overlap-detail-heading")).to_have_text(f'Overlap #{payload["overlap"]["rank"]}')
+            expect(page.locator("#overlap-detail-heading")).to_have_text(f'Pair {payload["overlap"]["rank"]}')
             count = page.evaluate("window.printCalls || 0")
             open_more(page)
             page.get_by_role("button", name="Print report", exact=True).click()
@@ -492,7 +492,7 @@ def test_print_no_savings_remains_explicit_and_readable(live_server, status, rea
         pairs = page.request.get(f"{live_server}/api/overlaps").json()
         pair = next(item for item in pairs if item["savings"]["status"] == status)
         page.goto(f'{live_server}/#overlap={pair["id"]}')
-        expect(page.locator("#overlap-detail-heading")).to_have_text(f'Overlap #{pair["rank"]}')
+        expect(page.locator("#overlap-detail-heading")).to_have_text(f'Pair {pair["rank"]}')
         open_reports(page)
         open_more(page)
         page.get_by_role("button", name="Print report", exact=True).click()

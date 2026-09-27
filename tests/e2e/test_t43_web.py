@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
-from tests.e2e.ui_helpers import open_more
+from tests.e2e.ui_helpers import open_more, open_pair_section
 
 
 @pytest.fixture
@@ -88,6 +88,7 @@ def test_printed_cost_keeps_adjacent_warnings_and_unflagged_stays_plain(live_ser
 
     page.route(f"**/api/overlaps/{pair['id']}", with_flagged_project)
     page.goto(f"{live_server}/#overlap={pair['id']}")
+    open_pair_section(page, "Sources")
     expect(page.locator("#overlap-content .cost-warning").first).to_be_visible()
     page.evaluate("window.print = () => {}")
     open_more(page)

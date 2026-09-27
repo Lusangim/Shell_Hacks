@@ -8,7 +8,7 @@ import re
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
-from tests.e2e.ui_helpers import close_more, open_more
+from tests.e2e.ui_helpers import back_to_pair, close_more, open_more, reveal_brief
 
 from tests.harness import required_test_port
 
@@ -58,7 +58,9 @@ def choose_scene(page, state):
     elif state == "detail":
         page.get_by_test_id("overlap-row").first.locator("button").click()
         expect(page.locator("#overlap-content")).not_to_be_empty()
+        reveal_brief(page)
         page.get_by_role("button", name="Copy brief", exact=True).wait_for()
+        back_to_pair(page)
     elif state == "area":
         page.locator("#search-input").fill("Savannah")
         expect(page.locator("#search-options option")).not_to_have_count(0)
@@ -127,11 +129,22 @@ def test_full_contract_scene(live_server, state, width, height, theme, record_pr
             close_more(page)
             expected = page.locator('#overlap-content [data-src]').all_text_contents() if state == "detail" else []
             detail_expanded = {}
+            brief_expanded = {}
             if state == "detail":
                 for summary in page.locator(".detail-pane details > summary").all():
                     if summary.is_visible() and summary.locator("..").get_attribute("open") is None:
                         summary.click()
                 detail_expanded = surface_issues(page)
+                reveal_brief(page)
+                for summary in page.locator("#brief-panel details > summary").all():
+                    if summary.is_visible() and summary.locator("..").get_attribute("open") is None:
+                        summary.click()
+                brief_expanded = surface_issues(page)
+                issues["overflow"] += page.evaluate(OVERFLOW_JS)
+                brief_lint = page.evaluate(TEXT_LINT_JS)
+                issues["copy"] += brief_lint["own"] + brief_lint["visible"]
+                issues["axe"] += [(v["id"], v["nodes"][0]["target"]) for v in page.evaluate(AXE + "\nwindow.axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa']}})")["violations"]]
+                back_to_pair(page)
                 page.locator("#overlap-back").click()
             open_phone_sheet(page)
             for summary in page.locator("main details > summary").all():
@@ -143,8 +156,8 @@ def test_full_contract_scene(live_server, state, width, height, theme, record_pr
                 if summary.is_visible() and summary.locator("..").get_attribute("open") is None:
                     summary.click()
             menu_expanded = surface_issues(page)
-            for category in ("contrast", "graphics", "targets", "fonts", "structure", "names"):
-                issues[category] = sorted(set(issues[category] + detail_expanded.get(category, []) + expanded[category] + menu_expanded[category]))
+            for category in ("contrast", "graphics", "targets", "fonts", "structure", "names", "motion", "reduced"):
+                issues[category] = sorted(set(issues[category] + detail_expanded.get(category, []) + brief_expanded.get(category, []) + expanded[category] + menu_expanded[category]))
             close_more(page)
             # The active control's ring must contrast with its actual surrounding surface.
             page.keyboard.press("Tab")
@@ -249,10 +262,12 @@ def test_blocked_brief_and_optional_map_keep_app_usable(live_server, width, heig
             page.get_by_test_id("project-feature").first.wait_for(state="attached")
             open_phone_sheet(page)
             page.get_by_test_id("overlap-row").first.locator("button").click()
+            reveal_brief(page)
             expect(page.locator("#brief-state")).to_contain_text(re.compile("unavailable|could not|failed",re.I))
             assert any('/api/briefs/' in url for url in requested)
             assert any('/api/map-config' in url for url in requested)
             message=page.locator("#brief-state").inner_text()
+            back_to_pair(page)
             page.locator("#overlap-back").click()
             expect(page.get_by_test_id("overlap-row").first).to_be_visible()
             assert not recovery_issues(page.get_by_test_id("project-feature").count(),page.get_by_test_id("overlap-row").count(),message,errors)

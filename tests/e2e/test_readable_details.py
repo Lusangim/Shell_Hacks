@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
-from tests.e2e.ui_helpers import open_more
+from tests.e2e.ui_helpers import open_more, open_pair_section
 
 
 MCINTOSH = "desc-p41__sertp-p107-9bc088"
@@ -59,7 +59,7 @@ def test_filtered_unknown_and_placed_project_absence_are_distinct(live_server):
 
 def assert_selection(page, payload):
     pair = payload["overlap"]
-    expect(page.locator("#overlap-detail-heading")).to_have_text(f"Overlap #{pair['rank']}")
+    expect(page.locator("#overlap-detail-heading")).to_have_text(f"Pair {pair['rank']}")
     assert page.url.endswith(f"#overlap={pair['id']}")
     assert page.evaluate("async () => (await import('/web/js/state.js')).state.selectedOverlapId") == pair["id"]
     visible_rows = page.locator(f'[data-overlap-id="{pair["id"]}"] button')
@@ -122,8 +122,10 @@ def test_answer_first_blocks_keep_citations_and_visible_honesty(live_server, wid
             " × crosses the state line (1.5) × savings up to $264,000 (1.21)")
         expect(detail.locator(".detail-block")).to_have_count(7)
         assert detail.locator(".detail-block").evaluate_all("nodes => nodes.every(n => n.querySelector(':scope > .detail-answer') && n.querySelectorAll(':scope > ul > li').length <= 3 && n.querySelector(':scope > details'))")
+        open_pair_section(page, "About the estimate")
         expect(detail.locator("[data-src='assumption']").first).to_be_visible()
         expect(detail).to_contain_text("Not verified: the plans do not show shared work.")
+        open_pair_section(page, "Sources")
         assert detail.get_by_role("link").count() == 2
         for link in detail.get_by_role("link").all():
             expect(link).to_be_visible()

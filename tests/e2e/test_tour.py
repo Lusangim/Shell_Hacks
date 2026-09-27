@@ -78,10 +78,10 @@ def test_first_visit_invitation_keeps_projects_reachable(live_server, width, hei
         button_box = projects.bounding_box()
         prompt_box = page.locator("#tour-invitation-box").bounding_box()
         print({"width": width, "theme": theme, "projects": button_box, "invitation": prompt_box})
-        assert (button_box["x"] + button_box["width"] <= prompt_box["x"]
-                or prompt_box["x"] + prompt_box["width"] <= button_box["x"]
-                or button_box["y"] + button_box["height"] <= prompt_box["y"]
-                or prompt_box["y"] + prompt_box["height"] <= button_box["y"])
+        assert projects.evaluate("""button => {
+          const box = button.getBoundingClientRect();
+          return button.contains(document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2));
+        }"""), "Projects is obscured inside the More menu"
         projects.click()
         expect(page.locator("#project-filter")).to_be_focused()
         records = page.request.get(f"{live_server}/api/projects").json()["features"]

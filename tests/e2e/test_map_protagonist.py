@@ -95,3 +95,57 @@ def test_phone_detail_yields_to_keyboard_map_controls(live_server):
         expect(slider).to_be_focused()
         assert slider.evaluate("el => { const r=el.getBoundingClientRect(); return document.elementFromPoint(r.x+r.width/2,r.y+r.height/2) === el; }")
         browser.close()
+
+
+def test_pair_facts_disclosures_and_explicit_brief(live_server):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        page.goto(live_server)
+        row = page.get_by_test_id("overlap-row").first
+        expect(row).to_be_visible()
+        pair_id = row.get_attribute("data-overlap-id")
+        payload = page.request.get(f"{live_server}/api/overlaps/{pair_id}").json()
+        row.locator("button").click()
+        expect(page.locator("#overlap-detail-heading")).to_have_text(f'Pair {payload["overlap"]["rank"]}')
+        expect(page.locator(".pair-facts dt")).to_have_text([
+            "Proximity", "Distance", "Years (in service)", "Coordination window", "Score", "Possible saving"])
+        expect(page.locator("#pair-summary [data-src='summary_name']")).to_have_text([
+            payload["project_a"]["properties"]["name"], payload["project_b"]["properties"]["name"]])
+        expect(page.locator("#overlap-content .detail-block")).to_have_count(7)
+        page.wait_for_function("() => !document.querySelector('.leaflet-zoom-anim')")
+        page.screenshot(path="C:/Users/lucia/dev/gridlock-runs/codex/redesign-detail-overview.png")
+        expect(page.locator(".overlap-projects")).to_be_hidden()
+        page.locator("#pair-projects").click()
+        expect(page.locator(".overlap-projects")).to_be_visible()
+        expect(page.locator(".overlap-projects a[data-src='source']")).to_have_count(2)
+        expect(page.locator("#brief-panel")).to_be_hidden()
+        page.get_by_role("button", name="Open brief", exact=True).click()
+        expect(page.locator("#brief-panel")).to_be_visible()
+        expect(page.locator("#brief-copy")).to_be_enabled()
+        expect(page.locator("#brief-heading")).to_be_focused()
+        page.get_by_role("button", name="Back to pair detail", exact=True).click()
+        expect(page.locator("#brief-panel")).to_be_hidden()
+        expect(page.locator("#open-brief")).to_be_focused()
+        page.screenshot(path="C:/Users/lucia/dev/gridlock-runs/codex/redesign-detail.png")
+        browser.close()
+
+
+def test_phone_tour_exposes_timeline(live_server):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": 390, "height": 844}, reduced_motion="reduce")
+        page.goto(live_server)
+        expect(page.get_by_test_id("overlap-row").first).to_be_visible()
+        page.locator("#more-toggle").click()
+        page.locator("#tour-launch").click()
+        for _ in range(12):
+            title = page.locator("#tour-heading").inner_text()
+            if title == "Compare years":
+                break
+            page.locator("#tour-card").get_by_role("button", name="Next", exact=True).click()
+            expect(page.locator("#tour-heading")).not_to_have_text(title)
+        expect(page.locator("#tour-heading")).to_have_text("Compare years")
+        slider = page.locator("#timeline-year")
+        assert slider.evaluate("el => { const r=el.getBoundingClientRect(); return document.elementFromPoint(r.x+r.width/2,r.y+r.height/2) === el; }")
+        browser.close()

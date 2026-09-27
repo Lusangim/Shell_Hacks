@@ -2,7 +2,7 @@ import { detailBlock, money, projectSummary, readableEvidence, touchReasonLabel 
 import { fitPairBounds, highlightPair } from "./map.js";
 import { state } from "./state.js";
 import { setupBrief } from "./brief.js";
-import { addSectionGuides, clearPairSummary, renderPairSummary, setupDetailNav } from "./pair-guide.js";
+import { addSectionGuides, clearPairSummary, renderPairSummary } from "./pair-guide.js";
 
 const ASSUMPTIONS = new Map([
   ["unit_costs_2026", "Team unit-cost file, 2026-09-26: shareable cost items by job type and distance, priced from MISO's transmission cost guide (escalated to 2026 at 4% a year) and public land, wage and rental sources. Saving rates are team assumptions, not measured savings or evidence of a shared asset."],
@@ -116,7 +116,19 @@ export function setupOverlapDetail(projectView) {
   const heading = document.getElementById("overlap-detail-heading");
   const back = document.getElementById("overlap-back");
   const summary = document.getElementById("pair-summary");
-  const nav = setupDetailNav(document.getElementById("detail-nav"), content);
+  const pane = document.querySelector(".detail-pane");
+  const openBrief = document.getElementById("open-brief");
+  const briefBack = document.getElementById("brief-back");
+  openBrief.addEventListener("click", () => {
+    pane.classList.add("brief-open");
+    pane.scrollTop = 0;
+    document.getElementById("brief-heading").focus({ preventScroll: true });
+  });
+  briefBack.addEventListener("click", () => {
+    pane.classList.remove("brief-open");
+    openBrief.focus();
+  });
+  document.getElementById("detail-close").addEventListener("click", () => back.click());
   let requestNumber = 0;
   let controller = null;
   let visiblePair = null;
@@ -134,7 +146,9 @@ export function setupOverlapDetail(projectView) {
     projectView.showOverlapDetail();
     content.replaceChildren();
     clearPairSummary(summary);
-    nav.hide();
+    pane.classList.remove("brief-open");
+    openBrief.hidden = true;
+    document.getElementById("tracker-disclosure").open = false;
     stateMessage.textContent = message;
     const panel = document.querySelector(".panel");
     if (matchMedia("(max-width: 700px)").matches && !panel.classList.contains("expanded")) {
@@ -149,6 +163,7 @@ export function setupOverlapDetail(projectView) {
   }
 
   function close({ push = false } = {}) {
+    pane.classList.remove("brief-open");
     brief.clear();
     requestNumber += 1;
     controller?.abort();
@@ -195,14 +210,15 @@ export function setupOverlapDetail(projectView) {
       if (ownRequest !== requestNumber || detail.hidden) return;
       if (payload.overlap?.id !== overlapId) throw new Error("Mismatched overlap detail");
       renderOverlapDetail(payload, content, heading);
+      heading.textContent = `Pair ${payload.overlap.rank}`;
       addSectionGuides(content);
       renderPairSummary(payload, summary);
       visiblePair = payload.overlap;
       select(visiblePair);
       if (frame) framePair(payload);
       void brief.open(payload);
-      nav.refresh();
-      // The list is out of the way now, so the pair's detail can start at the top of the panel.
+      openBrief.hidden = false;
+      // Each selected pair begins at the top of its own pane.
       detail.scrollIntoView({ block: "start" });
       stateMessage.textContent = state.overlaps.some((pair) => pair.id === overlapId)
         ? "Public plan screening detail. A coordination opportunity is unverified."

@@ -7,7 +7,7 @@ import json
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
-from tests.e2e.ui_helpers import open_more
+from tests.e2e.ui_helpers import open_more, open_pair_section
 
 
 MCINTOSH = "desc-p41__sertp-p107-9bc088"
@@ -44,6 +44,7 @@ def test_mcintosh_row_shows_source_pages_evidence_savings_and_map_selection(live
         expect(detail.locator('[data-src="savings_basis"]')).to_have_text(expected["savings"]["basis"].replace("desc-p41", "Dominion Energy SC project"))
         expect(detail).to_contain_text("2026-09-26")
         expect(detail).to_contain_text("team unit costs by job type and distance")
+        open_pair_section(page, "Sources")
         expect(detail.get_by_role("link")).to_have_count(2)
         expect(detail.get_by_role("link").nth(0)).to_have_attribute("href", "/api/sources/desc-scrtp-2026-2030#page=41")
         expect(detail.get_by_role("link").nth(1)).to_have_attribute("href", "/api/sources/sertp-2025-rtp#page=107")
@@ -208,6 +209,7 @@ def test_hostile_detail_text_is_rendered_as_text_only(live_server):
         expect(detail.locator('[data-src="name"]').first).to_have_text(hostile)
         assert page.locator("img[src='x']").count() == 0
         assert page.evaluate("window.injected === undefined")
+        open_pair_section(page, "Sources")
         assert detail.get_by_role("link").first.get_attribute("href").startswith("/api/sources/")
         browser.close()
 
@@ -255,7 +257,7 @@ def test_delayed_old_detail_cannot_replace_new_selection(live_server, phase):
         assert page.evaluate("window.oldPairGate.consumed === true") == (phase == "json")
         assert page.url.endswith(f"#overlap={other}")
         assert page.evaluate("async () => (await import('/web/js/state.js')).state.selectedOverlapId") == other
-        expect(page.locator("#overlap-detail-heading")).to_have_text(f"Overlap #{expected['overlap']['rank']}")
+        expect(page.locator("#overlap-detail-heading")).to_have_text(f"Pair {expected['overlap']['rank']}")
         assert page.locator('#overlap-content [data-src="name"]').all_text_contents() == [
             expected["project_a"]["properties"]["name"], expected["project_b"]["properties"]["name"]]
         expect(page.locator(f'[data-overlap-id="{other}"] button')).to_have_attribute("aria-pressed", "true")

@@ -20,8 +20,16 @@ Verification: Python from `GRIDLOCK_PY`; port 8779; AI and Google off; installed
 - Independent static review identified the remaining Filter Tab-exit and map-project Back focus paths; both received failing regression checks and fixes. No HIGH/CRITICAL findings in that review.
 - Lesson, 2026-09-27: moving a control into a disclosure also changes every return-focus path to that control; test those paths explicitly.
 
+## Milestone 2, verified 2026-09-27
+
+- Pair detail now uses the utility title, two project entries, six facts, five native disclosures and an explicit Open brief / Back to pair detail round trip. Existing seven detail blocks and source hooks remain intact; print keeps its original heading and wording.
+- The new pair presentation regression failed before implementation, then passed three isolated runs and a fresh visual rerun. Quick audits plus shell/detail regressions: 17 passed.
+- Affected feature gate: 154 passed, covering brief, tracker, detail, readable details, demo path, offline, T43, location styling, export, tour, shell and four desktop/phone light/dark full-matrix detail scenes.
+- An old phone tour test assumed geometric separation from a now-layered More menu. Its actual click reachability assertion now follows that disclosure; it passed three isolated reruns. A new test exposed the expanded phone list covering the tour timeline, was fixed by collapsing that sheet for the timeline step, and passed three isolated pytest runs (also three direct browser checks).
+- Independent review found no blocking M2 issues. Reduced-motion screenshots verified the final detail typography and selected map framing.
+- Lesson, 2026-09-27: native disclosures keep evidence accessible with less visual weight, but tours must reveal every ancestor before focusing their target.
+
 ## Remaining
 
-- Pair header, facts, disclosures and explicit brief view.
 - Quiet list, midpoint rank marker, compact timeline and tablet sheet.
 - Phone polish, independent review, complete test pass and final handoff.

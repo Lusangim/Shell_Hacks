@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 from playwright.sync_api import expect
 
-from tests.e2e.ui_helpers import close_more, open_more
+from tests.e2e.ui_helpers import close_more, open_more, open_pair_section
 
 from tests.e2e.test_modern_map import browser_page, configure, loaded, map_value
 
@@ -96,6 +96,7 @@ def test_offline_demo_path_remains_usable(browser_page, live_server, available, 
     detail = page.get_by_test_id("overlap-detail")
     expect(detail).to_be_visible()
     sources = detail.locator('a[href*="/sources/"]')
+    open_pair_section(page, "Sources")
     expect(sources.first).to_be_visible()
     for href in sources.evaluate_all("links => links.map(link => link.href)"):
         response = page.request.get(href.split("#")[0])

@@ -5,7 +5,7 @@ from datetime import date
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
-from tests.e2e.ui_helpers import close_more, open_more
+from tests.e2e.ui_helpers import back_to_pair, close_more, open_more, open_pair_section, reveal_brief
 
 
 def open_page(playwright, live_server, width=1440, height=900, theme="light", path="", dismissed=True):
@@ -109,10 +109,11 @@ def test_capped_pair_note_is_visible_in_row_detail_and_print(live_server):
         expect(row.locator('[data-src="band_label"]')).to_have_text(capped["band_label"])
         assert page.locator(f'[data-overlap-id="{plain["id"]}"] [data-src="town_capped"]').count() == 0
         page.goto(f"{live_server}/#overlap={capped['id']}")
+        open_pair_section(page, "Why they appear together")
         note = page.locator('#overlap-content [data-src="town_capped"]')
         expect(note).to_be_visible()
         expect(note).to_contain_text("Counted as under 40 km")
-        assert page.locator('#overlap-content details [data-src="town_capped"]').count() == 0
+        assert page.locator('#overlap-content .detail-block details [data-src="town_capped"]').count() == 0
         expect(page.locator('#overlap-content [data-src="distance_km"]').first).to_contain_text(f'{capped["distance_km"]:.1f} km')
         # The selected pair's accent halo paints for points as well as lines.
         expect(page.get_by_test_id("pair-halo")).to_have_count(2)
@@ -448,8 +449,8 @@ def test_shell_keeps_search_pairs_and_reports_in_reach(live_server, width, heigh
         expect(chosen).to_have_attribute("data-overlap-id", pairs[0]["id"])
         expect(chosen.get_by_role("button")).to_have_attribute("aria-pressed", "true")
         bar = page.locator("#detail-bar")
-        expect(bar.locator(".step-number")).to_have_text("3")
-        expect(bar.locator("#overlap-detail-heading")).to_have_text(f'Overlap #{pairs[0]["rank"]}')
+        expect(bar.locator("#detail-close")).to_be_visible()
+        expect(bar.locator("#overlap-detail-heading")).to_have_text(f'Pair {pairs[0]["rank"]}')
         expect(page.locator(".detail-pane #overlap-detail")).to_be_visible()
         open_more(page)
         for name in ("Export CSV", "Print report"):
@@ -462,7 +463,7 @@ def test_shell_keeps_search_pairs_and_reports_in_reach(live_server, width, heigh
 
 
 @pytest.mark.parametrize("width,height", [(1440, 900), (390, 844)])
-def test_pair_summary_and_section_nav_under_a_sticky_bar(live_server, width, height):
+def test_pair_summary_disclosures_and_brief_under_a_sticky_bar(live_server, width, height):
     with sync_playwright() as playwright:
         browser, page = open_page(playwright, live_server, width, height)
         page.get_by_test_id("overlap-row").first.wait_for()
@@ -473,16 +474,22 @@ def test_pair_summary_and_section_nav_under_a_sticky_bar(live_server, width, hei
         summary = page.get_by_test_id("pair-summary")
         expect(summary.locator('[data-src="summary_name"]')).to_have_text([projects[pair[key]]["properties"]["name"] for key in ("a", "b")])
         expect(summary.locator('[data-src="summary_band"]')).to_have_text(pair["band_label"])
-        expect(summary.locator('[data-src="summary_distance"]')).to_have_text(f'{pair["distance_km"]:.1f} km')
+        accuracy = {"approximate": "Approx.", "exact": "Exact"}.get(pair["accuracy_pair"], "Unknown")
+        expect(summary.locator('[data-src="summary_distance"]')).to_have_text(f'{pair["distance_km"]:.1f} km · {accuracy}')
         expect(summary.locator('[data-src="summary_years"]')).to_have_text(f'{pair["a_year"]} / {pair["b_year"]}')
-        expect(summary.locator('[data-src="summary_score"]')).to_have_text(f'Score {js_number(pair["score"])}')
+        expect(summary.locator('[data-src="summary_score"]')).to_have_text(js_number(pair["score"]))
         expect(summary.locator('[data-src="summary_savings"]')).to_contain_text("estimate")
-        nav = page.get_by_role("navigation", name="Pair sections")
-        sections = ["Why", "Projects", "Savings"] + (["Rank"] if page.locator("#overlap-content .score-detail").count() else []) + ["Brief"]
-        expect(nav.get_by_role("button")).to_have_text(sections)
-        for section, target in [("savings", "#pair-savings"), ("projects", "#pair-projects"), ("brief", "#brief-heading"), ("why", "#pair-why")]:
-            nav.locator(f'button[data-section="{section}"]').click()
-            expect(page.locator(target)).to_be_focused()
+        sections = ["Why they appear together", "Sources", "About the estimate"] + (["How this pair ranks"] if page.locator("#overlap-content .score-detail").count() else []) + ["Your coordination status"]
+        expect(page.locator(".detail-pane .pair-disclosure > summary")).to_have_text(sections)
+        for section, target in [("savings", "#pair-savings"), ("projects", "#pair-projects"), ("why", "#pair-why")]:
+            control = page.locator(target)
+            disclosure = control.locator("..")
+            expect(disclosure).not_to_have_attribute("open", "")
+            control.focus()
+            page.keyboard.press("Enter")
+            expect(disclosure).to_have_attribute("open", "")
+            expect(control).to_be_focused()
+            expect(disclosure.locator(":scope > .detail-block, :scope > .overlap-projects")).to_be_visible()
             layout = page.evaluate("""target => {
               const bar = document.querySelector('#detail-bar').getBoundingClientRect();
               const body = document.querySelector('.detail-pane').getBoundingClientRect();
@@ -491,6 +498,14 @@ def test_pair_summary_and_section_nav_under_a_sticky_bar(live_server, width, hei
             }""", target)
             # The bar stays at the top of the panel and the section starts just below it.
             assert abs(layout["barTop"] - layout["bodyTop"]) <= 1 and layout["barBottom"] - 1 <= layout["top"] < layout["bodyBottom"], (section, layout)
+            page.keyboard.press("Enter")
+            expect(disclosure).not_to_have_attribute("open", "")
+            expect(control).to_be_focused()
+        reveal_brief(page)
+        expect(page.locator("#brief-heading")).to_be_focused()
+        expect(page.get_by_role("button", name="Copy brief", exact=True)).to_be_enabled()
+        back_to_pair(page)
+        expect(page.get_by_role("button", name="Open brief", exact=True)).to_be_focused()
         expect(page.get_by_role("button", name="Back to ranked overlaps")).to_be_visible()
         browser.close()
 

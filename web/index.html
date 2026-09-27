@@ -238,13 +238,13 @@
         </div>
       </section>
       <aside class="detail-pane" aria-label="Pair detail" hidden>
-        <!-- Step 3 bar: stays at the top of the panel while the pair detail and its brief scroll. -->
+        <!-- The selected pair and its brief share this independent right pane. -->
         <div id="detail-bar" class="detail-bar" hidden>
           <div class="detail-bar-title">
-            <button id="overlap-back" class="back-button" type="button" aria-label="Back to ranked overlaps">Back</button>
-            <span class="step-number" aria-hidden="true">3</span>
-            <h2 id="overlap-detail-heading">Overlap detail</h2>
+            <button id="overlap-back" class="back-button" type="button" aria-label="Back to ranked overlaps">Back to pairs</button>
+            <button id="detail-close" type="button" aria-label="Close pair detail">×</button>
           </div>
+          <h2 id="overlap-detail-heading">Pair detail</h2>
           <nav id="detail-nav" class="detail-nav" aria-label="Pair sections" hidden>
             <button type="button" data-section="why">Why</button>
             <button type="button" data-section="projects">Projects</button>
@@ -255,23 +255,28 @@
         </div>
         <section id="overlap-detail" class="overlap-detail" data-testid="overlap-detail" aria-labelledby="overlap-detail-heading" hidden>
           <p class="step-hint detail-hint">Understand the pair: why it is listed, the two plan entries, the savings estimate and a draft brief.</p>
-          <p id="overlap-state" class="overlap-state" data-testid="overlap-state" role="status"></p>
           <div id="pair-summary" class="pair-summary" data-testid="pair-summary" hidden></div>
+          <p id="overlap-state" class="overlap-state" data-testid="overlap-state" role="status"></p>
           <div id="overlap-content"></div>
-          <section id="pair-tracker" aria-labelledby="tracker-heading" hidden>
-            <h3 id="tracker-heading">Your coordination status</h3>
-            <label for="tracker-status">Coordination status</label>
-            <select id="tracker-status">
-              <option>Not started</option><option>Contacted</option><option>Meeting set</option>
-              <option>Coordinating</option><option>Not relevant</option>
-            </select>
-            <label for="tracker-notes">Notes</label>
-            <textarea id="tracker-notes" maxlength="300" rows="3"></textarea>
-            <p class="tracker-hint">Saved in this browser only. It is included when you print or export.</p>
-            <p id="tracker-save-state" role="status" aria-live="polite"></p>
-          </section>
+          <details id="tracker-disclosure" class="pair-disclosure">
+            <summary>Your coordination status</summary>
+            <section id="pair-tracker" aria-labelledby="tracker-heading" hidden>
+              <h3 id="tracker-heading">Your coordination status</h3>
+              <label for="tracker-status">Coordination status</label>
+              <select id="tracker-status">
+                <option>Not started</option><option>Contacted</option><option>Meeting set</option>
+                <option>Coordinating</option><option>Not relevant</option>
+              </select>
+              <label for="tracker-notes">Notes</label>
+              <textarea id="tracker-notes" maxlength="300" rows="3"></textarea>
+              <p class="tracker-hint">Saved in this browser only. It is included when you print or export.</p>
+              <p id="tracker-save-state" role="status" aria-live="polite"></p>
+            </section>
+          </details>
+          <button id="open-brief" type="button" hidden>Open brief</button>
         </section>
         <section id="brief-panel" class="brief-panel" aria-labelledby="brief-heading" hidden>
+          <button id="brief-back" class="back-button" type="button">Back to pair detail</button>
           <h2 id="brief-heading" tabindex="-1">Coordination brief</h2>
           <p id="brief-origin" class="brief-origin"></p>
           <div class="brief-actions">

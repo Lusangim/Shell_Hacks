@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
-from tests.e2e.ui_helpers import open_more
+from tests.e2e.ui_helpers import back_to_pair, open_more, reveal_brief
 
 from tests.e2e.audits.checks import TEXT_LINT_JS
 
@@ -31,6 +31,7 @@ def browser_page(live_server, tmp_path):
 
 def open_brief(page, live_server, pair=PAIR):
     page.goto(f"{live_server}/#overlap={pair}")
+    reveal_brief(page)
     expect(page.locator("#brief-panel")).to_be_visible()
     expect(page.get_by_role("button", name="Copy brief", exact=True)).to_be_enabled()
     return page.locator("#brief-panel")
@@ -72,7 +73,7 @@ def test_real_template_keyboard_layout_and_local_only(browser_page, live_server,
     page.on("request", lambda request: external.append(request.url) if not request.url.startswith(live_server) else None)
     panel = open_brief(page, live_server)
     expect(panel.locator("#brief-origin")).to_have_text("Template")
-    page.locator("#overlap-back").focus()
+    page.get_by_role("button", name="Back to pair detail", exact=True).focus()
     for _ in range(40):
         if page.get_by_role("button", name="Copy brief", exact=True).evaluate("node => node === document.activeElement"):
             break
@@ -133,6 +134,7 @@ def test_brief_leads_with_actions_and_shows_what_the_ai_brief_adds(browser_page,
     page.evaluate("pair => { location.hash = 'overlap=' + pair; }", OTHER)
     other_card = page.locator("#brief-panel .ai-brief-card")
     expect(other_card).to_contain_text("at most 5 per run")
+    reveal_brief(page)
     expect(other_card).not_to_contain_text("Deerfield")
 
 
@@ -141,6 +143,7 @@ def test_error_retry_is_bound_to_current_pair(browser_page, live_server, status)
     page = browser_page
     page.route(f"**/api/briefs/{PAIR}", lambda route: route.fulfill(status=status, json={"error": "fake failure"}))
     page.goto(f"{live_server}/#overlap={PAIR}")
+    reveal_brief(page)
     expect(page.locator("#brief-state")).to_contain_text("Could not load")
     expect(page.get_by_role("button", name="Retry brief")).to_be_visible()
     page.unroute(f"**/api/briefs/{PAIR}")
@@ -148,6 +151,7 @@ def test_error_retry_is_bound_to_current_pair(browser_page, live_server, status)
     expect(page.get_by_role("button", name="Copy brief", exact=True)).to_be_enabled()
     page.evaluate("pair => { location.hash = 'overlap=' + pair; }", OTHER)
     expect(page.locator("#brief-content")).to_contain_text("No estimate")
+    reveal_brief(page)
     expect(page.get_by_role("button", name="Retry brief")).to_be_hidden()
 
 
@@ -157,6 +161,7 @@ def test_keyboard_retry_keeps_a_visible_focus_target_in_the_brief(browser_page, 
     page = browser_page
     page.route(f"**/api/briefs/{PAIR}", lambda route: route.fulfill(status=503, json={"error": "fake failure"}))
     page.goto(f"{live_server}/#overlap={PAIR}")
+    reveal_brief(page)
     retry = page.get_by_role("button", name="Retry brief")
     expect(retry).to_be_visible()
     if outcome == "success":
@@ -195,13 +200,16 @@ def test_late_brief_cannot_replace_current_pair_or_survive_close(browser_page, l
     """)
     page.goto(f"{live_server}/#overlap={PAIR}")
     page.wait_for_function("() => typeof window.releaseBrief === 'function'")
+    reveal_brief(page)
     expect(page.locator("#brief-state")).to_contain_text("Loading")
     page.evaluate("pair => { location.hash = 'overlap=' + pair; }", OTHER)
     expect(page.locator("#brief-content")).to_contain_text("No estimate")
+    reveal_brief(page)
     before = page.locator("#brief-content").inner_text()
     page.evaluate("window.releaseBrief()")
     page.wait_for_function("() => window.briefSettled === true")
     assert page.locator("#brief-content").inner_text() == before
+    back_to_pair(page)
     page.locator("#overlap-back").click()
     expect(page.locator("#brief-panel")).to_be_hidden()
     expect(page.locator("#brief-content")).to_be_empty()
