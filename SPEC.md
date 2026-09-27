@@ -142,7 +142,7 @@ reviews/<date>-<pass>/           BRIEF.md, TRACKER.md, MISSION.md, DELIVERY.md, 
 contracts/                       JSON Schema exported from server/schemas.py (frozen at G1a)
 pipeline/                        extract, fields, ids, place, classify, overlaps, savings, briefs, build_all
 data/raw/                        source documents and GIS inputs (read-only)
-data/manual/                     manual_locations.csv, assumptions.json, contacts.json (hand-curated, sourced)
+data/manual/                     manual_locations.csv, unit_costs_2026.csv, contacts.json (hand-curated, sourced)
 data/build/                      generated: projects.geojson, overlaps.json, meta.json, places.json, basemap.json
 data/briefs/                     cached briefs, one JSON per overlap id (committed)
 server/                          app.py, queries.py, schemas.py, briefs.py, search.py, area.py, settings.py
@@ -185,9 +185,12 @@ docs/                            METHODOLOGY.md, DATA-SOURCES.md, DEMO.md, QA-CR
 - API errors: `{"error": {"code", "message"}}`; 4xx for bad input, never a stack trace.
 
 **Overlap rules:** touching when distance ≤ 1 m; otherwise the first band with distance **<** its limit
-(1,600 m · 8,000 m · 40,000 m); nothing at ≥ 40,000 m. Pairs only between different utilities. Rank by
-score (band weight × timeline factor × accuracy factor × 1.5 if cross-state — savings are **not** in the
-score), ties broken by distance then `id`; rebuilds are byte-identical. A filter keeps an overlap when
+(1,600 m · 8,000 m · 40,000 m); nothing at ≥ 40,000 m. A pair with a project placed only at a Census town
+centre is capped at "under 40 km" (`town_capped`) unless both plans name the same substation. Pairs only
+between different utilities. Rank by score (band weight × timeline factor × accuracy factor × 1.5 if
+cross-state × (1 + savings bonus)); the savings bonus is at most 0.3, so with the other factors equal a
+farther pair never outranks a closer one (founder decision, 2026-09-26; savings were first kept out of the
+score). Ties broken by distance then `id`; rebuilds are byte-identical. A filter keeps an overlap when
 **both** its projects pass the project filters and the overlap passes the band / cross-state filters.
 
 ## Code style
