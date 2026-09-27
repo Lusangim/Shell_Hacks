@@ -39,10 +39,13 @@ export function renderOverlapDetail(payload, content, heading) {
       text("li", confidence, "accuracy_pair"),
       text("li", `Timing: ${pair.timeline ?? "not stated"}. Sharing is not verified.`, "timeline"),
     ]);
+  const gap = pair.year_gap;
   evidence.disclosure.append(text("p", readableEvidence(pair.touch_detail, [a, b]), "touch_detail"),
     text("p", readableEvidence(pair.can_share, [a, b]), "can_share"),
-    text("p", Number.isInteger(pair.year_gap) ? `${pair.year_gap} years apart` : "Year gap not stated", "year_gap"),
-    text("p", readableEvidence(pair.pair_note, [a, b]), "pair_note"));
+    text("p", !Number.isInteger(gap) ? "Year gap not stated" : gap === 0 ? "Same in-service year"
+      : `${gap} year${gap === 1 ? "" : "s"} apart`, "year_gap"));
+  // Only Georgia-only pairs carry a note; an absent note is not shown as "not stated".
+  if (pair.pair_note) evidence.disclosure.append(text("p", readableEvidence(pair.pair_note, [a, b]), "pair_note"));
   container.append(text("h3", "Why these projects appear together"), evidence.block, projects);
 
   let answer;

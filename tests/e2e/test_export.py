@@ -165,8 +165,10 @@ def test_letter_print_contains_selected_pair_sources_and_screening_assumptions(l
         selected = report.locator("#print-selected")
         content = selected.text_content()
         pair = detail["overlap"]
+        gap = pair["year_gap"]
+        gap_words = "Same in-service year" if gap == 0 else f'{gap} year{"" if gap == 1 else "s"} apart'
         for value in [f'Overlap #{pair["rank"]}', "Shared named endpoint", pair["touch_detail"], pair["band_label"],
-                      f'{pair["distance_km"]} km', f'{pair["year_gap"]} years',
+                      f'{pair["distance_km"]} km', gap_words,
                       detail["savings"]["basis"].replace(pair["a"], f'{detail["project_a"]["properties"]["utility"]} project')]:
             assert value in content
         for key in ("project_a", "project_b"):

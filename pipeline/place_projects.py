@@ -276,11 +276,14 @@ for p in projects:
                                    "(network route; the plan gives no route)")
                     else:
                         geom = mapping(state_geom)
-                        loc_src = "Straight line between " + " / ".join(sorted({c["src"] for c in chosen}))
+                        loc_src = (f"Straight line between {' and '.join(names)} (matched from "
+                                   + " / ".join(sorted({c["src"] for c in chosen})) + ")")
                 elif len(real) >= 2:
                     geom, used = mapping(LineString([(c["lon"], c["lat"]) for c in real])), real
-                    loc_src = ("Straight line between " + " / ".join(sorted({c["src"] for c in real}))
-                               + f" (Census town centre match for {', '.join(town_names)} not used)")
+                    real_names = [n for n, c in zip(names, chosen) if not c.get("town")]
+                    loc_src = (f"Straight line between {' and '.join(real_names)} (matched from "
+                               + " / ".join(sorted({c["src"] for c in real}))
+                               + f"; Census town centre match for {', '.join(town_names)} not used)")
                 elif len(real) == 1:
                     c = real[0]
                     n = next(name for name, cand in zip(names, chosen) if cand is c)
