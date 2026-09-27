@@ -2,6 +2,7 @@
 # Usage:  scripts\codex-lead.ps1 -Brief reviews\2026-09-26-gridlock-build\MISSION.md
 #         scripts\codex-lead.ps1 -Brief <corrections.md> -ResumeId <session id>
 #         add -WhatIf to print the command without running it
+#         -Model / -Effort pick another subscription model (default gpt-6-sol at high reasoning)
 # The brief goes to stdin as a file handle (PowerShell 5.1 would re-encode a piped string).
 param(
   [Parameter(Mandatory = $true)][string]$Brief,
@@ -9,6 +10,8 @@ param(
   [string]$Repo = (Join-Path $env:USERPROFILE 'dev\gridlock'),
   [string]$Port = '8770',
   [string]$ResumeId = '',
+  [string]$Model = 'gpt-6-sol',
+  [ValidateSet('low', 'medium', 'high', 'xhigh')][string]$Effort = 'high',
   [switch]$WhatIf
 )
 $ErrorActionPreference = 'Stop'
@@ -40,7 +43,7 @@ $errf = Join-Path $runs ("codex\{0}-{1}.stderr.txt" -f $stamp, $Name)
 $last = Join-Path $runs ("{0}-last.md" -f $Name)
 
 # Values without quotes: Codex parses them as TOML and falls back to a literal string.
-$common = @('-m', 'gpt-6-sol', '-c', 'model_reasoning_effort=high', '-c', 'approval_policy=never',
+$common = @('-m', $Model, '-c', "model_reasoning_effort=$Effort", '-c', 'approval_policy=never',
             '--enable', 'prevent_idle_sleep', '--json', '-o', $last)
 if ($ResumeId) {
   # exec resume takes no -s/--add-dir, so the sandbox and writable roots go in as config (TOML literal strings).
