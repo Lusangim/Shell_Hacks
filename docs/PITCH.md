@@ -10,12 +10,12 @@ below runs offline.
 | --- | --- | --- | --- | --- |
 | 1 (15 s) | Show the map. | "Cities coordinate street work on shared platforms like PaverOps. Neighbouring transmission utilities publish separate PDFs, and FERC Order 1920 now asks regions to share long-term needs. GridLock lines up two public plans." | The problem is real and current. | Two plans, not every utility. |
 | 2 (20 s) | Point at the colours, the border and the list header. | "230 projects from Dominion Energy SC and the Georgia utilities, 465 pairs within 40 km, ranked. Solid is exact, dashed approximate; 49 unknown locations stay in the list." | Scale, and nothing is guessed. | 139 locations are approximate. |
-| 3 (25 s) | Search "Savannah", press Enter, open pair #1. | "Planners start from a place. The top pair is right here." | Real search, real data. | |
+| 3 (25 s) | Click **Start here → Rincon** (or search "Savannah"), then open pair #1. | "New users start from the places where close pairs cluster. The top pair is right here, at McIntosh." | Real data, easy to start. | |
 | 4 (35 s) | Read "Why these projects appear together"; click a source link. | "Dominion's Okatie-McIntosh tie names McIntosh as an end; Georgia Power upgrades relays at McIntosh. Both are 2028, across the state line. Every fact links to its PDF page." | Page-cited evidence. | The plan does not say where Dominion's new Deerfield station is; shared work is unverified. |
 | 5 (35 s) | Scroll to the savings and "How this pair ranks". | "Touching jobs could share a yard, crew moves, bulk buying and engineering: $62,000 to $264,000, an estimate from 2026 unit costs. Score 5.8 is touching 4 × same year 1 × one approximate location 0.8 × state line 1.5 × savings 1.21. Distance always counts most." | A ranking anyone can check. | Savings rates are team assumptions; the low end keeps only items with public precedent. |
 | 6 (20 s) | Show the brief; open "With the Claude API". | "The brief says who to call and what to settle first. With a Claude API key, an AI-drafted brief adds a plain-language note; here is the example for this pair, passed by the same evidence grader." | Ready for a planner's next step, and where AI fits safely. | The live AI feature is off in this build; names organisations, never people. |
 | 7 (20 s) | Drag the year slider, or Explore this area. | "Timing is the second signal; the area view lists everything within a radius you choose." | Planning tools, not just a map. | |
-| 8 (10 s) | Export CSV or Print report. | "It exports like a utility conflict matrix." | Works with existing workflows. | |
+| 8 (10 s) | Set the pair to "Contacted", then Export CSV or Print report. | "Planners track each pair; the status and notes carry into the CSV worksheet and the report." | Works with existing workflows. | Saved in this browser only. |
 
 Close (10 s): "Every fact has a page, every estimate says so, and it runs offline."
 

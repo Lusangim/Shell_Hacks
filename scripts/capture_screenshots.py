@@ -205,12 +205,29 @@ def capture(shooter: Shooter, google: bool) -> None:
     print("saved sample-report.pdf")
     page.close()
 
+    page = s.page()
+    expect(page.locator("#start-here button").first).to_be_visible()
+    page.locator("#start-here").evaluate("el => el.scrollIntoView({block: 'center'})")
+    s.save(page, "19-start-here-and-impact")
+    page.locator("#area-mode-toggle").click()
+    expect(page.locator("#area-mode-toggle")).to_have_attribute("aria-pressed", "true")
+    s.save(page, "20-area-tool")
+    page.close()
+
+    page = s.page(path=f"#overlap={top}")
+    expect(page.locator("#pair-tracker")).to_be_visible()
+    page.locator("#tracker-status").select_option("Contacted")
+    page.locator("#tracker-notes").fill("Example: ask Dominion Energy SC where the Deerfield switching station will be.")
+    page.locator("#pair-tracker").evaluate("el => el.scrollIntoView({block: 'center'})")
+    s.save(page, "21-coordination-tracker")
+    page.close()
+
     if google:
         page = s.page(path=f"#overlap={top}")
         page.get_by_role("button", name="Satellite", exact=True).click()
         expect(page.locator(".basemap-status")).to_contain_text("Satellite", timeout=20000)
         s.settle(page, 3000)
-        s.save(page, "19-google-satellite")
+        s.save(page, "22-google-satellite")
         page.close()
 
 

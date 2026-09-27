@@ -40,7 +40,9 @@ troubleshooting): **[RUNNING.md](RUNNING.md)**. How distances, bands and the ran
 - Every pair shows why it ranks where it does: its score, factor by factor (distance band × timing × location × state line × savings, with distance leading).
 - Source-linked evidence, accuracy and uncertainty labels, 119 possible-saving ranges from the team's unit costs by job type and distance, CSV export and a Letter print report.
 - Locations from public map data: a line's real route when one HIFLD line joins its two ends, a route along the existing network when several do, and a "town only" flag when only a town centre matched.
-- A guided tour and a coordination brief for a selected pair. The default brief is an offline, graded **Template**; the app does not send a message or contact anyone.
+- A guided tour, five **Start here** places where close pairs cluster, and a one-line impact summary of the current results.
+- An **Explore an area** map tool, and a **coordination tracker** (status and notes per pair, saved in your browser, carried into print and CSV).
+- A coordination brief for a selected pair that leads with who to contact and what to check first. The default brief is an offline, graded **Template**; an example shows what the optional Claude API brief adds. The app does not send a message or contact anyone.
 - Light and dark themes, keyboard operation, phone layout and an outline-map fallback when the optional offline map archive is absent.
 
 The committed build contains 230 projects from the loaded public plans, 181 mapped project geometries, and 43 pairs whose projects are in different states. Unknown locations remain unknown. The app does not require a Google key, a Claude account or network access for its default experience.

@@ -27,6 +27,13 @@ the whole ranking formula with its numbers.
 
 Planners start from a place. Search a city, project or substation; choosing a result moves the map.
 
+![Start here: the five places where close pairs cluster, and the impact line for the current results](screenshots/19-start-here-and-impact.png)
+
+New here? **Start here** offers the five places where close pairs cluster, such as Rincon, next to the
+McIntosh pairs. One click opens a 10 km area there. The list header sums up the current results: how many
+pairs there are, how many cross the state line, the possible savings across the pairs with an estimate, and
+which utilities overlap most. It changes with the filters.
+
 ## 4. Open the top pair
 
 ![Pair #1: Dominion's Okatie–McIntosh tie and Georgia Power's McIntosh relay upgrades, touching](screenshots/04-top-pair.png)
@@ -89,9 +96,20 @@ when both of its projects pass.
 ![Explore this area: a 40 km circle around Savannah with its projects and pairs](screenshots/11-explore-area.png)
 
 Choose a place and **Explore this area** to list every project and pair inside a circle you can resize from
-1 to 80 km.
+1 to 80 km. On the map, the **Explore an area** button does the same for any point. Switch it on, then click
+the map; a plain map click never drops a circle.
 
-## 12. Routes along existing lines
+![The Explore an area button switched on, asking for a click on the map](screenshots/20-area-tool.png)
+
+## 12. Track the coordination
+
+![Coordination status and notes for pair #1](screenshots/21-coordination-tracker.png)
+
+For each pair, record where the conversation stands (Contacted, Meeting set, Coordinating or Not relevant)
+and a short note. It is saved only in this browser, shows as a tag in the ranked list, and fills the
+Coordination status and Notes columns when you print or export.
+
+## 13. Routes along existing lines
 
 ![A rebuild drawn along the existing HIFLD transmission lines between its two substations](screenshots/12-route-along-existing-lines.png)
 
@@ -99,23 +117,26 @@ The plans name a line's end substations but not its route. When the existing HIF
 ends plausibly (same voltage class, no other named substation on the way, at most 1.5 times the straight
 distance), GridLock follows it instead of drawing a straight line. It stays labelled approximate.
 
-## 13. Town-only locations are flagged
+## 14. Town-only locations are flagged
 
 ![A project placed only at a Census town centre, flagged town only](screenshots/13-town-only-location.png)
 
 When no substation matches, a project sits at its Census town centre and is flagged "town only". Such a
 location can never put a pair closer than "under 40 km" unless both plans name the same substation.
 
-## 14. Legend, export and print
+## 15. Legend, export and print
 
 ![Legend and reports: line styles, Export CSV and Print report](screenshots/14-legend-and-reports.png)
 
-**Export CSV** saves the ranked list you are looking at, laid out like a utility conflict matrix. **Print
-report** makes a Letter report with sources; here is [a sample for the touching pairs](sample-report.pdf).
+**Export CSV** saves the ranked list you are looking at as a planner's worksheet. The first columns are what
+you read first: rank, score, both projects with utility and year, years to coordinate, distance and why they
+appear together, and the possible saving. Evidence and reference columns follow, plus your coordination
+status and notes. **Print report** makes a Letter report: an "At a glance" page, the selected pair with its
+evidence, and one compact row per pair with its sources. Here is [a sample for the touching pairs](sample-report.pdf).
 
 ![The first page of the printed report](screenshots/18-print-report.png)
 
-## 15. Dark theme and phones
+## 16. Dark theme and phones
 
 ![Pair #1 in the dark theme](screenshots/15-dark-theme.png)
 

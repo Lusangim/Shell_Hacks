@@ -37,7 +37,7 @@ Rebuilding from the same inputs gives byte-identical files, and the tests check 
 | 3 Place | `place_projects.py`, `hifld_routes.py`, `manual_locations.py` | Matches the substation names in each project to OpenStreetMap substations and to the named ends of HIFLD transmission lines. Draws real routes where one line joins both ends and plausible routes along the existing network where several do, falls back to a Census town centre flagged "town only", and never guesses. | 181 placed: 42 exact, 139 approximate; 49 unknown |
 | 4 Pair | `find_overlaps.py`, `overlap_geometry.py` | For every two projects from different utilities, finds the nearest points in an equal-area projection (EPSG:5070) and measures the geodesic distance. Assigns the challenge's band and a touch reason (same substation, shared endpoint, same approximate area or nearby). | 465 pairs within 40 km |
 | 5 Estimate + rank | `savings.py`, `find_overlaps.py` | Estimates what the two kinds of work could share at that distance from the team's unit-cost file, then scores every pair (below). | 119 savings ranges; rank 1 scores 5.823 |
-| 6 Check + save | `build_all.py` | Validates every file against the data contracts in a temporary folder, then replaces `data/build/` all at once. | 7 files |
+| 6 Check + save | `build_all.py` | Adds the "Start here" places: the five Census places where touching, under 1.6 km and under 8 km pairs cluster, by the midpoint of each pair's nearest points. Validates every file against the data contracts in a temporary folder, then replaces `data/build/` all at once. | 7 files |
 
 **Routes along existing lines** (`hifld_routes.py`). HIFLD lines form a graph whose nodes are line ends
 within 100 m of each other. A route between two matched substations is used only when both are within
@@ -147,8 +147,10 @@ Google Maps or Satellite view. Light and dark themes, full keyboard use and a ph
 | `map.js`, `basemap.js` | project shapes and pair highlight; street map, outline fallback, Google switch |
 | `list.js` | the ranked pair list and the projects with no location |
 | `overlap-detail.js`, `project-detail.js` | pair detail, including "How this pair ranks"; project detail in readable text |
-| `search.js`, `filters.js`, `timeline.js`, `area.js` | search, filters, the year slider, explore an area |
-| `brief.js`, `export.js` | coordination brief; CSV export and print report |
+| `search.js`, `filters.js`, `timeline.js`, `area.js` | search, filters, the year slider, explore an area (from a search result or the map's "Explore an area" button) |
+| `start-here.js`, `impact.js` | the five "Start here" places (from `meta.json`); the one-line impact summary of the current results |
+| `tracker.js` | the coordination tracker: a status and note per pair, saved in this browser, shown in the list and filled into print and CSV |
+| `brief.js`, `ai-brief-example.js`, `export.js` | coordination brief and the Claude API example; CSV export and print report |
 | `tour.js`, `tour-content.js` | the 12-step guided tour; every tour word lives in one file |
 
 ## 6. Coordination briefs

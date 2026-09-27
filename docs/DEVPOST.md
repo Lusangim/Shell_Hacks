@@ -28,9 +28,10 @@ each other.
   costs both kinds of work need and shows a range from 2026 unit costs, labelled as an estimate.
 - **A ranking you can check.** score = distance band × timing × location × state line × savings. Every pair
   shows its score factor by factor; distance always counts most.
-- **Tools for a planner.** Search, filters, an in-service year slider, a 1-80 km area explorer, a
-  coordination brief (who to contact and what to settle first), CSV export in a utility-conflict-matrix
-  layout, a print report and a guided tour.
+- **Tools for a planner.** "Start here" places, search, filters, an in-service year slider, a 1-80 km area
+  tool, a coordination brief (who to contact and what to settle first), a coordination tracker (status and
+  notes per pair, saved in the browser), a CSV worksheet, a print report with an "At a glance" page and a
+  guided tour.
 - **Ready for AI, safely.** An AI-drafted brief path to Claude is built and guarded: fixed rules, a contract
   check and an evidence grader on every draft. It is off in this build; the app shows an example for the top
   pair that passes the same grader.
