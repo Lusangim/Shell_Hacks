@@ -4,6 +4,7 @@ export const state = {
   casingLayers: null,
   basemapLayers: null,
   haloLayer: null,
+  pairRankMarker: null,
   pairLabelLayers: [],
   cityMarkers: [],
   projects: [],

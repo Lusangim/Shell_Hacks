@@ -146,13 +146,6 @@
             <p id="search-state" class="search-state" data-testid="search-state" role="status">Enter at least 2 characters to search local plans.</p>
             <p id="search-selection" class="search-selection" data-testid="search-selection" hidden></p>
             <button id="explore-area" class="explore-button" type="button" hidden>Explore this area</button>
-            <!-- In the UI pass's slot: after "Explore this area" for keyboard order, and folded away in the phone peek. -->
-            <div id="start-here-slot" class="insight-slot">
-              <section id="start-here" class="start-here" aria-labelledby="start-here-heading">
-                <h2 id="start-here-heading">Start here: places with the most close pairs</h2>
-                <div id="start-here-places" class="start-here-places"></div>
-              </section>
-            </div>
             <p id="area-selection" class="area-selection" data-testid="area-selection" role="status" hidden></p>
             <section id="area-panel" class="area-panel" aria-labelledby="area-heading" hidden>
               <div class="area-heading"><h2 id="area-heading">Selected area</h2><button id="area-clear" type="button">Clear area</button></div>
@@ -181,8 +174,14 @@
             <div id="list-insight-slot" class="insight-slot">
               <div id="impact-card" class="impact-card" hidden>
                 <p id="impact-line" data-src="overlaps"></p>
-                <details><summary>About this estimate</summary><p>Each pair is estimated on its own. Pairs that share a project overlap, so this is a screening figure, not a budget.</p></details>
+                <details><summary aria-label="About this estimate"><span class="visually-hidden">About this estimate</span></summary><div class="impact-popover"><p id="impact-full"></p><p>Each pair is estimated on its own. Pairs that share a project overlap, so this is a screening figure, not a budget.</p></div></details>
               </div>
+            </div>
+              <div id="start-here-slot" class="insight-slot">
+              <section id="start-here" class="start-here" aria-labelledby="start-here-heading">
+                <h2 id="start-here-heading">Start here: places with the most close pairs</h2>
+                <div id="start-here-places" class="start-here-places"></div>
+              </section>
             </div>
             <div id="list-state" class="list-state" data-testid="loading-state" role="status">Loading ranked opportunities</div>
             <ol id="overlap-list" class="overlap-list"></ol>
@@ -220,8 +219,8 @@
         </section>
         <div id="map" class="map" data-testid="map"></div>
         <button id="map-pair-open" class="map-pair-open" type="button" hidden>Open highlighted pair</button>
-        <div class="map-key" role="group" aria-label="Map key" data-testid="map-key">
-          <p class="map-key-title">Map key</p>
+        <details class="map-key" role="group" aria-label="Map key" data-testid="map-key">
+          <summary>Map key</summary>
           <ul class="key-list">
             <li><svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line x1="3" y1="8" x2="25" y2="8"/><circle cx="37" cy="8" r="5"/></svg><span>Exact location</span></li>
             <li><svg class="key-glyph" viewBox="0 0 46 16" aria-hidden="true" focusable="false"><line class="key-dashed" x1="3" y1="8" x2="25" y2="8"/><circle class="key-ring" cx="37" cy="8" r="5"/></svg><span>Approximate location</span></li>
@@ -235,7 +234,7 @@
             <li><span class="sample sample-minor"></span><span>Dalton Utilities / Georgia ITS (joint)</span></li>
           </ul>
           <p class="key-note">Lines are routes; dots and rings are single sites.</p>
-        </div>
+        </details>
       </section>
       <aside class="detail-pane" aria-label="Pair detail" hidden>
         <!-- The selected pair and its brief share this independent right pane. -->

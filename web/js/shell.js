@@ -4,6 +4,8 @@ export function setupShell(overlapView) {
   const menu = document.getElementById("more-menu");
   const filters = document.getElementById("filters-toggle");
   const filterPanel = document.getElementById("filter-panel");
+  const impactCard = document.getElementById("impact-card");
+  const impactDisclosure = impactCard.querySelector("details");
   const setMore = (open, restore = false) => {
     menu.hidden = !open;
     more.setAttribute("aria-expanded", String(open));
@@ -16,10 +18,18 @@ export function setupShell(overlapView) {
   filters.addEventListener("click", () => { if (!filterPanel.hidden) setMore(false); });
   document.addEventListener("keydown", (event) => {
     if (event.key !== "Escape" || document.querySelector(".tour-card:not([hidden])")) return;
+    if (impactDisclosure.open && impactCard.contains(event.target)) {
+      impactDisclosure.open = false;
+      impactDisclosure.querySelector("summary").focus();
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return;
+    }
     if (!menu.hidden) { setMore(false, true); event.preventDefault(); event.stopImmediatePropagation(); }
     else if (!filterPanel.hidden) { filters.click(); filters.focus(); event.preventDefault(); event.stopImmediatePropagation(); }
   }, true);
   document.addEventListener("pointerdown", (event) => {
+    if (!impactCard.contains(event.target)) impactDisclosure.open = false;
     if (!menu.hidden && !menu.contains(event.target) && !more.contains(event.target)) setMore(false);
     if (!filterPanel.hidden && !filterPanel.contains(event.target) && !filters.contains(event.target)) filters.click();
   });
@@ -31,6 +41,7 @@ export function setupShell(overlapView) {
     }
   });
   document.addEventListener("focusin", (event) => {
+    if (!impactCard.contains(event.target)) impactDisclosure.open = false;
     if (!menu.hidden && !menu.contains(event.target) && event.target !== more && !event.target.closest(".tour-card")) setMore(false);
     if (!filterPanel.hidden && !filterPanel.contains(event.target) && event.target !== filters && !event.target.closest(".tour-card")) filters.click();
     const pane = document.querySelector(".detail-pane");

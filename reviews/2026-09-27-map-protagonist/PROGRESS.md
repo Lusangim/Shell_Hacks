@@ -31,5 +31,15 @@ Verification: Python from `GRIDLOCK_PY`; port 8779; AI and Google off; installed
 
 ## Remaining
 
-- Quiet list, midpoint rank marker, compact timeline and tablet sheet.
 - Phone polish, independent review, complete test pass and final handoff.
+
+## Milestone 3, verified 2026-09-27
+
+- Quiet utility-dot rows retain full project names in their accessible names, distance, years, coordination tags and tracker chips. Start here sits above the list. The one-line impact has a keyboard-accessible full figure and caveat; the map key is a native disclosure.
+- A decorative numbered rank marker sits at the nearest segment-pair midpoint in the display projection, including real intersections and separate MultiLineString parts. This changes no supplied geometry, distance, score or saving.
+- New geometry, crossing-marker lifecycle and tablet-sheet regressions each failed before implementation, then passed three isolated runs. Hand-calculated geometry cases include point/line, clamped endpoints, crossing, collinear, parallel, degenerate, multipart and missing inputs.
+- First affected gate: 77 passed, 6 failed. Two phone focus checks found attribution links covering the newly compact timeline; vertical spacing repaired that. Four new impact focus-ring checks needed actual keyboard entry after mouse use; they now use Shift+Tab then Tab before asserting focus styling.
+- Review found an impact popover remaining over following controls after Tab. A new regression failed, then the shell gained outside-focus/pointer closure and Escape restoration. Three direct isolated browser checks passed for this and the phone focus path. One later direct tour attempt saw delayed initial API loading while sharing the gate; fixture-owned retries are the final evidence.
+- Desktop/phone screenshots reviewed; selected marker, retained project labels and all six facts are visible. Phone edge polish remains M4.
+- Final isolated retries: all six affected-gate failures passed three times each; the new popover focus regression also passed three fixture-owned runs (21 passed). Review design concern resolved; no further M3 findings. The complete suite remains the M4 gate.
+- Lesson, 2026-09-27: map attribution is an interactive control with a real touch target; floating tools must reserve its entire height.

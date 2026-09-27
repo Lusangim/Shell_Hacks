@@ -138,9 +138,17 @@ def test_map_key_shows_exact_approximate_and_town_level(live_server, width, heig
         key = page.get_by_test_id("map-key")
         if width == 1440:
             expect(key).to_be_visible()
+            expect(key.locator(".key-list").first).to_be_hidden()
+            key.locator("summary").focus()
+            page.keyboard.press("Enter")
+            expect(key).to_have_attribute("open", "")
             for label in labels + ["Dominion Energy SC", "Georgia Power", "MEAG Power", "Georgia Transmission Corp."]:
                 expect(key).to_contain_text(label)
+                expect(key.get_by_text(label, exact=True)).to_be_visible()
             expect(key.locator(".sample")).to_have_count(5)
+            key.locator("summary").press("Enter")
+            expect(key.locator(".key-list").first).to_be_hidden()
+            expect(key.locator("summary")).to_be_focused()
         else:
             expect(key).to_be_hidden()
             open_more(page)

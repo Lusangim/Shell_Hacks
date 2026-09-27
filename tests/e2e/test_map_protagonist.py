@@ -149,3 +149,132 @@ def test_phone_tour_exposes_timeline(live_server):
         slider = page.locator("#timeline-year")
         assert slider.evaluate("el => { const r=el.getBoundingClientRect(); return document.elementFromPoint(r.x+r.width/2,r.y+r.height/2) === el; }")
         browser.close()
+
+
+def test_nearest_geometry_midpoint_uses_segments_not_bounds(live_server):
+    cases = [
+        ({"type":"Point","coordinates":[0,0]}, {"type":"Point","coordinates":[4,2]}, [2,1]),
+        ({"type":"Point","coordinates":[2,3]}, {"type":"LineString","coordinates":[[0,0],[4,0]]}, [2,1.5]),
+        ({"type":"Point","coordinates":[7,3]}, {"type":"LineString","coordinates":[[0,0],[4,0]]}, [5.5,1.5]),
+        ({"type":"LineString","coordinates":[[-2,-2],[2,2]]}, {"type":"LineString","coordinates":[[-2,2],[2,-2]]}, [0,0]),
+        ({"type":"LineString","coordinates":[[0,0],[4,0]]}, {"type":"LineString","coordinates":[[2,0],[6,0]]}, [4,0]),
+        ({"type":"LineString","coordinates":[[0,0],[4,0]]}, {"type":"LineString","coordinates":[[0,2],[4,2]]}, [0,1]),
+        ({"type":"LineString","coordinates":[[1,1],[1,1]]}, {"type":"Point","coordinates":[3,1]}, [2,1]),
+        ({"type":"MultiLineString","coordinates":[[[0,0],[1,0]],[[9,0],[10,0]]]}, {"type":"Point","coordinates":[5,1]}, [3,.5]),
+        (None, {"type":"Point","coordinates":[1,1]}, None),
+        ({"type":"LineString","coordinates":[]}, {"type":"Point","coordinates":[1,1]}, None),
+    ]
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page()
+        page.goto(live_server)
+        actual = page.evaluate("""async cases => {
+          const {nearestGeometryMidpoint}=await import('/web/js/nearest-geometry.js');
+          return cases.map(([a,b])=>nearestGeometryMidpoint(a,b));
+        }""", cases)
+        for index, (result, (_, _, expected)) in enumerate(zip(actual, cases)):
+            assert result == expected, (index, result, expected)
+        browser.close()
+
+
+def test_rank_marker_crossing_lifecycle_and_accessibility(live_server):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width":1440,"height":900}, reduced_motion="reduce")
+        pairs = page.request.get(live_server + "/api/overlaps").json()
+        pair = pairs[0]
+        geometries = {
+            pair["a"]: {"type":"LineString","coordinates":[[-81,32],[-80.9,32]]},
+            pair["b"]: {"type":"LineString","coordinates":[[-80.98,31.99],[-80.98,32.04]]},
+        }
+        def projects(route):
+            payload = route.fetch().json()
+            for feature in payload["features"]:
+                if feature["properties"]["id"] in geometries:
+                    feature["geometry"] = geometries[feature["properties"]["id"]]
+            route.fulfill(json=payload)
+        def detail(route):
+            payload = route.fetch().json()
+            for key in ("project_a", "project_b"):
+                payload[key]["geometry"] = geometries[payload[key]["properties"]["id"]]
+            route.fulfill(json=payload)
+        page.route("**/api/projects", projects)
+        page.route(f'**/api/overlaps/{pair["id"]}', detail)
+        page.goto(live_server)
+        expect(page.get_by_test_id("overlap-row").first).to_be_visible()
+        expect(page.get_by_test_id("pair-rank-marker")).to_have_count(0)
+        page.get_by_test_id("overlap-row").first.locator("button").click()
+        marker = page.get_by_test_id("pair-rank-marker")
+        expect(marker).to_have_count(1)
+        expect(marker).to_have_text(str(pair["rank"]))
+        expect(marker).to_have_attribute("aria-hidden", "true")
+        assert marker.get_attribute("tabindex") in (None, "-1")
+        expect(marker).to_have_css("pointer-events", "none")
+        position = page.evaluate("""async () => {
+          const {state}=await import('/web/js/state.js');
+          const p=state.pairRankMarker.getLatLng(); return [p.lat,p.lng];
+        }""")
+        assert abs(position[0]-32) < 1e-8 and abs(position[1]+80.98) < 1e-8, position
+        expect(page.locator('[data-testid="project-feature"][data-selected="true"]')).to_have_count(2)
+        expect(page.get_by_test_id("pair-halo")).to_have_count(2)
+        page.get_by_test_id("overlap-row").nth(1).locator("button").click()
+        expect(marker).to_have_text(str(pairs[1]["rank"]))
+        expect(marker).to_have_count(1)
+        page.locator("#more-toggle").click()
+        page.locator("#theme-toggle").click()
+        expect(marker).to_have_count(1)
+        page.locator("#more-toggle").click()
+        page.goto(live_server + "/#overlap=invalid")
+        expect(page.locator("#overlap-detail-heading")).to_have_text("Unknown overlap link")
+        expect(marker).to_have_count(0)
+        browser.close()
+
+
+def test_quiet_list_timeline_and_tablet_sheet(live_server):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width":768,"height":900}, reduced_motion="reduce")
+        page.goto(live_server)
+        expect(page.get_by_test_id("overlap-row").first).to_be_visible()
+        expect(page.locator("#opportunities #start-here")).to_be_visible()
+        first = page.get_by_test_id("overlap-row").first
+        for swatch in first.locator(".row-project .swatch").all():
+            box = swatch.bounding_box()
+            assert box["width"] == box["height"] and box["width"] >= 14
+        line = page.locator("#impact-line").bounding_box()
+        assert line["height"] <= 22
+        timeline = page.locator("#timeline").bounding_box()
+        assert timeline["height"] <= 92
+        map_box = page.locator(".map-region").bounding_box()
+        assert abs(timeline["x"] + timeline["width"]/2 - map_box["x"] - map_box["width"]/2) <= 1
+        first.locator("button").click()
+        left = page.locator(".panel").bounding_box()
+        sheet = page.locator(".detail-pane").bounding_box()
+        assert left["x"] + left["width"] <= sheet["x"] + 1
+        assert sheet["x"] + sheet["width"] == 768
+        expect(page.get_by_test_id("overlap-row").nth(1)).to_be_visible()
+        page.locator("#timeline-year").focus()
+        expect(page.locator(".detail-pane")).to_be_hidden()
+        expect(page.locator("#timeline-year")).to_be_focused()
+        browser.close()
+
+
+def test_impact_popover_yields_to_next_keyboard_target(live_server):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        page.goto(live_server)
+        expect(page.get_by_test_id("overlap-row").first).to_be_visible()
+        summary = page.locator("#impact-card summary")
+        summary.focus()
+        page.keyboard.press("Enter")
+        expect(page.locator("#impact-full")).to_be_visible()
+        page.keyboard.press("Tab")
+        expect(page.locator("#impact-full")).to_be_hidden()
+        expect(page.locator("#start-here button").first).to_be_focused()
+        summary.focus()
+        page.keyboard.press("Enter")
+        page.keyboard.press("Escape")
+        expect(page.locator("#impact-full")).to_be_hidden()
+        expect(summary).to_be_focused()
+        browser.close()
