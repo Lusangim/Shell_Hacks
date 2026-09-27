@@ -148,5 +148,13 @@ export function setupSearch(filterControl) {
     if (selected) area.explore(selected, { entry: exploreButton });
   });
 
+  document.addEventListener("gridlock:explore-place", (event) => {
+    const { place, entry } = event.detail;
+    if (!validResult({ ...place, type: "place" })) return;
+    state.initialMapFitted = true;
+    state.map.setView([place.lat, place.lon], 11, { animate: false });
+    area.explore(place, { entry, radius: 10 });
+  });
+
   return { refreshTheme: area.refreshTheme };
 }

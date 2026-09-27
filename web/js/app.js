@@ -4,6 +4,8 @@ import { renderList, renderUnknownLocations, restorePairSelection, selectFirstOv
 import { setupProjectDetail } from "./project-detail.js";
 import { setupOverlapDetail } from "./overlap-detail.js";
 import { setupSearch } from "./search.js";
+import { renderStartHere } from "./start-here.js";
+import { renderImpact } from "./impact.js";
 import { setupFilters } from "./filters.js";
 import { setupTimeline } from "./timeline.js";
 import { setupExport } from "./export.js";
@@ -84,6 +86,7 @@ async function load() {
     filterControl.hydrate(projects.features);
     timeline.hydrate(projects.features);
     renderEditions(meta);
+    renderStartHere(meta.hotspots);
     await applyFilters({ projects, overlaps }, true);
   } catch (_error) {
     projectView.showLoadError();
@@ -105,6 +108,7 @@ function renderFiltered(projects, overlaps, initial) {
   state.overlaps = overlaps;
   renderMap(projects, state.basemap);
   renderList(overlaps, projects);
+  renderImpact(overlaps);
   renderUnknownLocations(projects);
   projectView.renderProjects(projects.features, overlaps, filterControl.hasActive());
   const selectedId = state.selectedOverlapId ?? hashOverlapId();

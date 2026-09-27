@@ -1,0 +1,15 @@
+.start-here { margin-top: 12px; }
+.start-here h2 { margin: 0 0 8px; font-size: 14px; }
+.start-here-places { display: flex; flex-wrap: wrap; gap: 8px; }
+.start-here-places button { min-height: 44px; max-width: 100%; padding: 8px 12px; border: 1px solid var(--rule-strong); border-radius: var(--radius-control); background: var(--panel); color: var(--ink); font: inherit; font-size: 13px; text-align: left; overflow-wrap: anywhere; cursor: pointer; }
+.start-here-places button:hover { background: var(--canvas); }
+.start-here-places button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.impact-card { margin: 0 0 12px; padding: 10px 12px; border: 1px solid var(--rule); border-radius: var(--radius-control); background: var(--canvas); color: var(--ink); font-size: 13px; line-height: 1.45; }
+.impact-card p { margin: 0; overflow-wrap: anywhere; }
+.impact-card details { margin-top: 6px; color: var(--pencil); }
+.impact-card summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; }
+.impact-card summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.impact-card details p { padding-bottom: 4px; }
+@media (max-width: 700px) {
+  :root:not([data-area-layout]) .panel:not(.expanded) .impact-card { display: none; }
+}

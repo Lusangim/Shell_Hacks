@@ -26,5 +26,8 @@
   "no_overlap_count": 0,
   "unmapped_count": 0,
   "unmapped_reasons": {},
-  "stale_brief_count": 0
+  "stale_brief_count": 0,
+  "hotspots": [
+    {"label": "Savannah city", "lat": 32.018043, "lon": -81.196492, "pairs": 2, "best_rank": 1}
+  ]
 }

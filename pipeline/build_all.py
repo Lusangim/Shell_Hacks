@@ -15,6 +15,11 @@ from collections import Counter
 from math import isfinite
 from pathlib import Path
 
+from shapely.geometry import shape
+from shapely.ops import nearest_points, transform
+
+from pipeline.overlap_geometry import TO_METRES
+
 from pipeline.ids import desc_id, sertp_ids
 
 
@@ -167,6 +172,41 @@ def _unmapped_reasons(placement: list[dict[str, str]]) -> dict[str, int]:
     return dict(sorted(reasons.items()))
 
 
+def _hotspots(
+    features: list[dict[str, object]], overlaps: list[dict[str, object]],
+    places: list[dict[str, str | float]],
+) -> list[dict[str, str | float | int]]:
+    """Count close pairs at the nearest Census place to their projected midpoint."""
+    geometries = {
+        feature["properties"]["id"]: transform(TO_METRES, shape(feature["geometry"]))
+        for feature in features if feature["geometry"] is not None
+    }
+    projected_places = [
+        (place, TO_METRES(place["lon"], place["lat"])) for place in places
+    ]
+    groups: dict[tuple[str, str], dict[str, str | float | int]] = {}
+    for pair in overlaps:
+        if pair["band"] not in {"touching", "lt_1_6km", "lt_8km"}:
+            continue
+        near_a, near_b = nearest_points(geometries[pair["a"]], geometries[pair["b"]])
+        x, y = (near_a.x + near_b.x) / 2, (near_a.y + near_b.y) / 2
+        place = min(
+            projected_places,
+            key=lambda item: ((item[1][0] - x) ** 2 + (item[1][1] - y) ** 2,
+                              item[0]["state"], item[0]["name"]),
+        )[0]
+        key = (place["state"], place["name"])
+        if key not in groups:
+            groups[key] = {"label": place["name"], "lat": place["lat"], "lon": place["lon"],
+                           "pairs": 0, "best_rank": pair["rank"]}
+        groups[key]["pairs"] += 1
+        groups[key]["best_rank"] = min(groups[key]["best_rank"], pair["rank"])
+    return sorted(
+        (item for item in groups.values() if item["pairs"] >= 2),
+        key=lambda item: (-item["pairs"], item["best_rank"], item["label"]),
+    )[:5]
+
+
 def build(root: Path) -> dict[str, object]:
     """Stage a complete rebuild, validate every row, then replace output files."""
     root = root.resolve()
@@ -237,6 +277,7 @@ def build(root: Path) -> dict[str, object]:
             "unmapped_count": unmapped,
             "unmapped_reasons": unmapped_reasons,
             "stale_brief_count": 0,
+            "hotspots": _hotspots(features, overlaps, places),
         }
         (stage / "source_rows.json").write_text(
             json.dumps({"input_sha256": _input_hash(raw, manual), "rows": rows,

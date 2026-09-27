@@ -45,6 +45,7 @@ def test_happy_paths_and_contracts(client: TestClient) -> None:
     meta = client.get("/api/meta")
     assert meta.status_code == 200
     assert Meta.model_validate(meta.json()).stage_counts["kept"] == 2
+    assert meta.json()["hotspots"] == json.loads((FIXTURES / "meta.json").read_text(encoding="utf-8"))["hotspots"]
 
     basemap = client.get("/api/basemap")
     assert basemap.status_code == 200

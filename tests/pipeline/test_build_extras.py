@@ -3,7 +3,12 @@
 import csv
 import hashlib
 import json
+from collections import Counter
 from pathlib import Path
+
+from pyproj import Transformer
+from shapely.geometry import shape
+from shapely.ops import nearest_points, transform
 
 from server.app import load_artifacts
 from server.schemas import Meta
@@ -91,3 +96,34 @@ def test_extra_files_are_byte_identical_across_two_rebuilds() -> None:
     first = {name: hashlib.sha256((BUILT / name).read_bytes()).hexdigest() for name in EXTRA_FILES}
     build_all.build(ROOT)
     assert first == {name: hashlib.sha256((BUILT / name).read_bytes()).hexdigest() for name in EXTRA_FILES}
+
+
+def test_hotspots_count_nearest_place_for_each_close_pair() -> None:
+    build_all.build(ROOT)
+    hotspots = _json("meta.json")["hotspots"]
+    places = _json("places.json")
+    projects = {f["properties"]["id"]: f["geometry"] for f in _json("projects.geojson")["features"]}
+    to_metres = Transformer.from_crs(4326, 5070, always_xy=True).transform
+    place_points = [(place, to_metres(place["lon"], place["lat"])) for place in places]
+    counts = Counter()
+    best = {}
+    for pair in _json("overlaps.json"):
+        if pair["band"] not in {"touching", "lt_1_6km", "lt_8km"}:
+            continue
+        a, b = (transform(to_metres, shape(projects[pair[key]])) for key in ("a", "b"))
+        near_a, near_b = nearest_points(a, b)
+        x, y = (near_a.x + near_b.x) / 2, (near_a.y + near_b.y) / 2
+        place = min(place_points, key=lambda item: ((item[1][0] - x) ** 2 + (item[1][1] - y) ** 2, item[0]["name"]))[0]
+        label = place["name"]
+        counts[label] += 1
+        best[label] = min(best.get(label, pair["rank"]), pair["rank"])
+    expected = sorted(
+        ({"label": place["name"], "lat": place["lat"], "lon": place["lon"],
+          "pairs": counts[place["name"]], "best_rank": best[place["name"]]}
+         for place in places if counts[place["name"]] >= 2),
+        key=lambda item: (-item["pairs"], item["best_rank"], item["label"]),
+    )[:5]
+    assert hotspots == expected
+    assert len(hotspots) <= 5
+    assert any(abs(item["lat"] - 32.018043) < 0.4 and abs(item["lon"] + 81.196492) < 0.4
+               and item["best_rank"] == 1 for item in hotspots)

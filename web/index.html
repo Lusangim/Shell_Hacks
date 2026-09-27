@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/web/css/tour.css">
   <link rel="stylesheet" href="/web/css/detail.css">
   <link rel="stylesheet" href="/web/css/brief.css">
+  <link rel="stylesheet" href="/web/css/insights.css">
   <link rel="stylesheet" href="/web/css/print.css">
   <script defer src="/web/vendor/leaflet/leaflet.js"></script>
   <script defer type="module" src="/web/js/app.js"></script>
@@ -124,6 +125,10 @@
               <datalist id="search-options"></datalist>
             </form>
           </div>
+          <section id="start-here" class="start-here" aria-labelledby="start-here-heading" hidden>
+            <h2 id="start-here-heading">Start here</h2>
+            <div id="start-here-places" class="start-here-places"></div>
+          </section>
           <div id="filter-panel" class="filter-panel" hidden>
             <fieldset id="filter-utilities" class="filter-utilities"><legend>Utilities</legend><div id="filter-utility-options"></div></fieldset>
             <label for="filter-band">Distance band</label>
@@ -193,6 +198,10 @@
         </section>
         <section id="opportunities" class="opportunities" aria-labelledby="opportunities-heading" tabindex="-1">
           <div class="section-head"><h2 id="opportunities-heading">Ranked overlaps</h2><span id="overlap-count" class="count" data-src="count"></span></div>
+          <div id="impact-card" class="impact-card" hidden>
+            <p id="impact-line" data-src="overlaps"></p>
+            <details><summary>About this estimate</summary><p>Each pair is estimated on its own. Pairs that share a project overlap, so this is a screening figure, not a budget.</p></details>
+          </div>
           <div id="list-state" class="list-state" data-testid="loading-state" role="status">Loading ranked opportunities</div>
           <ol id="overlap-list" class="overlap-list"></ol>
         </section>

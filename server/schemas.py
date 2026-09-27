@@ -275,6 +275,14 @@ class SourceDocument(Contract):
     url: str
 
 
+class Hotspot(Contract):
+    label: str = Field(min_length=1)
+    lat: Latitude
+    lon: Longitude
+    pairs: int = Field(ge=2)
+    best_rank: int = Field(gt=0)
+
+
 class Meta(Contract):
     build_time: str | None
     source_documents: list[SourceDocument]
@@ -286,6 +294,7 @@ class Meta(Contract):
     unmapped_count: int = Field(ge=0)
     unmapped_reasons: dict[str, Count]
     stale_brief_count: int = Field(ge=0)
+    hotspots: list[Hotspot] = Field(max_length=5)
 
 
 class SearchResult(Contract):
