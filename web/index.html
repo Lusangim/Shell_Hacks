@@ -126,10 +126,6 @@
               <datalist id="search-options"></datalist>
             </form>
           </div>
-          <section id="start-here" class="start-here" aria-labelledby="start-here-heading" hidden>
-            <h2 id="start-here-heading">Start here</h2>
-            <div id="start-here-places" class="start-here-places"></div>
-          </section>
           <div id="filter-panel" class="filter-panel" hidden>
             <fieldset id="filter-utilities" class="filter-utilities"><legend>Utilities</legend><div id="filter-utility-options"></div></fieldset>
             <label for="filter-band">Distance band</label>
@@ -179,6 +175,11 @@
               <details><summary>Projects in area</summary><ul id="area-projects"></ul></details>
               <details><summary>Overlaps with a project in area</summary><ol id="area-overlaps"></ol></details>
             </div>
+          </section>
+          <!-- After the search status, "Explore this area" and the area panel, so search then Tab still reaches them first. -->
+          <section id="start-here" class="start-here" aria-labelledby="start-here-heading" hidden>
+            <h2 id="start-here-heading">Start here</h2>
+            <div id="start-here-places" class="start-here-places"></div>
           </section>
         </section>
         <section id="overlap-detail" class="overlap-detail" data-testid="overlap-detail" aria-labelledby="overlap-detail-heading" hidden>
