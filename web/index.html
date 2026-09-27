@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="/web/css/detail.css">
   <link rel="stylesheet" href="/web/css/brief.css">
   <link rel="stylesheet" href="/web/css/insights.css">
+  <link rel="stylesheet" href="/web/css/tracker.css">
   <link rel="stylesheet" href="/web/css/print.css">
   <script defer src="/web/vendor/leaflet/leaflet.js"></script>
   <script defer type="module" src="/web/js/app.js"></script>
@@ -187,6 +188,18 @@
           <h2 id="overlap-detail-heading">Overlap detail</h2>
           <p id="overlap-state" class="overlap-state" data-testid="overlap-state" role="status"></p>
           <div id="overlap-content"></div>
+          <section id="pair-tracker" aria-labelledby="tracker-heading" hidden>
+            <h3 id="tracker-heading">Your coordination status</h3>
+            <label for="tracker-status">Coordination status</label>
+            <select id="tracker-status">
+              <option>Not started</option><option>Contacted</option><option>Meeting set</option>
+              <option>Coordinating</option><option>Not relevant</option>
+            </select>
+            <label for="tracker-notes">Notes</label>
+            <textarea id="tracker-notes" maxlength="300" rows="3"></textarea>
+            <p class="tracker-hint">Saved in this browser only. It is included when you print or export.</p>
+            <p id="tracker-save-state" role="status" aria-live="polite"></p>
+          </section>
         </section>
         <section id="brief-panel" class="brief-panel" aria-labelledby="brief-heading" hidden>
           <h2 id="brief-heading" tabindex="-1">Coordination brief</h2>
