@@ -50,6 +50,8 @@ class Shooter:
     def page(self, width=1600, height=900, theme="light", path="", dismiss=True) -> Page:
         page = self.browser.new_page(viewport={"width": width, "height": height}, color_scheme=theme)
         page.add_init_script(f"localStorage.setItem('gridlock-theme', '{theme}')")
+        if dismiss:  # mark the tour invitation as seen before load (on phones a pair can cover it)
+            page.add_init_script("localStorage.setItem('gridlock-tour-dismissed', 'yes')")
         page.goto(f"{self.url}/{path}")
         expect(page.locator(".overlap-button").first).to_be_visible(timeout=20000)
         page.evaluate("async () => { window.__gl = (await import('/web/js/state.js')).state; }")

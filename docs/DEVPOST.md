@@ -47,7 +47,8 @@ each other.
   "town only", 49 projects with no known location stay in the list unmapped, and shared work is always
   "unverified".
 
-It runs on a laptop, offline, from public documents only.
+It runs on a laptop, offline, from public documents only: `python run.py` sets it up and starts it on Windows,
+macOS or Linux.
 
 ## How we built it
 
@@ -63,8 +64,8 @@ It runs on a laptop, offline, from public documents only.
 - **Web app:** plain JavaScript modules with Leaflet and an offline OpenStreetMap street map (Protomaps), plus
   an optional Google Maps and Satellite view. A map-first layout, an animated hurricane, light and dark themes,
   keyboard use and a phone layout.
-- **Tests:** pipeline, API, brief-grading and Playwright browser tests, including axe-core accessibility
-  audits. (Final count: see the README's Verify section.)
+- **Tests:** 852 automated tests: pipeline, API, brief grading and Playwright browser tests, including axe-core
+  accessibility audits.
 - **AI tools:** we built GridLock with two AI coding agents. OpenAI Codex (`gpt-6-sol`, and `gpt-6-astra` for
   the map-first redesign) built the app as a
   lead agent with parallel sub-agents, each behind a test gate, and ran two judging rounds with separate
@@ -102,7 +103,7 @@ Clear labels (exact, approximate, town only, estimate, unverified) matter as muc
 
 - More utilities along the boundary, such as Duke Energy's South Carolina territory.
 - SERTP's 2026 preliminary plan, and what changed from 2025.
-- Construction windows: the years left to coordinate before the earlier in-service date.
+- Construction windows: the actual construction schedules behind each in-service date.
 - Cost and route data shared with permission, to replace the town-level and reference-job fallbacks.
 - The full Resilience Lab: historical storm replays, flood and surge layers, published fragility curves, and an
   AI decision assistant behind a human-review gate.
